@@ -1,0 +1,64 @@
+﻿@using System.Globalization;
+@{
+    var ticketViewMoodel = (Orchard.CRM.Core.ViewModels.TicketViewModel)Model.Model;
+    string description = ticketViewMoodel.Text;
+}
+<div class="field-container">
+    <div class="label-container">@T("Status")</div>
+    <div class="popup-host ticket-input-field ticket-status-value">
+        <div class="inner">
+            <span>@T(ticketViewMoodel.StatusName)</span>
+        </div>
+        @if (ticketViewMoodel.CurrentUserCanEditItem && !ticketViewMoodel.CurrentUserIsCustomer)
+        {
+            <div class="popup-menu-box change-status-options">
+                @Display(New.TicketStatusOptions(contentItemId: ticketViewMoodel.ContentItemId))
+            </div>
+        }
+    </div>
+</div>
+<div class="field-container">
+    <div class="label-container">@T("Priority")</div>
+    <div class="popup-host ticket-input-field ticket-priority-value">
+        <div class="inner">
+            <span>@T(ticketViewMoodel.PriorityName)</span>
+        </div>
+        @if (ticketViewMoodel.CurrentUserCanEditItem)
+        {
+            <div class="popup-menu-box change-priorities-options">
+                @Display(New.TicketPrioritiesOptions(contentItemId: ticketViewMoodel.ContentItemId))
+            </div>
+        }
+    </div>
+</div>
+<div class="field-container">
+    <div class="label-container">@T("Service")</div>
+    <div class="popup-host ticket-service-value ticket-input-field">
+        <div class="inner">
+            <span>@T(ticketViewMoodel.ServiceName)</span>
+        </div>
+        @if (ticketViewMoodel.CurrentUserCanEditItem)
+        {
+            <div class="popup-menu-box change-services-options">
+                @Display(New.TicketServicesOptions(contentItemId: ticketViewMoodel.ContentItemId))
+            </div>
+        }
+    </div>
+</div>
+<div class="field-container">
+    <div class="label-container">@T("Type")</div>
+    <div class="popup-host ticket-type-value ticket-input-field ">
+        <div class="inner">
+            <span>@T(ticketViewMoodel.TypeName)</span>
+        </div>
+        @if (ticketViewMoodel.CurrentUserCanEditItem)
+        {
+        <div class="popup-menu-box change-type-options">
+            @Display(New.TicketTicketTypesOptions(contentItemId: ticketViewMoodel.ContentItemId))
+        </div>
+        }
+    </div>
+</div>
+<div class="clear"></div>
+
+

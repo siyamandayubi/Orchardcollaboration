@@ -1,0 +1,25 @@
+﻿@model Orchard.CRM.Core.Models.TicketSettingPart
+@Display(New.Stylesheet())
+<fieldset>
+    <h1>@T("Orchard Collaboration settings")</h1>
+    <label>@T("Default Due date for customer ticket after")</label>
+    <div class="setting">
+        @Html.EditorFor(c => c.CustomerTicketDueDateDays)<span>@T("days.")</span>
+    </div>
+    <label>@T("Default state for tickets created by customer")</label>
+    <div class="setting">
+        @Display(New.StatusSelect(Name: "TicketSetting.CreatedCustomerTicketState", SelectedId: Model.CreatedCustomerTicketState.ToString(), Multiple: false))
+    </div>
+    <div>
+        <span>@Html.EditorFor(c => c.WithoutTheme)</span><span>@T("Render ticket related pages by Default Theme of the module")</span>
+    </div>
+    <div>
+        <label>@T("Position of the 'show/hide' menu of the 'Tickets menus for ContentItems'. 'Tickets menus for ContentItems' are only visible for ContentItems that have the TicketsForContentItemPart.")</label>
+        <select name="TicketSetting.TicketsForContentItemsMenuFlipFlopPosition">
+            <option value="top-left">@T("top-left")</option>
+            <option value="top-right">@T("top-right")</option>
+            <option value="bottom-left">@T("bottom-left")</option>
+            <option value="bottom-right">@T("bottom-right")</option>
+        </select>
+    </div>
+</fieldset>

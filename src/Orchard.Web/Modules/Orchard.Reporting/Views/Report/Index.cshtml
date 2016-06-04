@@ -1,0 +1,37 @@
+﻿<h1>@Html.TitleForPage(T("Manage Data Reports").ToString()) </h1>
+@using (Html.BeginFormAntiForgeryPost())
+{
+    @Html.ValidationSummary()
+    <div class="manage">
+        <a class="button primaryAction" href="@Url.Action("Create", "Report", new { area = "Orchard.Reporting"})">@T("Create")</a>
+    </div>
+    <table class="items" cellpadding="0" cellspacing="0">
+        <thead>
+            <tr>
+                <th scope="col" class="checkbox">&nbsp;&darr;</th>
+                <th scope="col">@T("Name")</th>
+                <th scope="col" class="actions">&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+    bool alternative = true;
+    foreach (var item in Model.Reports)
+    {
+        string alternativeClass = alternative ? "alt" : string.Empty;
+
+        alternative = !alternative;
+        <tr>
+            <td></td>
+            <td>@item.Name</td>
+            <td>
+                <a href="@Url.Action("Edit", "Report", new { area = "Orchard.Reporting", id = item.ReportId})">@T("Edit")</a> |
+                @Html.ActionLink(T("Remove").ToString(), "Remove", new { reportId = item.ReportId }, new { itemprop = "RemoveUrl UnsafeUrl" })
+           </td>
+        </tr>
+    }
+            }
+        </tbody>
+    </table>
+    	@Display(Model.Pager)
+}    

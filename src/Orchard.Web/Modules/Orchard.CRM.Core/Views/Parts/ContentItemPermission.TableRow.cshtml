@@ -1,0 +1,20 @@
+﻿@using Orchard.CRM.Core.ViewModels;
+@using System.Globalization;
+@using Orchard.CRM.Core.Models;
+@{
+    ContentItemSetPermissionsViewModel model = Model.Model;
+    var contentItemPermissionsModel = model.ContentItems.First();
+    var assignee = contentItemPermissionsModel.CurrentPermissions.FirstOrDefault(c => c.AccessType == ContentItemPermissionAccessTypes.Assignee);
+}
+<td>
+    @if (assignee != null && (assignee.BusinessUnitId.HasValue || assignee.TeamId.HasValue))
+    {
+        @assignee.Name
+    }
+</td>
+<td>
+    @if (assignee != null && assignee.UserId.HasValue)
+    {
+        @assignee.Name
+    }
+</td>

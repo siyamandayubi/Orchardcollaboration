@@ -1,0 +1,14 @@
+﻿@model Orchard.CRM.Core.Models.ProjectPart
+<fieldset>
+    <div>
+        <div class="">
+            <div class="">@T("Title:")</div>
+            <div class="" >@Html.TextBoxFor(m => m.Title, new { style = "width:100%" })</div>
+        </div>
+        <div style="height:10px;"></div>
+        <div class="">
+            <div class="">@T("Description:")</div>
+            <div class="">@Html.TextAreaFor(m => m.Description, new { style = "width: 100%; min-height:100px;" })</div>
+        </div>
+    </div>
+</fieldset>

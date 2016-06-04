@@ -1,0 +1,697 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7AE1C659-22DD-4F7A-8D81-DADF0FAE6A74}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Orchard.CRM.Core</RootNamespace>
+    <AssemblyName>Orchard.CRM.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Autofac, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\autofac\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\newtonsoft.json\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=3.3.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\nhibernate\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\aspnetmvc\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\aspnetmvc\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Activities\NewActivityStreamActivity.cs" />
+    <Compile Include="Activities\OrchardCollaborationTimerActivity.cs" />
+    <Compile Include="Activities\ServiceBranchActivity.cs" />
+    <Compile Include="Activities\SendPermissionEmailActivity.cs" />
+    <Compile Include="Activities\BasicDataBranchActivity.cs" />
+    <Compile Include="Activities\PriorityBranchActivity.cs" />
+    <Compile Include="Activities\UpdateTicketActivity.cs" />
+    <Compile Include="Activities\CRMSendEmailActivity.cs" />
+    <Compile Include="Activities\PermissionCreatedActivity.cs" />
+    <Compile Include="Activities\SendTicketEmailActivity.cs" />
+    <Compile Include="Activities\TicketTypeBranchActivity.cs" />
+    <Compile Include="AdminMenu.cs" />
+    <Compile Include="Commands\BasicDataCommand.cs" />
+    <Compile Include="Commands\DashboardCommand.cs" />
+    <Compile Include="Commands\TicketsMenuCommand.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\FileUploadController.cs" />
+    <Compile Include="Controllers\OrganizationController.cs" />
+    <Compile Include="Controllers\BasicDataController.cs" />
+    <Compile Include="Controllers\CommandController.cs" />
+    <Compile Include="Controllers\ContentOwnershipController.cs" />
+    <Compile Include="Controllers\CRMCommentController.cs" />
+    <Compile Include="Controllers\EmailTemplateController.cs" />
+    <Compile Include="Controllers\ItemController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\TicketController.cs" />
+    <Compile Include="Drivers\AttachToProjectDriver.cs" />
+    <Compile Include="Drivers\ContentItemPermissionDriver.cs" />
+    <Compile Include="Drivers\CRMCommentDriver.cs" />
+    <Compile Include="Drivers\CRMCommentsDriver.cs" />
+    <Compile Include="Drivers\ActivityStreamPartDriver.cs" />
+    <Compile Include="Drivers\DashboardDriver.cs" />
+    <Compile Include="Drivers\FileUploadPartDriver.cs" />
+    <Compile Include="Drivers\ProjectionWithDynamicSortDriver.cs" />
+    <Compile Include="Drivers\TicketMenuItemDriver.cs" />
+    <Compile Include="Drivers\TicketDriver.cs" />
+    <Compile Include="Drivers\TicketsForContentItemDriver.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Handlers\AttachToProjectHandler.cs" />
+    <Compile Include="Handlers\ContentItemPermissionHandler.cs" />
+    <Compile Include="Handlers\CRMCommentHandler.cs" />
+    <Compile Include="Handlers\CRMCommentsHandler.cs" />
+    <Compile Include="Handlers\FileUploadPartHandler.cs" />
+    <Compile Include="Handlers\ProjectHandler.cs" />
+    <Compile Include="Handlers\TicketMenuItemHandler.cs" />
+    <Compile Include="Handlers\TicketHandler.cs" />
+    <Compile Include="Handlers\TicketSettingPartHandler.cs" />
+    <Compile Include="Handlers\UserRoleHandler.cs" />
+    <Compile Include="Initialization.cs" />
+    <Compile Include="Models\ActivityStreamRecord.cs" />
+    <Compile Include="Models\AttachToProjectPart.cs" />
+    <Compile Include="Models\AttachToProjectPartRecord.cs" />
+    <Compile Include="Models\CRMCommentPart.cs" />
+    <Compile Include="Models\CRMCommentPartRecord.cs" />
+    <Compile Include="Models\CRMCommentsPart.cs" />
+    <Compile Include="Models\CRMCommentsPartRecord.cs" />
+    <Compile Include="Models\ActivityStreamPart.cs" />
+    <Compile Include="Models\DashboardPart.cs" />
+    <Compile Include="Models\EmailTemplateRecord.cs" />
+    <Compile Include="Models\EmailTemplateType.cs" />
+    <Compile Include="Models\FileDisplayViewModel.cs" />
+    <Compile Include="Models\FileUploadPart.cs" />
+    <Compile Include="Models\FileUpoadViewModel.cs" />
+    <Compile Include="Models\ProjectPart.cs" />
+    <Compile Include="Models\ProjectPartRecord.cs" />
+    <Compile Include="Models\TicketMenuItemPart.cs" />
+    <Compile Include="Models\TicketMenuItemPartRecord.cs" />
+    <Compile Include="Models\TicketSettingPart.cs" />
+    <Compile Include="Models\TicketsForContentItemPart.cs" />
+    <Compile Include="Providers\ActivityStream\ActivityStreamChangeItem.cs" />
+    <Compile Include="Providers\ActivityStream\ActivityStreamContentDescription.cs" />
+    <Compile Include="Providers\ActivityStream\ActiviyStreamWriterContext.cs" />
+    <Compile Include="Providers\ActivityStream\BodyPartStreamWriter.cs" />
+    <Compile Include="Providers\ActivityStream\TitlePartStreamWriter.cs" />
+    <Compile Include="Providers\ActivityStream\AttachToProjectStreamWriter.cs" />
+    <Compile Include="Providers\ActivityStream\Descriptors\ContentItemDescriptorManager.cs" />
+    <Compile Include="Providers\ActivityStream\Descriptors\IContentItemDescriptor.cs" />
+    <Compile Include="Providers\ActivityStream\Descriptors\IContentItemDescriptorManager.cs" />
+    <Compile Include="Providers\ActivityStream\Descriptors\ProjectDescriptor.cs" />
+    <Compile Include="Providers\ActivityStream\Descriptors\TitleDescriptor.cs" />
+    <Compile Include="Providers\ActivityStream\Descriptors\TicketDescriptor.cs" />
+    <Compile Include="Providers\ActivityStream\FieldActivityStreamWriter.cs" />
+    <Compile Include="Providers\ActivityStream\IActivityStreamWriter.cs" />
+    <Compile Include="Providers\ActivityStream\ContentItemPermissionPartStreamWriter.cs" />
+    <Compile Include="Providers\ActivityStream\StreamWriters.cs" />
+    <Compile Include="Providers\ActivityStream\TicketStreamWriter.cs" />
+    <Compile Include="Providers\CRMAntiForgeryAuthorizationFilter.cs" />
+    <Compile Include="Providers\Filters\AttachToProjectFilter.cs" />
+    <Compile Include="Providers\Filters\TicketStatusTypeFilterForm.cs" />
+    <Compile Include="Providers\Filters\ProjectFilter.cs" />
+    <Compile Include="Providers\PermissionProviders\IMasterDetailPermissionManager.cs" />
+    <Compile Include="Providers\PermissionProviders\IMasterDetailPermissionProvider.cs" />
+    <Compile Include="Providers\PermissionProviders\MasterDetailPermissionManager.cs" />
+    <Compile Include="Providers\RoleRuleProvider.cs" />
+    <Compile Include="Providers\Serialization\CommonPartConverter.cs" />
+    <Compile Include="Providers\Serialization\ContentItemConverter.cs" />
+    <Compile Include="Providers\Serialization\ContentPartConverter.cs" />
+    <Compile Include="Providers\Serialization\ContentTypePartDefinitionConverter.cs" />
+    <Compile Include="Providers\Serialization\ExpandoObjectConverter.cs" />
+    <Compile Include="Providers\Serialization\ShapeConverter.cs" />
+    <Compile Include="Providers\Serialization\ProjectPartConverter.cs" />
+    <Compile Include="Providers\Serialization\TicketPartConverter.cs" />
+    <Compile Include="Providers\Serialization\TitlePartConverter.cs" />
+    <Compile Include="Providers\Serialization\Utility.cs" />
+    <Compile Include="Providers\TicketGroupByParameterProvider.cs" />
+    <Compile Include="Providers\UserServiceUserForm.cs" />
+    <Compile Include="Providers\UpdateTicketActivityForm.cs" />
+    <Compile Include="Providers\EmailTemplateActivityForm.cs" />
+    <Compile Include="ResourceManifest.cs" />
+    <Compile Include="Services\ActivityStreamService.cs" />
+    <Compile Include="Services\BaseService.cs" />
+    <Compile Include="Services\BasicDataService.cs" />
+    <Compile Include="Services\ContentOwnershipHelper.cs" />
+    <Compile Include="Services\FileService.cs" />
+    <Compile Include="Services\GroupQuery.cs" />
+    <Compile Include="Services\HelperService.cs" />
+    <Compile Include="Services\IActivityStreamService.cs" />
+    <Compile Include="Services\IBasicDataService.cs" />
+    <Compile Include="Services\IContentOwnershipHelper.cs" />
+    <Compile Include="Services\ICRMContentOwnershipServiceExtension.cs" />
+    <Compile Include="Services\IFileService.cs" />
+    <Compile Include="Services\IGroupQuery.cs" />
+    <Compile Include="Services\IHelperService.cs" />
+    <Compile Include="Services\IProjectService.cs" />
+    <Compile Include="Services\ISearchTicketService.cs" />
+    <Compile Include="Services\IValidationService.cs" />
+    <Compile Include="Services\ProjectService.cs" />
+    <Compile Include="Services\SearchTicketService.cs" />
+    <Compile Include="Services\SimpleBooleanToken.cs" />
+    <Compile Include="Services\OrchardCollaborationSmtpMessageChannel.cs" />
+    <Compile Include="Services\ValidationService.cs" />
+    <Compile Include="Settings\ActivityStreamPartSettings.cs" />
+    <Compile Include="Settings\AttachToProjectPartSettings.cs" />
+    <Compile Include="Settings\FileUploadPartSettings.cs" />
+    <Compile Include="Settings\FileUploadPartSettingsEvents.cs" />
+    <Compile Include="Settings\TicketsForContentItemPartSettings.cs" />
+    <Compile Include="ViewModels\ActivityStreamEditModel.cs" />
+    <Compile Include="ViewModels\StatusRecordViewModel.cs" />
+    <Compile Include="ViewModels\CheckableViewModel.cs" />
+    <Compile Include="ViewModels\CommentsViewModel.cs" />
+    <Compile Include="ViewModels\DashboardViewModel.cs" />
+    <Compile Include="ViewModels\EditAttachToProjectViewModel.cs" />
+    <Compile Include="ViewModels\EditPostedActivityStreamViewModel.cs" />
+    <Compile Include="ViewModels\PostedEditOwnerViewModel.cs" />
+    <Compile Include="Models\ProjectionWithDynamicSortPart.cs" />
+    <Compile Include="Models\TicketIdentityRecord.cs" />
+    <Compile Include="Models\BasicDataTypes.cs" />
+    <Compile Include="Models\TicketPart.cs" />
+    <Compile Include="Models\TicketPartRecord.cs" />
+    <Compile Include="Models\ServiceRecord.cs" />
+    <Compile Include="Permissions.cs" />
+    <Compile Include="Providers\Filters\ContentItemPermissionFilter.cs" />
+    <Compile Include="Providers\Filters\ContentItemPermissionForm.cs" />
+    <Compile Include="Providers\Filters\TicketFieldsFilter.cs" />
+    <Compile Include="Providers\Filters\SimpleCheckBoxFilterForm.cs" />
+    <Compile Include="ViewModels\UsersOrderViewModel.cs" />
+    <Content Include="COPYING.txt" />
+    <Content Include="License.txt" />
+    <Content Include="Readme.txt" />
+    <Content Include="Scripts\chosen\chosen.jquery.js" />
+    <Content Include="Scripts\chosen\chosen.jquery.min.js" />
+    <Content Include="Scripts\chosen\chosen.proto.js" />
+    <Content Include="Scripts\chosen\chosen.proto.min.js" />
+    <Content Include="Scripts\BaseComponents.js" />
+    <Content Include="Scripts\jalert\jAlert-FB.css" />
+    <Content Include="Scripts\jalert\jAlert-FB.js" />
+    <Content Include="Scripts\jalert\jAlert-functions.js" />
+    <Content Include="Scripts\jalert\jAlert-functions.min.js" />
+    <Content Include="Scripts\JSX\readme.txt" />
+    <Content Include="Scripts\react-0.14.3.js" />
+    <Content Include="Scripts\react-0.14.3.min.js" />
+    <Content Include="Scripts\react-bootstrap.js" />
+    <Content Include="Scripts\react-dom-0.14.3.js" />
+    <Content Include="Scripts\react-dom-0.14.3.min.js" />
+    <Content Include="Scripts\tinymce\orchard-tinymce.js" />
+    <Content Include="Styles\Images\sprite-file-icons_64.png" />
+    <Content Include="Styles\Images\ui-icons_222222_256x240.png" />
+    <Content Include="Styles\Images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Styles\Images\ui-icons_454545_256x240.png" />
+    <Content Include="Styles\Images\ui-icons_888888_256x240.png" />
+    <Content Include="Styles\Images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Styles\JAlert\jAlert-v3.css" />
+    <Content Include="Scripts\jalert\jAlert-v3.js" />
+    <Content Include="Scripts\jalert\jAlert-v3.min.js" />
+    <Content Include="Styles\Chosen\chosen-sprite2x.png" />
+    <Content Include="Styles\Chosen\chosen-sprite.png" />
+    <Content Include="Styles\Chosen\chosen.css" />
+    <Content Include="Styles\Chosen\chosen.min.css" />
+    <Content Include="Styles\Images\active-close.png" />
+    <Content Include="Styles\Images\active-create.png" />
+    <Content Include="Styles\Images\active-delete.png" />
+    <Content Include="Styles\Images\active-open.png" />
+    <Content Include="Styles\Images\active-share.png" />
+    <Content Include="Styles\Images\close-hover.png" />
+    <Content Include="Styles\Images\createHover.png" />
+    <Content Include="Styles\Images\deleteHover.png" />
+    <Content Include="Styles\Images\shareHover.png" />
+    <Content Include="Styles\Images\sprite-file-icons.png" />
+    <Content Include="packages.config" />
+    <Compile Include="Activities\CreateTicketActivity.cs" />
+    <Content Include="Content\Web.config" />
+    <Content Include="Scripts\CRMWidgets.js" />
+    <Content Include="Scripts\fileuploader.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-filetype.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Styles\fileuploader.css" />
+    <Content Include="Styles\Images\DownTriangleIcon.green.png" />
+    <Content Include="Styles\Images\DownTriangleHover.png" />
+    <Content Include="Styles\Images\DownTriangle.png" />
+    <Content Include="Styles\Images\DownTriangleIcon.png" />
+    <Content Include="Styles\Images\DownTriangleIconHover.png" />
+    <Content Include="Styles\Images\open.png" />
+    <Content Include="Styles\Images\close.png" />
+    <Content Include="Styles\Images\delete.png" />
+    <Content Include="Styles\Images\openHover.png" />
+    <Content Include="Styles\Images\search.png" />
+    <Content Include="Styles\Images\share.png" />
+    <Content Include="Styles\Images\tools-icon.png" />
+    <Content Include="Styles\Images\Trash_icon.jpg" />
+    <Content Include="Styles\Images\Untitled20.png" />
+    <Content Include="Styles\Images\UpTraingle.png" />
+    <Content Include="Styles\Images\UpTraingleHover.png" />
+    <Content Include="Styles\Images\Untitled20red.png" />
+    <Content Include="Styles\Images\UpTraingleYellow.png" />
+    <Content Include="Styles\jquery-filetype.css" />
+    <Content Include="Styles\jquery-ui.css" />
+    <Content Include="Styles\crm.css" />
+    <Content Include="Styles\loading.gif" />
+    <Content Include="Styles\WithoutThemeSite.css" />
+    <Content Include="Styles\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Module.txt" />
+    <Content Include="Views\EditorTemplates\Parts\CRMComment.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\CRMComments.cshtml" />
+    <Content Include="Views\BasicData\TicketStatusList.cshtml" />
+    <Content Include="Views\BasicData\EditStatus.cshtml" />
+    <Content Include="Views\BasicData\CreateStatus.cshtml" />
+    <Content Include="Views\Parts\DashboardActivityStream.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\AttachToProject.cshtml" />
+    <Content Include="Views\Parts\AttachToProject.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\ActivityStream.cshtml" />
+    <Content Include="Views\Parts.FilesList.Summary.cshtml" />
+    <Content Include="Views\Parts\CRMComments.Summary.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\FileUploadHidden.cshtml" />
+    <Content Include="Views\Parts\Ticket.Properties.cshtml" />
+    <Content Include="Views\Parts\Ticket.Dates.cshtml" />
+    <Content Include="Views\Parts\Ticket.People.cshtml" />
+    <Content Include="Views\Parts.Common.Metadata-Ticket.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\TicketProperties.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\TicketDates.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\TicketPeople.cshtml" />
+    <Content Include="Views\Content.Edit-Ticket.cshtml" />
+    <Content Include="Views\Content-Ticket.Detail.cshtml" />
+    <Content Include="Views\Ticket.Fields.Common.Text.cshtml" />
+    <Content Include="Views\TicketFields.Text.Edit.cshtml" />
+    <Content Include="Views\EditorTemplate.Parts.ContentItemPermission-Ticket.cshtml" />
+    <Content Include="Views\Parts\Ticket.Pinboard.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\AttachToProject.HiddenField.cshtml" />
+    <Content Include="Views\Parts\Ticket.SubTickets.cshtml" />
+    <Content Include="Scripts\JSX\BaseComponents.jsx" />
+    <Content Include="Scripts\react-bootstrap.min.js" />
+    <Content Include="Styles\SuiteCRM.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Orchard\Orchard.Framework.csproj">
+      <Project>{2D1D92BB-4555-4CBE-8D0E-63563D6CE4C6}</Project>
+      <Name>Orchard.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Orchard.Core.csproj">
+      <Project>{9916839C-39FC-4CEB-A5AF-89CA7E87119F}</Project>
+      <Name>Orchard.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Alias\Orchard.Alias.csproj">
+      <Project>{475b6c45-b27c-438b-8966-908b9d6d1077}</Project>
+      <Name>Orchard.Alias</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Autoroute\Orchard.Autoroute.csproj">
+      <Project>{66fccd76-2761-47e3-8d11-b45d0001ddaa}</Project>
+      <Name>Orchard.Autoroute</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.ContentPicker\Orchard.ContentPicker.csproj">
+      <Project>{f301ef7d-f19c-4d83-aa94-cb64f29c037d}</Project>
+      <Name>Orchard.ContentPicker</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.ContentTypes\Orchard.ContentTypes.csproj">
+      <Project>{0e7646e8-fe8f-43c1-8799-d97860925ec4}</Project>
+      <Name>Orchard.ContentTypes</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Email\Orchard.Email.csproj">
+      <Project>{05660f47-d649-48bd-9ded-df4e01e7cff9}</Project>
+      <Name>Orchard.Email</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Forms\Orchard.Forms.csproj">
+      <Project>{642a49d7-8752-4177-80d6-bfbbcfad3de0}</Project>
+      <Name>Orchard.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Indexing\Orchard.Indexing.csproj">
+      <Project>{ea2b9121-ef54-40a6-a53e-6593c86ee696}</Project>
+      <Name>Orchard.Indexing</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.MediaLibrary\Orchard.MediaLibrary.csproj">
+      <Project>{73a7688a-5bd3-4f7e-adfa-ce36c5a10e3b}</Project>
+      <Name>Orchard.MediaLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Projections\Orchard.Projections.csproj">
+      <Project>{5531e894-d259-45a3-aa61-26dbe720c1ce}</Project>
+      <Name>Orchard.Projections</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Reporting\Orchard.Reporting.csproj">
+      <Project>{7325984d-d6ac-4491-bc4e-f9c32b92c87c}</Project>
+      <Name>Orchard.Reporting</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Roles\Orchard.Roles.csproj">
+      <Project>{d10ad48f-407d-4db5-a328-173ec7cb010f}</Project>
+      <Name>Orchard.Roles</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Search\Orchard.Search.csproj">
+      <Project>{4be4eb01-ac56-4048-924e-2ca77f509aba}</Project>
+      <Name>Orchard.Search</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Tokens\Orchard.Tokens.csproj">
+      <Project>{6f759635-13d7-4e94-bcc9-80445d63f117}</Project>
+      <Name>Orchard.Tokens</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Users\Orchard.Users.csproj">
+      <Project>{79aed36e-abd0-4747-93d3-8722b042454b}</Project>
+      <Name>Orchard.Users</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Widgets\Orchard.Widgets.csproj">
+      <Project>{194d3ccc-1153-474d-8176-fde8d7d0d0bd}</Project>
+      <Name>Orchard.Widgets</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Workflows\Orchard.Workflows.csproj">
+      <Project>{7059493c-8251-4764-9c1e-2368b8b485bc}</Project>
+      <Name>Orchard.Workflows</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\S22.IMAP\S22.IMAP.csproj">
+      <Project>{4985346e-68c1-4e72-9ba9-39cff791cda6}</Project>
+      <Name>S22.IMAP</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Drivers\BusinessUnitDriver.cs" />
+    <Compile Include="Drivers\TeamMemberDriver.cs" />
+    <Compile Include="Drivers\BusinessUnitMemberDriver.cs" />
+    <Compile Include="Drivers\CRMContentPartDriver.cs" />
+    <Compile Include="Drivers\TeamDriver.cs" />
+    <Compile Include="Handlers\BusinessUnitHandler.cs" />
+    <Compile Include="Handlers\BusinessUnitMemberHandler.cs" />
+    <Compile Include="Handlers\TeamMemberHandler.cs" />
+    <Compile Include="Handlers\TeamHandler.cs" />
+    <Compile Include="Migrations.cs" />
+    <Compile Include="Models\BasicDataRecord.cs" />
+    <Compile Include="Models\BusinessUnitMemberPartRecord.cs" />
+    <Compile Include="Models\BusinessUnitPart.cs" />
+    <Compile Include="Models\BusinessUnitPartRecord.cs" />
+    <Compile Include="Models\ContentItemPermissionDetailRecord.cs" />
+    <Compile Include="Models\ContentItemPermissionPart.cs" />
+    <Compile Include="Models\ContentItemPermissionPartRecord.cs" />
+    <Compile Include="Models\BusinessUnitMemberPart.cs" />
+    <Compile Include="Models\TeamMemberPart.cs" />
+    <Compile Include="Models\TeamMemberPartRecord.cs" />
+    <Compile Include="Models\TeamPart.cs" />
+    <Compile Include="Models\TeamPartRecord.cs" />
+    <Compile Include="Providers\Filters\BasicDataFilterForm.cs" />
+    <Compile Include="Providers\Filters\SimpleTextBoxFilterForm.cs" />
+    <Compile Include="Providers\BasicDataSelectForm.cs" />
+    <Compile Include="Providers\ICurrentContentItemForWidgetTokenProvider.cs" />
+    <Compile Include="Providers\Layouts\TicketListShapeLayout.cs" />
+    <Compile Include="Providers\SortCriterias\TicketFieldsSortCriteria.cs" />
+    <Compile Include="Providers\CreateTicketActivityForm.cs" />
+    <Compile Include="Services\BusinessUnitService.cs" />
+    <Compile Include="Services\ContentEditRuleProvider.cs" />
+    <Compile Include="Services\ContentItemTransformer.cs" />
+    <Compile Include="Services\CRMHelper.cs" />
+    <Compile Include="Services\Converter.cs" />
+    <Compile Include="Services\CRMContentOwnershipService.cs" />
+    <Compile Include="Providers\CurrentContentItemForWidgetTokenProvider.cs" />
+    <Compile Include="Services\CRMSetup.cs" />
+    <Compile Include="Services\EditedContentItemDetailHandler.cs" />
+    <Compile Include="Providers\ActivityTokenProvider.cs" />
+    <Compile Include="Services\ExtendedContentManager.cs" />
+    <Compile Include="Services\IBusinessUnitService.cs" />
+    <Compile Include="Services\ICRMContentOwnershipService.cs" />
+    <Compile Include="Services\ICRMSetup.cs" />
+    <Compile Include="Services\IExtendedContentManager.cs" />
+    <Compile Include="Services\IPartTypeRecordMatchingService.cs" />
+    <Compile Include="Services\IProjectionManagerWithDynamicSort.cs" />
+    <Compile Include="Services\IWidgetService.cs" />
+    <Compile Include="Services\PartTypeRecordMatchingService.cs" />
+    <Compile Include="Services\PermissionProvider.cs" />
+    <Compile Include="Services\ProjectionManagerWithDynamicSort.cs" />
+    <Compile Include="Services\RequestRuleProvider.cs" />
+    <Compile Include="Providers\MenuShapes.cs" />
+    <Compile Include="Services\WidgetService.cs" />
+    <Compile Include="ViewModels\AjaxMessageViewModel.cs" />
+    <Compile Include="ViewModels\BusinessUnitViewModel.cs" />
+    <Compile Include="ViewModels\ContentPermissionViewModel.cs" />
+    <Compile Include="ViewModels\DynamicProjectionSortModel.cs" />
+    <Compile Include="ViewModels\EditContentPermissionViewModel.cs" />
+    <Compile Include="ViewModels\EmailTemplateViewModel.cs" />
+    <Compile Include="ViewModels\OrganizationViewModel.cs" />
+    <Compile Include="ViewModels\BusinessUnitMembersViewModel.cs" />
+    <Compile Include="ViewModels\PagerParametersWithSortFields.cs" />
+    <Compile Include="ViewModels\PostedTicketSearchViewModel.cs" />
+    <Compile Include="ViewModels\EditTicketViewModel.cs" />
+    <Compile Include="ViewModels\BasicDataRecordViewModel.cs" />
+    <Compile Include="ViewModels\StatusViewModel.cs" />
+    <Compile Include="ViewModels\TicketMenuItemPostViewModel.cs" />
+    <Compile Include="ViewModels\TicketMenuItemViewModel.cs" />
+    <Compile Include="ViewModels\TicketQuickUpdateViewModel.cs" />
+    <Compile Include="ViewModels\TicketTypeViewModel.cs" />
+    <Compile Include="ViewModels\PriorityViewModel.cs" />
+    <Compile Include="ViewModels\SearchTicketsViewModel.cs" />
+    <Compile Include="ViewModels\ServiceViewModel.cs" />
+    <Compile Include="ViewModels\TargetContentItemPermissionViewModel.cs" />
+    <Compile Include="ViewModels\TicketViewModel.cs" />
+    <Compile Include="ViewModels\TeamMembersViewModel.cs" />
+    <Compile Include="ViewModels\TeamViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Base\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="placement.info">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\BusinessUnit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\Team.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\EditorTemplates\Parts\Team.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\EditorTemplates\Parts\BusinessUnit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\TeamMembers.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Users.TeamMembers.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Users\TeamMember.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Users\Users.cshtml" />
+    <Content Include="Views\Parts\BusinessUnitMembers.cshtml" />
+    <Content Include="Views\Users.BusinessUnitMembers.cshtml" />
+    <Content Include="Views\Users\BusinessUnitMember.cshtml" />
+    <Content Include="Views\Parts\Ticket.cshtml" />
+    <Content Include="Views\Parts\TicketsForContentItem.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\Service.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\Ticket.cshtml" />
+    <Content Include="Views\Users\UserServices.cshtml" />
+    <Content Include="Views\Users\AddUserToService.cshtml" />
+    <Content Include="Views\Users\ServiceUsers.cshtml" />
+    <Content Include="Views\BasicData\Priorities.cshtml" />
+    <Content Include="Views\BasicData\CreatePriority.cshtml" />
+    <Content Include="Views\BasicData\EditPriority.cshtml" />
+    <Content Include="Views\Parts\Ticket.TableRow.cshtml" />
+    <Content Include="Views\ContentOwnership\Edit.cshtml" />
+    <Content Include="Views\Parts\UserService.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Parts\CRMComment.cshtml" />
+    <Content Include="Views\Parts\CRMComments.cshtml" />
+    <Content Include="Views\ContentOwnership\PermissionError.cshtml" />
+    <Content Include="Views\EmailTemplate\Index.cshtml" />
+    <Content Include="Views\EmailTemplate\Create.cshtml" />
+    <Content Include="Views\EmailTemplate\Edit.cshtml" />
+    <Content Include="Views\Ticket\Search.cshtml" />
+    <Content Include="Views\BasicData\CreateTicketType.cshtml" />
+    <Content Include="Views\BasicData\EditTicketType.cshtml" />
+    <Content Include="Views\BasicData\TicketTypes.cshtml" />
+    <Content Include="Views\Ticket\Create.cshtml" />
+    <Content Include="Views\Ticket\Edit.cshtml" />
+    <Content Include="Views\Item\Create.cshtml" />
+    <Content Include="Views\Item\Display.cshtml" />
+    <Content Include="Views\Item\DisplayAjax.cshtml" />
+    <Content Include="Views\Item\Edit.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\Setup.cshtml" />
+    <Content Include="Views\EmailTemplateActivityForm.cshtml" />
+    <Content Include="Views\Organization\BusinessUnits.cshtml" />
+    <Content Include="Views\Organization\BusinessUnitMembers.cshtml" />
+    <Content Include="Views\Organization\TeamMembers.cshtml" />
+    <Content Include="Views\Organization\Teams.cshtml" />
+    <Content Include="Views\Organization\EditBusinessUnit.cshtml" />
+    <Content Include="Views\Organization\EditTeam.cshtml" />
+    <Content Include="Views\Organization\CreateBusinessUnit.cshtml" />
+    <Content Include="Views\Organization\CreateTeam.cshtml" />
+    <Content Include="Views\Ticket\Display.cshtml" />
+    <Content Include="Views\Parts\Ticket.TitleOnly.cshtml" />
+    <Content Include="Views\Parts\ContentItemPermission.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\ContentItemPermission.cshtml" />
+    <Content Include="Views\Parts\ContentItemPermission.Summary.cshtml" />
+    <Content Include="Views\Parts\ContentItemPermission.Toolbar.cshtml" />
+    <Content Include="Views\Parts.Common.Metadata.cshtml" />
+    <Content Include="Views\Parts\Ticket.EditTitle.cshtml" />
+    <Content Include="Views\Parts\Ticket.RelatedContentItem.cshtml" />
+    <Content Include="Views\CreateTicketActivity.cshtml" />
+    <Content Include="Views\Parts\Dashboard.cshtml" />
+    <Content Include="Views\Parts.Common.Metadata.Summary.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\TicketMenuItem.cshtml" />
+    <Content Include="Views\Parts\ContentItemPermission.TableRow.cshtml" />
+    <Content Include="Views\Ticket\SortDirectionPartial.cshtml" />
+    <Content Include="Views\UpdateTicketActivity.cshtml" />
+    <Content Include="Views\BasicData\CreateService.cshtml" />
+    <Content Include="Views\BasicData\EditService.cshtml" />
+    <Content Include="Views\BasicData\Services.cshtml" />
+    <Content Include="Styles\Search.less" />
+    <Content Include="Styles\ContentPermissions.less" />
+    <Content Include="Styles\crm.less" />
+    <Content Include="Styles\TicketSummary.less" />
+    <Content Include="Styles\Table.less" />
+    <Content Include="Styles\TicketDisplay.less" />
+    <Content Include="Styles\Common.less" />
+    <Content Include="Styles\EditorTicket.less" />
+    <Content Include="Styles\CrmComments.less" />
+    <Content Include="Styles\TicketRelatedContentItem.less" />
+    <Content Include="Styles\Dashboard.less" />
+    <Content Include="Styles\Ticket.less" />
+    <Content Include="Styles\TicketTitle.less" />
+    <Content Include="Styles\Organization.less" />
+    <Content Include="Views\Parts\Ticket.HeaderTitle.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\Ticket.TicketSetting.cshtml" />
+    <Content Include="Views\Organization\Error.cshtml" />
+    <Content Include="Views\CurrentContentItemPermissions.cshtml" />
+    <Content Include="Views\BasicData\Index.cshtml" />
+    <Content Include="Views\Stylesheet.cshtml" />
+    <Content Include="Views\CRMLayout.cshtml" />
+    <Content Include="Views\Ticket.TableRow.Container.cshtml" />
+    <Content Include="Views\DefinitionTemplates\FileUploadPartSettings.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\FileUpload.cshtml" />
+    <Content Include="Views\Parts.FilesList.cshtml" />
+    <Content Include="Views\FileLinkPartial.cshtml" />
+    <Content Include="Views\TicketsListShape.cshtml" />
+    <Content Include="Views\TicketsForContentItemFlipFlop.cshtml" />
+    <Content Include="Styles\TicketsForContentItem.less" />
+    <Content Include="Views\Parts\Dashboard.Summary.cshtml" />
+    <Content Include="Views\Parts\Ticket.SummaryAdmin.cshtml" />
+    <Content Include="Views\Parts\Ticket.Summary.cshtml" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target> -->
+  <Target Name="AfterBuild" DependsOnTargets="AfterBuildCompiler">
+    <PropertyGroup>
+      <AreasManifestDir>$(ProjectDir)\..\Manifests</AreasManifestDir>
+    </PropertyGroup>
+    <!-- If this is an area child project, uncomment the following line:
+    <CreateAreaManifest AreaName="$(AssemblyName)" AreaType="Child" AreaPath="$(ProjectDir)" ManifestPath="$(AreasManifestDir)" ContentFiles="@(Content)" />
+    -->
+    <!-- If this is an area parent project, uncomment the following lines:
+    <CreateAreaManifest AreaName="$(AssemblyName)" AreaType="Parent" AreaPath="$(ProjectDir)" ManifestPath="$(AreasManifestDir)" ContentFiles="@(Content)" />
+    <CopyAreaManifests ManifestPath="$(AreasManifestDir)" CrossCopy="false" RenameViews="true" />
+    -->
+  </Target>
+  <Target Name="AfterBuildCompiler" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(ProjectDir)\..\$(ProjectName)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>45979</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://orchard.codeplex.com</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

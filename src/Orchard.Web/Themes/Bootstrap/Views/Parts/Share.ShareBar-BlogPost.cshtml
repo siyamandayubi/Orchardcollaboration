@@ -1,0 +1,38 @@
+﻿@using Szmyd.Orchard.Modules.Sharing.Settings
+@{ 
+    var mode = (ShareBarMode)Model.ViewModel.Mode;
+}
+<div class="well well-sm">
+    <div class="sharebar-wrapper">
+    @switch (mode)
+    {
+        case ShareBarMode.VerticalShareCounter:
+        @Display(New.Modes_ShareBar_VerticalShareCounter(ViewModel: Model.ViewModel));
+                                                                                     break;
+        case ShareBarMode.TweetLikeShare:
+        @Display(New.Modes_ShareBar_TweetLikeShare(ViewModel: Model.ViewModel));
+                                                                               break;
+        case ShareBarMode.ToolboxFacebookLike:
+        @Display(New.Modes_ShareBar_ToolboxFacebookLike(ViewModel: Model.ViewModel));
+                                                                                    break;
+        case ShareBarMode.RetweetLikeShare:
+        @Display(New.Modes_ShareBar_RetweetLikeShare(ViewModel: Model.ViewModel));
+                                                                                 break;
+        case ShareBarMode.MediumIcons:
+        @Display(New.Modes_ShareBar_MediumIcons(ViewModel: Model.ViewModel));
+                                                                            break;
+        case ShareBarMode.HorizontalShareCounter:
+        @Display(New.Modes_ShareBar_HorizontalShareCounter(ViewModel: Model.ViewModel));
+                                                                                       break;
+        case ShareBarMode.Css3StyleButtons:
+        @Display(New.Modes_ShareBar_Css3StyleButtons(ViewModel: Model.ViewModel));
+                                                                                 break;
+        case ShareBarMode.GoogleLikeShare:
+        @Display(New.Modes_ShareBar_GoogleLikeShare(ViewModel: Model.ViewModel));
+                                                                                break;
+        default:
+        @Display(New.Modes_ShareBar_TweetLikeShare(ViewModel: Model.ViewModel));
+                                                                               break;
+    }
+    </div>
+</div>

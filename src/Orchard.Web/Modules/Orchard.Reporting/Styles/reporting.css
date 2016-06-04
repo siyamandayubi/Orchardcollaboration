@@ -1,0 +1,16 @@
+﻿.hidden {
+    visibility: collapse;
+}
+
+.default-chart {
+    width: 400px;
+    height: 300px;
+}
+
+.select-medium {
+    width: 27em;
+}
+
+.field-validation-error {
+    color: red;
+}

@@ -1,0 +1,86 @@
+﻿@using Orchard.ContentManagement
+@using Orchard.Utility.Extensions;
+<div class="space"></div>
+@Display(New.Stylesheet())
+@{
+    var model = Model.Model;
+    ContentItem contentItem = model.ContentItem;
+    var typeDisplayName = contentItem.TypeDefinition.DisplayName ?? contentItem.ContentType.CamelFriendly();
+    string editOrNewMode = model.ContentItem.Id == default(int) ? T("New").Text : T("Edit").Text;
+    var pageTitle = T("{0} {1}", editOrNewMode, typeDisplayName);
+
+    Layout.Title = (string)pageTitle.Text;
+
+    Script.Require("JQueryUI");
+    Script.Require("CRMWidgets");
+    Style.Include("jquery-ui.css");
+    Style.Include("chosen/chosen.css");
+    Script.Require("Chosen");
+
+    model.Classes.Add("content-item");
+    model.Classes.Add("edit-project-related-item");
+    model.Classes.Add("project-content-item");
+    model.Classes.Add("panel panel-default");
+
+    var contentTypeClassName = contentItem.ContentType.HtmlClassify();
+    model.Classes.Add(contentTypeClassName);
+
+    var tag = Tag(model, "article");
+}
+@tag.StartElement
+<header class="panel-heading">
+    @if(model.Header != null)
+    {
+        @Display(model.Header)
+    }
+</header>
+<div class="panel-body">
+    @{
+        <h3>@pageTitle</h3>
+    }
+    @if (model.BeforeContent != null)
+    {
+        <div>@Display(model.BeforeContent)</div>
+    }
+    @if (model.BesideContent != null)
+    {
+        <div class="row">
+            <div class="beside-content-list-container">@Display(model.BesideContent)</div>
+            <div class="wiki-main-container">
+                <div>
+                    @Display(model.Content)
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div>
+            @Display(model.Content)
+        </div>
+    }
+</div>
+<footer>
+    @if (model.Footer != null)
+    {
+        @Display(model.Footer)
+    }
+    @if (model.Sidebar != null)
+    {
+        <div class="edit-item-sidebar group">
+            @Display(model.Sidebar)
+        </div>
+    }
+    @if (model.Actions != null)
+    {
+        <div class="edit-item-actions">
+            @Display(model.Actions)
+        </div>
+    }
+</footer>
+@tag.EndElement
+
+@if (!String.IsNullOrWhiteSpace(Request.QueryString["returnUrl"]))
+{
+    @Html.Hidden("returnUrl", Request.QueryString["returnUrl"])
+}

@@ -1,0 +1,63 @@
+﻿﻿@model Bootstrap.ViewModels.ThemeSettingsViewModel
+<style type="text/css">
+    select { width: 150px; }
+</style>
+
+@{ Layout.Title = string.Format("Bootstrap » {0}", T("Swatch").ToString()); }
+
+@using (Html.BeginFormAntiForgeryPost()) {
+    Html.ValidationSummary();
+    
+    <fieldset>
+        @Html.CheckBoxFor(m => m.UseFluidLayout)@T("Use Fluid Layout")
+        <span id="lblUseFluidLayout" class="hint">@T("Select this checkbox to use a fluid layout (100% width)")</span>
+    </fieldset>
+    
+    <fieldset>
+        @Html.CheckBoxFor(m => m.UseFixedNav)@T("Use Fixed Navigation Bar")
+        <span id="lblUseFixedNav" class="hint">@T("Select this checkbox to use a fixed navigation")</span>
+    </fieldset>
+    
+    <fieldset>
+        @Html.CheckBoxFor(m => m.UseInverseNav)@T("Use Inverse Navigation Bar Color")
+        <span id="lblUseInverseNav" class="hint">@T("Select this checkbox to use the inverse navigation color. *REQUIRES FIXED NAVIGATION BAR")</span>
+    </fieldset>
+    
+    <fieldset>
+        @Html.CheckBoxFor(m => m.UseNavSearch)@T("Use Navigation Bar Search Field")
+        <span id="lblUseNavSearch" class="hint">@T("Select this checkbox to use a navigation bar search field. *REQUIRES SEARCH MODULE")</span>
+    </fieldset>
+    
+    <fieldset>
+        @Html.CheckBoxFor(m => m.UseStickyFooter)@T("Use Sticky Footer")
+        <span id="lblUseStickyFooter" class="hint">@T("Select this checkbox to use a sticky footer")</span>
+    </fieldset>
+    
+    <fieldset>
+        <select id="@Html.FieldIdFor(m => m.Swatch)" name="@Html.FieldNameFor(m => m.Swatch)">
+            <option value="bootstrap.min.css" @if (Model.Swatch.EndsWith("bootstrap.min.css")) { <text>selected="selected"</text> }>@T("Default")</option>
+            <option value="amelia.min.css" @if (Model.Swatch.EndsWith("amelia.min.css")) { <text>selected="selected"</text> }>@T("Amelia")</option>
+            <option value="cerulean.min.css" @if (Model.Swatch.EndsWith("cerulean.min.css")) { <text>selected="selected"</text> }>@T("Cerulean")</option>
+            <option value="cosmo.min.css" @if (Model.Swatch.EndsWith("cosmo.min.css")) { <text>selected="selected"</text> }>@T("Cosmo")</option>
+            <option value="cyborg.min.css" @if (Model.Swatch.EndsWith("cyborg.min.css")) { <text>selected="selected"</text> }>@T("Cyborg")</option>
+            <option value="flatly.min.css" @if (Model.Swatch.EndsWith("flatly.min.css")) { <text>selected="selected"</text> }>@T("Flatly")</option>
+            <option value="journal.min.css" @if (Model.Swatch.EndsWith("journal.min.css")) { <text>selected="selected"</text> }>@T("Journal")</option>
+            <option value="readable.min.css" @if (Model.Swatch.EndsWith("readable.min.css")) { <text>selected="selected"</text> }>@T("Readable")</option>
+            <option value="simplex.min.css" @if (Model.Swatch.EndsWith("simplex.min.css")) { <text>selected="selected"</text> }>@T("Simplex")</option>
+            <option value="slate.min.css" @if (Model.Swatch.EndsWith("slate.min.css")) { <text>selected="selected"</text> }>@T("Slate")</option>
+            <option value="spacelab.min.css" @if (Model.Swatch.EndsWith("spacelab.min.css")) { <text>selected="selected"</text> }>@T("Spacelab")</option>
+            <option value="united.min.css" @if (Model.Swatch.EndsWith("united.min.css")) { <text>selected="selected"</text> }>@T("United")</option>
+        </select>
+        <span class="hint">@T("Select the swatch that you want")</span>
+    </fieldset>
+
+    <fieldset>
+        <img src="@Url.Content("~/Themes/Bootstrap/Content/Admin/Swatches.png")" alt="Sample of Theme Colors" />
+        <span class="hint">@("Above you can see the available swatches in action")</span>
+    </fieldset>
+    
+    <fieldset>
+        <legend></legend>
+        <button class="primaryAction" type="submit" name="submit.Save" value="submit.Save">@T("Save")</button>
+    </fieldset>
+}

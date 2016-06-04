@@ -1,0 +1,37 @@
+﻿@using System.Web.WebPages.Html;
+@using Orchard.ContentManagement;
+@using Orchard.Users.Models;
+@using Orchard.CRM.Core.ViewModels;
+@using (Html.BeginFormAntiForgeryPost(Url.Action("AddUserToServicePost", "Users", new { area = "Orchard.CRM.Core" }), FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="hidden" name="serviceId" id="serviceId" value="@Model.ServiceId" />
+
+    <div>
+        @{
+    int counter = 0;
+    string prefix = "users[{0}].{1}";
+    foreach (var user in Model.Users)
+    {
+        string checkBoxName = string.Format(prefix, counter, "IsSelected");
+        string userIdName = string.Format(prefix, counter, "UserId");
+        string isSelected = user.IsSelected ? "checked=\"checked\"" : string.Empty;
+        counter++;
+
+        <div>
+            <input type="hidden" name="@userIdName" id="@userIdName" value="@user.UserId" />
+            <input type="checkbox" @isSelected value="true" name="@checkBoxName" id="@checkBoxName" />
+            
+            @user.User.UserName
+        </div>
+    }
+        }
+    </div>
+
+    <input type="submit" value="@T("Save")" />
+}
+@if (Model.Pager != null)
+{
+    <div class="pager">
+        @Display(Model.Pager)
+    </div>
+}

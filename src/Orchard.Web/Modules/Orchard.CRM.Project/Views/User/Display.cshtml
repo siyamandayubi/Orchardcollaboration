@@ -1,0 +1,190 @@
+﻿@using Orchard.CRM.Project.ViewModels;
+@using Orchard.CRM.Project.Services;
+@model UserDetailViewModel
+@Display(New.Stylesheet())
+@{
+    Script.Require("ShapesBase").AtFoot();
+}
+<div class="space"></div>
+<div class="panel panel-default user-detail">
+    <div class="panel-heading">
+        <div class="navbar">
+             <div class="container">
+                <div class="navbar-header">
+                    <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#userEditMenu">...</button>
+                    <div class="zone zone-header">
+                        <h2>@T("User Detail")</h2>
+                    </div>
+                </div>
+                 <div class="collapse navbar-collapse" id="userEditMenu">
+                    <ul class="nav navbar-nav pull-right">
+                          <li><a href="@Url.Action("Edit", "AdminUser", new { area = "Orchard.CRM.Project", id = Model.UserId })">@T("Edit")</a></li>
+                            <li><a href="@Url.Action("Delete", "AdminUser", new { area = "Orchard.CRM.Project", id = Model.UserId })" itemprop = "RemoveUrl UnsafeUrl" >@T("Delete")</a></li>
+                  </ul>
+                 </div>
+             </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-2">
+                @{
+                    string imageSource = string.IsNullOrEmpty(Model.Thumbnail) ? Url.Content("~/Modules/Orchard.CRM.Project/Styles/Images/user-icon-small.jpg") : Model.Thumbnail;
+                }
+                <img src="@imageSource" width="96" height="96" src="@imageSource" title="@Model.Fullname" />
+            </div>
+            <div class="col-md-10">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div>
+                            <span class="user-profile-label">@T("Username:")</span>
+                            <span class="user-profile-field">@Model.Username</span>
+                        </div>
+                        <div>
+                            <span class="user-profile-label">@T("Full Name:")</span>
+                            <span class="user-profile-field">@Model.Fullname</span>
+                        </div>
+                        <div>
+                            <span class="user-profile-label">@T("Email:")</span>
+                            @{
+                                string email = string.IsNullOrEmpty(Model.Email) ? "-" : Model.Email;
+                            }
+                            <span class="user-profile-field">@email</span>
+                        </div>
+                        <div>
+                                <span class="user-profile-label">@T("Skype Id:")</span>
+                                @{
+                                    string skypeId = string.IsNullOrEmpty(Model.SkypeId) ? "-" : Model.SkypeId;
+                                    string skypeLink = string.IsNullOrEmpty(Model.SkypeId) ? "#" : string.Format("skype:{0}?chat", Model.SkypeId);
+                                }
+                                <a href="@skypeLink" class="skype-icon  user-profile-field">@skypeId</a>
+                            </div>
+                        <div>
+                                <span class="user-profile-label">@T("Tel:")</span>
+                                @{
+                                    string tel = string.IsNullOrEmpty(Model.Tel) ? "-" : Model.Tel;
+                                    string telUrl = string.IsNullOrEmpty(Model.Tel) ? "#" : string.Format("skype:{0}?call", Model.Tel);
+                                }
+                                <a href="@telUrl" class="skype-icon user-profile-field">@tel</a>
+                            </div>
+                        <div>
+                                <span class="user-profile-label">@T("Mobile:")</span>
+                                @{
+                                    string mobile = string.IsNullOrEmpty(Model.Mobile) ? "-" : Model.Mobile;
+                                    string moblieUrl = string.IsNullOrEmpty(Model.Mobile) ? "#" : string.Format("skype:{0}?call", Model.Mobile);
+                              }
+                                <a href="@moblieUrl" class="skype-icon user-profile-field">@mobile</a>
+                            </div>
+                         <div>
+                            <span class="user-profile-label">@T("Tags:")</span>
+                            @{
+                                string[] tags = string.IsNullOrEmpty(Model.Tags) ? new string[]{}: Model.Tags.Split(',');
+                                if (tags.Length > 0) 
+                                { 
+                                    foreach (var tag in tags)
+                                    {
+                                        <span class="user-tag-display">@tag</span>
+                                    }
+                                }
+                                else
+                                {
+                                    <span class="user-profile-field">@T("User doesn't have any tag")</span>
+                                }
+                            }
+                        </div>
+                   </div>
+                    <div class="col-md-7">
+                        <div>
+                            <a href="@Url.Action("Invite", "User", new { area = "Orchard.CRM.Project", userId = Model.UserId })" class="invite-to-project-button btn btn-default">@T("Invite to Projects")</a>
+                        </div>
+                        <div>
+                            <span class="user-profile-label current-projects-label">@T("Current Projects:")</span>
+                            @if (Model.UserProjects.Count > 0)
+                            {
+                                foreach (var project in Model.UserProjects)
+                                {
+                                    <a href="@Url.Action("Display", "Project", new { id = project.Value })" class="user-profile-field">@project.Text</a>
+                                }
+                            }
+                            else
+                            {
+                                <span class="user-profile-field">@T("User does not member of any project")</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h5>@T("Activity Stream")</h5>
+    </div>
+    <div class="panel-body">
+        <div class="activity-stream">
+            @{
+                var activityStreamModel = Model.ActivityStream;
+            }
+            @if (activityStreamModel.Days.Count == 0)
+            {
+                <div>@T("There is no activity so far")</div>
+            }
+            else
+            {
+                foreach (var day in activityStreamModel.Days)
+                {
+                    <div class="activity-stream-day">
+                        <h4>@day.Title</h4>
+                        @foreach (var item in day.Items)
+                        {
+                            var route = item.Route ?? null;
+                            <div class="activity-stream-item">
+                                <div>
+                                    <span class="user">
+                                        @item.UserFullName
+                                    </span>
+                                    <span class="content">
+                                        @if (route != null)
+                                        {
+                                            <a href="@Url.RouteUrl(route)">@item.ContentDescription</a>
+                                        }
+                                        else
+                                        {
+                                            <a>@item.ContentDescription</a>
+                                        }
+                                    </span>
+                                </div>
+                                <ul>
+                                    @foreach (var change in item.Changes)
+                                    {
+                                        <li>
+                                            @change
+                                        </li>
+                                    }
+                                </ul>
+                                <div class="date-time">
+                                    @item.DateTime.ToLongTimeString()
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+                if (activityStreamModel.Pager.TotalItemCount > activityStreamModel.Pager.PageSize)
+                {
+            <!--<div class="ticket-pager">-->
+                    <div>
+                        @Display(activityStreamModel.Pager)
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+@using (Script.Foot()) {
+<script type="text/javascript">
+//<![CDATA[
+	var confirmRemoveMessage = '@T("Are you sure you want to remove this element?")';
+//]]>
+</script>
+}

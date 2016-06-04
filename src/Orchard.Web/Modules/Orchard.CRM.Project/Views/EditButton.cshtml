@@ -1,0 +1,10 @@
+﻿@using Orchard.ContentManagement
+@using Orchard.Utility.Extensions
+@{
+    var model = Model.Model;
+    ContentItem contentItem = model.ContentItem;
+    string url = Url.Action("Edit", "Item", new { area = "Orchard.CRM.Core", id = contentItem.Id });
+}
+<div class="edit-button">
+    <a class="btn btn-primary primaryAction" href="@url">@T("Edit")</a>
+</div>

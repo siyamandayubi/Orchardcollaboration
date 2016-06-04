@@ -1,0 +1,33 @@
+﻿@using Orchard.CRM.Project.ViewModels;
+@model EditFolderViewModel
+<div class="content-part">
+    <fieldset>
+        <div class="">
+            <div class="">@T("Title:")</div>
+            <div class="">@Html.TextBoxFor(m => m.Title, new { style = "width:100%" })</div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <div>@T("Parent Folder")</div>
+        <div class="folder-picker">
+            <ul>
+                @{
+                    var root = Model.Tree;
+                    string isChecked = root.IsSelected ? "checked='checked'" : string.Empty;
+                    string jsTreeData = string.Format(
+                        "{{ \"selected\":{0}, \"opened\":{1} }}",
+                        root.IsSelected.ToString().ToLower(),
+                        root.IsSelected.ToString().ToLower());
+                    <li data-jstree="@jsTreeData">
+                        <input type="radio" data-root="true" name="FolderPart.ParentId" value="" @isChecked />
+                        <span>@root.Title</span>
+                        @if (root.Folders.Count > 0)
+                        {
+                            @Display(New.FolderPicker(Model: root.Folders, FieldName: "FolderPart.ParentId"))
+                        }
+                    </li>
+                }
+            </ul>
+        </div>
+    </fieldset>
+</div>

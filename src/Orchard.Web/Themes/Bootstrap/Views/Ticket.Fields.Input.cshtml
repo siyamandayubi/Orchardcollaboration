@@ -1,0 +1,15 @@
+﻿@using Orchard.Utility.Extensions;
+@{
+    string name = Model.ContentField.DisplayName;
+    string value = (string)Model.ContentField.Value;
+}
+
+<div class="field-container-full-width">
+    <div class="label-container">@name.CamelFriendly()</div>
+    <div class="combobox">
+        <span>
+           @value
+        </span>    
+    </div>
+</div>
+<div class="clear"></div>

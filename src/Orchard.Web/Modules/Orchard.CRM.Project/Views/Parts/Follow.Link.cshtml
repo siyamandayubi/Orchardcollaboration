@@ -1,0 +1,23 @@
+﻿@using Orchard.Utility.Extensions;
+
+@{
+    string returnUrl = ViewContext.RequestContext.HttpContext.Request.ToUrlString();
+    string followLink = Url.Action("Follow", "Follower", new { area = "Orchard.CRM.Project", returnUrl = returnUrl, contentItemId = Model.Model.ContentItemId });
+    string unFollowLink = Url.Action("UnFollow", "Follower", new { area = "Orchard.CRM.Project", returnUrl = returnUrl, contentItemId = Model.Model.ContentItemId });
+
+    bool followd = Model.Model.Followed ;
+    string currentLink = followd  ? unFollowLink : followLink;
+    string title = followd  ? T("Unfollow").Text : T("Follow").Text;
+    
+}
+<a class="follow-link" href="@currentLink" data-followtitle="@T("Follow").Text" data-unfollowtitle="@T("Unfollow").Text" data-followlink="@followLink" data-unfollowlink="@unFollowLink" data-follow="@followd">@title</a>
+@using (Script.Foot())
+{
+    Script.Require("JQueryUI");
+    Script.Require("ProjectWidgets");
+    <script language="javascript" type="text/javascript">
+        $(document).ready(function () {
+            $("body").FollowLink();
+        });
+    </script>
+}

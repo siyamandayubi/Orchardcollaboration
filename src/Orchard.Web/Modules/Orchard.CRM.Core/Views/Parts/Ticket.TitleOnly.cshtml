@@ -1,0 +1,8 @@
+﻿@{
+    var ticketViewMoodel = (Orchard.CRM.Core.ViewModels.TicketViewModel)Model.Model;
+}
+<div>
+    <div class="ticket-list-id"><a href="@Url.Action("Display", "Ticket", new { area = "Orchard.CRM.Core", id = ticketViewMoodel.TicketId })">@ticketViewMoodel.TicketNumber</a></div>
+    <div class="ticket-list-name"><a href="@Url.Action("Display", "Ticket", new { area = "Orchard.CRM.Core", id = ticketViewMoodel.TicketId })">@ticketViewMoodel.Title</a></div>
+    <div class="clear"></div>
+</div>

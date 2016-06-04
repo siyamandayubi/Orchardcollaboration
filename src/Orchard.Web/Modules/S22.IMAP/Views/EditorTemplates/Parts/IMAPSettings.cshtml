@@ -1,0 +1,73 @@
+﻿@using System.Configuration
+@model S22.IMAP.Models.IMAPSettingPart
+@{
+    string test = "";
+}
+<fieldset>
+    <legend>@T("IMAP Email Client Setting")</legend>
+    <div>
+        <label for="@Html.FieldIdFor(m => m.Host)">@T("Host name")</label>
+        @Html.TextBoxFor(m => m.Host, new { placeholder = "Host Name of the IMAP Server", @class = "text medium" })
+        @Html.ValidationMessage("Host", "*")
+        <span class="hint">@T("Host Name of the IMAP Server, e.g. <i>imap.gmail.com</i>.")</span>
+    </div>
+    <div>
+        <label for="@Html.FieldIdFor(m => m.Port)">@T("Port number")</label>
+        @Html.TextBoxFor(m => m.Port, new { placeholder = "Port number of the IMAP Server, e.g. <i>993</i>", @class = "text small" })
+        @Html.ValidationMessage("Port", "*")
+        <span class="hint">@T("The IMAP server port, usually 993.")</span>
+    </div>
+    <div>
+        <label for="@Html.FieldIdFor(m => m.DefaultBox)">@T("Default email box")</label>
+        @Html.TextBoxFor(m => m.DefaultBox, new { placeholder = "Mailbox such as INBOX", @class = "text medium" })
+        @Html.ValidationMessage("DefaultBox", "*")
+        <span class="hint">@T("The email box, e.g. <i>INBOX</i>.")</span>
+    </div>
+    <div>
+        @Html.EditorFor(m => m.EnableSsl)
+        <label for="@Html.FieldIdFor(m => m.EnableSsl)" class="forcheckbox">@T("Enable SSL communications")</label>
+        @Html.ValidationMessage("EnableSsl", "*")
+        <span class="hint">@T("Check if the server requires SSL communications.")</span>
+    </div>
+    <div>
+        <label for="@Html.FieldIdFor(m => m.Username)">@T("User name")</label>
+        @Html.TextBoxFor(m => m.Username, new { @class = "text" })
+        @Html.ValidationMessage("Username", "*")
+        <span class="hint">@T("The username for authentication.")</span>
+    </div>
+    <div>
+        <label for="@Html.FieldIdFor(m => m.Password)">@T("Password")</label>
+        @Html.TextBoxFor(m => m.Password, new { type = "password", @class = "text medium" })
+        @Html.ValidationMessage("Password", "*")
+        <span class="hint">@T("The password for authentication.")</span>
+    </div>
+    <div>
+        <span>@T("Download emails from ")</span>@Html.TextBoxFor(m => m.EmailsFromMinutesBefore, new { placeholder = "Download period, e.g. <i>10</i>", @class = "text small" })<span>@T(" minutes ago.")</span>
+        @Html.ValidationMessage("EmailsFromMinutesBefore", "*")
+    </div>
+    <div><label>@T("Note: The attachments size limit is 5Mb. Attachments with larger size will not be downloaded.")</label></div>
+    @if (Model.IsValid())
+    {
+        if (!string.IsNullOrEmpty(Model.LatestError))
+        {
+            <div style="color:red">
+                <div><h3>@T("Error in connecting to the IMAP server")</h3></div>
+                <div style="color:red">@Model.LatestError</div>
+
+                <div></div>
+                <div style="color:red"><span>@T("Error Time:")</span>&nbsp;@Model.LatestErrorTime</div>
+            </div>
+        }
+        else if (Model.LastSuccessfullConnectionTime.HasValue)
+        {
+            <div style="color:green">
+                <div>@T("Last successfull connection was at:")<span>@Model.LastSuccessfullConnectionTime.Value.ToLongDateString()&nbsp;@Model.LastSuccessfullConnectionTime.Value.ToLongTimeString()</span></div>
+            </div>
+        }
+        else
+        {
+            <div style="color:green">@T("No connection is made so far. The next try to connect will be in less than 2 minutes.")</div>
+        }
+    }
+    <input type="hidden" name="IMAPSettings.IsRendered" value="true" id="IsRendered" />
+</fieldset>

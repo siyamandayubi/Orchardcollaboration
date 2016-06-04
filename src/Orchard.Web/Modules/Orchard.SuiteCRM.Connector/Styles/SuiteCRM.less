@@ -1,0 +1,289 @@
+﻿.suitecrm-sync-data {
+    display: table;
+    width: 100%;
+    min-width: 600px;
+
+    .message {
+        margin-bottom: 10px;
+    }
+
+    .current-list {
+        font-weight: bold;
+    }
+
+    .projects-pager {
+        text-align: left;
+        margin-bottom: 10px;
+
+        .of-projects {
+            display: inline-block;
+            margin-left: 5px;
+            margin-right: 5px;
+            font-weight: normal;
+        }
+
+        .current {
+            display: inline-block;
+            margin-left: 5px;
+            font-weight: bold;
+        }
+    }
+}
+
+    .suitecrm-sync-data .header-row {
+        min-height: 30px;
+        font-weight: bold;
+        background-color: #eee;
+    }
+
+        .suitecrm-sync-data .header-row .orchard-project-container, .suitecrm-sync-data .header-row .suitecrm-project-container {
+            vertical-align: central;
+        }
+
+    .suitecrm-sync-data .data-row {
+        min-height: 70px;
+    }
+
+    .suitecrm-sync-data .sync-project-row {
+        display: table-row;
+    }
+
+        .suitecrm-sync-data .sync-project-row .empty {
+            background-color: #d5d0d0;
+            height: 100%;
+        }
+
+        .suitecrm-sync-data .sync-project-row .full {
+        }
+
+@dateLabelWidth: 110px;
+
+.last-sync-time {
+    font-size: 9pt;
+    margin-top: 10px;
+}
+
+    .last-sync-time .date-label {
+        display: inline-block;
+        width: @dateLabelWidth;
+    }
+
+    .last-sync-time .date {
+        display: inline-block;
+        margin-left: 5px;
+        font-weight: bold;
+    }
+
+.suitecrm-sync-data .sync-project-row .modified-date {
+    font-size: 9pt;
+}
+
+    .suitecrm-sync-data .sync-project-row .modified-date .date-label {
+        display: inline-block;
+        width: @dateLabelWidth;
+    }
+
+    .suitecrm-sync-data .sync-project-row .modified-date .date {
+        display: inline-block;
+        margin-left: 5px;
+        font-weight: bold;
+    }
+
+.suitecrm-sync-data .sync-project-row .orchard-project-container, .suitecrm-sync-data .sync-project-row .suitecrm-project-container {
+    width: 300px;
+    padding-right: 10px;
+    display: table-cell;
+    border-top: 1px solid gray;
+    /*border-bottom: 1px solid gray;*/
+}
+
+.suitecrm-sync-data .data-row .orchard-project-container, .suitecrm-sync-data .data-row .suitecrm-project-container {
+    padding-bottom: 10px;
+}
+
+.suitecrm-sync-data .sync-project-row .orchard-project-container {
+    padding-right: 50px;
+    position: relative;
+    padding-left: 10px;
+}
+
+    .suitecrm-sync-data .sync-project-row .orchard-project-container .sync {
+        position: absolute;
+        top: 7px;
+        right: 10px;
+        background-image: url('Images/right_round.png');
+        background-position: 0px 0px;
+        background-size: 24px 24px;
+        width: 24px;
+        display: inline-block;
+        height: 24px;
+    }
+
+        .suitecrm-sync-data .sync-project-row .orchard-project-container .sync:hover {
+            background-image: url('Images/right_round_highlight.png');
+        }
+
+.suitecrm-sync-data .sync-project-row .suitecrm-project-container {
+    padding-left: 50px;
+    position: relative;
+}
+
+    .suitecrm-sync-data .sync-project-row .suitecrm-project-container .sync {
+        position: absolute;
+        top: 8px;
+        left: 10px;
+        background-image: url('Images/left_round.png');
+        background-position: 0px 0px;
+        background-size: 24px 24px;
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+    }
+
+        .suitecrm-sync-data .sync-project-row .suitecrm-project-container .sync:hover {
+            background-image: url('Images/left_round_highlight.png');
+        }
+
+.sync-setting-form {
+    position: fixed;
+    top: 40%;
+    left: 40%;
+    width: 200px;
+    border: 1px solid black;
+    z-index: 100000;
+    background-color: white;
+}
+
+.sync-setting-open {
+    display: block;
+}
+
+.sync-setting-close {
+    display: none;
+}
+
+.modal-container {
+    position: relative;
+}
+
+    .modal-container .modal, .modal-container .modal-backdrop {
+        position: absolute;
+    }
+
+.modal-open {
+    padding-right: 15px;
+}
+
+    .modal-open header {
+        padding-right: 15px;
+    }
+
+    body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom {
+        margin-right: 0px !important;
+    }
+
+    .modal-open, .modal-open header {
+        padding-right: 0px !important;
+    }
+
+.sync-modal-body {
+
+    .modal-label {
+        display: inline-block;
+        width: 130px;
+    }
+
+    .data-row {
+        margin-top: 10px;
+    }
+
+    .checkbox-label {
+        display: inline-block;
+        margin-left: 10px;
+    }
+
+    .error {
+        color: red;
+        font-weight: bold;
+    }
+}
+
+.info-page {
+    border: 1px solid gray;
+    background-color: white;
+    position: fixed;
+    width: 300px;
+    height: 100px;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px; // Negative half of height.
+    margin-left: -150px; //
+    padding: 15px;
+    z-index: 1000;
+}
+
+    .info-page .close-link {
+        display: inline-block;
+        padding-left: 15px;
+    }
+
+.sync-settings {
+    label {
+        font-weight: normal;
+        display: block;
+        padding: 0 0 0.3em 0;
+        margin: 10px 0px 0px 0px;
+    }
+
+        label.forcheckbox {
+            display: inline;
+            margin: 0em 0em 0em 0.4em;
+        }
+
+    input.textMedium, input.text-medium, input.text.medium {
+        width: 26em;
+        line-height: 1.2em;
+    }
+
+    select {
+        width: 26em;
+    }
+
+    .hint {
+        display: block;
+        font-size: 0.92em;
+        color: #7c7c7c;
+    }
+
+    div {
+        margin-top: 5px;
+    }
+
+    .connection-error {
+        color: red;
+        font-weight: bold;
+    }
+}
+
+.suite-crm-no-connection-message {
+    margin-left: 10px;
+
+    .message {
+        color: red;
+        font-weight: bold;
+    }
+}
+
+.suitecrm-top-linkbar {
+
+    span {
+        display: inline-block;
+        padding: 0px 10px;
+        font-weight: bold;
+    }
+
+    a {
+        display: inline-block;
+        padding: 0px 10px;
+    }
+}

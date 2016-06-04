@@ -1,0 +1,16 @@
+﻿@model Orchard.Reporting.ViewModels.EditDataReportViewerViewModel
+<p>@T("You can configure the default values of the Part, so that the instances by default inherit these settings")</p>
+<fieldset>
+    <label>@T("Selected Report")</label>
+    @Html.DropDownListFor(m => m.ReportId, Model.Reports, new { @class = "text-box textSmall" })
+    <br />
+
+    <label>@T("Container Css Class")</label>
+    @Html.TextBoxFor(m => m.ContainerCssClass, new { @class = "text-box textSmall" })
+    <br />
+
+    <label>@T("ChartTag Css Class")</label>
+    @Html.TextBoxFor(m => m.ChartTagCssClass, new { @class = "text-box textMedium" })
+    <br />
+    @Display.TokenHint()
+</fieldset>

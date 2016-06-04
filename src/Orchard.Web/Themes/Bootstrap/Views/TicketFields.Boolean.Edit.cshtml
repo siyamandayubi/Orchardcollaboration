@@ -1,0 +1,60 @@
+﻿@using Orchard.Utility.Extensions;
+@using Orchard.Fields.Settings;
+@{
+    Orchard.Fields.Fields.BooleanField currentModel = Model.Model;
+
+    string prefix = Model.Prefix + ".Value";
+    string idPrefix = prefix.Replace('.', '_');
+    idPrefix = idPrefix.Replace('[', '_');
+    idPrefix = idPrefix.Replace(']', '_');
+    var settings = currentModel.PartFieldDefinition.Settings.GetModel<BooleanFieldSettings>();
+}
+<fieldset>
+   <div class="field-container">
+       <div class="label-container">@currentModel.DisplayName</div>
+        <div>
+            @switch (settings.SelectionMode)
+            {
+                case SelectionMode.Checkbox:
+                    <input type="checkbox" id="@idPrefix" value="true" name="@prefix" @if (currentModel.Value.HasValue && currentModel.Value.Value) { <text> checked="checked" </text>  } /><input name="@prefix" type="hidden" value="false" />
+                break;
+                case SelectionMode.Radiobutton:
+                if (settings.Optional)
+                {
+                    <div>
+                        <input type="radio" name="@prefix" id="radio-unknown" value="" @if (!currentModel.Value.HasValue) { <text> checked="checked" </text>  } />
+                        <span class="label-container">@T(settings.NotSetLabel)</span>
+                    </div>
+                }
+                        <div>
+                            <input type="radio" name="@prefix" id="radio-true" value="true" @if (currentModel.Value.HasValue && currentModel.Value.Value) { <text> checked="checked" </text>   } />
+                            <span  class="label-container">@T(settings.OnLabel)</span>
+                        </div>
+                            <div>
+                                <input type="radio" name="@prefix" id="radio-false" value="false" @if (currentModel.Value.HasValue && !currentModel.Value.Value) { <text> checked="checked" </text>  } />
+                                <span class="label-container">@T(settings.OffLabel)</span>
+                            </div>
+                break;
+                case SelectionMode.Dropdown:
+                <select id="@(idPrefix + "-dropdown")" class="ticket-input-field" name="@prefix">
+                    @{
+                        bool? value = currentModel.Value;
+                        string onLabel = settings.OnLabel;
+                        string offLabel = settings.OffLabel;
+                     }
+                    @if (settings.Optional)
+                    {
+                        string notSetLabel = settings.NotSetLabel;
+                        @Html.SelectOption("", !value.HasValue, T(notSetLabel).ToString())
+                    }
+                    @Html.SelectOption("true", (value.HasValue && value.Value), T(onLabel).ToString())
+                    @Html.SelectOption("false", (value.HasValue && !value.Value), T(offLabel).ToString())
+                </select>
+                    break;
+                default:
+                    break;               
+            } 
+            @Html.ValidationMessage(prefix)
+       </div>
+    </div>  
+</fieldset>

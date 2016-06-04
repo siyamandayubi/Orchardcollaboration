@@ -1,0 +1,10 @@
+﻿Name: OrchardCollaboration.Project
+AntiForgery: enabled
+Author: Siyamand Ayubi
+Website: http://OrchardCollaboration.com
+Version: 2.3
+OrchardVersion: 1.9.2
+Dependencies: S22.IMAP, Orchard.Email, Orchard.Search, Lucene, Orchard.Tokens, Orchard.MediaLibrary, Orchard.Alias, Orchard.CRM.Core, Orchard.Taxonomies, Orchard.Reporting, Orchard.Lists, Orchard.Autoroute, Orchard.Pages, Orchard.Fields
+Description: The module extends the OrchardCollaboration module by adding project management, discussions, wikies, customer management, project dashboards and ...
+Category: Collaboration
+FeatureDescription: The module extends the OrchardCollaboration module by adding project management, discussions, wikies, customer management, project dashboards and ...

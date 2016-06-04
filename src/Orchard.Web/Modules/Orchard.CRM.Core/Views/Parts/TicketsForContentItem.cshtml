@@ -1,0 +1,137 @@
+﻿@using System.Web.Routing;
+@using Orchard.CRM.Core.ViewModels;
+@{
+    var model = Model.Model;
+}
+<style type="text/css">
+    .clear-float {
+        clear: both;
+    }
+
+    .tickets-for-content-item a {
+        display: inline-block;
+        min-width: 30px;
+        height: 20px;
+        font-size: 10pt;
+        font-family: Arial;
+        line-height: 1.5em;
+        padding: 0px 10px;
+        margin: 3px;
+        background-color: #12578e;
+        border: 1px solid #12578e;
+        border-radius: 2px;
+        color: #e8f0f6;
+        text-decoration: none;
+    }
+
+        .tickets-for-content-item a .number {
+            font-weight: bold;
+        }
+
+        .tickets-for-content-item a:hover {
+            text-decoration: none;
+            background-color: #32779e;
+            border: 1px solid #85b35c;
+            border-bottom: 1px solid #12578e;
+            text-shadow: 0px -1px 0px #535550;
+        }
+
+    .tickets-for-content-item label {
+        display: inline-block;
+        height: 20px;
+        font-size: 10pt;
+        font-family: Arial;
+        line-height: 1.5em;
+        padding: 0px 10px;
+        margin: 3px;
+        background-color: #12578e;
+        border: 1px solid #12578e;
+        border-radius: 2px;
+        color: #e8f0f6;
+    }
+
+    .tickets-for-content-item .links {
+        visibility: hidden;
+    }
+
+    .tickets-for-content-item {
+        padding: 5px 0px;
+        z-index: 1000000;
+        position: relative;
+    }
+
+        .tickets-for-content-item:hover {
+            background-color: lightgray;
+        }
+
+            .tickets-for-content-item:hover .links {
+                visibility: visible;
+            }
+
+        .tickets-for-content-item .links:hover {
+            visibility: visible;
+        }
+</style>
+@Display(New.ThemeAwareStylesheet())
+
+<div class="clear-float"></div>
+<div class="tickets-for-content-item">
+    <div>
+        <label>@T("Related Tickets")</label>
+    </div>
+    <div class="links">
+        @{
+            RouteValueDictionary routeValues = new RouteValueDictionary();
+            routeValues.Add("area", "Orchard.CRM.Core");
+            routeValues.Add("TicketPart.RelatedContentItemId", model.Part.ContentItem.Id);
+            routeValues.Add("id", "Ticket");
+        }
+        <a target="_blank" href="@Url.Action("Create", "Ticket", routeValues)" title="@T("Add  ticket")"><span>@T("Add")</span></a>
+        @{
+            routeValues = new RouteValueDictionary();
+            routeValues["area"] = "Orchard.CRM.Core";
+            routeValues["DueDate"] = PostedTicketSearchViewModel.OverDueDate;
+            routeValues["RelatedContentItemId"] = model.Part.ContentItem.Id;
+
+        }
+        <a href="@Url.Action("Search", "Ticket", routeValues)" title="@T("Overdue tickets")">
+            <span class="name">@T("Overdue")</span>
+            <span class="number">@(model.OverrudeTicketCount.ToString())</span>
+        </a>
+        @{
+            foreach (var item in model.TicketsGroupByStatus)
+            {
+                routeValues = new RouteValueDictionary();
+                routeValues["area"] = "Orchard.CRM.Core";
+                routeValues["RelatedContentItemId"] = model.Part.ContentItem.Id;
+                if (item.Id != null)
+                {
+                    routeValues["Status"] = item.Id;
+                }
+                else
+                {
+                    routeValues["UnStatus"] = true;
+                }
+                string name = item.Name.ToString();
+                string title = T(name) + " " + T("Ticket");
+                <a target="_blank" href="@Url.Action("Search", "Ticket", routeValues)" title="@title">
+                    <span class="name">@T(name)&nbsp;</span>
+                    <span class="number">@item.Count</span>
+                </a>
+            }
+
+            if (model.UnAssignedTicketCount > 0)
+            {
+                routeValues = new RouteValueDictionary();
+                routeValues["area"] = "Orchard.CRM.Core";
+                routeValues["Unassigned"] = true;
+                routeValues["RelatedContentItemId"] = model.Part.ContentItem.Id;
+
+                <a href="@Url.Action("Search", "Ticket", routeValues)" title="@T("Unassigned tickets")">
+                    <span class="name">@T("Unassigned")</span>
+                    <span class="number">@(model.UnAssignedTicketCount.ToString())</span>
+                </a>
+            }
+        }
+    </div>
+</div>

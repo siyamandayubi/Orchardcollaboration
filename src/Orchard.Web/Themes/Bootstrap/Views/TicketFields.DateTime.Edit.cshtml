@@ -1,0 +1,86 @@
+﻿@{
+    Style.Require("jQueryCalendars_Picker");
+    Style.Require("jQueryUI_Calendars_Picker");
+    Style.Require("jQueryTimeEntry");
+    Style.Require("jQueryDateTimeEditor");
+
+    Script.Require("jQueryCalendars_All").AtFoot();
+    Script.Require("jQueryCalendars_Picker_Ext").AtFoot();
+    Script.Require("jQueryTimeEntry").AtFoot();
+
+    var currentModel = Model.Model;
+    Style.Require("DateTimeEditor");
+    string prefix = Model.Prefix ;
+}
+
+<fieldset>
+   <div class="field-container">
+       <div class="label-container">@currentModel.Name
+            @if (currentModel.IsRequired)
+            {
+                <text>*</text>
+            }
+       </div>
+        <div>
+        @if (currentModel.Editor.ShowDate)
+        {
+            string date = currentModel.Editor.Date;
+            <span class="date">@Html.TextBox(prefix + ".Editor.Date", date, new { placeholder = T("Date") })</span>
+        }
+
+        @if (currentModel.Editor.ShowTime)
+        {
+            string time = currentModel.Editor.Time;
+            <span class="time">@Html.TextBox(prefix + ".Editor.Time", time, new { placeholder = T("Time") })</span>
+        }
+
+        @if (currentModel.Editor.ShowDate)
+        { <text>@Html.ValidationMessage(prefix + ".Editor.Date")</text> }
+        @if (currentModel.Editor.ShowTime)
+        { <text>@Html.ValidationMessage(prefix + ".Editor.Time")</text> } 
+            @if (HasText(currentModel.Hint))
+            {
+                <div class="label-container hint">@currentModel.Hint</div>
+            }
+     </div>
+    </div>  
+</fieldset>
+@using (Script.Foot()) {
+
+    prefix = prefix.Replace('.', '_');
+    prefix = prefix.Replace('[', '_');
+    prefix = prefix.Replace(']', '_');
+
+        @* Generate the localization scripts. *@
+    if (currentModel.Editor.ShowDate)
+    { @Display.CalendarsPickerLocalization() }
+    if (currentModel.Editor.ShowTime)
+    { @Display.TimeEntryLocalization() }
+
+    <script type="text/javascript">
+        //<![CDATA[
+        $(document).ready(function () {
+
+            @if (currentModel.Editor.ShowDate)
+            {
+              <text>
+            $("#@(prefix + "_Editor_Date")").calendarsPicker({
+                    showAnim: "",
+                    renderer: $.extend({}, $.calendarsPicker.themeRollerRenderer, {
+                        picker: "<div {popup:start} id='ui-datepicker-div'{popup:end} class='ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all{inline:start} ui-datepicker-inline{inline:end}'><div class='ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all'>{link:prev}{link:today}{link:next}</div>{months}{popup:start}{popup:end}<div class='ui-helper-clearfix'></div></div>",
+                        month: "<div class='ui-datepicker-group'><div class='ui-datepicker-month ui-helper-clearfix'>{monthHeader:MM yyyy}</div><table class='ui-datepicker-calendar'><thead>{weekHeader}</thead><tbody>{weeks}</tbody></table></div>"
+                    })
+                });
+                </text>
+            }
+
+            @if (currentModel.Editor.ShowTime)
+            {
+                <text>
+                $("#@(prefix + "_Editor_Time")").timeEntry();
+                </text>
+            }
+        });
+        //]]>
+    </script>
+}

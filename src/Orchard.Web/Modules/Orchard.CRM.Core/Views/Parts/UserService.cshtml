@@ -1,0 +1,18 @@
+﻿@using Orchard.ContentManagement;
+@using Orchard.Core.Title.Models;
+@using Orchard.CRM.Core.Models;
+@{
+    UserServicePart servicePart = (UserServicePart)Model.Model;
+}
+<div>
+    @if (servicePart != null && servicePart.Record.ServicePartRecord != null)
+    {
+        @servicePart.Record.ServicePartRecord.Name
+    }
+</div>
+<div class="serviceDescription">
+    @if (servicePart != null && servicePart.Record.ServicePartRecord != null)
+    {
+        @servicePart.Record.ServicePartRecord.Description
+    }
+</div>

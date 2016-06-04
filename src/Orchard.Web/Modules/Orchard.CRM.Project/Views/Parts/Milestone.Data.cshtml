@@ -1,0 +1,23 @@
+﻿@{
+    Orchard.CRM.Project.ViewModels.EditMilestoneViewModel dataModel = Model.Model;
+    string fromDate = dataModel.Start.HasValue ? @dataModel.Start.Value.ToString("MMM dd yyyy") : "-";
+    string toDate = dataModel.End.HasValue ? @dataModel.End.Value.ToString("MMM dd yyyy") : "-";
+    string milestoneStatusClass = dataModel.IsClosed ? "milestone-closed" : "milestone-open";
+    milestoneStatusClass = dataModel.IsBacklog ? "backlog-icon" : milestoneStatusClass;
+    string milestoneTooltip = dataModel.IsClosed ? T("Milestone is closed").Text : T("Milestone is open").Text;
+    milestoneTooltip = dataModel.IsBacklog ? T("Backlog").Text : milestoneTooltip;
+}
+<div class="milestone-fields-header">
+    <div class="pull-left">
+        <span title="@milestoneTooltip" class="@milestoneStatusClass"></span>
+    </div>
+    <div class="pull-left">
+        <span class="milestone-field-label">@T("From:")</span>
+        <span class="milestone-date">@fromDate</span>
+    </div>
+    <div class="pull-left">
+        <span class="milestone-field-label">@T("To:")</span>
+        <span class="milestone-date">@toDate</span>
+    </div>
+    <div class="clear"></div>
+</div>

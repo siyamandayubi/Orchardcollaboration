@@ -1,0 +1,69 @@
+﻿@using System.Dynamic;
+@using Newtonsoft.Json;
+@using Orchard.SuiteCRM.Connector.ViewModels;
+@model MainViewModel
+@{
+    Style.Include("SuiteCRM.css");
+    Script.Require("JQueryUI");
+    Script.Require("SuiteCRM");
+    Script.Require("SuiteCRMComponents");
+
+    dynamic routeTable = new ExpandoObject();
+    routeTable.CopyOrchardProjectToSuiteProject = Url.Action("CopyOrchardProjectsToSuite", "Sync", new { area = "Orchard.SuiteCRM.Connector" });
+    routeTable.CopySuiteToOrchardProjects = Url.Action("CopySuiteToOrchardProjects", "Sync", new { area = "Orchard.SuiteCRM.Connector" });
+    routeTable.ProjectsList = Url.Action("Index", "Sync", new { area = "Orchard.SuiteCRM.Connector", page = "{page}", listedBasedOnSuiteCRM = "{listedBasedOnSuiteCRM}" });
+    routeTable.UserssList = Url.Action("Users", "Sync", new { area = "Orchard.SuiteCRM.Connector", page = "{page}" });
+    routeTable.ProjectUrl = Url.Action("Display", "Project", new { area = "Orchard.CRM.Project", id = "{id}" });
+    routeTable.CopyUsersToOrchard = Url.Action("CopySuiteCRMUsersToOrchardPost", "Sync", new { area = "Orchard.SuiteCRM.Connector" });
+    routeTable.OperatorLink = Url.Action("Display", "User", new { area = "Orchard.CRM.Project", userId = "{userid}" });
+    Model.Routes = routeTable;
+    
+    dynamic translateTable = new ExpandoObject();
+    translateTable.SuiteCRMIntegration = T("Suite CRM Integration").Text;
+    translateTable.SuiteCRMProjects = T("Suite CRM Projects").Text;
+    translateTable.OrchardCollaborationProjects = T("OrchardCollaboration Projects").Text;
+    translateTable.LastModifiedTime = T("Last Modified Time").Text;
+    translateTable.sync = T("Sync").Text;
+    translateTable.SyncTickets = T("Sync Tickets").Text;
+    translateTable.DoNotOverrideNewerValues = T("Don't override newer version").Text;
+    translateTable.Cancel = T("Cancel").Text;
+    translateTable.LastSyncTime = T("Last Sync Time").Text;
+    translateTable.SyncSubTasks = T("Sync Sub Tasks").Text;
+    translateTable.ProjectsCount = T(" of {0} projects").Text;
+    translateTable.Next = T("Next").Text;
+    translateTable.Previous = T("Previous").Text;
+    translateTable.Projects = T("Projects").Text;
+    translateTable.Users = T("Users").Text;
+    translateTable.Sync = T("Sync").Text;
+    translateTable.SyncData = T("Sync Data").Text;
+    translateTable.Email = T("Email").Text;
+    translateTable.Loading = T("Loading ...").Text;
+    translateTable.PleaseNoteOnlyUsersWithAssociateEmail = T("Please note that only users with associated email can be imported to Orchard").Text;
+    translateTable.OrchardCollaborationUsers = T("OrchardCollaboration Users").Text;
+    translateTable.SuiteCRMUsers = T(" Suite CRM Users").Text;
+    translateTable.PleaseEnterDefaultPassword = T("Please provide the default password for the selected users. They can change password after loging into the system.").Text;
+    translateTable.Password = T("Password").Text;
+    translateTable.ConfirmPassword = T("Confirm Password:").Text;
+    
+    Model.TranslateTable = translateTable;
+}
+
+@{
+    // Generate Anti forgery token. This token is used by AJAX requests.
+}
+@using (Html.BeginFormAntiForgeryPost())
+{
+}
+<script type="application/json" id="projectsData">
+  @Html.Raw(JsonConvert.SerializeObject(Model)) 
+</script>
+@using (Script.Foot())
+{
+    <script language="javascript" type="text/javascript">
+        $(document).ready(function () {
+            crm.suiteCRM.ImportExportData("projectsContainer", "projectsData");
+        });
+    </script>
+}
+<div id="projectsContainer">
+</div>

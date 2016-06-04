@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4985346E-68C1-4E72-9BA9-39CFF791CDA6}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>S22.IMAP</RootNamespace>
+    <AssemblyName>S22.IMAP</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\orchard\lib\newtonsoft.json\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\aspnetmvc\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Provider\Examples.xml" />
+    <Content Include="Web.config" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Scripts\Web.config" />
+    <Content Include="Styles\Web.config" />
+    <Content Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Module.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Orchard\Orchard.Framework.csproj">
+      <Project>{2D1D92BB-4555-4CBE-8D0E-63563D6CE4C6}</Project>
+      <Name>Orchard.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Orchard.Core.csproj">
+      <Project>{9916839C-39FC-4CEB-A5AF-89CA7E87119F}</Project>
+      <Name>Orchard.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Users\Orchard.Users.csproj">
+      <Project>{79aed36e-abd0-4747-93d3-8722b042454b}</Project>
+      <Name>Orchard.Users</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Workflows\Orchard.Workflows.csproj">
+      <Project>{7059493c-8251-4764-9c1e-2368b8b485bc}</Project>
+      <Name>Orchard.Workflows</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\EditorTemplates\Parts\IMAPSettings.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Activities\CheckEmailBelongToUserActivity.cs" />
+    <Compile Include="Activities\IMapEmailReceivedActivity.cs" />
+    <Compile Include="Drivers\IMAPSettingPartDriver.cs" />
+    <Compile Include="Handlers\IMAPClientTaskHandler.cs" />
+    <Compile Include="Handlers\IMapEmailHandler.cs" />
+    <Compile Include="Handlers\IMAPSettingPartHandler.cs" />
+    <Compile Include="Migrations.cs" />
+    <Compile Include="Models\IMAPEmailPart.cs" />
+    <Compile Include="Models\IMAPHostRecord.cs" />
+    <Compile Include="Models\IMAPSettingPart.cs" />
+    <Compile Include="Provider\AuthMethod.cs" />
+    <Compile Include="Provider\Auth\ByteBuilder.cs" />
+    <Compile Include="Provider\Auth\FilterStream.cs" />
+    <Compile Include="Provider\Auth\Handshake.cs" />
+    <Compile Include="Provider\Auth\Sasl\Mechanisms\Ntlm\Extensions.cs" />
+    <Compile Include="Provider\Auth\Sasl\Mechanisms\Ntlm\Flags.cs" />
+    <Compile Include="Provider\Auth\Sasl\Mechanisms\Ntlm\Helpers.cs" />
+    <Compile Include="Provider\Auth\Sasl\Mechanisms\Ntlm\MD4.cs" />
+    <Compile Include="Provider\Auth\Sasl\Mechanisms\Ntlm\MessageType.cs" />
+    <Compile Include="Provider\Auth\Sasl\Mechanisms\Ntlm\OSVersion.cs" />
+    <Compile Include="Provider\Auth\Sasl\Mechanisms\Ntlm\Responses.cs" />
+    <Compile Include="Provider\Auth\Sasl\Mechanisms\Ntlm\SecurityBuffer.cs" />
+    <Compile Include="Provider\Auth\Sasl\Mechanisms\Ntlm\Type1Message.cs" />
+    <Compile Include="Provider\Auth\Sasl\Mechanisms\Ntlm\Type2Message.cs" />
+    <Compile Include="Provider\Auth\Sasl\Mechanisms\Ntlm\Type3Message.cs" />
+    <Compile Include="Provider\Auth\Sasl\Mechanisms\SaslCramMd5.cs" />
+    <Compile Include="Provider\Auth\Sasl\Mechanisms\SaslDigestMd5.cs" />
+    <Compile Include="Provider\Auth\Sasl\Mechanisms\SaslNtlm.cs" />
+    <Compile Include="Provider\Auth\Sasl\Mechanisms\SaslNtlmv2.cs" />
+    <Compile Include="Provider\Auth\Sasl\Mechanisms\SaslOAuth.cs" />
+    <Compile Include="Provider\Auth\Sasl\Mechanisms\SaslOAuth2.cs" />
+    <Compile Include="Provider\Auth\Sasl\Mechanisms\SaslPlain.cs" />
+    <Compile Include="Provider\Auth\Sasl\Mechanisms\SaslScramSha1.cs" />
+    <Compile Include="Provider\Auth\Sasl\Mechanisms\SaslSrp.cs" />
+    <Compile Include="Provider\Auth\Sasl\Mechanisms\Srp\ClientMessage1.cs" />
+    <Compile Include="Provider\Auth\Sasl\Mechanisms\Srp\ClientMessage2.cs" />
+    <Compile Include="Provider\Auth\Sasl\Mechanisms\Srp\Extensions.cs" />
+    <Compile Include="Provider\Auth\Sasl\Mechanisms\Srp\Helper.cs" />
+    <Compile Include="Provider\Auth\Sasl\Mechanisms\Srp\Mpi.cs" />
+    <Compile Include="Provider\Auth\Sasl\Mechanisms\Srp\OctetSequence.cs" />
+    <Compile Include="Provider\Auth\Sasl\Mechanisms\Srp\ServerMessage1.cs" />
+    <Compile Include="Provider\Auth\Sasl\Mechanisms\Srp\ServerMessage2.cs" />
+    <Compile Include="Provider\Auth\Sasl\Mechanisms\Srp\Utf8String.cs" />
+    <Compile Include="Provider\Auth\Sasl\SaslException.cs" />
+    <Compile Include="Provider\Auth\Sasl\SaslFactory.cs" />
+    <Compile Include="Provider\Auth\Sasl\SaslMechanism.cs" />
+    <Compile Include="Provider\Bodystructure\Bodypart.cs" />
+    <Compile Include="Provider\Bodystructure\Bodystructure.cs" />
+    <Compile Include="Provider\Bodystructure\ContentDisposition.cs" />
+    <Compile Include="Provider\Bodystructure\ContentTransferEncoding.cs" />
+    <Compile Include="Provider\Bodystructure\ContentType.cs" />
+    <Compile Include="Provider\Bodystructure\Reader.cs" />
+    <Compile Include="Provider\Exceptions.cs" />
+    <Compile Include="Provider\FetchOptions.cs" />
+    <Compile Include="Provider\IdleErrorEventArgs.cs" />
+    <Compile Include="Provider\IdleMessageEventArgs.cs" />
+    <Compile Include="Provider\IImapClient.cs" />
+    <Compile Include="Provider\ImapClient.cs" />
+    <Compile Include="Provider\MailboxFlags.cs" />
+    <Compile Include="Provider\MailboxInfo.cs" />
+    <Compile Include="Provider\MailboxQuota.cs" />
+    <Compile Include="Provider\MailboxStatus.cs" />
+    <Compile Include="Provider\MailMessage.cs" />
+    <Compile Include="Provider\MessageBuilder.cs" />
+    <Compile Include="Provider\MessageFlags.cs" />
+    <Compile Include="Provider\MIMEPart.cs" />
+    <Compile Include="Provider\SafeQueue.cs" />
+    <Compile Include="Provider\SearchCondition.cs" />
+    <Compile Include="Provider\Util.cs" />
+    <Compile Include="Services\IIMAPHostRecordService.cs" />
+    <Compile Include="Services\IMAPHostRecordService.cs" />
+    <Compile Include="Services\IMapProviderFactory.cs" />
+    <Compile Include="Services\IIMapProviderFactory.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Provider\Examples.md" />
+    <Content Include="License.md" />
+    <Content Include="Readme.md" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target> -->
+  <Target Name="AfterBuild" DependsOnTargets="AfterBuildCompiler">
+    <PropertyGroup>
+      <AreasManifestDir>$(ProjectDir)\..\Manifests</AreasManifestDir>
+    </PropertyGroup>
+    <!-- If this is an area child project, uncomment the following line:
+    <CreateAreaManifest AreaName="$(AssemblyName)" AreaType="Child" AreaPath="$(ProjectDir)" ManifestPath="$(AreasManifestDir)" ContentFiles="@(Content)" />
+    -->
+    <!-- If this is an area parent project, uncomment the following lines:
+    <CreateAreaManifest AreaName="$(AssemblyName)" AreaType="Parent" AreaPath="$(ProjectDir)" ManifestPath="$(AreasManifestDir)" ContentFiles="@(Content)" />
+    <CopyAreaManifests ManifestPath="$(AreasManifestDir)" CrossCopy="false" RenameViews="true" />
+    -->
+  </Target>
+  <Target Name="AfterBuildCompiler" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(ProjectDir)\..\$(ProjectName)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>45979</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://orchard.codeplex.com</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

@@ -1,0 +1,48 @@
+﻿@using Orchard.CRM.Core.Services;
+@using Orchard.Core.Common.Models;
+@using Orchard.Core.Title.Models;
+@using Orchard.ContentManagement;
+@using Orchard.CRM.Project;
+@using Orchard.CRM.Core.Models;
+@{
+    ContentItem mainContentItem = Model.ContentItem;
+    CommonPart mainCommonPart = mainContentItem.As<CommonPart>();
+    AttachToProjectPart attachToProject = mainCommonPart.Container.As<AttachToProjectPart>();
+    int? projectId = attachToProject != null && attachToProject.Record.Project != null ? (int?)attachToProject.Record.Project.Id : null;
+
+    Func<IEnumerable<dynamic>> shapeBuilder = Model.BuildShapes;
+    var shapes = shapeBuilder();
+    IEnumerable<ContentItem> contentItems = Model.ContentItems;
+    TitlePart projectionTitlePart = mainContentItem.As<TitlePart>();
+    string title = projectionTitlePart != null ? projectionTitlePart.Title : "[No Title]";
+}
+<div class="panel panel-default dashboard-part">
+    <div class="panel-heading">
+        <h5>@T(title)</h5>
+    </div>
+    <div class="panel-body">
+        <div class="discussions-summary">
+            @if (contentItems == null || contentItems.Count() == 0)
+            {
+                <p>@T("There is no item")</p>
+            }
+            else
+            {
+                <ul>
+                    @foreach (ContentItem contentItem in contentItems)
+                    {
+                        CommonPart commonPart = contentItem.As<CommonPart>();
+                        TitlePart titlePart = contentItem.As<TitlePart>();
+                        string userName = CRMHelper.GetFullNameOfUser(commonPart.Owner);
+                        string userProfileUrl = Url.Action("Display", "User", new { area = "Orchard.CRM.Project", userId = commonPart.Owner.Id });
+                        <li>
+                            <h5><a  href="@userProfileUrl ">@userName</a>
+                            @Html.ItemDisplayLink(titlePart.Title, contentItem, new { @class = "discussion-link" })
+                            </h5>
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
+    </div>
+</div>

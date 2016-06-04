@@ -1,0 +1,72 @@
+@using Orchard.Utility.Extensions;
+@using Orchard.ContentManagement;
+@using Orchard.CRM.Project.ViewModels;
+@model ProjectSearchViewModel
+@Display(New.ThemeAwareStylesheet())
+@{
+    Script.Include("JQueryUI");
+    Style.Include("jquery-ui.css");
+    IEnumerable<dynamic> searchResults = Model.ContentItems;
+    Model.ContentItems.Classes.Add("content-items");
+    Model.ContentItems.Classes.Add("search-results");
+}
+<div class="space"></div>
+<article class="content-item panel panel-default main-search-container">
+    <header class="panel-heading">
+        <div class="container">
+            <div class="pull-left">
+                <h3>
+                    @T("Search")
+                    @if (Model.ProjectId.HasValue)
+                    {
+                        string projectTitle = Model.ProjectName ?? T("[NO-TITLE]").Text;
+                        <span>&nbsp;-&nbsp;</span>
+                        <a href="@Url.Action("Display", "Project", new { area = "Orchard.CRM.Project", id = Model.ProjectId })">@projectTitle</a>
+                    }
+                </h3>
+            </div>
+            <div class="pull-right">
+                @using (Html.BeginFormAntiForgeryPost(Url.Action("Index", "Search", new { area = "Orchard.CRM.Project" }), FormMethod.Get, new { @id = "searchForm" }))
+                {
+                    <div class="form-group">
+                        <input type="hidden" name="projectId" value="@Model.ProjectId" />
+                        <input type="hidden" name="contentTypes" value="@Model.ContentTypes" />
+                        <input type="text" class="form-control" name="searchPhrase" value="@Model.Query" placeholder="@T("Search")" />
+                        <button class="btn btn-default hidden" type="submit">@T("Submit")</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </header>
+    <div class="panel-body">
+        @{
+            if (!searchResults.Any())
+            {
+                <p class="well">@T.Plural("There is <em>one</em> result", "<em>zero</em> results", searchResults.Count())</p>
+            }
+            else
+            {
+                <p>@T.Plural("There is <em>one</em> result", "<em>{1} - {2}</em> of <em>{0}</em> results", Model.TotalItemCount, Model.StartPosition, Model.EndPosition)</p>
+            }
+        }
+        @if (searchResults != null && searchResults.Any())
+        {
+            foreach(var item in searchResults)
+            {
+                <div class="row">
+                    <div class="col-md-1 search-item-type">
+                         @{
+                            string typeDisplayName =  item.ContentTypeDisplayName;
+                         }  
+                        <label>@typeDisplayName</label>
+                    </div>
+                    <div class="col-md-11">
+                        @Display(item.Shape)                
+                    </div>
+                </div>
+                <hr />
+            }
+            @Display(Model.Pager)
+        }
+    </div>
+</article>

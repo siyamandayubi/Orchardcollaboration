@@ -1,0 +1,35 @@
+﻿@using Orchard.Security;
+@using Orchard.CRM.Project.Services;
+@using Orchard.CRM.Project;
+@{
+    IUser user = Model.Model;
+    string skypeId = ProjectHelper.GetUserField(user, FieldNames.UserSkypeIdField);
+    string mobile = ProjectHelper.GetUserField(user, FieldNames.UserMobileField);
+    string tel = ProjectHelper.GetUserField(user, FieldNames.UserTelField);
+    string topic = Model.Topic;
+
+    string skypeIdUrl = string.IsNullOrEmpty(skypeId) ? "#" : string.Format("skype:{0}?chat&topic={1}", skypeId, topic);
+    string telUrl = string.IsNullOrEmpty(tel) ? "#" : string.Format("skype:{0}?call&topic={1}", tel, topic);
+    string mobileUrl = string.IsNullOrEmpty(mobile) ? "#" : string.Format("skype:{0}?call&topic={1}", mobile, topic);
+
+    tel = string.IsNullOrEmpty(tel) ? "-" : tel;
+    mobile = string.IsNullOrEmpty(mobile) ? "-" : mobile;
+    skypeId = string.IsNullOrEmpty(skypeId) ? "-" : skypeId;
+}
+<a class="user-context-menu-close">X</a>
+<div class="skype-tooltip">
+    <ul>
+        <li>
+            <a href="@Url.Action("Display", "User", new { area = "Orchard.CRM.Project", userId = user.Id })">@T("View Profile")</a>
+        </li>
+        <li>
+            <span>@T("Chat:")</span><a class="skype-icon" href="@skypeIdUrl">@skypeId</a>
+        </li>
+        <li>
+            <span>@T("Tel:")</span><a class="skype-icon" href="@telUrl">@tel</a>
+        </li>
+        <li>
+            <span>@T("Mobile:")</span><a class="skype-icon" href="@mobileUrl">@mobile</a>
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,26 @@
+﻿@using Orchard.CRM.Core.ViewModels;
+@model TicketTypeViewModel
+@Display(New.Stylesheet())
+@using (Html.BeginFormAntiForgeryPost(Url.Action("EditTicketTypePost", "BasicData", new { area = "Orchard.CRM.Core" }), FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <h1>@T("Edit Ticket Type")</h1>
+    <fieldset>
+        <label for="Name">
+            @T("Name")
+        </label>
+        <input id="Name" class="text medium" name="Name" value="@Model.Name" type="text" />
+        @Html.ValidationMessageFor(c => c.Name)
+  </fieldset>
+    <fieldset>
+        <label for="Order">
+            @T("Order")
+        </label>
+        <input id="OrderId" class="text medium" name="OrderId" value="@Model.OrderId" type="number" />
+        @Html.ValidationMessageFor(c => c.OrderId)
+   </fieldset>
+    <fieldset>
+        <input type="hidden" name="TicketTypeId" id="TicketTypeId" value="@Model.TicketTypeId" />
+        <button type="submit" value="@T("Save")">@T("Save")</button>
+        <a class="admin-cancel" href="@Url.Action("TicketTypes", "BasicData", new { area = "Orchard.CRM.Core" })"><span>@T("Cancel")</span></a>
+</fieldset>
+}

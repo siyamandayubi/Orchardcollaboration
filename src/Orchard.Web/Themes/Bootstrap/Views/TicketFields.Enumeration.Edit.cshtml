@@ -1,0 +1,73 @@
+﻿@using Orchard.Fields.Settings;
+@{
+    Orchard.Fields.Fields.EnumerationField currentModel = Model.Model;
+    EnumerationFieldSettings settings = currentModel.PartFieldDefinition.Settings.GetModel<EnumerationFieldSettings>();
+    string[] options = (!String.IsNullOrWhiteSpace(settings.Options)) ? settings.Options.Split(new string[] { System.Environment.NewLine }, StringSplitOptions.None) : new string[] { T("Select an option").ToString() };
+
+    string prefix = Model.Prefix + ".Value";
+    string selectedValuesPrefix = Model.Prefix + ".SelectedValues";
+    string idPrefix = prefix.Replace('.', '_');
+    idPrefix = idPrefix.Replace('[', '_');
+    idPrefix = idPrefix.Replace(']', '_');
+
+    object properties = null;
+    if (settings.Required)
+    {
+        properties = new { required = "required", @class = "ticket-input-field" };
+    }
+    else
+    {
+        properties = new {  @class = "ticket-input-field" };
+    }
+
+}
+<fieldset>
+   <div class="field-container">
+       <div class="label-container">@currentModel.DisplayName
+            @if (settings.Required)
+            {
+                <text>*</text>
+            }
+       </div>
+        <div>
+            @switch (settings.ListMode)
+            {
+                case ListMode.Dropdown:
+                    IEnumerable<SelectListItem> selectItems = new SelectList(options, currentModel.Value);
+                    @Html.DropDownList(prefix, selectItems, properties)
+                    break;
+        
+                case ListMode.Radiobutton:
+                    foreach (var option in options) {
+                        if (string.IsNullOrWhiteSpace(option)) {	
+                            <div>@Html.RadioButton(prefix, "", string.IsNullOrWhiteSpace(currentModel.Value))<i>@T("unset")</i></div>      
+	                    }
+                        else {
+                            <div>@Html.RadioButton(prefix, option, (option == currentModel.Value))<span class="label-container">@option</span></div>
+	                    }
+                    }
+                break;
+                case ListMode.Listbox:
+                    IEnumerable<SelectListItem> multiSelectItems = new MultiSelectList(options, currentModel.SelectedValues);
+                    <input name="@selectedValuesPrefix" type="hidden" />
+                    @Html.ListBox(selectedValuesPrefix, multiSelectItems, properties)
+                    break;
+
+                case ListMode.Checkbox:
+                    int index = 0;
+                    <input name="@prefix" type="hidden" />
+                            foreach (var option in options) {
+                                index++;
+                                if (!string.IsNullOrWhiteSpace(option)) {
+                            <div>
+                                <input type="checkbox" name="@selectedValuesPrefix" value="@option" @((currentModel.SelectedValues != null && currentModel.SelectedValues.Contains(option)) ? "checked=\"checked\"" : "") class="check-box" @if(settings.Required) {<text> required="required"</text> } />
+	                            <span class="forcheckbox">@T(option)</span>
+                            </div>
+                                }
+                            }
+                    break;
+         }
+             @Html.ValidationMessage(prefix)
+       </div>
+    </div>  
+</fieldset>

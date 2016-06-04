@@ -1,0 +1,18 @@
+﻿<Placement>
+  <Place Parts_SuiteCRMStatusNotification="Content:1"></Place>
+  <Match ContentType="ProjectItem">
+     <Match DisplayType="SyncTitleSummary">
+       <Place Parts_SyncProjectTitle_Summary="Content:2"/>       
+       <Place Parts_Common_Metadata="Footer:1;Alternate=Parts_Common_Metadata__SyncProject"/>
+     </Match>
+    <Match DisplayType="Detail">
+      <Place Parts_SuiteCRMProject="Content:1"/>
+    </Match>
+  </Match> 
+  <Match ContentType="Ticket">
+    <Match DisplayType="Detail">
+      <Place Parts_SuiteCRMTask="Content:1"></Place>
+      <Place Parts_SuiteCRMTaskContactLink="People:2"></Place>
+    </Match>
+  </Match>
+</Placement>

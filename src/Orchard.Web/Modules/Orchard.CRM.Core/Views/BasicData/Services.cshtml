@@ -1,0 +1,42 @@
+﻿@using Orchard.CRM.Core.ViewModels;
+@Display(New.Stylesheet())
+@{
+    IEnumerable<ServiceViewModel> model = (IEnumerable<ServiceViewModel>)Model;
+}
+@{
+    // Generate AntiForgeryToken
+}
+@using (Html.BeginFormAntiForgeryPost())
+{
+}
+    <h1 >@T("Services")</h1>
+    <div class="manage">
+        <a class="button primaryAction"  href="@Url.Action("CreateService", "BasicData", new { area = "Orchard.CRM.Core"})">@T("Create")</a>
+    </div>
+    <table class="items" cellpadding="0" cellspacing="0">
+        <thead>
+            <tr>
+                <th scope="col">@T("Name")</th>
+                <th scope="col">@T("Links")</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                bool alternative = true;
+                foreach (var item in model)
+                {
+                    string alternativeClass = alternative ? "alt" : string.Empty;
+
+                    alternative = !alternative;
+                    <tr class="@alternativeClass">
+                        <td>
+                        @item.Name</td>
+                        <td>
+                            <a href="@Url.Action("EditService", "BasicData", new { area = "Orchard.CRM.Core", id = item.ServiceId })">@T("Edit")</a> |
+                            <a href="@Url.Action("RemoveService", "BasicData", new { area = "Orchard.CRM.Core", id = item.ServiceId })" itemprop = "RemoveUrl UnsafeUrl">@T("Remove")</a>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>

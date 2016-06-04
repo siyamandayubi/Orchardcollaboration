@@ -1,0 +1,25 @@
+﻿@using Orchard.ContentManagement;
+@using Orchard.Users.Models;
+@using Orchard.CRM.Core.Models;
+@using Orchard.CRM.Core.ViewModels;
+<div>
+    <a href="@Url.Action("AddUserToService", "Users", new { area = "Orchard.CRM.Core", serviceId = Model.ServiceId })">@T("Add remove customers")</a>
+</div>
+<div>
+    @foreach (ContentItem item in Model.Items)
+    {
+        var userServicePart = item.As<UserServicePart>();
+    <div>
+        <div class="col2">
+            @userServicePart.Record.UserPartRecord.UserName
+        </div>
+    </div>
+    }
+</div>
+@if (Model.Pager != null)
+{
+    <div class="pager">
+        @Display(Model.Pager)
+    </div>
+}
+

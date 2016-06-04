@@ -1,0 +1,23 @@
+﻿@using System.Globalization;
+@{
+    var ticketViewMoodel = (Orchard.CRM.Core.ViewModels.TicketViewModel)Model.Model;
+}
+<div>
+    @if (ticketViewMoodel.SubTickets.Count > 0)
+    {
+        <h3>@T("Sub tickets")</h3>
+        <ul>
+            @foreach (var subTicket in ticketViewMoodel.SubTickets)
+            {
+                <li>
+                    <a href="@Url.Action("Display", "Ticket", new { area = "Orchard.CRM.Core", id = subTicket.ContentItemId })">
+                        <span>@("#" + subTicket.TicketNumber)</span>
+                        <span>@subTicket.Title</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    }
+</div>
+
+

@@ -1,0 +1,53 @@
+﻿@using System.Globalization;
+@using Orchard.CRM.Core.ViewModels;
+@using Orchard.Users.Models;
+@using Orchard.CRM.Core.Services;
+@Display(New.Stylesheet())
+@using (Html.BeginFormAntiForgeryPost(Url.Action("BusinessUnitMembersPost", "Organization", new { area = "Orchard.CRM.Core" }), FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <h1><span>@Model.BusinessUnit.Name</span>&nbsp;@T("Members")</h1>
+    <div>
+        <table class="items" cellpadding="0" cellspacing="0">
+            <thead>
+                <tr>
+                    <th scope="col">
+                        <span class="business-unit-member-tick"></span>
+                        @T("Full Name")
+                    </th>
+                    <th>@T("Username")</th>
+                    <th scope="col">@T("Email")</th>
+                </tr>
+            </thead>
+            @{
+    int counter = 0;
+    foreach (CheckableViewModel<UserPart> user in Model.Users)
+    {
+        string prefix = string.Format(CultureInfo.InvariantCulture, "users[{0}].", counter.ToString(CultureInfo.InvariantCulture));
+        string userIdName = prefix + "Item";
+        string checkName = prefix + "IsChecked";
+        counter++;
+        string checkedString = user.IsChecked ? "checked='checked'" : string.Empty;
+        <tr>
+            <td>
+                <span class="business-unit-member-tick">
+                    <input type="hidden" value="@user.Item.Id" name="@userIdName" />
+                    <input type="checkbox" value="true" name="@checkName" @checkedString />
+                    @{
+        string fullName = CRMHelper.GetFullNameOfUser(user.Item);
+                    }
+                </span><span>@fullName</span>
+            </td>
+            <td>@user.Item.UserName</td>
+            <td>@user.Item.Email</td>
+        </tr>
+
+    }
+            }
+        </table>
+    </div>
+    <fieldset class="save-button">
+        <button type="submit" class="primaryAction" value="@T("Save")">Save</button>
+        <input type="hidden" name="businessUnitId" value="@Model.BusinessUnit.BusinessUnitId" />
+        <a class="admin-cancel" href="@Url.Action("BusinessUnits", "Organization", new { area = "Orchard.CRM.Core"})"><span>@T("Cancel")</span></a>
+    </fieldset>
+}

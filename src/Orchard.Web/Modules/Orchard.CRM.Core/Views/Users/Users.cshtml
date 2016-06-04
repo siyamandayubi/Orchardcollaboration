@@ -1,0 +1,13 @@
+﻿@using Orchard.CRM.Core.Models;
+@using Orchard.Users.Models;
+@{
+    var model = (IEnumerable<UserPart>)Model;
+}
+<h3>@T("Users")</h3>
+<div><input type="text" name="filter" /></div>
+<ul>
+    @foreach (var user in model)
+    {
+        <li><a class="user" data-id="@user.Id" >@user.UserName</a></li>
+    }
+</ul>

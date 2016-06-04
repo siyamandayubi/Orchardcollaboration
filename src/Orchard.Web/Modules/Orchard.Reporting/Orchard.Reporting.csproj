@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7325984D-D6AC-4491-BC4E-F9C32B92C87C}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Orchard.Reporting</RootNamespace>
+    <AssemblyName>Orchard.Reporting</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\..\..\OrchardBasicCorrectness.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="NHibernate">
+      <HintPath>..\..\..\..\lib\nhibernate\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Mvc, Version=5.2.3, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\aspnetmvc\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\chosen\chosen.jquery.js" />
+    <Content Include="Scripts\chosen\chosen.jquery.min.js" />
+    <Content Include="Scripts\chosen\chosen.proto.js" />
+    <Content Include="Scripts\chosen\chosen.proto.min.js" />
+    <Content Include="Placement.info" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery.jqplot.js" />
+    <Content Include="Scripts\jquery.jqplot.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\mustache.js" />
+    <Content Include="Scripts\plugins\jqplot.barRenderer.js" />
+    <Content Include="Scripts\plugins\jqplot.barRenderer.min.js" />
+    <Content Include="Scripts\plugins\jqplot.BezierCurveRenderer.js" />
+    <Content Include="Scripts\plugins\jqplot.BezierCurveRenderer.min.js" />
+    <Content Include="Scripts\plugins\jqplot.blockRenderer.js" />
+    <Content Include="Scripts\plugins\jqplot.blockRenderer.min.js" />
+    <Content Include="Scripts\plugins\jqplot.bubbleRenderer.js" />
+    <Content Include="Scripts\plugins\jqplot.bubbleRenderer.min.js" />
+    <Content Include="Scripts\plugins\jqplot.canvasAxisLabelRenderer.js" />
+    <Content Include="Scripts\plugins\jqplot.canvasAxisLabelRenderer.min.js" />
+    <Content Include="Scripts\plugins\jqplot.canvasAxisTickRenderer.js" />
+    <Content Include="Scripts\plugins\jqplot.canvasAxisTickRenderer.min.js" />
+    <Content Include="Scripts\plugins\jqplot.canvasOverlay.js" />
+    <Content Include="Scripts\plugins\jqplot.canvasOverlay.min.js" />
+    <Content Include="Scripts\plugins\jqplot.canvasTextRenderer.js" />
+    <Content Include="Scripts\plugins\jqplot.canvasTextRenderer.min.js" />
+    <Content Include="Scripts\plugins\jqplot.categoryAxisRenderer.js" />
+    <Content Include="Scripts\plugins\jqplot.categoryAxisRenderer.min.js" />
+    <Content Include="Scripts\plugins\jqplot.ciParser.js" />
+    <Content Include="Scripts\plugins\jqplot.ciParser.min.js" />
+    <Content Include="Scripts\plugins\jqplot.cursor.js" />
+    <Content Include="Scripts\plugins\jqplot.cursor.min.js" />
+    <Content Include="Scripts\plugins\jqplot.dateAxisRenderer.js" />
+    <Content Include="Scripts\plugins\jqplot.dateAxisRenderer.min.js" />
+    <Content Include="Scripts\plugins\jqplot.donutRenderer.js" />
+    <Content Include="Scripts\plugins\jqplot.donutRenderer.min.js" />
+    <Content Include="Scripts\plugins\jqplot.dragable.js" />
+    <Content Include="Scripts\plugins\jqplot.dragable.min.js" />
+    <Content Include="Scripts\plugins\jqplot.enhancedLegendRenderer.js" />
+    <Content Include="Scripts\plugins\jqplot.enhancedLegendRenderer.min.js" />
+    <Content Include="Scripts\plugins\jqplot.funnelRenderer.js" />
+    <Content Include="Scripts\plugins\jqplot.funnelRenderer.min.js" />
+    <Content Include="Scripts\plugins\jqplot.highlighter.js" />
+    <Content Include="Scripts\plugins\jqplot.highlighter.min.js" />
+    <Content Include="Scripts\plugins\jqplot.json2.js" />
+    <Content Include="Scripts\plugins\jqplot.json2.min.js" />
+    <Content Include="Scripts\plugins\jqplot.logAxisRenderer.js" />
+    <Content Include="Scripts\plugins\jqplot.logAxisRenderer.min.js" />
+    <Content Include="Scripts\plugins\jqplot.mekkoAxisRenderer.js" />
+    <Content Include="Scripts\plugins\jqplot.mekkoAxisRenderer.min.js" />
+    <Content Include="Scripts\plugins\jqplot.mekkoRenderer.js" />
+    <Content Include="Scripts\plugins\jqplot.mekkoRenderer.min.js" />
+    <Content Include="Scripts\plugins\jqplot.meterGaugeRenderer.js" />
+    <Content Include="Scripts\plugins\jqplot.meterGaugeRenderer.min.js" />
+    <Content Include="Scripts\plugins\jqplot.mobile.js" />
+    <Content Include="Scripts\plugins\jqplot.mobile.min.js" />
+    <Content Include="Scripts\plugins\jqplot.ohlcRenderer.js" />
+    <Content Include="Scripts\plugins\jqplot.ohlcRenderer.min.js" />
+    <Content Include="Scripts\plugins\jqplot.pieRenderer.js" />
+    <Content Include="Scripts\plugins\jqplot.pieRenderer.min.js" />
+    <Content Include="Scripts\plugins\jqplot.pointLabels.js" />
+    <Content Include="Scripts\plugins\jqplot.pointLabels.min.js" />
+    <Content Include="Scripts\plugins\jqplot.pyramidAxisRenderer.js" />
+    <Content Include="Scripts\plugins\jqplot.pyramidAxisRenderer.min.js" />
+    <Content Include="Scripts\plugins\jqplot.pyramidGridRenderer.js" />
+    <Content Include="Scripts\plugins\jqplot.pyramidGridRenderer.min.js" />
+    <Content Include="Scripts\plugins\jqplot.pyramidRenderer.js" />
+    <Content Include="Scripts\plugins\jqplot.pyramidRenderer.min.js" />
+    <Content Include="Scripts\plugins\jqplot.trendline.js" />
+    <Content Include="Scripts\plugins\jqplot.trendline.min.js" />
+    <Content Include="Scripts\Reporting.js" />
+    <Content Include="Styles\Chosen\chosen-sprite.png" />
+    <Content Include="Styles\Chosen\chosen.css" />
+    <Content Include="Styles\Chosen\chosen.min.css" />
+    <Content Include="Styles\jquery.jqplot.css" />
+    <Content Include="Styles\jquery.jqplot.min.css" />
+    <Content Include="Styles\reporting.css" />
+    <Content Include="Web.config" />
+    <Content Include="Scripts\Web.config" />
+    <Content Include="Styles\Web.config" />
+    <Content Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Module.txt" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\DefinitionTemplates\DataReportViewerPartSettings.cshtml" />
+    <Content Include="Views\Parts\DataReportViewer.SimpleList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Orchard\Orchard.Framework.csproj">
+      <Project>{2D1D92BB-4555-4CBE-8D0E-63563D6CE4C6}</Project>
+      <Name>Orchard.Framework</Name>
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Orchard.Core.csproj">
+      <Project>{9916839C-39FC-4CEB-A5AF-89CA7E87119F}</Project>
+      <Name>Orchard.Core</Name>
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Forms\Orchard.Forms.csproj">
+      <Project>{642a49d7-8752-4177-80d6-bfbbcfad3de0}</Project>
+      <Name>Orchard.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Projections\Orchard.Projections.csproj">
+      <Project>{5531e894-d259-45a3-aa61-26dbe720c1ce}</Project>
+      <Name>Orchard.Projections</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Tokens\Orchard.Tokens.csproj">
+      <Project>{6f759635-13d7-4e94-bcc9-80445d63f117}</Project>
+      <Name>Orchard.Tokens</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdminMenu.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Drivers\DataReportViewerDriver.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Handlers\DataReportViewerHandler.cs" />
+    <Compile Include="Migrations.cs" />
+    <Compile Include="Models\AggregateMethods.cs" />
+    <Compile Include="Models\ChartTypes.cs" />
+    <Compile Include="Models\DataReportViewerPart.cs" />
+    <Compile Include="Models\ReportRecord.cs" />
+    <Compile Include="Models\DataReportViewerPartRecord.cs" />
+    <Compile Include="Providers\AggregationResult.cs" />
+    <Compile Include="Providers\DescribeGroupByContext.cs" />
+    <Compile Include="Providers\DescribeGroupByParameterFor.cs" />
+    <Compile Include="Providers\FieldGroupByParameterProvider.cs" />
+    <Compile Include="Providers\GroupByDescriptor.cs" />
+    <Compile Include="Providers\IGroupByParameterProvider.cs" />
+    <Compile Include="ResourceManifest.cs" />
+    <Compile Include="Services\FieldAggregateQueryService.cs" />
+    <Compile Include="Services\IFieldAggregateQueryService.cs" />
+    <Compile Include="Services\IReportManager.cs" />
+    <Compile Include="Services\ReportManager.cs" />
+    <Compile Include="Settings\DataReportViewerPartSettings.cs" />
+    <Compile Include="Settings\DataReportViewerSettingsEvents.cs" />
+    <Compile Include="ViewModels\EditDataReportViewerViewModel.cs" />
+    <Compile Include="ViewModels\ReportGroupByFieldCollectionViewModel.cs" />
+    <Compile Include="ViewModels\ReportGroupByFieldViewModel.cs" />
+    <Compile Include="ViewModels\ReportListViewModel.cs" />
+    <Compile Include="ViewModels\ReportViewModel.cs" />
+    <Compile Include="ViewModels\DataReportViewerViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Views\Report\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Report\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Report\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\DataReportViewer.PieChart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\EditorTemplates\Parts\DataReportViewer.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\DataReportViewer.Summary.cshtml" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target> -->
+  <Target Name="AfterBuild" DependsOnTargets="AfterBuildCompiler">
+    <PropertyGroup>
+      <AreasManifestDir>$(ProjectDir)\..\Manifests</AreasManifestDir>
+    </PropertyGroup>
+    <!-- If this is an area child project, uncomment the following line:
+    <CreateAreaManifest AreaName="$(AssemblyName)" AreaType="Child" AreaPath="$(ProjectDir)" ManifestPath="$(AreasManifestDir)" ContentFiles="@(Content)" />
+    -->
+    <!-- If this is an area parent project, uncomment the following lines:
+    <CreateAreaManifest AreaName="$(AssemblyName)" AreaType="Parent" AreaPath="$(ProjectDir)" ManifestPath="$(AreasManifestDir)" ContentFiles="@(Content)" />
+    <CopyAreaManifests ManifestPath="$(AreasManifestDir)" CrossCopy="false" RenameViews="true" />
+    -->
+  </Target>
+  <Target Name="AfterBuildCompiler" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(ProjectDir)\..\$(ProjectName)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>45979</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://orchard.codeplex.com</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

@@ -1,0 +1,13 @@
+﻿@using Orchard.CRM.Project.ViewModels;
+
+<ul class="active-users">
+    @foreach (UserViewModel user in Model.Model)
+    {
+        string imageSource = string.IsNullOrEmpty(user.Thumbnail) ? Url.Content("~/Modules/Orchard.CRM.Project/Styles/Images/user-icon-small.jpg") : user.Thumbnail;
+        string userUrl = Url.Action("Display", "User", new { userId = user.UserId, area = "Orchard.CRM.Project"});
+        <li>
+            <a href="@userUrl"><img width="48" height="48" src="@imageSource" title="@user.Fullname" /></a>
+        </li>
+    }
+</ul>
+<div class="clear"></div>

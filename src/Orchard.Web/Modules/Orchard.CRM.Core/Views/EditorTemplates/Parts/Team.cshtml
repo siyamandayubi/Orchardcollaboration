@@ -1,0 +1,17 @@
+﻿@model Orchard.CRM.Core.Models.TeamPart
+<fieldset>
+    @{
+        int? businessUnitId = Model.BusinessUnit != null ? (int?)Model.BusinessUnit.Id : null;
+    }
+    <input type="hidden" name="BusinessUnit.Id" value="@businessUnitId"/>
+    <div>
+        <div class="label-container">
+            <div class="col1 label">@("Name:")</div>
+            <span class="col2">@Html.TextBoxFor(m => m.Name)</span>
+        </div>
+        <div>
+            <div class="col1 label">@T("Description:")</div>
+            <span class="col5">@Html.TextAreaFor(m => m.Description)</span>
+        </div>
+    </div>
+</fieldset>

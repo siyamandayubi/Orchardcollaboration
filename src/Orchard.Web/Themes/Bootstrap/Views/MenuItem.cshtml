@@ -1,0 +1,38 @@
+﻿@{
+    // odd formatting in this file is to cause more attractive results in the output.
+    var items = Enumerable.Cast<dynamic>((System.Collections.IEnumerable)Model);
+}
+@{
+if (!HasText(Model.Text)) {
+    @DisplayChildren(Model)
+} else {
+    string requestUrl = Request.Path.ToUpperInvariant();
+    string modelUrl = Model.Href.ToUpperInvariant();
+    if (requestUrl == modelUrl || (!string.IsNullOrEmpty(modelUrl) && requestUrl.StartsWith(modelUrl + "/"))) { 
+	    Model.Classes.Add("active");
+    }
+
+    if(items.Any()) {
+        Model.Classes.Add("dropdown");
+    }
+    var tag = Tag(Model, "li");
+    @tag.StartElement
+            
+    @* morphing the shape to keep Model untouched*@
+    Model.Metadata.Alternates.Clear(); 
+    if (items.Any()) {
+        Model.Metadata.Type = "MenuItemLinkdd";
+    }
+    else {
+        Model.Metadata.Type = "MenuItemLink";
+    }
+    @Display(Model)
+    
+    if (items.Any()) {
+        <ul class="dropdown-menu">
+        @DisplayChildren(Model)
+        </ul>
+    }
+    @tag.EndElement
+    }
+}

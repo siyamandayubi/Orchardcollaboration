@@ -1,0 +1,548 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{68622C6D-5AF8-4CEE-9463-D275AE8532EA}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Orchard.CRM.Project</RootNamespace>
+    <AssemblyName>Orchard.CRM.Project</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\..\..\OrchardBasicCorrectness.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\newtonsoft.json\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Mvc, Version=5.2.3, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\aspnetmvc\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\aspnetmvc\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="COPYING.txt" />
+    <Content Include="License.txt" />
+    <Content Include="Scripts\chosen\chosen.jquery.js" />
+    <Content Include="Scripts\chosen\chosen.jquery.min.js" />
+    <Content Include="Scripts\chosen\chosen.proto.js" />
+    <Content Include="Scripts\chosen\chosen.proto.min.js" />
+    <Content Include="Scripts\chosen\docsupport\chosen.png" />
+    <Content Include="Scripts\chosen\docsupport\oss-credit.png" />
+    <Content Include="Scripts\chosen\docsupport\prism.css" />
+    <Content Include="Scripts\chosen\docsupport\prism.js" />
+    <Content Include="Scripts\chosen\docsupport\style.css" />
+    <Content Include="Scripts\fileuploader.js" />
+    <Content Include="Scripts\jstree.js" />
+    <None Include="Scripts\JSX\CRMProjectComponents.jsx" />
+    <Content Include="Scripts\CRMProjectComponents.js" />
+    <Content Include="Scripts\JSX\readme.txt" />
+    <Content Include="Scripts\ProjectWidgets.js" />
+    <Content Include="Styles\Chosen\chosen-sprite.png" />
+    <Content Include="Styles\Chosen\chosen-sprite2x.png" />
+    <Content Include="Styles\Chosen\chosen.css" />
+    <Content Include="Styles\Chosen\chosen.min.css" />
+    <Content Include="Styles\Images\section-collapse.png" />
+    <Content Include="Styles\Images\section-collapse64-hover.png" />
+    <Content Include="Styles\Images\section-collapse64.png" />
+    <Content Include="Styles\Images\section-expand.png" />
+    <Content Include="Styles\Images\section-expand64-hover.png" />
+    <Content Include="Styles\Images\section-expand64.png" />
+    <Content Include="Styles\Images\skype-icon.png" />
+    <Content Include="Styles\Images\tools-icon.png" />
+    <Content Include="Styles\Images\user-icon-small.jpg" />
+    <Content Include="Styles\JsTree\32px.png" />
+    <Content Include="Styles\JsTree\40px.png" />
+    <Content Include="Styles\JsTree\style.css" />
+    <Content Include="Styles\JsTree\style.min.css" />
+    <Content Include="Styles\JsTree\throbber.gif" />
+    <Content Include="Styles\project.css" />
+    <Content Include="Web.config" />
+    <Content Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Module.txt" />
+    <Content Include="Styles\Milestone.less" />
+    <Content Include="Views\Parts\Milestone.Planner.cshtml" />
+    <Content Include="Views\MilestoneDetail.cshtml" />
+    <Content Include="Views\Content-MilestoneItem.Planner.cshtml" />
+    <Content Include="Views\Parts.Title_Summary-MilestoneItem.cshtml" />
+    <Content Include="Views\TicketsListShape.cshtml" />
+    <Content Include="Views\Parts\Milestone.GanttChart.cshtml" />
+    <Content Include="Views\Content-MilestoneItem.GanttChart.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\AttachToProject.HiddenField.cshtml" />
+    <Content Include="Styles\SuiteCRM.less" />
+    <Content Include="Views\Content.Edit.cshtml" />
+    <Content Include="Views\Content.cshtml" />
+    <Content Include="Views\EditButton.cshtml" />
+    <Content Include="Views\AdminUser\Create.cshtml" />
+    <Content Include="Views\AdminUser\Edit.cshtml" />
+    <Content Include="Views\AdminUser\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Orchard\Orchard.Framework.csproj">
+      <Project>{2D1D92BB-4555-4CBE-8D0E-63563D6CE4C6}</Project>
+      <Name>Orchard.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Orchard.Core.csproj">
+      <Project>{9916839C-39FC-4CEB-A5AF-89CA7E87119F}</Project>
+      <Name>Orchard.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lucene\Lucene.csproj">
+      <Project>{d5d447d7-ef8e-43a6-b9a4-3b025dd9f45d}</Project>
+      <Name>Lucene</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Alias\Orchard.Alias.csproj">
+      <Project>{475b6c45-b27c-438b-8966-908b9d6d1077}</Project>
+      <Name>Orchard.Alias</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Autoroute\Orchard.Autoroute.csproj">
+      <Project>{66fccd76-2761-47e3-8d11-b45d0001ddaa}</Project>
+      <Name>Orchard.Autoroute</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.ContentPicker\Orchard.ContentPicker.csproj">
+      <Project>{f301ef7d-f19c-4d83-aa94-cb64f29c037d}</Project>
+      <Name>Orchard.ContentPicker</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.CRM.Core\Orchard.CRM.Core.csproj">
+      <Project>{7ae1c659-22dd-4f7a-8d81-dadf0fae6a74}</Project>
+      <Name>Orchard.CRM.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Email\Orchard.Email.csproj">
+      <Project>{05660f47-d649-48bd-9ded-df4e01e7cff9}</Project>
+      <Name>Orchard.Email</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Fields\Orchard.Fields.csproj">
+      <Project>{3787dde5-e5c8-4841-bda7-dcb325388064}</Project>
+      <Name>Orchard.Fields</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Forms\Orchard.Forms.csproj">
+      <Project>{642a49d7-8752-4177-80d6-bfbbcfad3de0}</Project>
+      <Name>Orchard.Forms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Lists\Orchard.Lists.csproj">
+      <Project>{137906ea-15fe-4ad8-a6a0-27528f0477d6}</Project>
+      <Name>Orchard.Lists</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.MediaLibrary\Orchard.MediaLibrary.csproj">
+      <Project>{73a7688a-5bd3-4f7e-adfa-ce36c5a10e3b}</Project>
+      <Name>Orchard.MediaLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Pages\Orchard.Pages.csproj">
+      <Project>{3420c92a-747f-4990-ba08-f2c9531e44ad}</Project>
+      <Name>Orchard.Pages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Projections\Orchard.Projections.csproj">
+      <Project>{5531e894-d259-45a3-aa61-26dbe720c1ce}</Project>
+      <Name>Orchard.Projections</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Reporting\Orchard.Reporting.csproj">
+      <Project>{7325984d-d6ac-4491-bc4e-f9c32b92c87c}</Project>
+      <Name>Orchard.Reporting</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Roles\Orchard.Roles.csproj">
+      <Project>{d10ad48f-407d-4db5-a328-173ec7cb010f}</Project>
+      <Name>Orchard.Roles</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Tokens\Orchard.Tokens.csproj">
+      <Project>{6f759635-13d7-4e94-bcc9-80445d63f117}</Project>
+      <Name>Orchard.Tokens</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Users\Orchard.Users.csproj">
+      <Project>{79aed36e-abd0-4747-93d3-8722b042454b}</Project>
+      <Name>Orchard.Users</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Widgets\Orchard.Widgets.csproj">
+      <Project>{194d3ccc-1153-474d-8176-fde8d7d0d0bd}</Project>
+      <Name>Orchard.Widgets</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Workflows\Orchard.Workflows.csproj">
+      <Project>{7059493c-8251-4764-9c1e-2368b8b485bc}</Project>
+      <Name>Orchard.Workflows</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Activities\CheckUserTagActivity.cs" />
+    <Compile Include="Activities\SendEmailToFollowersActivity.cs" />
+    <Compile Include="Commands\EmptyContentItemCommand.cs" />
+    <Compile Include="Commands\HomepageCommand.cs" />
+    <Compile Include="Commands\PortletCommand.cs" />
+    <Compile Include="Commands\ProjectCommand.cs" />
+    <Compile Include="Commands\ProjectListCommand.cs" />
+    <Compile Include="ContentTypes.cs" />
+    <Compile Include="Controllers\AdminUserController.cs" />
+    <Compile Include="Controllers\FolderController.cs" />
+    <Compile Include="Controllers\FollowerController.cs" />
+    <Compile Include="Controllers\MilestoneController.cs" />
+    <Compile Include="Controllers\ProjectController.cs" />
+    <Compile Include="Controllers\ProjectItemsOwnershipController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Controllers\WikiItemController.cs" />
+    <Compile Include="Drivers\AttachToMilestoneDriver.cs" />
+    <Compile Include="Drivers\AttachToFolderDriver.cs" />
+    <Compile Include="Drivers\ExtendedContainerDriver.cs" />
+    <Compile Include="Drivers\FileFieldDriver.cs" />
+    <Compile Include="Drivers\MilestoneDriver.cs" />
+    <Compile Include="Drivers\FolderDriver.cs" />
+    <Compile Include="Drivers\FolderListDriver.cs" />
+    <Compile Include="Drivers\FollowerDriver.cs" />
+    <Compile Include="Drivers\MenuBaseDriver.cs" />
+    <Compile Include="Drivers\ProjectContainerDriver.cs" />
+    <Compile Include="Drivers\ProjectDashboardEditorDriver.cs" />
+    <Compile Include="Drivers\ProjectDriver.cs" />
+    <Compile Include="Drivers\ProjectItemPermissionDriver.cs" />
+    <Compile Include="Drivers\ProjectListDriver.cs" />
+    <Compile Include="Drivers\ProjectTitleAndMenuDriver.cs" />
+    <Compile Include="Drivers\RootFolderItemsDriver.cs" />
+    <Compile Include="FieldNames.cs" />
+    <Compile Include="Fields\FileField.cs" />
+    <Compile Include="Handlers\AttachToMilestoneHandler.cs" />
+    <Compile Include="Handlers\AttachToFolderHandler.cs" />
+    <Compile Include="Handlers\AttachToProjectHandler.cs" />
+    <Compile Include="Handlers\BodyHandler.cs" />
+    <Compile Include="Handlers\MilestoneHandler.cs" />
+    <Compile Include="Handlers\FolderHandler.cs" />
+    <Compile Include="Handlers\ProjectHandler.cs" />
+    <Compile Include="Handlers\TitleHandler.cs" />
+    <Compile Include="Initialization.cs" />
+    <Compile Include="Migrations.cs" />
+    <Compile Include="Models\AttachToMilestonePart.cs" />
+    <Compile Include="Models\AttachToFolderPart.cs" />
+    <Compile Include="Models\AttachToMilestonePartRecord.cs" />
+    <Compile Include="Models\AttachToFolderPartRecord.cs" />
+    <Compile Include="Models\FolderListPart.cs" />
+    <Compile Include="Models\FolderPart.cs" />
+    <Compile Include="Models\FolderPartRecord.cs" />
+    <Compile Include="Models\FollowerPart.cs" />
+    <Compile Include="Models\MilestonePart.cs" />
+    <Compile Include="Models\MilestonePartRecord.cs" />
+    <Compile Include="Models\ProjectContainerPart.cs" />
+    <Compile Include="Models\ProjectDashboardEditorPart.cs" />
+    <Compile Include="Models\ProjectItemPermissionsPart.cs" />
+    <Compile Include="Models\ProjectListPart.cs" />
+    <Compile Include="Models\ProjectTitleAndMenuPart.cs" />
+    <Compile Include="Models\RootFolderItemsPart.cs" />
+    <Compile Include="Providers\ActivityStream\ActivityStreamTokenProvider.cs" />
+    <Compile Include="Providers\ActivityStream\AttachToMilestoneStreamWriter.cs" />
+    <Compile Include="Providers\ActivityStream\AttachToFolderStreamWriter.cs" />
+    <Compile Include="Providers\ActivityStream\Descriptors\FolderDescriptor.cs" />
+    <Compile Include="Providers\ActivityStream\FolderStreamWriter.cs" />
+    <Compile Include="Providers\ActivityStream\ProjectStreamWriter.cs" />
+    <Compile Include="Providers\CheckUserTagActivityForm.cs" />
+    <Compile Include="Providers\Filters\AttachToFolderFilter.cs" />
+    <Compile Include="Providers\Filters\FolderFilter.cs" />
+    <Compile Include="Providers\Filters\FolderSelectionForm.cs" />
+    <Compile Include="Providers\MilestoneDetailProvider.cs" />
+    <Compile Include="Providers\FolderDetailPermissionProvider.cs" />
+    <Compile Include="Providers\ProjectDashboardTicketsListLayout.cs" />
+    <Compile Include="Providers\ProjectDashboardListLayout.cs" />
+    <Compile Include="Providers\ProjectDetailPermissionProvider.cs" />
+    <Compile Include="Providers\ProjectTokenProvider.cs" />
+    <Compile Include="Providers\Serialization\AttachToMilestonePartConverter.cs" />
+    <Compile Include="Providers\Shapes.cs" />
+    <Compile Include="Providers\SortCriterias\MilestoneSortCriteria.cs" />
+    <Compile Include="QueryNames.cs" />
+    <Compile Include="ResourceManifest.cs" />
+    <Compile Include="Services\CRMContentOwnershipServiceExtension.cs" />
+    <Compile Include="Services\ExtendedProjectService.cs" />
+    <Compile Include="Services\FolderService.cs" />
+    <Compile Include="Services\IExtendedProjectService.cs" />
+    <Compile Include="Services\IFolderService.cs" />
+    <Compile Include="Services\IMilestoneService.cs" />
+    <Compile Include="Services\IProjectSearchService.cs" />
+    <Compile Include="Services\IProjectSetup.cs" />
+    <Compile Include="Services\MilestoneService.cs" />
+    <Compile Include="Services\ProjectHelper.cs" />
+    <Compile Include="Services\ProjectSearchService.cs" />
+    <Compile Include="Services\ProjectSetup.cs" />
+    <Compile Include="Settings\FileFieldEditorEvents.cs" />
+    <Compile Include="Settings\FileFieldSettings.cs" />
+    <Compile Include="ViewModels\AttachToFolderEditPostModel.cs" />
+    <Compile Include="ViewModels\AttachToFolderListViewModel.cs" />
+    <Compile Include="ViewModels\EditFolderViewModel.cs" />
+    <Compile Include="ViewModels\EditMilestoneItemsOrderViewModel.cs" />
+    <Compile Include="ViewModels\EditMilestoneViewModel.cs" />
+    <Compile Include="ViewModels\EditPortletViewModel.cs" />
+    <Compile Include="ViewModels\FileFieldViewModel.cs" />
+    <Compile Include="ViewModels\FolderViewModel.cs" />
+    <Compile Include="ViewModels\FolderWithAncestorsViewModel.cs" />
+    <Compile Include="ViewModels\IFolderViewModel.cs" />
+    <Compile Include="ViewModels\InviteUserToProjectPostViewModel.cs" />
+    <Compile Include="ViewModels\InviteUserToProjectViewModel.cs" />
+    <Compile Include="ViewModels\PostedEditFolderViewModel.cs" />
+    <Compile Include="ViewModels\ProjectDetailViewModel.cs" />
+    <Compile Include="ViewModels\ProjectListViewModel.cs" />
+    <Compile Include="ViewModels\ProjectPermissionEditPostViewModel.cs" />
+    <Compile Include="ViewModels\ProjectSearchViewModel.cs" />
+    <Compile Include="ViewModels\UserDetailViewModel.cs" />
+    <Compile Include="ViewModels\UserIndexOptionsViewModel.cs" />
+    <Compile Include="ViewModels\UserListViewModel.cs" />
+    <Compile Include="ViewModels\UserViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\chosen\bower.json" />
+    <Content Include="Scripts\Web.config" />
+    <Content Include="Styles\Common.less" />
+    <Content Include="Styles\Folder.less" />
+    <Content Include="Styles\Permissions.less" />
+    <Content Include="Styles\Project.less" />
+    <Content Include="Styles\ProjectItem.less" />
+    <Content Include="Styles\Web.config" />
+    <Content Include="Views\Content-DiscussionItem.Detail.cshtml" />
+    <Content Include="Views\Content-DiscussionItem.Summary.cshtml" />
+    <Content Include="Views\Content-FolderItem.Detail.cshtml" />
+    <Content Include="Views\Content-FolderItem.Summary.cshtml" />
+    <Content Include="Views\Content-ProjectActivityStream.Detail.cshtml" />
+    <Content Include="Views\Content-ProjectDiscussions.Detail.cshtml" />
+    <Content Include="Views\Content-ProjectItem.Detail.cshtml" />
+    <Content Include="Views\Content-ProjectItem.Summary.cshtml" />
+    <Content Include="Views\Content-ProjectTickets.Detail.cshtml" />
+    <Content Include="Views\Content-ProjectWiki.Detail.cshtml" />
+    <Content Include="Views\Content-RootWiki.Detail.cshtml" />
+    <Content Include="Views\Content-WikiItem.Detail.cshtml" />
+    <Content Include="Views\Content-WikiItem.Summary.cshtml" />
+    <Content Include="Views\Content.Edit-DiscussionItem.cshtml" />
+    <Content Include="Views\Content.Edit-WikiItem.cshtml" />
+    <Content Include="Views\Content.SaveButton.cshtml" />
+    <Content Include="Views\CurrentContentItemPermissions.cshtml" />
+    <Content Include="Views\DefinitionTemplates\FileFieldSettings.cshtml" />
+    <Content Include="Views\EditorTemplates\Fields\Project.File.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts.Common.Body.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts.Title.TitlePart.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\AttachToFolder.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\ContentItemPermission.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\Discussion.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\Folder.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\Project.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\ProjectItemPermissions.cshtml" />
+    <Content Include="Views\Fields\Project.File.cshtml" />
+    <Content Include="Views\FolderPicker.cshtml" />
+    <Content Include="Views\Folder\Create.cshtml" />
+    <Content Include="Views\Folder\Display.cshtml" />
+    <Content Include="Views\Folder\Edit.cshtml" />
+    <Content Include="Views\FollowerLinkView.cshtml" />
+    <Content Include="Views\Item.MenuView.cshtml" />
+    <Content Include="Views\ListShape.cshtml" />
+    <Content Include="Views\Parts.Common.Body-DiscussionItem.cshtml" />
+    <Content Include="Views\Parts.Common.Body-WikiItem.cshtml" />
+    <Content Include="Views\Parts.Common.Metadata-DiscussionItem.cshtml" />
+    <Content Include="Views\Parts.Common.Metadata-FolderItem.cshtml" />
+    <Content Include="Views\Parts.Common.Metadata-WikiItem.cshtml" />
+    <Content Include="Views\Parts.CRMComments-DiscussionItem.cshtml" />
+    <Content Include="Views\Parts.DashboardActivityStream-ProjectActivityStream.cshtml" />
+    <Content Include="Views\Parts.DashboardActivityStream-ProjectLastActivityStream.cshtml" />
+    <Content Include="Views\Parts.DashboardActivityStream.cshtml" />
+    <Content Include="Views\Parts.DataReportViewer.SimpleList-ProjectTicketsSummaryGroupByStatus.cshtml" />
+    <Content Include="Views\Parts.FilesList-DiscussionItem.cshtml" />
+    <Content Include="Views\Parts.Title-DiscussionItem.cshtml" />
+    <Content Include="Views\Parts.Title-EmptyContentItem.cshtml" />
+    <Content Include="Views\Parts.Title-WikiItem.cshtml" />
+    <Content Include="Views\Parts.Title_Summary-DiscussionItem.cshtml" />
+    <Content Include="Views\Parts.Title_Summary-WikiItem.cshtml" />
+    <Content Include="Views\Parts\AttachedToFolderList.cshtml" />
+    <Content Include="Views\Parts\CRMComments.cshtml" />
+    <Content Include="Views\Parts\Discussion.cshtml" />
+    <Content Include="Views\Parts\Folder.ChangePermissionsTitle.cshtml" />
+    <Content Include="Views\Parts\Folder.cshtml" />
+    <Content Include="Views\Parts\Folder.Menu.cshtml" />
+    <Content Include="Views\Parts\Folder.Summary.cshtml" />
+    <Content Include="Views\Parts\Folder.Title.cshtml" />
+    <Content Include="Views\Parts\FolderList.cshtml" />
+    <Content Include="Views\Parts\Follow.Link.cshtml" />
+    <Content Include="Views\Parts\LatestActiveUsers.cshtml" />
+    <Content Include="Views\Parts\Project.ChangePermissionsTitle.cshtml" />
+    <Content Include="Views\Parts\Project.cshtml" />
+    <Content Include="Views\Parts\Project.LastChange.cshtml" />
+    <Content Include="Views\Parts\Project.Menu.cshtml" />
+    <Content Include="Views\Parts\Project.Summary.cshtml" />
+    <Content Include="Views\Parts\Project.Title.cshtml" />
+    <Content Include="Views\Parts\Project.TitleOnly.cshtml" />
+    <Content Include="Views\Parts\ProjectList.cshtml" />
+    <Content Include="Views\Parts\Ticket.RelatedContentItem.cshtml" />
+    <Content Include="Views\Parts\TicketsForContentItem.cshtml" />
+    <Content Include="Views\Parts\Wiki.Menu.cshtml" />
+    <Content Include="Views\Parts\Wiki.Title.cshtml" />
+    <Content Include="Views\ProjectContent.cshtml" />
+    <Content Include="Views\ProjectDiscussions.cshtml" />
+    <Content Include="Views\ProjectSummaryProjectionPortlet.cshtml" />
+    <Content Include="Views\ProjectItemsOwnership\Edit.cshtml" />
+    <Content Include="Views\ProjectItemsOwnership\PermissionError.cshtml" />
+    <Content Include="Views\ProjectTickets.cshtml" />
+    <Content Include="Views\ProjectTicketsSummary.cshtml" />
+    <Content Include="Views\Project\Create.cshtml" />
+    <Content Include="Views\Project\Display.cshtml" />
+    <Content Include="Views\Project\DisplayProjectRelatedItem.cshtml" />
+    <Content Include="Views\Project\Edit.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\SkypeTooltip.cshtml" />
+    <Content Include="Views\Stylesheet.cshtml" />
+    <Content Include="Views\User.UserList.cshtml" />
+    <Content Include="Views\User\Customers.cshtml" />
+    <Content Include="Views\User\Display.cshtml" />
+    <Content Include="Views\User\Invite.cshtml" />
+    <Content Include="Views\User\Operators.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\WikiItem\Create.cshtml" />
+    <Content Include="Views\WikiItem\Display.cshtml" />
+    <Content Include="Views\WikiItem\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="placement.info">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\EditorTemplates\Parts\ProjectDashboardEditor.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts.DataReportViewer.SimpleList-ProjectDashboardReportViewerPortlet.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts.DataReportViewer.PieChart-ProjectDashboardReportViewerPortlet.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\EditorTemplates\Parts\AttachToMilestone.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Content-ProjectMenu.Detail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts.MenuWidget-ProjectMenu.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Content-MilestoneItem.Detail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\EditProjectRelatedItem.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Content.Edit-MilestoneItem.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ProjectProjection.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Content-ProjectProjection.Detail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\Milestone.Tickets.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Content-ProjectMenu.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts.Title-MilestoneItem.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\EditorTemplates\Parts\Milestone.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\Milestone.Data.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Milestone\Planner.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\AttachMilestone.cshtml" />
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target> -->
+  <Target Name="AfterBuild" DependsOnTargets="AfterBuildCompiler">
+    <PropertyGroup>
+      <AreasManifestDir>$(ProjectDir)\..\Manifests</AreasManifestDir>
+    </PropertyGroup>
+    <!-- If this is an area child project, uncomment the following line:
+    <CreateAreaManifest AreaName="$(AssemblyName)" AreaType="Child" AreaPath="$(ProjectDir)" ManifestPath="$(AreasManifestDir)" ContentFiles="@(Content)" />
+    -->
+    <!-- If this is an area parent project, uncomment the following lines:
+    <CreateAreaManifest AreaName="$(AssemblyName)" AreaType="Parent" AreaPath="$(ProjectDir)" ManifestPath="$(AreasManifestDir)" ContentFiles="@(Content)" />
+    <CopyAreaManifests ManifestPath="$(AreasManifestDir)" CrossCopy="false" RenameViews="true" />
+    -->
+  </Target>
+  <Target Name="AfterBuildCompiler" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(ProjectDir)\..\$(ProjectName)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>45979</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://orchard.codeplex.com</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

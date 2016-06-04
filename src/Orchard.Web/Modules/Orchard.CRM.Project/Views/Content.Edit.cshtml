@@ -1,0 +1,49 @@
+﻿@using Orchard.ContentManagement;
+@using Orchard.CRM.Core.Models;
+@using Orchard.Utility.Extensions;
+@{
+    ContentItem contentItem = Model.ContentItem;
+    AttachToProjectPart attachToProjectPart = contentItem.As<AttachToProjectPart>();
+}
+
+@if (attachToProjectPart == null) { 
+    <div class="edit-item">
+        <div class="edit-item-primary">
+            @if (Model.Content != null) {
+                <div class="edit-item-content">
+                    @Display(Model.Content)
+                </div>
+            }
+        </div>
+        <div class="edit-item-secondary group">
+            @if (Model.Actions != null) {
+                <div class="edit-item-actions">
+                    @Display(Model.Actions)
+                </div>
+            }
+            @if (Model.Sidebar != null) {
+                <div class="edit-item-sidebar group">
+                    @Display(Model.Sidebar)
+                </div>
+            }
+        </div>
+    </div>
+
+    if (!String.IsNullOrWhiteSpace(Request.QueryString["returnUrl"])) {
+        @Html.Hidden("returnUrl", Request.QueryString["returnUrl"])
+    }
+}
+else{
+    if (Model.Sidebar != null && Model.Sidebar.Items.Count > 0)
+    {
+        for (var i = 0; i < Model.Sidebar.Items.Count; i++)
+        {
+            if (Model.Sidebar.Items[i].Metadata.Type == "Content_PublishButton")
+            {
+                Model.Sidebar.Items.Remove(Model.Sidebar.Items[i]);
+                break;
+            }
+        }
+    }
+    @Display(New.EditProjectRelatedItem(Model:Model))   
+}

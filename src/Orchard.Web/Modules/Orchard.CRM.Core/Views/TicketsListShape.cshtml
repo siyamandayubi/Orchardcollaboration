@@ -1,0 +1,16 @@
+﻿@Display(New.ThemeAwareStylesheet())
+<ul class="ticket-list">
+    <li>
+        <div class="ticket-list-header">
+            <div class="ticket-list-id">@T("Id")</div>
+            <div class="ticket-list-name">@T("Name")</div>
+           <div class="clear"></div>
+        </div>
+    </li>
+    @foreach (var item in Model.BuildShapes)
+    {
+        <li>
+            @Display(item)
+        </li>
+    }
+</ul>

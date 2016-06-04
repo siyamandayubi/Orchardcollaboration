@@ -1,0 +1,6 @@
+@{
+    Orchard.ContentManagement.ContentItem contentItem = Model.ContentPart.ContentItem;
+    string title = Model.Title.ToString();
+}
+
+<h5>@Html.ItemDisplayLink(title, contentItem, new { @class = "elipse-text" })</h5>

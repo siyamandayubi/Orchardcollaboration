@@ -1,0 +1,22 @@
+﻿@using Orchard.CRM.Core.ViewModels;
+@using Orchard.Users.Models;
+@using (Html.BeginFormAntiForgeryPost(Url.Action("TeamMembersPost", "Organization", new { area = "Orchard.CRM.Core" }), FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div>
+        <ul>
+            @foreach (CheckableViewModel<UserPart> user in Model.Users)
+            {
+                string checkedString = user.IsChecked ? "checked='checked'" : string.Empty;
+                <li>
+                    <input type="checkbox" value="@user.Item.Id" @checkedString />
+                    <span>@user.Item.UserName</span>
+                </li>
+            }
+        </ul>
+    </div>
+    <div>
+        <input type="submit" value="@T("Save")" />
+        <a href="@Url.Action("Teams", "Organization", new { area = "Orchard.CRM.Core"})">@T("Cancel")</a>
+    </div>
+}
+

@@ -1,0 +1,78 @@
+<Placement>
+  <Match ContentType="Page">
+    <Place Parts_Share_ShareBar="Content:after"/>
+  </Match>
+  
+  <Match ContentType="Blog">
+    <Place Parts_Common_Metadata="-"/>
+  </Match>
+  
+  <Match ContentType="BlogPost">
+    <Match DisplayType="Summary">
+      <Place Parts_Tags_ShowTags="Meta:before"/>
+    </Match>
+    <Match DisplayType="Detail">
+      <Place Parts_Tags_ShowTags="Meta:before"/>
+      <Place Parts_Comments_Count="Meta:after"/>
+      <Place Parts_Common_Body="Content:1"/>
+      <Place Parts_Share_ShareBar="Content:2"/>
+      <Place Parts_Comments="Content:3"/>
+      <Place Parts_NextPreviousLinks="Content:4"/>
+    </Match>
+  </Match>
+
+  <Match ContentType="ZenGallery">
+    <Place Parts_Common_Metadata="-"/>
+  </Match>
+  
+  <Match Path="/">
+    <Place Parts_Common_Metadata="-"/>
+    <Place Parts_Share_ShareBar="-"/>
+  </Match>
+  <Match ContentType="Ticket">
+    <Place Fields_Numeric_Edit="Content:2.9"/>
+    <Place Fields_Common_Text_Edit="FieldsAndProperties:3.5;Alternate=TicketFields_Text_Edit"/>
+    <Place Fields_Boolean_Edit="FieldsAndProperties:3.5;Alternate=TicketFields_Boolean_Edit"/>
+    <Place Fields_DateTime_Edit="FieldsAndProperties:3.5;Alternate=TicketFields_DateTime_Edit"/>
+    <Place Fields_Boolean="-"/>
+    <Place Fields_Enumeration_Edit="FieldsAndProperties:3.5;Alternate=TicketFields_Enumeration_Edit"/>
+    <Place Fields_Input_Edit="FieldsAndProperties:3.5"/>
+    <Place Fields_Numeric_Edit="FieldsAndProperties:3.5;Alternate=TicketFields_Numeric_Edit"/>
+    <Match DisplayType="Detail">
+      <Place Fields_Numeric="FieldsAndProperties:3.5;Alternate=Ticket_Fields_Numeric"/>
+      <Place Fields_Enumeration="FieldsAndProperties:3.5;Alternate=Ticket_Fields_Enumeration"/>
+      <Place Fields_Common_Text="FieldsAndProperties:3.5;Alternate=Ticket_Fields_Common_Text"/>
+      <Place Fields_Input="FieldsAndProperties:3.5;Alternate=Ticket_Fields_Input"/>
+      <Place Fields_Boolean="FieldsAndProperties:3.5;Alternate=Ticket_Fields_Boolean"/>
+      <Place Fields_DateTime="FieldsAndProperties:3.5;Alternate=Ticket_Fields_DateTime"/>
+    </Match>
+    <Match DisplayType="Summary">
+      <Place Fields_Numeric="-"/>
+      <Place Fields_Enumeration="-"/>
+      <Place Fields_Common_Text="-"/>
+      <Place Fields_Boolean="-"/>
+      <Place Parts_FilesList="-"/>
+      <Place Fields_DateTime="-"/>
+    </Match>
+    <Match DisplayType="SummaryAdmin">
+      <Place Fields_Boolean="-"/>
+      <Place Fields_DateTime="-"/>
+      <Place Fields_Numeric="-"/>
+      <Place Fields_Enumeration="-"/>
+    </Match>
+    <Match DisplayType="TitleOnly">
+      <Place Fields_Numeric="-"/>
+      <Place Fields_Enumeration="-"/>
+      <Place Fields_Boolean="-"/>
+      <Place Fields_DateTime="-"/>
+      <Place Fields_Common_Text="-"/>
+    </Match>
+    <Match DisplayType="TableRow">
+      <Place Fields_Numeric="-"/>
+      <Place Fields_Enumeration="-"/>
+      <Place Fields_Boolean="-"/>
+      <Place Fields_DateTime="-"/>
+      <Place Fields_Common_Text="-"/>
+    </Match>
+  </Match>
+</Placement>

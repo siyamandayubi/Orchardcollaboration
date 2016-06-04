@@ -1,0 +1,78 @@
+﻿@using Orchard.CRM.Core.ViewModels;
+@using System.Globalization;
+@Display(New.Stylesheet())
+@{
+    var temp = Model;
+    IEnumerable<SelectListItem> priorities = Model.Priorities;
+    IEnumerable<SelectListItem> projects = Model.Projects;
+    IEnumerable<SelectListItem> services = Model.Services;
+    IEnumerable<SelectListItem> statusList = Model.StatusList;
+    IEnumerable<SelectListItem> dueDates = Model.DueDates;
+    ContentItemSetPermissionsViewModel organization = Model.Organization;
+}
+<h1>@T("Create Ticket Activity")</h1>
+<p>@T("This activity creates a new Ticket. You can specify the default values of the ticket fields here.")</p>
+@if (projects.Count() > 0)
+{
+    <fieldset>
+        <label for="Priority">@T("Project")</label>
+        @Html.DropDownList("ProjectId", projects, new { @class = "ticketActivity-select" })
+    </fieldset>
+}
+<fieldset>
+    <label for="Priority">@T("Priority")</label>
+    @Html.DropDownList("PriorityId", priorities, new { @class = "ticketActivity-select" })
+</fieldset>
+<fieldset>
+    <label for="Service">@T("Service")</label>
+    @Html.DropDownList("ServiceId", services, new { @class = "ticketActivity-select" })
+</fieldset>
+<fieldset>
+    <label for="Status">@T("Status")</label>
+    @Html.DropDownList("StatusId", statusList, new { @class = "ticketActivity-select popup-host" })
+</fieldset>
+<fieldset>
+    <label for="Group">@T("Group")</label>
+    <div>
+        <select name="GroupId" id="GroupId" class="ticketActivity-select">
+            <option value=""></option>
+            @foreach (var businessUnit in organization.BusinessUnits)
+            {
+                string businessUnitId = string.Format(CultureInfo.InvariantCulture, "BusinessUnit:{0}", businessUnit.BusinessUnitId.ToString(CultureInfo.InvariantCulture));
+                <option value="@businessUnitId">@businessUnit.Name</option>
+                foreach (var team in businessUnit.Teams)
+                {
+                    string teamId = string.Format(CultureInfo.InvariantCulture, "Team:{0}", team.TeamId.ToString(CultureInfo.InvariantCulture));
+                    <option value="@teamId">@("  " + team.Name)</option>
+                }
+            }
+        </select>
+    </div>
+    <div>@T("Please note that you must only select a User or a BusinessUnit. Selecting both of them is not possible")</div>
+</fieldset>
+<fieldset>
+    <label for="User">@T("User")</label>
+    @Html.DropDownList("UserId", organization.Users, new { @class = "ticketActivity-select" })
+</fieldset>
+<fieldset>
+    <label for="Due Date">@T("Due Date")</label>
+    @Html.DropDownList("DueDate", dueDates, new { @class = "ticketActivity-select" })
+</fieldset>
+<fieldset>
+    <label for="Title">@T("Title")</label>
+    <div><input type="text" name="Title" /></div>
+</fieldset>
+<fieldset>
+    <label for="EditableBy">@T("Ticket will be accessible by (Please enter comma-sepratated list of usernames")</label>
+    <div><input type="text" name="EditableBy" /></div>
+</fieldset>
+<fieldset>
+    <label for="Description">@T("Description")</label>
+    <div><textarea name="Description"></textarea></div>
+</fieldset>
+<fieldset>
+    <h4>@T("Email based Tickets")</h4>
+    <div>@T("These fields are only applied to tickets related to the received emails")</div>
+    <div><input type="checkbox" value="true" id="IgnoreUnknownEmail" name="IgnoreUnknownEmail" /><span>@T("Ignore Unknown Email")</span></div>
+    <div><input type="checkbox" value="true" id="DownloadEmailAttachments" name="DownloadEmailAttachments" /><span>@T("Download Email Attachments")</span></div>
+</fieldset>

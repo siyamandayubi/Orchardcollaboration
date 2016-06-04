@@ -1,0 +1,782 @@
+﻿@label-lineHeight: 20px;
+@background-color-button: #646660;
+@background-color-button-hover: #85b35c;
+@border-button-hover: 1px solid #85b35c;
+@color-button-hover: #fff;
+@button-text-shadow: 0px -1px 0px #535550;
+@border-button: 1px solid #353535;
+@background-color-a-button: #646660;
+@button-a-color: #fff;
+@label-font-size: 12px;
+@button-activ-color: #fff;
+@button-activ-border: 1px solid #353535;
+@button-activ-background-color: #646660;
+@tickets-tabele-header-background-color: #81B4C9;
+@tickets-tabele-header-border: 1px solid #538398;
+@color-button: #e8f0f6;
+@label-font-family: Arial;
+@label-color: #323232;
+@ticket-search-idColumn: 40px;
+@ticket-search-titleColumn: 400px;
+@ticket-search-checkboxColumn: 20px;
+@ticket-search-timeColumn: 50px;
+@ticket-search-priorityColumn: 50px;
+@ticket-search-statusColumn: 50px;
+@ticket-search-groupColumn: 70px;
+@ticket-search-userColumn: 70px;
+@ticket-search-linksColumn: 50px;
+@table-th-color: #fff;
+@table-td-color: #333;
+@table-th-a-color: #fff;
+@assign-selected-item-background-color: #81b4c9;
+@assign-selected-item-color: white;
+@advance-search-border-hover: 1px solid #48A4EA;
+@advance-search-background-color: #81b4c9;
+@advance-search-close-button-background-color: #81b4c9;
+@advance-search-close-button-color: #e8f0f6;
+@advance-search-close-button-color-hover: white;
+@advance-search-border-bottom: 1px solid #538398;
+@advance-search-title-color: #fff;
+@backgound-image-downTriangle-hover: url('Images/DownTriangleIcon.png');
+@backgound-image-downTriangle: url('Images/DownTriangleIcon.png');
+@background-size-sort-direction: 7px 6px;
+@background-size-advance-search: 10px 9px;
+@field-width-in-admin-dashboard: 343px;
+@layout-width: 935px;
+@edit-ownership-bar-width: 67%;
+@edit-ownership-bar-border: 1px solid #333;
+@edit-ownership-bar-background-color: #eee;
+@search-description-background-color: #f8f6f6;
+@search-description-link-hover-color: #141313;
+@ticket-detail-title-background-color: #81b4c9;
+@ticket-detail-title-border: 1px solid #538398;
+@ticket-detail-title-border-radius: 3px;
+@ticket-detail-title-width: 721;
+@ticket-detail-title-height: 40px;
+@border-button-hover: 1px solid #85b35c;
+@button-text-shadow: 0px -1px 0px #535550;
+@edit-ownership-bar-width: 67%;
+@edit-ownership-bar-min-height: 100px;
+
+@ticket-list-header-color: #fff;
+@ticket-list-header-background-color: #646660;
+@select-list-border-hover: 1px solid gray;
+@select-list-border-popup-menu: 1px solid gray;
+@select-list-li-hover-background-color: #85b35c;
+
+.modal-open {
+    padding-right: 15px;
+}
+
+    .modal-open header {
+        padding-right: 15px;
+    }
+
+    body.modal-open, .modal-open .navbar-fixed-top, .modal-open .navbar-fixed-bottom {
+        margin-right: 0px !important;
+    }
+
+    .modal-open, .modal-open header {
+        padding-right: 0px !important;
+    }
+
+input, textarea {
+    border: 1px solid #ddd;
+}
+
+.toolbar {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.space {
+    height: 10px;
+}
+
+.beside-content-list-container {
+    margin-top: 10px;
+    padding-left: 14px;
+    float: left;
+    width: 20%;
+    min-width: 150px;
+    border-right: 1px solid gray;
+    min-height: 300px;
+}
+
+.clear {
+    clear: both;
+}
+
+.row-no-padding {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.add-comment {
+    margin-top: 20px;
+}
+
+.add-comment {
+    margin-top: 20px;
+}
+
+.project-comments .project-comment {
+    margin-top: 20px;
+}
+
+.groups-and-agents select {
+    width: 200px;
+    min-width: 200px;
+}
+
+.chosen-container {
+    width: 100% !important;
+}
+
+
+/*File List*/
+/*******************************************************************************/
+.project-content-item #file-list h3 {
+    Margin: 5px;
+}
+
+.project-content-item #file-list ul {
+    padding: 0px;
+}
+
+.project-content-item .qq-upload-button {
+    width: 120px;
+}
+
+/*******************************************************************************/
+
+/*Discussion*/
+/***************************************************/
+
+.discussions-summary ul li a {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.discussions-summary .discussions-a {
+    color: black;
+}
+
+.edit-project-related-item #Title_Title {
+    width: 100%;
+}
+
+.edit-project-related-item fieldset {
+    margin-bottom: 10px;
+}
+
+.edit-project-related-item footer {
+    padding-left: 15px;
+}
+/****************************************************/
+
+
+// User
+/*******************************************/
+.customer-navbar {
+    margin-bottom: 0px !important;
+}
+
+.invite-to-project-button {
+    display: inline-block;
+    margin-right: 10px !important;
+    margin-bottom: 10px !important;
+}
+
+@media screen and (max-width: 700px) {
+    .invite-to-project-button {
+        margin-top: 10px !important;
+    }
+}
+
+.user-profile-label {
+    display: inline-block;
+    width: 100px;
+    padding-right: 10px;
+}
+
+.user-profile-field {
+    color: #646660;
+}
+
+.current-projects-label {
+    width: 130px !important;
+}
+
+.user-detail .panel-heading {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+.user-detail h2 {
+    margin-bottom: 0px !important;
+}
+
+.user-detail .navbar {
+    margin-bottom: 10px !important;
+    z-index: 999;
+}
+/********************************************/
+
+/*88888888888888888888888888888888888888888888888*/
+
+.widget-tickets-dashboard-widget {
+    border: 1px solid #ddd;
+    margin-top: 10px;
+    position: relative;
+}
+
+    .widget-tickets-dashboard-widget header {
+        background-color: #f5f5f5;
+        padding-top: 10px;
+    }
+
+        .widget-tickets-dashboard-widget header h3 {
+            padding-left: 10px;
+            margin-top: 0px !important;
+            height: 30px;
+        }
+
+    .widget-tickets-dashboard-widget .dashboard-content, .widget-tickets-dashboard-widget .activity-stream {
+        margin-left: 10px;
+    }
+
+.activity-stream .time, .activity-stream .date {
+    font-size: 12px !important;
+}
+
+.activity-stream .activity-stream-label {
+    font-size: 12px !important;
+}
+
+.activity-stream .day-label {
+    font-weight: bold;
+}
+
+.activity-stream .activity-stream-day {
+    padding-left: 20px;
+}
+
+.wiki-content-file-view-selector-container {
+    position: relative;
+}
+
+    .wiki-content-file-view-selector-container .wiki-content-file-view-selector {
+        position: relative;
+        min-width: 220px;
+        top: 1px;
+    }
+
+.wiki-content-file-view-selector span {
+    display: inline-block;
+    min-width: 120px;
+    height: 25px;
+    text-align: center;
+    border: 1px solid #e7e7e7;
+    border-bottom: none !important;
+}
+
+
+.wiki-content-file-view-selector .selected {
+    z-index: 1000;
+    background-color: white;
+}
+
+.wiki-row {
+    display: table;
+    height: 100%;
+    width: 100%;
+    min-height: 400px;
+}
+
+    .wiki-row .beside-content-list-container {
+        display: table-cell !important;
+        float: none !important;
+        width: 240px !important;
+        vertical-align: top;
+        height: 400px;
+        min-height: 400px;
+        padding-left: 0px !important;
+    }
+
+    .wiki-row .beside-content-list-collapsed {
+        display: none !important;
+        float: none !important;
+        width: 0px !important;
+        vertical-align: top;
+        height: 400px;
+        min-height: 400px;
+        padding-left: 0px !important;
+    }
+
+    .wiki-row .beside-content-list-mobile {
+        position: absolute;
+        z-index: 10000;
+        top: 0px;
+        left: 10px;
+        width: 240px;
+        display: none;
+        height: 400px;
+        min-height: 400px;
+        padding-left: 0px !important;
+        border-right: 1px solid gray;
+    }
+
+    .wiki-row .beside-content-list-mobile-collapsed {
+        display: none;
+    }
+
+    .wiki-row .beside-content-list-mobile-expanded {
+        display: block;
+    }
+
+    .wiki-row .wiki-main-container {
+        display: table-cell !important;
+        min-width: 240px !important;
+        float: none !important;
+        vertical-align: top;
+        height: 100%;
+        padding-left: 20px !important;
+    }
+
+.wiki-item-navbar {
+    border-width: 1px;
+    border-style: solid;
+    margin-bottom: 10px;
+    background-color: #f8f8f8;
+    border-color: #e7e7e7;
+}
+
+    .wiki-item-navbar .header {
+        position: relative;
+        padding-right: 60px;
+        min-height: 45px;
+    }
+
+        .wiki-item-navbar .header .menu-container {
+            position: absolute;
+            top: 0px;
+            right: 10px;
+        }
+
+    .wiki-item-navbar h3, .wiki-item-navbar h4 {
+        margin-top: 15px !important;
+        margin-bottom: 5px !important;
+        padding-top: 0px !important;
+    }
+
+    .wiki-item-navbar .navbar {
+        margin-bottom: 5px;
+    }
+
+    .wiki-item-navbar .navbar-nav li a {
+        padding-bottom: 5px !important;
+    }
+
+.visible-to-all {
+    display: inline-block;
+    padding-left: 10px;
+}
+
+.project-activity-content, .project-activity-content a {
+    color: #646660 !important;
+}
+
+.project-tickets-header .toolbar, .project-discussions-header .toolbar {
+    float: right !important;
+    min-width: 200px;
+    text-align: right !important;
+}
+
+.project-tickets-header h3, .project-discussions-header h3 {
+    float: left;
+    min-width: 300px;
+}
+
+.main-search-container h4 {
+    font-size: 12pt !important;
+}
+
+.main-search-container h3 {
+    margin-top: 5px !important;
+    margin-bottom: 0px !important;
+}
+
+.main-search-container header, .main-search-container .panel-heading {
+    padding-bottom: 0px !important;
+}
+
+
+.main-search-container hr {
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+    background-color: white !important;
+}
+
+.main-search-container .user-row {
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+
+.main-search-container .alternative {
+    background-color: #e6e6e6;
+}
+
+.main-search-container .panel-body {
+    padding-top: 10px !important;
+}
+
+.search-item-type {
+    padding-top: 10px;
+}
+
+.summary-beside-second {
+    text-align: right;
+    padding-right: 30px;
+}
+
+.activity-detail-view {
+    border: 1px solid gray;
+    border-radius: 7px;
+    width: 25px;
+    text-align: center;
+    margin-top: 0px;
+    margin-left: 2px;
+    height: 15px;
+    line-height: 0.7em;
+    display: inline-block;
+    font-size: 11pt;
+    font-weight: bold;
+    color: gray;
+}
+
+    .activity-detail-view:hover {
+        color: darkgray;
+        border: 1px solid darkgray;
+        font-size: 12pt;
+    }
+
+.discussions-summary .discussion-link {
+    color: #646660 !important;
+}
+
+
+.project-crm-comments {
+    padding: 0px;
+}
+
+    .project-crm-comments .ticket-edit-project-crm-comments {
+        padding-left: 0px;
+        margin: 15px 0px;
+    }
+
+        .project-crm-comments .ticket-edit-project-crm-comments li:hover {
+            border: none !important;
+        }
+
+        .project-crm-comments .ticket-edit-project-crm-comments li {
+            list-style: none;
+            font-family: helvitca;
+            padding-left: 10px;
+            margin-bottom: 10px;
+            display: table;
+            width: 100%;
+        }
+
+        .project-crm-comments .ticket-edit-project-crm-comments .item-date {
+            font-size: 10pt;
+            color: #787676;
+        }
+
+        .project-crm-comments .ticket-edit-project-crm-comments .user {
+            display: table-cell;
+            min-width: 130px;
+            padding-right: 5px;
+        }
+
+        .project-crm-comments .ticket-edit-project-crm-comments .item-comment {
+            font-size: 10pt;
+            color: #333333;
+            margin: 5px 5px;
+            border: 1px solid lightgray;
+            width: 100%;
+            display: table-cell;
+            padding-top: 10px;
+            padding-left: 5px;
+        }
+
+    .project-crm-comments button, .project-crm-comments input[type='submit'], .project-crm-comments input[type='button'] {
+        background-color: @background-color-button !important;
+        border: @border-button;
+        color: white;
+        cursor: pointer;
+        width: 150px !important;
+        display: inline-block;
+        font: 12px @label-font-family,Helvetica,sans-serif;
+        font-weight: 400;
+        padding: 5px 14px 5px 14px;
+        text-align: center;
+        text-shadow: rgba(40,53,9,.2) 0px 0px 1px;
+        box-shadow: inset 0px 0px 1px rgba(255, 255, 255, 1.0), 1px 1px 1px rgba(102, 102, 102, 0.2);
+        text-decoration: none;
+        margin-top: 10px;
+    }
+
+.activity-stream-item {
+    position: relative;
+}
+
+.user-context-menu {
+    position: absolute;
+    background-color: #f5f5f5;
+    border: 1px solid #999;
+    border-radius: 12px;
+    font-size: 12px !important;
+    min-width: 280px;
+    padding-right: 10px;
+    max-width: 350px;
+    min-height: 100px;
+    max-height: 200px;
+    display: none;
+    z-index: 10000;
+}
+
+.activity-stream-item .user-context-menu {
+    top: 35px;
+    left: 52px;
+}
+
+.ticket-edit-project-crm-comments .user {
+    position: relative;
+}
+
+    .ticket-edit-project-crm-comments .user .user-context-menu {
+        position: absolute;
+        top: 50px;
+        left: 20px;
+    }
+
+.user-context-menu ul {
+    padding: 0px;
+    list-style: none;
+    text-align: left !important;
+}
+
+    .user-context-menu ul li {
+        padding-left: 4px !important;
+    }
+
+.user-context-menu .user-context-menu-close {
+    position: absolute;
+    top: 6px;
+    right: 5px;
+    display: inline-block;
+    border: none;
+    text-decoration: none;
+    border-radius: 2px;
+    width: 16px;
+    height: 16px;
+    color: gray;
+    padding-left: 2px;
+    line-height: 1.1em;
+}
+
+    .user-context-menu .user-context-menu-close:hover {
+        color: #444;
+        border-color: black;
+    }
+
+.skype-icon {
+    display: inline-block;
+    min-width: 100px;
+    padding-left: 30px;
+    background-image: url("images/skype-icon.png");
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    background-size: 24px 24px;
+    height: 30px;
+    line-height: 2em;
+}
+
+.skype-tooltip span {
+    display: inline-block;
+    min-width: 80px;
+    color: #5e5e5e !important;
+}
+
+.files .well {
+    margin-top: 5px !important;
+}
+
+div.mce-fullscreen {
+    z-index: 1050;
+}
+
+.activity-stream-item a {
+    text-decoration: none;
+}
+
+.ticket-related-item {
+    padding-left: 10px;
+}
+
+    .ticket-related-item label {
+        display: inline-block;
+        margin-right: 10px;
+        font-family: Arial;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+.add-crm-comments-host {
+    margin-left: 10px;
+}
+
+.add-crm-comments {
+    padding: 0px;
+    display: table;
+    width: 100%;
+}
+
+    .add-crm-comments .user {
+        display: table-cell;
+        min-width: 130px;
+        padding-right: 5px;
+    }
+
+    .add-crm-comments .new-comment {
+        display: table-cell;
+        padding: 0px;
+        width: 100%;
+    }
+
+        .add-crm-comments .new-comment textarea {
+            margin-bottom: 5px !important;
+        }
+
+.user .published {
+    font-size: 11px;
+}
+
+.wiki-body, .discussion-body {
+    background-color: #f4f4f4;
+    padding-left: 10px;
+}
+
+.break-text {
+    /* These are technically the same, but use both */
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    -ms-word-break: break-all;
+    /* This is the dangerous one in WebKit, as it breaks things wherever */
+    word-break: break-all;
+    /* Instead use this non-standard one: */
+    word-break: break-word;
+    /* Adds a hyphen where the word breaks, if supported (No Blink) */
+    -ms-hyphens: auto;
+    -moz-hyphens: auto;
+    -webkit-hyphens: auto;
+    hyphens: auto;
+}
+
+.user-tag-display {
+    display: inline-block;
+    margin-left: 5px;
+    margin-right: 5px;
+    background-color: #eee;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    text-align: center;
+    min-width: 60px;
+}
+
+.main-search-container .customer-navbar {
+    z-index: 999 !important;
+}
+
+.wiki-panel-body {
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+.dashboard-part {
+    min-height: 320px;
+}
+
+    .dashboard-part .panel-heading h5 {
+        font-size: 16px !important;
+    }
+
+.title-milestone-is-current {
+    color: green;
+    display: inline-block;
+    margin-left: 5px;
+    font-size: 10pt;
+}
+
+.milestone-date {
+    color: green;
+    display: inline-block;
+    margin-left: 5px;
+    font-size: 10pt;
+    min-width: 100px;
+}
+
+.milestone-field-label {
+    display: inline-block;
+}
+
+.item-title-container {
+    padding-left: 10px;
+}
+
+
+.elipse-text {
+    white-space: -moz-pre-wrap; /* Mozilla, supported since 1999 */
+    white-space: -pre-wrap; /* Opera */
+    white-space: -o-pre-wrap; /* Opera */
+    white-space: pre-wrap; /* CSS3 - Text module (Candidate Recommendation) http://www.w3.org/TR/css3-text/#white-space */
+    word-wrap: break-word; /* IE 5.5+ */
+    text-overflow: ellipsis;
+    display: inline-block;
+}
+
+@media(max-width:600px) {
+    .elipse-text {
+        max-width: 200px;
+    }
+}
+
+@media(max-width:800px) and (min-width:600px) {
+    .elipse-text {
+        max-width: 300px;
+    }
+}
+
+@media(min-width:800px) {
+    .elipse-text {
+        max-width: 400px;
+    }
+}
+
+.edit-button {
+    margin: 10px;
+}
+
+.project-custom-content .meta {
+    margin-top: 10px !important;
+}
+
+.edit-user {
+    label {
+        font-weight: normal;
+        width: 150px;
+    }
+}

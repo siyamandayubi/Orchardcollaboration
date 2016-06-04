@@ -1,0 +1,120 @@
+﻿<Placement>
+  <Place Parts_AttachToProject_Edit="Content:3"/>
+  <Place Parts_Team_Edit="Content:3"/>
+  <Place Parts_BusinessUnit_Edit="Content:3"/>
+  <Place Parts_BusinessUnit_Edit="Content:3"/>
+  <Place Parts_TicketMenuItem_Edit="Content:3"/>
+  <Place Parts_EntityToolbar="Header:3"/>
+  <Place Parts_Team="Content:3"/>
+  <Place Parts_Dashboard="Content:3"/>
+  <Place Parts_TeamMembers="Content:3"/>
+  <Place Parts_TicketCommentsViewer="Content:3"/>
+  <Place Parts_BusinessUnitMembers="Content:3"/>
+  <Place Parts_BusinessUnit="Content:3"/>
+  <Place Parts_Service="Content:3"/>
+  <Place Parts_UserService="Content:3"/>
+  <Place Parts_Service_Edit="Content:3"/>
+  <Place Parts_ActivityStream_Edit="Content:3"/>
+  <Place Parts_Service_Edit="Content:3"/>
+  <Match ContentType="DynamicProjection">
+    <Place Parts_Common_Body_Summary="-"
+            Parts_Common_Body="-"
+            Parts_Common_Metadata="-"/>
+  </Match>
+  <Match ContentType="Projection">
+    <Place Parts_Common_Body_Summary="-"
+            Parts_Common_Body="-"
+            Parts_Common_Metadata="-"/>
+  </Match>
+  <!--CRMComments-->
+  <Match DisplayType="Detail">
+    <Place Parts_CRMComments="Content:20"/>
+  </Match>
+  <Match DisplayType="TableRow">
+    <Place Parts_CRMComments_TableRow="CommentsCount:10"/>
+  </Match>
+  <!--Ticket-->
+  <Place Parts_TicketsForContentItem="Footer:10"/>
+  <Place Parts_Ticket="Content:3"/>
+  <Place Parts_Ticket_Summary="Content:3"/>
+  <Place Parts_Ticket_Pinboard="Content:3"/>
+  <Place Parts_Ticket_GanttChart="Content:3"/>
+  <Place Parts_Ticket_Edit="Content:1"/>
+  <Place Parts_Ticket_RelatedContentItem_Edit="Header:2"></Place>
+  <Match DisplayType="TableRow">
+    <Place Parts_Ticket_TableRow="Content:1"/>
+    <Place Parts_FilesList="-"/>
+    <Place Parts_ContentItemPermission_TableRow="Content:4"/>
+    <Place Fields_Common_Text="-"/>
+  </Match>
+  <Match ContentType="Ticket">
+    <Place Parts_ContentItemPermission_Edit="People:2;Alternate=EditorTemplate_Parts_ContentItemPermission__Ticket"></Place>
+    <Place Parts_AttachToMilestone_Edit="FieldsAndProperties:3.5;Alternate=Parts_AttachToMilestone_Edit__Ticket"/>
+    <Place Parts_Common_Owner_Edit="-"/>
+    <Place Parts_Common_Container_Edit="-"/>
+    <Place Parts_Ticket_EditTitle="Header:1"/>
+    <Place Parts_Ticket_TitleOnly="Content:1"/>
+    <Place Fields_Numeric_Edit="Content:2.9"/>
+    <Place Fields_Common_Text_Edit="FieldsAndProperties:3.5;Alternate=TicketFields_Text_Edit"/>
+    <Place Fields_Boolean_Edit="FieldsAndProperties:3.5"/>
+    <Place Fields_Boolean="-"/>
+    <Match DisplayType="Detail">
+      <Place Parts_AttachToProject="FieldsAndProperties:2"/>
+      <Place Parts_Ticket_Properties="FieldsAndProperties:1"/>
+      <Place Parts_Ticket_SubTickets="FieldsAndProperties:10"></Place>
+      <Place Parts_Ticket_Dates="Dates:2"/>
+      <Place Parts_Ticket_People="People:1"/>
+      <Place Parts_Ticket_RelatedContentItem="Header:2"/>
+      <Place Parts_Ticket="Content:2"/>
+      <Place Parts_Ticket_HeaderTitle="Header:1"/>
+      <Place Parts_ContentItemPermission_Summary="People:1"/>
+      <Place Parts_Common_Metadata="Dates:1"/>
+      <Place Parts_Common_Metadata_Summary="-"/>
+      <Place Parts_CRMCommentsPart="Content:3"/>
+      <Place Fields_Common_Text="FieldsAndProperties:3.5;Alternate=Ticket_Fields_Common_Text"/>
+      <Place Fields_Boolean="FieldsAndProperties:3.5"/>
+    </Match>
+    <Match DisplayType="Summary">
+      <Place Parts_Common_Metadata="-"/>
+      <Place Parts_Common_Metadata_Summary="-"/>
+      <Place Fields_Common_Text="-"/>
+      <Place Fields_Boolean="-"/>
+      <Place Parts_FilesList="-"/>
+    </Match>
+    <Match DisplayType="SummaryAdmin">
+      <Place Parts_FilesList="-"/>
+      <Place Parts_Ticket_SummaryAdmin="Content:3"></Place>
+      <Place Fields_Boolean="-"/>
+    </Match>
+    <Match DisplayType="TitleOnly">
+      <Place Parts_Common_Metadata="-"/>
+      <Place Fields_Boolean="-"/>
+      <Place Parts_Common_Metadata_Summary="-"/>
+      <Place Fields_Common_Text="-"/>
+      <Place Parts_FilesList="-"/>
+    </Match>
+    <Place Parts_Ticket_Properties_Edit="FieldsAndProperties:1"/>
+    <Place Parts_FileUploadHidden_Edit="FieldsAndProperties:4" />
+    <Place Parts_FileUpload_Edit="FieldsAndProperties:4" />    
+    <Place Parts_AttachToProject_Edit="FieldsAndProperties:3"/>
+    <Place Parts_Ticket_Dates_Edit="Dates:2"/>
+    <Place Parts_Ticket_People_Edit="People:1"/>
+    <Place Parts_FilesList="FieldsAndProperties:4" />
+  </Match>
+  <Match ContentType="Dashboard">
+    <Match DisplayType="Detail">
+      <Place Parts_Common_Metadata="-"/>
+      <Place Parts_Common_Metadata_Summary="-"/>
+    </Match>
+    <Place Parts_Dashboard="Content:1"/>
+    <Place Parts_Dashboard_Summary="Content:1"/>
+  </Match>
+  <Place Parts_CRMComment="Content:3"/>
+  <Place Parts_CRMComments_Edit="Content:3"/>
+  <Place Parts_CRMComment_Edit="Content:3"/>
+  <Place Parts_FileUpload_Edit="Content:10" />
+  <Place Parts_FileUploadHidden_Edit="Content:10" />
+  <Place Parts_FilesList="Content:10" />
+  <Place Parts_DashboardActivityStream="Content:4"></Place>
+  <Place Parts_ContentItemPermission_Edit="Content:4"/>
+</Placement>

@@ -1,0 +1,6 @@
+﻿@using Orchard.CRM.Project;
+@using Orchard.CRM.Project.ViewModels;
+@{
+    FolderWithAncestorsViewModel folder = Model.Model;
+}
+<a href="@Url.Action("Display", "Folder", new { id = folder.FolderId })"><h5>@folder.Title</h5></a>

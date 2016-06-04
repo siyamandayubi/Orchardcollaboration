@@ -1,0 +1,29 @@
+﻿@using System.Globalization;
+@{
+    var ticketViewMoodel = (Orchard.CRM.Core.ViewModels.TicketViewModel)Model.Model;
+    string description = ticketViewMoodel.Text;
+}
+<div class="field-container-full-width">
+    <div class="label-container">@T("Due Date")</div>
+    <div class="ticket-input-field popup-host ticket-duedate-value">
+        <div class="inner">
+            @if (ticketViewMoodel.DueDate.HasValue)
+            {
+                DateTime dateTime = ticketViewMoodel.DueDate.Value;
+                string dateTimeString = string.Format(CultureInfo.InvariantCulture, "{0} {1}", dateTime.ToLongDateString(), dateTime.ToShortTimeString());
+                <span title="@dateTimeString">@ticketViewMoodel.DueDate.Value.ToLongDateString()</span>
+            }
+            else
+            {
+                <span title="-">@T("-")</span>
+            }
+        </div>
+        @if (ticketViewMoodel.CurrentUserCanEditItem && !ticketViewMoodel.CurrentUserIsCustomer)
+        {
+            <div class="popup-menu-box change-duedate-options">
+                @Display(New.DueDateOptions(contentItemId: ticketViewMoodel.ContentItemId))
+            </div>
+        }
+    </div>
+</div>
+<div class="clear"></div>

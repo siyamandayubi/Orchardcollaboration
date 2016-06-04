@@ -1,0 +1,7 @@
+﻿@{
+   Style.Include("SuiteCRM.css");
+}
+<div class="suite-crm-no-connection-message">
+    <div class="message">@T("There is not a connection between SugerCRM/SuiteCRM and OrchardCollaboration.")</div>
+    <div><a href="@Url.Action("Settings", "Sync", new { area = "Orchard.SuiteCRM.Connector"})" >@T("Configure SugerCRM/SuiteCRM connection")</a></div>
+</div>

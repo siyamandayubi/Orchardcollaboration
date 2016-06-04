@@ -1,0 +1,24 @@
+﻿@using Orchard.CRM.Core.ViewModels;
+@model BusinessUnitViewModel
+@Display(New.Stylesheet())
+@using (Html.BeginFormAntiForgeryPost(Url.Action("CreateBusinessUnitPost", "Organization", new { area = "Orchard.CRM.Core" }), FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <h1>@T("Create  Business Unit")</h1>
+    <div class="group">
+        <fieldset>
+            <label for="Name">@T("Name")</label>
+            <input id="Name" name="Name" value="@Model.Name" type="text" class="text-medium" />
+            @Html.ValidationMessageFor(c => c.Name)
+        </fieldset>
+        <fieldset>
+            <label for="Description"> @T("Description")</label>
+            <div class="width-description"><textarea class="description-textarea" id="Description" name="Description">@Model.Description</textarea></div>
+            @Html.ValidationMessageFor(c => c.Description)
+     </fieldset>
+        <fieldset class="organization-buttons">
+            <button class="primaryAction" value="Save" type="submit">@T("Save")</button>
+            <a class="admin-cancel" href="@Url.Action("BusinessUnits", "Organization", new { area = "Orchard.CRM.Core"})"><span>@T("Cancel")</span></a>
+        </fieldset>
+    </div>
+}
+

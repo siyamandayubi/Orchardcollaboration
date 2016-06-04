@@ -1,0 +1,59 @@
+﻿@using Orchard.CRM.Core.Models;
+@using Orchard.CRM.Core.Services;
+@using Orchard.CRM.Core.ViewModels;
+@{
+    CommentsViewModel model = (CommentsViewModel)Model.Model;
+    string id = model.ContentItemId.ToString();
+}
+<div class="project-comments" >
+    @foreach (var item in model.Comments)
+    {
+        string userProfileUrl = Url.Action("Display", "User", new { area = "Orchard.CRM.Project", userId = item.User.Id });
+        <div class="row project-comment">
+            <div class="col-md-2">
+                @Display(New.UserThumbnail(userId: item.User.Id, width: 48, height: 48, source: Url.Content("~/Modules/Orchard.CRM.Project/Styles/Images/user-icon-small.jpg")))
+            <div>
+              <a class="user-link" href="@userProfileUrl">@CRMHelper.GetFullNameOfUser(item.User)</a>
+           </div>
+            <div class="user-context-menu">
+                @Display(New.SkypeTooltip(Model: item.User, Topic: item.CommentText))
+            </div>
+            <div class="published">@item.CommentDateUtc.Value.ToString("MMM dd") &nbsp; @item.CommentDateUtc.Value.ToString("hh:mm")</div>
+            </div>
+            <div class="col-md-10">
+                <div class="well">@item.CommentText</div>
+            </div>
+        </div>
+    }
+</div>
+<div class="row add-comment">
+    <div class="col-md-2">
+        @Display(New.UserThumbnail(userId: model.CurrentUser.Id, width: 48, height: 48, source: Url.Content("~/Modules/Orchard.CRM.Project/Styles/Images/user-icon-small.jpg")))
+    </div>
+    <div class="col-md-10">
+        @using (Html.BeginFormAntiForgeryPost(Url.Action("Add", "CRMComment", new { area = "Orchard.CRM.Core", returnUrl = Request.Url }), FormMethod.Post))
+        {
+            <div class="crm-comments">
+                <input type="hidden" value="@id" name="contentId" />
+                <textarea class="area" name="comment"></textarea>
+                <div><input type="submit" class="btn btn-primary" value="@T("Add Comment")" /></div>
+            </div>
+        }
+    </div>
+</div>
+@using (Script.Foot())
+{
+    Script.Require("JQueryUI");
+    Script.Require("ProjectWidgets");
+    <script language="javascript" type="text/javascript">
+        $(document).ready(function(){
+            $(".project-comments").Skype({
+                userLinkCssClass: "user-link",
+                mainContainerClass: "project-comments",
+                subContainerClass: "project-comment",
+                contextMenuCssClass: "user-context-menu",
+                contextMenuCloseButtonClass: "user-context-menu-close"
+            });
+        });
+    </script>
+}

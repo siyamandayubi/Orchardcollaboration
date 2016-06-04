@@ -1,0 +1,128 @@
+span.file-text {
+    display: inline-block;
+    vertical-align: top;
+    color: #323232;
+    padding-top: 10px;
+    font-family: Arial;
+    min-height: 75px;
+    padding-right: 15px;
+    position: relative;
+    padding-left: 70px;
+    white-space: -moz-pre-wrap; /* Mozilla, supported since 1999 */
+    white-space: -pre-wrap; /* Opera */
+    white-space: -o-pre-wrap; /* Opera */
+    white-space: pre-wrap; /* CSS3 - Text module (Candidate Recommendation) http://www.w3.org/TR/css3-text/#white-space */
+    word-wrap: break-word; /* IE 5.5+ */
+}
+
+    span.file-text:hover {
+        text-decoration: underline;
+    }
+
+.file-delete .file-icon {
+    background-image: none;
+}
+
+.file-field {
+    min-height: 30px;
+}
+
+.file-delete .file-text {
+    color: #323232;
+    border: 1px solid #bdbcbc;
+    width: 70px;
+    height: 20px;
+    display: inline-block;
+    text-align: center;
+    line-height: 19px;
+    margin-bottom: 5px;
+}
+
+    .file-delete .file-text:hover {
+        border: 1px solid #5e9ec3;
+        text-decoration: none;
+        background-color: #ecf5fa;
+    }
+
+span.file-icon {
+    background-image: url("images/sprite-file-icons_64.png");
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 64px;
+    margin: 0 5px 0 0;
+    position: absolute;
+    top: 5px;
+    left: 4px;
+    width: 64px;
+}
+
+.pdf span.file-icon {
+    background-position: 0 -68px;
+}
+
+.png span.file-icon,
+.jpg span.file-icon,
+.png span.file-icon,
+.bmp span.file-icon {
+    background-position: 0 -131px;
+}
+
+.doc span.file-icon {
+    background-position: 0 -199px;
+}
+
+.xls span.file-icon {
+    background-position: 0 -260px;
+}
+
+.ppt span.file-icon {
+    background-position: 0 -327px;
+}
+
+.docx span.file-icon {
+    background-position: 0 -199px;
+}
+
+.xlsx span.file-icon {
+    background-position: 0 -260px;
+}
+
+.txt span.file-icon {
+    background-position: 0 -400px;
+}
+
+.pptx span.file-icon {
+    background-position: 0 -327px;
+}
+
+.zip span.file-icon,
+.rar span.file-icon,
+.gzip span.file-icon,
+.arj span.file-icon {
+    background-position: 0 -467px;
+}
+
+.wav span.file-icon,
+.mp3 span.file-icon,
+.aif span.file-icon,
+.aiff span.file-icon,
+.m4a span.file-icon,
+.ogg span.file-icon,
+.wma span.file-icon {
+    background-position: 0 -530px;
+}
+
+.psd span.file-icon,
+.ai span.file-icon,
+.swf span.file-icon,
+.fla span.file-icon,
+.css span.file-icon,
+.js span.file-icon {
+    background-position: 0 0px;
+}
+
+.avi span.file-icon,
+.mov span.file-icon,
+.wmv span.file-icon {
+    background-position: 0 -608px;
+}

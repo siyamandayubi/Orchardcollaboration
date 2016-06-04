@@ -1,0 +1,51 @@
+﻿<div class="ticket-title-wrapper">
+    <div class="ticket-title">
+        <h1 class="titr pull-left">
+            @if (Model.ParentTicketId != null)
+            {
+                string parentTitle = string.IsNullOrEmpty(Model.ParentTitle) ?
+                   T("NO TITLE").Text :
+                   Model.ParentTitle.Length > 30 ? Model.ParentTitle.Substring(0, 27) + "..." : Model.ParentTitle;
+
+                 <a class="a" href="@Url.Action("Display", "Ticket", new { area = "Orchard.CRM.Core", id = Model.ParentTicketId })">
+                    <span>@(Model.ParentTicketNumber)</span>
+                    <span class="text" title="@Model.ParentTitle">@parentTitle</span>
+                </a>
+                <span class="seperator">@Html.Raw("/")</span>
+            }
+            @{
+                string title = string.IsNullOrEmpty(Model.Title)?                     
+                    T("NO TITLE").Text :
+                    Model.Title.Length > 50 ? Model.Title.Substring(0, 47) + "..." : Model.Title;
+            }
+            <span class="child-text">@(Model.TicketNumber)</span>
+            <span class="child-text" title="@Model.Title">@title</span>
+        </h1>
+            @if (Model.Menu != null)
+            {
+                <div class="menu-container">
+                    @Display(Model.Menu)
+                </div>                
+            }
+        <div class="ticket-menu">
+            <span class="ticket-menu-icon1"></span><span class="ticket-menu-icon2"></span>
+            <ul class="ticket-toolbar-menu">
+                @if (Model.Model.CurrentUserCanEditItem)
+                { 
+                    <li><a href="@Url.Action("Edit", "Ticket", new { area = "Orchard.CRM.Core", id = Model.TicketId})">@T("Edit")</a></li>
+                }
+                @if (!Model.Model.CurrentUserIsCustomer)
+                { 
+                    <li><a href="@Url.Action("CreateChildTicket", "Ticket", new { area = "Orchard.CRM.Core", parentTicketId = Model.ContentItem.Id })">@T("Create Sub Ticket")</a></li>
+                }
+                @if (!Model.Model.CurrentUserIsCustomer && Model.Model.CurrentUserCanChangePermission)
+                { 
+                    <li>
+                        <a href="@Url.Action("Edit", "ContentOwnership", new { area = "Orchard.CRM.Core", ids = Model.TicketId })">@T("Share")</a>
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>

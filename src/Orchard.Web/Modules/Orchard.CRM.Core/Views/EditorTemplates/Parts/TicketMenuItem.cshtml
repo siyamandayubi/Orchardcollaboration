@@ -1,0 +1,40 @@
+﻿@using System.Globalization;
+@Display(New.Stylesheet())
+
+<label for="Group">@T("Group")</label>
+<div>
+    <select name="TicketMenuItemPart.GroupId" id="GroupId" class="ticketActivity-select">
+        <option value=""></option>
+        @foreach (var businessUnit in Model.BusinessUnits)
+        {
+            string isSelected = businessUnit.Checked ? "selected=selected" : string.Empty;
+            string businessUnitId = string.Format(CultureInfo.InvariantCulture, "BusinessUnit:{0}", businessUnit.BusinessUnitId.ToString(CultureInfo.InvariantCulture));
+            <option @isSelected value="@businessUnitId">@businessUnit.Name</option>
+            foreach (var team in businessUnit.Teams)
+            {
+                isSelected = team.Checked ? "selected=selected" : string.Empty;
+                string teamId = string.Format(CultureInfo.InvariantCulture, "Team:{0}", team.TeamId.ToString(CultureInfo.InvariantCulture));
+                <option @isSelected value="@teamId">@("  " + team.Name)</option>
+            }
+        }
+    </select>
+</div>
+<fieldset>
+    <label for="User">@T("User")</label>
+    @Html.DropDownList("UserId", (IEnumerable<SelectListItem>)Model.Users, new { @class = "ticketActivity-select" })
+    <div>@T("Please note: if you select a user, then the Group field will be ignored")</div>
+</fieldset>
+<fieldset>
+    <label for="Due Date Before">@T("Due Date Before")</label>
+    <select name="TicketMenuItemPart.DueDateDays" id="TicketMenuItemPart.DueDateDays" class="ticketActivity-select">
+        @foreach (SelectListItem item in Model.DueDateDays)
+        {
+            string selected = item.Selected ? "selected=\"selected\"" : string.Empty;
+            <option value="@item.Value" @selected>@item.Text</option>
+        }
+    </select>
+</fieldset>
+<fieldset>
+    <label for="Status">@T("Status")</label>
+    @Html.DropDownList("StatusId", (IEnumerable<SelectListItem>)Model.StatusItems, new { @class = "ticketActivity-select" })
+</fieldset>

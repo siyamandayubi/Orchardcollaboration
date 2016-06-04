@@ -1,0 +1,297 @@
+@using Bootstrap;
+@using Orchard;
+@functions {
+    // To support the layout classifaction below. Implementing as a razor function because we can, could otherwise be a Func<string[], string, string> in the code block following.
+    string CalcuClassify(string[] zoneNames, string classNamePrefix)
+    {
+        var zoneCounter = 0;
+        var zoneNumsFilled = string.Join("", zoneNames.Select(zoneName => { ++zoneCounter; return Model[zoneName] != null ? zoneCounter.ToString() : ""; }).ToArray());
+        return HasText(zoneNumsFilled) ? classNamePrefix + zoneNumsFilled : "";
+    }
+
+    void RegisterAppleLink(string size, string href)
+    {
+        var link = new Orchard.UI.Resources.LinkEntry { Rel = "apple-touch-icon", Href = href };
+        link.AddAttribute("sizes", size);
+        RegisterLink(link);
+    }
+}
+@{
+    Style.Include("orchardcollaboration.css");
+
+    bool useFixedNav = WorkContext.SettingsEval(Constants.UseFixedNav);
+    bool useFluidLayout = WorkContext.SettingsEval(Constants.UseFluidLayout);
+    bool useNavSearch = WorkContext.SettingsEval(Constants.UseNavSearch);
+    bool useStickyFooter = WorkContext.SettingsEval(Constants.UseStickyFooter);
+    bool useInverseNav = WorkContext.SettingsEval(Constants.UseInverseNav);
+
+    /* Global includes for the theme
+    ***************************************************************/
+
+    SetMeta("charset", "utf-8");
+    SetMeta("X-UA-Compatible", "IE=edge,chrome=1");
+    SetMeta("viewport", "width=device-width, initial-scale=1.0");
+
+    /* Some useful shortcuts or settings
+    ***************************************************************/
+
+    Func<dynamic, dynamic> Zone = x => Display(x); // Zone as an alias for Display to help make it obvious when we're displaying zones
+
+    /* Layout classification based on filled zones
+    ***************************************************************/
+
+    //Add classes to the wrapper div to toggle aside widget zones on and off
+    var asideClass = CalcuClassify(new[] { "AsideFirst", "AsideSecond" }, "aside-"); // for aside-1, aside-2 or aside-12 if any of the aside zones are filled
+    if (HasText(asideClass))
+    {
+        Model.Classes.Add(asideClass);
+    }
+
+    //Add classes to the wrapper div to toggle tripel widget zones on and off
+    var tripelClass = CalcuClassify(new[] { "TripelFirst", "TripelSecond", "TripelThird" }, "tripel-"); // for tripel-1, tripel-2, etc. if any of the tripel zones are filled
+    if (HasText(tripelClass))
+    {
+        Model.Classes.Add(tripelClass);
+    }
+
+    //Add classes to the wrapper div to toggle quad widget zones on and off
+    var footerQuadClass = CalcuClassify(new[] { "FooterQuadFirst", "FooterQuadSecond", "FooterQuadThird", "FooterQuadFourth" }, "split-"); // for quad-1, quad-2, etc. if any of the quad zones are filled
+    if (HasText(footerQuadClass))
+    {
+        Model.Classes.Add(footerQuadClass);
+    }
+
+    /* Inserting some ad hoc shapes
+    ***************************************************************/
+
+    WorkContext.Layout.Header.Add(New.Branding(), "0"); // Site name and link to the home page
+    WorkContext.Layout.Footer.Add(New.BadgeOfHonor(), "5"); // Powered by Raptor Concepts
+    WorkContext.Layout.Navigation.Add(New.User(), "5"); // Login and dashboard links
+
+    if (useNavSearch)
+    {
+        WorkContext.Layout.Navigation.Add(New.SearchNav(), "10"); // Search box (requires Search module)
+    }
+
+    /* Last bit of code to prep the layout wrapper
+    ***************************************************************/
+
+    Model.Id = "layout-wrapper";
+    var tag = Tag(Model, "div"); // using Tag so the layout div gets the classes, id and other attributes added to the Model
+    var containerClass = useFluidLayout ? "container-fluid" : "container";
+    //var rowClass = useFluidLayout ? "row-fluid" : "row";
+    var asideCssClass = ThemeHelper.GetAsideCssClass(asideClass);
+    var tripelCssClass = ThemeHelper.GetTripelCssClass(tripelClass);
+    var footerQuadCssClass = ThemeHelper.GetFooterQuadCssClass(footerQuadClass);
+}
+<style type="text/css">
+    body {
+        padding-top: 0px !important;
+    }
+</style>
+<div id="layout-wrapper" style="@(useStickyFooter ? "min-height: 100%; height: auto !important; height: 100%; margin: 0 auto -115px; padding: 0 0 115px;" : string.Empty /*change last value in margin to adjust footer height-don't forget sticky footer settings in theme.css*/)">
+    @if (useFixedNav)
+    {
+        <div class="navbar @(useInverseNav ? "navbar-inverse" : "navbar-default")">
+            <div class="@containerClass">
+                <div class="navbar-header">
+                    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#main-menu">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @if (Model.Header != null)
+                    {
+                        @Zone(Model.Header)
+                    }
+                </div>
+                <div id="main-menu" class="navbar-collapse collapse">
+                    @if (Model.Navigation != null)
+                    {
+                        @Zone(Model.Navigation)
+                    }
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="@containerClass">
+            <div class="page-header" id="banner">
+                <div class="row">
+                    <div class="col-lg-12">
+                        @if (Model.Header != null)
+                        {
+                        @Zone(Model.Header)
+                        }
+                    </div>
+                </div>
+            </div>
+            <div id="sub-menu" class="row">
+                @if (Model.Navigation != null)
+                {
+                @Zone(Model.Navigation)
+                }
+            </div>
+        </div>
+    }
+    <section id="content">
+        <div class="@containerClass">
+            @if (Model.BeforeMain != null)
+            {
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Zone(Model.BeforeMain)
+                    </div>
+                </div>
+            }
+            @if (Model.Featured != null)
+            {
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Zone(Model.Featured)
+                    </div>
+                </div>
+            }
+            <div class="row">
+                @if (Model.AsideFirst != null)
+                {
+                    <aside class="col-lg-3">
+                        <div class="well well-sm">
+                            @Zone(Model.AsideFirst)&nbsp;
+                        </div>
+                    </aside>
+                }
+                <div class="@asideCssClass">
+                    @if (Model.Messages != null)
+                    {
+                        @Zone(Model.Messages)
+                    }
+                    @if (Model.BeforeContent != null)
+                    {
+                        @Zone(Model.BeforeContent)
+                    }
+                    @if (Model.Content != null)
+                    {
+                        @Zone(Model.Content)
+                    }
+                    @if (Model.AfterContent != null)
+                    {
+                        @Zone(Model.AfterContent)
+                    }
+                </div>
+                @if (Model.AsideSecond != null)
+                {
+                    <aside class="col-lg-3">
+                        <div class="well well-sm">
+                            @Zone(Model.AsideSecond)&nbsp;
+                        </div>
+                    </aside>
+                }
+            </div>
+            @if (Model.AfterMain != null)
+            {
+                <div class="row">
+                    <div class="col-lg-12">
+                        @Zone(Model.AfterMain)
+                    </div>
+                </div>
+            }
+            @if (Model.TripelFirst != null || Model.TripelSecond != null || Model.TripelThird != null)
+            {
+                <div class="row">
+                    @if (Model.TripelFirst != null)
+                    {
+                        <!-- start: Tripel -->
+                        <div class="@tripelCssClass">
+                            @Zone(Model.TripelFirst)
+                        </div>
+                        <!-- end: Tripel -->
+                    }
+                    @if (Model.TripelSecond != null)
+                    {
+                        <!-- start: Tripel -->
+                        <div class="@tripelCssClass">
+                            @Zone(Model.TripelSecond)
+                        </div>
+                        <!-- end: Tripel -->
+                    }
+                    @if (Model.TripelThird != null)
+                    {
+                        <!-- start: Tripel -->
+                        <div class="@tripelCssClass">
+                            @Zone(Model.TripelThird)
+                        </div>
+                        <!-- end: Tripel -->
+                    }
+                </div>
+            }
+            @if (Model.FooterQuadFirst != null || Model.FooterQuadSecond != null || Model.FooterQuadThird != null || Model.FooterQuadFourth != null)
+            {
+                <hr />
+                <div class="row">
+                    @if (Model.FooterQuadFirst != null)
+                    {
+                        <div class="@footerQuadCssClass">
+                            @Zone(Model.FooterQuadFirst)
+                        </div>
+                    }
+                    @if (Model.FooterQuadSecond != null)
+                    {
+                        <div class="@footerQuadCssClass">
+                            @Zone(Model.FooterQuadSecond)
+                        </div>
+                    }
+                    @if (Model.FooterQuadThird != null)
+                    {
+                        <div class="@footerQuadCssClass">
+                            @Zone(Model.FooterQuadThird)
+                        </div>
+                    }
+                    @if (Model.FooterQuadFourth != null)
+                    {
+                        <div class="@footerQuadCssClass">
+                            @Zone(Model.FooterQuadFourth)
+                        </div>
+                    }
+                </div>
+            }
+        </div>
+    </section>
+</div>
+<footer id="footer">
+    <div class="@containerClass">
+        <hr />
+        @if (Model.Footer != null)
+        {
+            <div class="row">
+                @Zone(Model.Footer)
+            </div>
+        }
+    </div>
+</footer>
+<div id="toTop">
+    <h1><i class="icon-chevron-sign-up"></i></h1>
+</div>
+<script type="text/javascript">
+    (function () {
+        function effectiveDeviceWidth() {
+            var deviceWidth = window.orientation == 0 ? window.screen.height : window.screen.width;
+            // iOS returns available pixels, Android returns pixels / pixel ratio
+            // http://www.quirksmode.org/blog/archives/2012/07/more_about_devi.html
+            if (navigator.userAgent.indexOf('Android') >= 0 && window.devicePixelRatio) {
+                deviceWidth = deviceWidth / window.devicePixelRatio;
+            }
+            return deviceWidth;
+        };
+
+        // fix the layout issues in mobile devices
+        $(document).ready(function () {
+            var deviceWidth = effectiveDeviceWidth();
+            if (deviceWidth <= 500) {
+                $("#layout-wrapper").css("display", "table");
+                $("#content").find(".row .col-lg-12").first().css("padding-left", "0px").css("padding-right", "0px");
+             }
+        });
+    })();
+</script>

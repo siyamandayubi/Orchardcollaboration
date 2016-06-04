@@ -1,0 +1,52 @@
+@using Bootstrap;
+@using Orchard.Mvc.Html;
+@using Orchard.UI.Resources;
+@{
+    RegisterLink(new LinkEntry { Type = "image/x-icon", Rel = "shortcut icon", Href = Url.Content("~/modules/orchard.themes/Content/orchard.ico") });
+
+    Style.Include("font-awesome.min.css");
+    Style.Include("font-awesome-ie7.min.css").UseCondition("IE 7");
+
+    Script.Require("jQuery").AtHead();
+    Script.Include("bootstrap.min.js");
+    Script.Include("custom.js");
+    Script.Include("html5shiv.js").UseCondition("lt IE 9").AtHead();
+    Script.Include("respond.min.js").UseCondition("lt IE 9").AtHead();
+
+    string title = Convert.ToString(Model.Title);
+    string siteName = Convert.ToString(WorkContext.CurrentSite.SiteName);
+    string classForPage = "static " + Html.ClassForPage();
+    bool useFixedNav = WorkContext.SettingsEval(Constants.UseFixedNav);
+    bool useStickyFooter = WorkContext.SettingsEval(Constants.UseStickyFooter);
+}
+<!DOCTYPE html>
+<!--[if lt IE 7]>
+    <html lang="@WorkContext.CurrentCulture" class="no-js lt-ie10 lt-ie9 lt-ie8 lt-ie7 static @Html.ClassForPage()" style="@(useStickyFooter ? "height: 100%;" : string.Empty)">
+<![endif]-->
+<!--[if IE 7]>
+    <html lang="@WorkContext.CurrentCulture" class="no-js lt-ie10 lt-ie9 lt-ie8 static @Html.ClassForPage()" style="@(useStickyFooter ? "height: 100%;" : string.Empty)">
+<![endif]-->
+<!--[if IE 8]>
+    <html lang="@WorkContext.CurrentCulture" class="no-js lt-ie10 lt-ie9 static @Html.ClassForPage()" style="@(useStickyFooter ? "height: 100%;" : string.Empty)">
+<![endif]-->
+<!--[if IE 9]>
+    <html lang="@WorkContext.CurrentCulture" class="no-js lt-ie10 static @Html.ClassForPage()" style="@(useStickyFooter ? "height: 100%;" : string.Empty)">
+<![endif]-->
+<!--[if gt IE 9]><!-->
+<html lang="@WorkContext.CurrentCulture" class="no-js static @Html.ClassForPage()" style="@(useStickyFooter ? "height: 100%;" : string.Empty)">
+<!--<![endif]-->
+<head>
+    <title>@Html.Title(title, siteName)</title>
+    @Display(Model.Head)
+    <script>(function (d) { d.className = "dyn " + d.className.substring(6, d.className.length); })(document.documentElement);</script>
+</head>
+<body style="@(useStickyFooter ? "height: 100%;" : string.Empty) @(useFixedNav ? "padding-top: 50px;" : "padding-top: 0;")">
+    <!--[if lt IE 7]>
+    <p class="chromeframe">@T("You are using an outdated browser"). @Html.Link(T("Upgrade your browser today"), "http://browsehappy.com/")
+        @T("or") @Html.Link(T("install Google Chrome Frame"), "http://www.google.com/chromeframe/?redirect=true") @T("to better experience this site").</p>
+    <![endif]-->
+    @* Layout (template) is in the Body zone @ the default position (nothing, zero, zilch) *@
+    @Display(Model.Body)
+    @Display(Model.Tail)
+</body>
+</html>

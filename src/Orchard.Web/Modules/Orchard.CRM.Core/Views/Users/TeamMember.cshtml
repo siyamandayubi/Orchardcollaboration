@@ -1,0 +1,10 @@
+﻿@using Orchard.CRM.Core.Models;
+@using Orchard.ContentManagement;
+@using Orchard.Users.Models;
+@{
+    Orchard.ContentManagement.ContentItem contentItem = (Orchard.ContentManagement.ContentItem)Model.ContentItem;
+    var teamMember = ContentExtensions.As <TeamMemberPart>(contentItem);
+    var user = teamMember.User;
+}
+<li class="teamMember" data-id="@user.Id">@user.UserName<a class="delete" data-id="@user.Id" href="@Url.Action("Remove", "Item", new { area = "Orchard.CRM.Core", id = teamMember.Id})">@T("Delete")</a></li>
+

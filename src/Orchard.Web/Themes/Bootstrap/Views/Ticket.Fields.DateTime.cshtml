@@ -1,0 +1,13 @@
+﻿@using Orchard.Utility.Extensions;
+@{
+    string name = Model.ContentField.DisplayName;
+}
+
+<div class="field-container-full-width">
+    <div class="label-container">@name.CamelFriendly()</div>
+    <div class="combobox">
+        <span class="value">@if (Model.Model.Editor.ShowDate)
+        {<text>@Model.Model.Editor.Date</text>} @if (Model.Model.Editor.ShowTime)
+        {<text>@Model.Model.Editor.Time</text>}</span>    </div>
+</div>
+<div class="clear"></div>

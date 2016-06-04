@@ -1,0 +1,17 @@
+@{
+    var typeDisplayName = Model.ContentItem.TypeDefinition.DisplayName;
+    var pageTitle = T("Edit Content");
+    if (!string.IsNullOrWhiteSpace(typeDisplayName))
+    {
+        pageTitle = T("Edit {0}", typeDisplayName);
+    }
+
+    Layout.Title = pageTitle;
+}
+
+@using (Html.BeginFormAntiForgeryPost(Url.Action("EditPOST"), FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary()
+    <input type="hidden" name="id" value="@Model.ContentItem.Id" />
+    @Display(Model)
+}

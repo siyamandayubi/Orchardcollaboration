@@ -1,0 +1,20 @@
+﻿@using Orchard.ContentManagement;
+@{
+    IEnumerable<object> blogPosts =
+        Model.ContentItems.ContentItems;
+}
+@if (blogPosts == null || blogPosts.Count() < 1) {
+    <p>@T("No posts.")</p>
+}
+else {
+    <ul class="content-items icons-ul">
+        @foreach (dynamic post in blogPosts) {
+            string title = post.Title;
+            ContentItem item = post.ContentItem;
+            <li class="content-item-summary">
+                <h5><i class="icon-li icon-chevron-sign-right"></i></h5>
+                @Html.ItemDisplayLink(title, item)
+            </li>
+        }
+    </ul>
+}

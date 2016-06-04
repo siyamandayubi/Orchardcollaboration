@@ -1,0 +1,63 @@
+﻿<div class="space"></div>
+@Display(New.ThemeAwareStylesheet())
+@using Orchard.Utility.Extensions;
+@{
+    Style.Include("jquery-ui.css");
+    var model = Model.Model;
+    if (model.Title != null)
+    {
+        Layout.Title = model.Title;
+    }
+
+    model.Classes.Add("content-item");
+    model.Classes.Add("project-content-item");
+    model.Classes.Add("panel panel-default");
+
+    var contentTypeClassName = ((string)model.ContentItem.ContentType).HtmlClassify();
+    model.Classes.Add(contentTypeClassName);
+
+    var tag = Tag(model, "article");
+}
+@tag.StartElement
+<header class="panel-heading">
+    @if(model.Header != null)
+    { 
+        @Display(model.Header)
+    }
+    @if (model.Meta != null)
+    {
+        <div class="metadata">
+            @Display(model.Meta)
+        </div>
+    }
+</header>
+<div class="panel-body">
+    @if (model.BeforeContent != null)
+    {
+        <div>@Display(model.BeforeContent)</div>
+    }
+    @if (model.BesideContent != null)
+    {
+        <div class="row">
+            <div class="beside-content-list-container">@Display(model.BesideContent)</div>
+            <div class="wiki-main-container">
+                <div>
+                    @Display(model.Content)
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div>
+            @Display(model.Content)
+        </div>
+    }
+</div>
+@if (model.Footer != null)
+{
+    <footer>
+        @Display(model.Footer)
+    </footer>
+}
+@tag.EndElement

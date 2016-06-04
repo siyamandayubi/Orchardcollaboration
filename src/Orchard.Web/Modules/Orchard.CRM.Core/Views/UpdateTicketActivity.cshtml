@@ -1,0 +1,54 @@
+﻿@using Orchard.CRM.Core.ViewModels;
+@using System.Globalization;
+@Display(New.Stylesheet())
+@{
+    var temp = Model;
+    IEnumerable<SelectListItem> priorities = Model.Priorities;
+    IEnumerable<SelectListItem> services = Model.Services;
+    IEnumerable<SelectListItem> statusList = Model.StatusList;
+    IEnumerable<SelectListItem> dueDates = Model.DueDates;
+    ContentItemSetPermissionsViewModel organization = Model.Organization;
+}<fieldset>
+    <label for="UpdatePriorityId">@T("Update Priority")</label>
+     <input type="checkbox" id="UpdatePriorityId" name="UpdatePriorityId" value="true" />
+</fieldset>
+<fieldset>
+    <label for="Priority">@T("Priority")</label>
+    @Html.DropDownList("PriorityId", priorities, new { @class = "ticketActivity-select" })
+</fieldset>
+<fieldset>
+    <label for="UpdateServiceId">@T("Update Service")</label>
+    <input type="checkbox" id="UpdateServiceId" name="UpdateServiceId" value="true" />
+</fieldset>
+<fieldset>
+    <label for="Service">@T("Service")</label>
+    @Html.DropDownList("ServiceId", services, new { @class = "ticketActivity-select" })
+</fieldset>
+<fieldset>
+    <label for="UpdateStatusId">@T("Update Status")</label>
+    <input type="checkbox" id="UpdateStatusId" name="UpdateStatusId" value="true" />
+</fieldset>
+<fieldset>
+    <label for="StatusId">@T("Status")</label>
+    @Html.DropDownList("StatusId", statusList, new { @class = "ticketActivity-select popup-host" })
+</fieldset>
+<fieldset>
+    <label for="UpdateDueDate">@T("Update DueDate")</label>
+    <input type="checkbox" id="UpdateDueDate" name="UpdateDueDate" value="true" />
+</fieldset>
+<fieldset>
+    <label for="Due Date">@T("Due Date")</label>
+    @Html.DropDownList("DueDate", dueDates, new { @class = "ticketActivity-select" })
+</fieldset>
+<fieldset>
+    <label for="UpdateTitle">@T("Update Title")</label>
+    <input type="checkbox" id="UpdateTitle" name="UpdateTitle" value="true" />
+</fieldset>
+<fieldset>
+    <label for="Title">@T("Title")</label>
+    <div><input type="text" name="Title" /></div>
+</fieldset>
+<fieldset>
+    <label for="Description">@T("Description")</label>
+    <div><textarea name="Description"></textarea></div>
+</fieldset>

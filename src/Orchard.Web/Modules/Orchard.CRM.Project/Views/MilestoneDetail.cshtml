@@ -1,0 +1,121 @@
+﻿@using Orchard.Utility.Extensions;
+@using Orchard.Utility.Extensions;
+@using Orchard.CRM.Core.Models;
+@using Orchard.CRM.Project.Models;
+@using Orchard.CRM.Core.Services;
+@using Orchard.CRM.Project;
+@using Orchard.ContentManagement;
+@using Orchard.Core.Common.Models;
+@{
+    dynamic model = Model.Model;
+    Script.Require("JQueryUI");
+    Script.Require("ProjectWidgets");
+    Style.Include("jquery-ui.css");
+
+    var returnUrl = ViewContext.RequestContext.HttpContext.Request.ToUrlString();
+    ContentItem contentItem = model.ContentItem;
+    AttachToProjectPart attachToProject = contentItem.As<AttachToProjectPart>();
+    MilestonePart milestone = contentItem.As<MilestonePart>();
+    string removeLinkReturnUrl = string.Empty;
+    string plannerUrl = string.Empty;
+    string ganttChartUrl = string.Empty;
+
+    if (attachToProject != null)
+    {
+        removeLinkReturnUrl = Url.Action("Display", "Project", new { area = "Orchard.CRM.Project", id = attachToProject.Record.Project.Id });
+        plannerUrl = Url.Action("Display", "Item", new { area = "Orchard.CRM.Core", displayType = "Planner", projectId = attachToProject.Record.Project.Id, milestoneId = contentItem.Id });
+        ganttChartUrl = Url.Action("Display", "Item", new { area = "Orchard.CRM.Core", displayType = "GanttChart", projectId = attachToProject.Record.Project.Id, milestoneId = contentItem.Id });
+    }
+
+    if (model.Title != null)
+    {
+        Layout.Title = model.Title;
+    }
+
+    model.Classes.Add("content-item");
+    model.Classes.Add("project-content-item");
+    model.Classes.Add("panel panel-default");
+
+    var contentTypeClassName = ((string)contentItem.ContentType).HtmlClassify();
+    model.Classes.Add(contentTypeClassName);
+
+    var tag = Tag(model, "article");
+}
+@Display(New.ThemeAwareStylesheet())
+<div class="space"></div>
+@tag.StartElement
+<header class="panel-heading">
+    @if (model.Header != null)
+    {
+        @Display(model.Header)
+    }
+    @if (model.Meta != null)
+    {
+        <div class="metadata">
+            @Display(model.Meta)
+        </div>
+    }
+</header>
+<div class="panel-body">
+    <div class="space"></div>
+    <div class="wiki-item-navbar">
+        <div class="header">
+            <div class="item-title-container pull-left">
+                @if (model.BeforeContent != null)
+                {
+                    @Display(model.BeforeContent)
+                }
+                @if (model.BeforeContent2 != null)
+                {
+                    @Display(model.BeforeContent2)
+                }
+            </div>
+            <div class="menu-container">
+                <div class="project-item-menu-container item-menu" id="discussionMenu">
+                    <span class="pivot">
+                        <span class="icon"></span>
+                        <span class="icon"></span>
+                        <span class="icon"></span>
+                    </span>
+                    <ul class="project-item-menu z1" role="menu" aria-labelledby="projectNewDropdown">
+                        <li><a href="@Url.Action("Display", "Item", new { area = "Orchard.CRM.Core", id = contentItem.Id })">@T("Card wall")</a></li>
+                        <li><a href="@Url.Action("Edit", "ProjectItemsOwnership", new { area = "Orchard.CRM.Project", ids = contentItem.Id, returnUrl = returnUrl })">@T("People")</a></li>
+                        @if (!milestone.Record.IsBacklog)
+                        { 
+                            <li><a href="@Url.Action("Edit", "Item", new { area = "Orchard.CRM.Core", id = contentItem.Id, returnUrl = returnUrl })">@T("Edit")</a></li>
+                            <li><a href="@plannerUrl">@T("Planner")</a></li>
+                            <li><a href="@ganttChartUrl">@T("Gannt Chart")</a></li>
+                            <li><a class="remove-discussion" href="@Url.Action("Remove", "Item", new { area = "Orchard.CRM.Core", ids = contentItem.Id, returnUrl = removeLinkReturnUrl })">@T("Remove")</a></li>
+                        }
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+     </div>
+    @if (model.BesideContent != null)
+    {
+        <div class="row">
+            <div class="beside-content-list-container">@Display(model.BesideContent)</div>
+            <div class="wiki-main-container">
+                <div>
+                    @Display(model.Content)
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div>
+            @Display(model.Content)
+        </div>
+    }
+</div>
+@if (model.Footer != null)
+{
+    <footer>
+        @Display(model.Footer)
+    </footer>
+}
+@tag.EndElement

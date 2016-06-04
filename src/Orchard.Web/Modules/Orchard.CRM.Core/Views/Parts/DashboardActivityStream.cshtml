@@ -1,0 +1,58 @@
+﻿@{
+    var model = Model.Model;
+}
+<h1>@T("Activity Stream")</h1>
+<div class="activity-stream">
+    @if (model.Days.Count == 0)
+    {
+        <div>@T("There is no activity so far")</div>
+    }
+    else
+    {
+        foreach (var day in model.Days)
+        {
+            <div class="activity-stream-day">
+                <h4>@day.Title</h4>
+                @foreach (var item in day.Items)
+                {
+                    var route = item.Route ?? null;
+                    <div class="activity-stream-item">
+                        <div>
+                            <span class="user">
+                                @item.UserFullName
+                            </span>
+                            <span class="content">
+                                @if (route != null)
+                                {
+                                    <a href="@Url.RouteUrl(route)">@item.ContentDescription</a>
+                                }
+                                else
+                                {
+                                    <a>@item.ContentDescription</a>
+                                }
+                            </span>
+                        </div>
+                        <ul>
+                            @foreach (var change in item.Changes)
+                            {
+                                <li>
+                                    @change
+                                </li>
+                            }
+                        </ul>
+                        <div class="date-time">
+                            @item.DateTime.ToLongTimeString()
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        if (model.Pager.TotalItemCount > model.Pager.PageSize)
+        {
+            <!--<div class="ticket-pager">-->
+            <div>
+                @Display(model.Pager)
+            </div>
+        }
+    }
+</div>

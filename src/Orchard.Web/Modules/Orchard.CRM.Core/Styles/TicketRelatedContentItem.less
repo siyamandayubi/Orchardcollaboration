@@ -1,0 +1,64 @@
+﻿@ticketrelatedcreator-label-width: 90px;
+@ticketrelatedcreator-value-width: 210px;
+
+
+.relatedcontentitem {
+    min-height: 80px;
+    margin-bottom: 10px;
+}
+
+.label-container-date {
+    float: left;
+    text-align: right;
+    font-family: @label-font-family;
+    font-size: 12px;
+    color: #323232;
+    margin: 0px 5px 5px 0px;
+}
+
+.type-and-title, .dates, .ticket-creator {
+    display: table;
+    margin: 0px 0px 20px 0px;
+}
+
+    .type-and-title .type-label, .type-and-title .title-label {
+        display: table-cell;
+        text-align: left;
+        width: @ticketrelatedcreator-label-width;
+        font-family: @label-font-family;
+        font-size: 12px;
+        color: #323232;
+        margin: 0px 5px 5px 0px;
+    }
+
+    .type-and-title .type-value, .type-and-title .title-value {
+        display: table-cell;
+        text-align: left;
+        width: @ticketrelatedcreator-value-width;
+        font-family: @label-font-family;
+        font-size: 12px;
+        color: #323232;
+        margin: 0px 5px 5px 0px;
+        font-weight: bold;
+    }
+
+    .dates .create-date-label, .dates .publish-date-label, .ticket-creator .creator-label {
+        display: table-cell;
+        text-align: left;
+        width: @ticketrelatedcreator-label-width;
+        font-family: @label-font-family;
+        font-size: 12px;
+        color: #323232;
+        margin: 0px 5px 5px 0px;
+    }
+
+    .dates .create-date-value, .dates .publish-date-value, .ticket-creator .creator-value {
+        display: table-cell;
+        text-align: left;
+        width: @ticketrelatedcreator-value-width;
+        font-family: @label-font-family;
+        font-size: 12px;
+        color: #323232;
+        margin: 0px 5px 5px 0px;
+        font-weight: bold;
+    }

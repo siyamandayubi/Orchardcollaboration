@@ -1,0 +1,7 @@
+﻿@using Orchard.Comments.Models
+@{
+    CommentPart comment = Model.ContentPart;
+}
+<div class="cmeta">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon-calendar"></i>&nbsp;@T("Commented") <time datetime="@comment.CommentDateUtc.GetValueOrDefault().ToString("yyyy-MM-ddTHH:mm:ss.fffffffzzz")">@Html.Link((string)Display.DateTimeRelative(dateTimeUtc: comment.CommentDateUtc.GetValueOrDefault()).ToString(), "#comment-" + comment.Id)</time>
+</div>

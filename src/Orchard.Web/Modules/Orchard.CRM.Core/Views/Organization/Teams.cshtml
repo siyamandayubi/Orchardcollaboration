@@ -1,0 +1,37 @@
+﻿@using Orchard.CRM.Core.ViewModels;
+@Display(New.Stylesheet())
+@model IEnumerable<TeamViewModel>
+                      <h1 >@T("Teams")</h1>
+                      <div class="manage">
+                          <a class="button primaryAction" href="@Url.Action("CreateTeam", "Organization", new { area = "Orchard.CRM.Core" })">@T("Create")</a>
+                      </div>
+                          <table class="items" cellpadding="0" cellspacing="0">
+                              <thead>
+                                  <tr>
+                                      <th scope="col">@T("Name")</th>
+                                      <th scope="col">@T("Links")</th>
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  @{
+                                      bool alternative = true;
+                                      foreach (var item in Model)
+                                      {
+                                          string alternativeClass = alternative ? "alt" : string.Empty;
+
+                                          alternative = !alternative;
+                                          <tr class="@alternativeClass">
+                                              <td>
+                                              <img class="icon" title="User is approved" alt="Approved" src="/OrchardLocal/Modules/Orchard.Users/Content/Admin/images/online.gif" />
+                                              @item.Name</td>
+                                              <td>
+                                                  <a href="@Url.Action("EditTeam", "Organization", new { area = "Orchard.CRM.Core", id = item.TeamId })">@T("Edit")</a> |
+                                                  <a href="@Url.Action("RemoveTeam", "Organization", new { area = "Orchard.CRM.Core", id = item.TeamId })">@T("Remove")</a>
+                                              </td>
+                                          </tr>
+                                      }
+                                  }
+                              </tbody>
+                          </table>
+                      
+

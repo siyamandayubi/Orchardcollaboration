@@ -1,0 +1,23 @@
+﻿@model Orchard.CRM.Core.Settings.FileUploadPartSettings
+<p>@T("Leave blank to use default settings on the Part definition")</p>
+<fieldset>
+    <label>@T("How many files can be uploaded per part instance?")</label>
+    @Html.TextBoxFor(m => m.FileCountLimit, new { @class = "text-box textSmall" })
+    <span class="hint">@T("When attached to a content item, how many files can be uploaded to that item?")</span>
+    <br />
+
+    <label>@T("How big can each file be? (MB)")</label>
+    @Html.TextBoxFor(m => m.FileSizeLimit, new { @class = "text-box textSmall" })
+    <span class="hint">@T("Max Size of each file in MB.")</span>
+    <br />
+
+    <label>@T("Allowed File Types")</label>
+    @Html.TextBoxFor(m => m.FileTypes, new { @class = "text-box textMedium" })
+    <span class="hint">@T("Separate file extensions with comma.")</span>
+    <br />
+
+    <label>@T("Where should uploaded files be placed?")</label>
+    @Html.TextBoxFor(m => m.PublicMediaPath, new { @class = "tokenized text-box textMedium" })
+    <span class="hint">@T("The pattern used to determine where resource items are uploaded to")</span>
+    @Display.TokenHint()
+</fieldset>

@@ -1,0 +1,73 @@
+﻿@using Orchard.CRM.Project;
+@using Orchard.CRM.Project.Services;
+@using Orchard.CRM.Project.ViewModels;
+
+@Display(New.Stylesheet())
+@{
+    FolderViewModel folderViewModel = Model.Model;
+    Script.Require("ProjectWidgets");
+    Script.Require("JsTree");
+    Style.Include("JsTree/style.css");
+    string rootWikiLink = Url.Action("DisplayProjectRelatedItem", "Project", new { contentType = ContentTypes.RootWikiContentType, projectId = folderViewModel.ProjectId, area = "Orchard.CRM.Project" });
+}
+@helper RenderNode(FolderViewModel folder)
+{
+    string selectedClass = folder.IsSelected ? "selected" : string.Empty;
+    string liSelectedAttribute = folder.IsSelected.ToString().ToLower();
+    string liIsOpened = (folder.IsSelected || folder.HasSelectedChild).ToString().ToLower();
+    <li data-selected='@liSelectedAttribute' data-jstree='{"opened":@liIsOpened }'>
+        <a class="@selectedClass" href="@Url.Action("Display", "Folder", new { area = "Orchard.CRM.Project", id = folder.FolderId }) ">@Html.Raw(ProjectHelper.SplitWithUnvisibleWhitespaces(folder.Title))</a>
+        @if (folder.Folders.Count > 0)
+        {
+            <ul>
+                @foreach (var child in folder.Folders)
+                {
+                    @RenderNode(child)
+                }
+            </ul>
+        }
+    </li>
+}
+<div class="folder-list-outer-container">
+    <div class="folder-list-header">
+        <h4>@T("Folders")</h4>
+        <div class="collapse-icon collapse-expand-button"></div>
+    </div>
+    <div class="folder-list-container">
+        <div class="folder-list">
+            <ul>
+                @{
+                    string selectedRootAttribute = string.Empty;
+                    string selectedRootClass = string.Empty;
+                    string rootUrl = string.Empty;
+
+                    if (folderViewModel.FolderId == null || folderViewModel.FolderId == default(int))
+                    {
+                        selectedRootAttribute = folderViewModel.IsSelected ? "data-selected=true" : string.Empty;
+                        selectedRootClass = folderViewModel.IsSelected ? "selected" : string.Empty;
+                        rootUrl = rootWikiLink;
+                    }
+                    else
+                    {
+                        rootUrl = Url.Action("Display", "Folder", new { area = "Orchard.CRM.Project", id = folderViewModel.FolderId });
+                    }
+                }
+                <li @selectedRootAttribute data-jstree='{"opened":true}'>
+                    <a class="@selectedRootClass" href="@rootUrl">@folderViewModel.Title</a>
+                    <ul>
+                        @foreach (var folder in folderViewModel.Folders)
+                        {
+                            @RenderNode(folder)
+                        }
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+@using (Script.Foot())
+{
+    <script language="javascript" type="text/javascript">
+        $("body").FolderList();
+    </script>
+}

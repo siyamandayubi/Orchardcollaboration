@@ -1,0 +1,10 @@
+﻿Name: IMAP Email Client
+AntiForgery: enabled
+Author: Siyamand Ayubi 
+Website: http://orchardcollaboration.com/imap-email-client-module
+Version: 2.1
+OrchardVersion: 1.9.2
+Dependencies: Orchard.Users
+Description: This module is a wrapper around the IMAP client which is implementated here https://github.com/smiley22/S22.Imap. For more information, please visit the post here: http://orchardcollaboration.com/imap-email-client-module
+FeatureDescription: IMAP Email client is an easy-to-use module for receiving electronic mails from an Internet Message Access Protocol (IMAP) server. For each received message, the module fires a workflow event called “Email Received”. The Content of the event contains the original email message which you can use in your own workflows. For more information, please visit the post here: http://orchardcollaboration.com/imap-email-client-module
+Category: Messaging and Mail

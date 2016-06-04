@@ -1,0 +1,23 @@
+﻿@Display(New.Stylesheet())
+
+@if (Model.Model.Items.Count > 0)
+{
+    <div class="attached-to-folder-items">
+        @foreach (var item in Model.Model.Items)
+        {
+            @Display(item)
+            <hr />
+        }
+    </div>
+    
+    if (Model.Model.Pager.TotalItemCount > Model.Model.Pager.PageSize)
+    {
+        <div>
+            @Display(Model.Model.Pager)
+        </div>
+    }
+}
+else
+{
+    <div class="well">@T("There is no item in the folder!")</div>
+}

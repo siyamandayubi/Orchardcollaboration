@@ -1,0 +1,41 @@
+﻿@model Orchard.CRM.Core.ViewModels.TicketViewModel
+<div>
+    <fieldset class="ticket-fieldset">
+        <div>
+            <div class="ticket-edit-properties">
+                <div class="field-container">
+                    <div class="label-container">@T("Service:")</div>
+                    <div>@Html.DropDownList("ServiceId", Model.Services, new { @class = "popup-host ticket-input-field ticket-status-value" })</div>
+                </div>
+                @if (!Model.CurrentUserIsCustomer) 
+                { 
+                    <div class="field-container">
+                        <div class="label-container">@T("Status Items:")</div>
+                        <div>@Html.DropDownList("StatusId", Model.StatusItems, new { @class = "popup-host ticket-input-field ticket-status-value" })</div>
+                        <div>@Html.ValidationMessageFor(c => c.StatusId)</div>
+                    </div>
+                }
+                <div class="field-container">
+                    <div class="label-container">@T("Priority:")</div>
+                    <div>@Html.DropDownList("PriorityId", Model.Priorities, new { @class = "popup-host ticket-input-field ticket-status-value" })</div>
+                    <div>@Html.ValidationMessageFor(c => c.PriorityId)</div>
+                </div>
+                <div class="field-container">
+                    <div class="label-container">@T("Type:")</div>
+                    <div>@Html.DropDownList("TypeId", Model.Types, new { @class = "popup-host ticket-input-field ticket-status-value" })</div>
+                    <div>@Html.ValidationMessageFor(c => c.TypeId)</div>
+                </div>
+             </div>
+        </div>
+
+        @if (Model.RelatedContentItemId.HasValue)
+        {
+            <input type="hidden" name="TicketPart.RelatedContentItemId" value="@Model.RelatedContentItemId.Value" />
+        }
+
+        @if (Model.ParentTicketId.HasValue)
+        {
+            <input type="hidden" name="TicketPart.ParentTicketId" value="@Model.ParentTicketId.Value" />
+        }
+    </fieldset>
+</div>

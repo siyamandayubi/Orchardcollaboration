@@ -1,0 +1,35 @@
+﻿@using Orchard.ContentManagement;
+@using Orchard.CRM.Project;
+@using Orchard.CRM.Core.Models;
+@{
+    ContentItem contentItem = Model.ContentItem;
+    AttachToProjectPart attachToProject = contentItem.As<AttachToProjectPart>();
+    int? projectId = attachToProject != null && attachToProject.Record.Project != null ? (int?)attachToProject.Record.Project.Id : null;
+}
+<div class="project-discussions-header">
+    <h3>@T("Project Discussions")</h3>
+    <div class="toolbar">
+        <a class="btn btn-primary" href="@Url.Action("Create", "Item", new { area = "Orchard.CRM.Core", id = ContentTypes.DiscussionContentType, projectId = projectId })">@T("New discussion")</a>
+    </div>
+    <div class="clear"></div>
+</div>
+@{
+    Func<IEnumerable<dynamic>> shapeBuilder = Model.BuildShapes;
+    var shapes = shapeBuilder();
+}
+<div>
+    @if (shapes == null || shapes.Count() == 0)
+    {
+        <div class="well">@T("There is no discussion")</div>
+    }
+    else
+    {
+        foreach (var shape in shapes)
+        {
+            <div>
+                @Display(shape)
+            </div>
+            <hr />
+        }
+    }
+</div>

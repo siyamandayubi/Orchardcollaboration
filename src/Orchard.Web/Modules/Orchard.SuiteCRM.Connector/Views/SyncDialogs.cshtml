@@ -1,0 +1,43 @@
+﻿<div style="display:none;visibility:hidden">
+    <div id="syncProjectDialog" title="@T(" Sync With SuiteCRM")">
+        <div>
+            <div>
+                <input type="checkbox" name='syncTickets' checked value='true' />
+                <span class="checkbox-label">@T("Sync Tickets")</span>
+            </div>
+            <div>
+                <input type="checkbox" name='doNotOverrideNewerValues' checked value='true' />
+                <span class="checkbox-label">@T("Don't override newer version")</span>
+            </div>
+            <div class="">
+                <input type="checkbox" name='syncSubTasks' value='true' />
+                <span class="checkbox-label">@T("Sync Sub Tasks")</span>
+            </div>
+        </div>
+        <div class="buttons">
+            <button class="copy-from-suitecrm crm-button" data-url="@Url.Action("CopySuiteToOrchardProjects", "Sync", new { area = "Orchard.SuiteCRM.Connector" })">@T("Import")</button>
+            <button class="copy-to-suitecrm crm-button" data-url="@Url.Action("CopyOrchardProjectsToSuite", "Sync", new { area = "Orchard.SuiteCRM.Connector" })">@T("Export")</button>
+        </div>
+    </div>
+    <div id="syncTaskDialog" title="@T(" Sync With SuiteCRM")">
+        <div>
+            <div>
+                <input type="checkbox" name='doNotOverrideNewerValues' checked value='true' />
+                <span class="checkbox-label">@T("Don't override newer version")</span>
+            </div>
+            <div class="">
+                <input type="checkbox" name='syncSubTasks' value='true' />
+                <span class="checkbox-label">@T("Sync Sub Tasks")</span>
+            </div>
+        </div>
+        <div class="buttons">
+            <button class="copy-to-suitecrm crm-button" data-url="@Url.Action("CopySuiteToOrchardProjects", "Sync", new { area = "Orchard.SuiteCRM.Connector" })" title="@T("Send to SuiteCRM")">@T("Send to")</button>
+            <button class="suitecrm-cancel-sync crm-button" data-url="@Url.Action("CopyOrchardProjectsToSuite", "Sync", new { area = "Orchard.SuiteCRM.Connector" })">@T("Cancel")</button>
+        </div>
+    </div>
+    <div id="syncInfoModal" class="info-page">
+        <span class="loading">@T("Loading ...")</span>
+        <span class="error hidden">@T("Error in connecting to the server")</span>
+        <a class="close-link hidden">@T("Close")</a>
+    </div>
+</div>

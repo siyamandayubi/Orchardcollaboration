@@ -1,0 +1,40 @@
+﻿@using Orchard.CRM.Core.ViewModels;
+@using System.Globalization;
+@{
+    var model = (ContentItemSetPermissionsViewModel)Model;
+    string userLabel = model.ContentItems.Any(c => c.ContentItem.ContentType == "Ticket") ? "Assignee User:" : "Owner User:";
+    string groupLabel = model.ContentItems.Any(c => c.ContentItem.ContentType == "Ticket") ? "Assignee Group:" : "Owner Group:";
+}
+<div class="space"></div>
+<fieldset class="content-part edit-contentitempermission" >
+    <div class="row">
+        <div class="col-md-6">
+            <div class="">@T(groupLabel)</div>
+            <div>
+                <select name="ContentItemPermissionPart.GroupId" id="ContentItemPermissionPart_GroupId" style="width:100%" class="combobox selects-width">
+                    <option value=""></option>
+                    @foreach (var businessUnit in model.BusinessUnits)
+                    {
+                        string isSelected = businessUnit.Checked ? "selected=selected" : string.Empty;
+                        string businessUnitId = string.Format(CultureInfo.InvariantCulture, "BusinessUnit:{0}", businessUnit.BusinessUnitId.ToString(CultureInfo.InvariantCulture));
+                        <option @isSelected value="@businessUnitId">@businessUnit.Name</option>
+                        foreach (var team in businessUnit.Teams)
+                        {
+                            isSelected = team.Checked ? "selected=selected" : string.Empty;
+                            string teamId = string.Format(CultureInfo.InvariantCulture, "Team:{0}", team.TeamId.ToString(CultureInfo.InvariantCulture));
+                            <option @isSelected value="@teamId">@("  " + team.Name)</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-md-6">
+            @if (!model.IsCurrentUserCustomer)
+            {
+                <div class="">@T(userLabel)</div>
+                <div>@Html.DropDownList("UserId", model.Users, new { @class = "combobox selects-width", style = "width:100%" })</div>
+            }
+        </div>
+    </div>
+</fieldset>
+<div class="space"></div>

@@ -1,0 +1,211 @@
+﻿.active-users {
+    list-style: none;
+    list-style-type: none;
+    margin: 5px;
+    padding: 0px;
+}
+
+    .active-users li {
+        float: left;
+        margin: 4px;
+    }
+
+        .active-users li img {
+            border-radius: 24px;
+            border: 1px solid black;
+        }
+
+.project-main-panel {
+    min-width: 360px;
+}
+
+.project-detail .panel-heading h3 {
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+}
+
+.project-item {
+    margin-top: 10px;
+}
+
+    .project-item .panel-body {
+        padding-top: 10px !important;
+    }
+
+.project-list-item .panel-heading {
+    padding-bottom: 10px !important;
+}
+
+.project-new-dropdown {
+    z-index: 1001;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding-left: 5px;
+}
+
+    .project-new-dropdown .dropdown-toggle {
+        padding-top: 5px !important;
+        padding-right: 10px !important;
+    }
+
+.item-menu {
+    margin-top: 10px;
+}
+
+.project-item-menu-container {
+    position: relative;
+}
+
+    .project-item-menu-container .pivot {
+        background-color: #f8f8f8;
+        display: inline-block;
+        min-width: 25px;
+        min-height: 33px;
+        border: 1px solid #ddd;
+        padding: 5px 10px;
+        margin: 0px 5px 0px 15px;
+        border-radius: 4px;
+    }
+
+    .project-item-menu-container .selected-pivot {
+        border-color: gray;
+    }
+
+    .project-item-menu-container .pivot .icon {
+        display: block;
+        width: 22px;
+        height: 2px;
+        margin-top: 4px;
+        border-radius: 1px;
+        background-color: #ccc;
+    }
+
+@small-scrin: 330px;
+
+@media(min-width: @small-scrin) {
+    .project-item-menu-container .project-item-menu {
+        width: 287px;
+    }
+
+        .project-item-menu-container .project-item-menu li {
+            min-width: 140px;
+        }
+}
+
+@media(max-width: @small-scrin) {
+    .project-item-menu-container .project-item-menu {
+        width: 227px;
+    }
+
+        .project-item-menu-container .project-item-menu li {
+            min-width: 110px;
+            font-size: 8pt !important;
+        }
+}
+
+.project-item-menu-container .project-item-menu {
+    position: absolute;
+    top: 33px;
+    right: 5px;
+    background-color: white;
+    min-height: 100px;
+    border: 1px solid #ccc;
+    list-style: none;
+    padding: 0px;
+    box-shadow: 0px 6px 12px rgba(0,0,0,0.175);
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    border-radius: 4px;
+}
+
+.project-item-menu-container .menu-hidden {
+    display: none;
+}
+
+.project-item-menu-container .z1 {
+    z-index: 1000;
+}
+
+.project-item-menu-container .z2 {
+    z-index: 2000;
+}
+
+
+.project-item-menu-container .project-item-menu li {
+    display: inline-block;
+    margin: 0px 0px;
+    min-height: 25px;
+    padding-left: 10px;
+    line-height: 1.2em;
+}
+
+.project-item-menu-container .project-item-menu .menu {
+    margin-left: 0px !important;
+}
+
+.project-item-menu-container .project-item-menu li a {
+    display: inline-block;
+    color: black;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    padding: 10px 20px 5px 0px;
+}
+
+.project-item-menu-container .project-item-menu li:hover {
+    background-color: #428bca !important;
+    color: white;
+}
+
+    .project-item-menu-container .project-item-menu li:hover a {
+        background-color: #428bca !important;
+        color: white;
+    }
+
+.project-item-menu-container:hover .pivot {
+}
+
+.project-item-menu-container:hover .menu-hidden {
+    display: block;
+}
+
+.project-title {
+    padding-top: 7px;
+    line-height: 2em;
+}
+
+.portlet-list {
+    list-style-type: none;
+    margin-bottom: 15px;
+    padding: 0;
+    width: 49%;
+}
+
+    .portlet-list li {
+        margin: 4px 3px 3px 3px;
+        padding: 0.4em 0.6em 0.6em 0.6em;
+        padding-left: 1.5em;
+        font-size: 1em;
+        min-height: 35px;
+    }
+
+        .portlet-list li .ui-icon {
+            position: absolute;
+            margin-left: -1.3em;
+            margin-top: 2px;
+        }
+
+.project-dashboard-report-viewer-portlet {
+    .panel-body ul {
+        padding-left: 10px !important;
+    }
+}
+
+@media(max-width:600px) {
+    .zone-footer {
+        font-size: 8pt;
+    }
+
+        .zone-footer a {
+            font-size: 8pt;
+        }
+}

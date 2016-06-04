@@ -1,0 +1,31 @@
+﻿@using Orchard.Reporting.ViewModels;
+@{
+    Style.Include("jquery-ui.css");
+    Style.Include("jquery.jqplot.css");
+    Style.Include("reporting.css");
+    DataReportViewerViewModel dataReportViewerViewModel = Model.Model;
+    var data = dataReportViewerViewModel.JsonData;
+    string chartContainerId = "chartContainer" + Model.ContentItem.Id.ToString();
+    string chartId = "chart" + Model.ContentItem.Id.ToString();
+    string chartClass = string.IsNullOrEmpty(dataReportViewerViewModel.ChartCssClass) ? "default-chart" : dataReportViewerViewModel.ChartCssClass;
+}
+<div class="@dataReportViewerViewModel.ContainerCssClass" id="@chartContainerId">
+    <input name="reportData" type="hidden" value="@data" />
+    <h3>@dataReportViewerViewModel.ReportTitle</h3>
+    <div class="chart @chartClass"  id="@chartId" style="height:300px; width:400px;"></div>
+    @if (dataReportViewerViewModel.Data.Count == 0)
+    {
+        <h3>@T("There is no data")</h3>
+    }
+</div>
+@using (Script.Foot())
+{
+    Script.Require("jqplot");
+    Script.Require("piejqplot");
+    Script.Require("donutRendererjqplot");
+    Script.Require("Chosen");
+    Script.Require("Reporting");
+    <script language="javascript" type="text/javascript">
+        $("#@chartContainerId").Reporting();
+    </script>
+}

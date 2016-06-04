@@ -1,0 +1,44 @@
+﻿@using Orchard.CRM.Core.ViewModels;
+@model EditAttachToViewModel
+@{
+    Script.Require("ProjectWidgets");
+    string getProjectMilestonesUrl = Url.Action("ProjectMilestones", "Milestone", new { area = "Orchard.CRM.Project" });
+    Dictionary<string, object> dropDownProperties = new Dictionary<string, object>();
+    dropDownProperties.Add("data-projectmilestones", getProjectMilestonesUrl);
+    dropDownProperties.Add("class", "ticket-input-field milestone-select");
+}
+@if (Model.ParentId == null)
+{
+    <fieldset>
+        <div class="field-container">
+            <div class="label-container">@T("Milestone:")</div>
+            <div>@Html.DropDownList("SelectedId", Model.Items, dropDownProperties)</div>            
+        </div>
+        <div class="field-container">
+            <div class="label-container">@T("Size:")</div>
+            <div>@Html.TextBox("Size", Model.Size, new { @class = "ticket-input-field" })</div>
+        </div>
+    </fieldset>
+}
+else
+{
+    <div class="field-container-full-width">
+        <div class="label-container">@T("Milestone")</div>
+        <div class="combobox">
+            @{
+                string title = Model.ParentName;
+            }
+            <span>@T(title)</span>
+        </div>
+    </div>
+     <div class="clear">
+    </div>    
+}
+@using (Script.Foot())
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".ticket-details-sidebar").AttachToProject();
+        });
+    </script>
+}

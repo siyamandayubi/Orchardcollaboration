@@ -1,0 +1,65 @@
+﻿@*Orchard 1.7 Comments shape*@
+@using Orchard.Comments.Models
+@{
+    CommentsPart commentsPart = Model.ContentPart;
+
+    // add 'comments' class on the list container
+    Model.List.Classes.Add("comment-list");
+}
+<hr />
+<div class="comments">
+    <div class="title">
+        <h4>@T.Plural("No Comments", "1 Comment", "{0} Comments", (int)Model.CommentCount)</h4>
+    </div>
+    @Display(Model.List)
+</div>
+
+@* render reply button if threaded comments enabled *@
+@if (commentsPart.ThreadedComments) {
+    Script.Require("jQuery");
+    using (Script.Foot()) {
+
+    <script type="text/javascript">
+        //<![CDATA[
+        $(function () {
+            $('.comment-reply-button').click(function () {
+                var self = $(this);
+
+                var reply = $('#Comments_RepliedOn');
+                var currentReply = reply.val();
+
+            @* should we restore the form at its original location ? *@
+                if (currentReply && currentReply.length > 0) {
+                    reply.val('');
+                    $('.respond').toggle(true);
+                    $('.form').after($('.comment-form'));
+                } else {
+                @* assign repliedOn id *@
+                var id = self.data('id');
+                reply.val(id);
+
+                @* inject the form in the replied zone *@
+                $('.comment-form').appendTo(self.parents('article').first());
+                $('.respond').toggle(false);
+            }
+
+            @* don't execute the link action *@
+                return false;
+            });
+
+
+        @if (TempData.ContainsKey("Comments.RepliedOn")) {
+            // invalid form while replying
+
+        <text>
+            var reply = $('#Comments_RepliedOn');
+            reply.val(@TempData["Comments.RepliedOn"]);
+        $('.comment-form').appendTo($('#comment-@TempData["Comments.RepliedOn"]'));
+            </text>
+        }
+
+        });
+        //]]>
+    </script>
+    }
+}

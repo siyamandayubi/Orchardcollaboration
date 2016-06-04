@@ -1,0 +1,15 @@
+﻿@{
+    string url = "";
+
+    if (Model.Model.Record.Project != null)
+    {
+        url = Url.Action("Display", "Item", new { area = "Orchard.CRM.Core", id = Model.Model.Record.Project.Id });
+    }
+}
+<div class="field-container-full-width">
+    <div class="label-container">@T("Project")</div>
+    <div class="combobox">
+        <a href="@url">@T(Model.Model.ProjectName)</a>
+    </div>
+</div>
+<div class="clear"></div>

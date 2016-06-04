@@ -1,0 +1,10 @@
+﻿Name: Orchard.Reporting
+AntiForgery: enabled
+Author: Siyamand Ayubi
+Website: http://orchardcollaboration.com/how-to-use-orchard-reporting-module
+Version: 2.1
+OrchardVersion: 1.9.2
+Description: The module allows users to view the data of Orchard queries in Pie charts
+Dependencies: Orchard.Tokens, Orchard.Projections
+FeatureDescription: The module allows users to view the data of Orchard queries in Pie charts
+Category: Reportings

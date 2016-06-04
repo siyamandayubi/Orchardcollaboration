@@ -1,0 +1,26 @@
+﻿﻿@using Orchard.ContentManagement
+@{
+    Layout.Title = T("Settings").ToString();
+    Style.Include("SuiteCRM.css");
+    string connectionError = Model.ConnectionError;
+}
+
+<div class="sync-settings">
+    @if (!string.IsNullOrEmpty(connectionError))
+    {
+        <div class="connection-error">
+            @connectionError
+        </div>
+    }
+    @using (Html.BeginFormAntiForgeryPost())
+    {
+        <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+        @Html.ValidationSummary()
+        @Display(Model.Content)
+        <div>
+            <fieldset>
+                <button class="btn primaryAction" type="submit">@T("Save")</button>
+            </fieldset>
+        </div>
+    }
+</div>

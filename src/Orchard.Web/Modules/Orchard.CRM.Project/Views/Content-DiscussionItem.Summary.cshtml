@@ -1,0 +1,59 @@
+﻿@using Orchard.Utility.Extensions;
+@Display(New.ThemeAwareStylesheet())
+@{
+    Script.Require("CRMWidgets");
+    Style.Include("jquery-ui.css");
+
+    if (Model.Title != null)
+    {
+        Layout.Title = Model.Title;
+    }
+
+    Model.Classes.Add("content-item");
+
+    var tag = Tag(Model, "article");
+}
+@tag.StartElement
+<header>
+    @if (Model.Header != null) { 
+    @Display(Model.Header)
+    }
+    @if (Model.Meta != null)
+    {
+        <div class="metadata">
+            @Display(Model.Meta)
+        </div>
+    }
+</header>
+<div>
+    @if (Model.BeforeContent != null)
+    {
+        <div>@Display(Model.BeforeContent)</div>
+    }
+    @if (Model.BesideContent != null)
+    {
+        <div class="row">
+            <div class="col-sm-9">
+                <div>
+                    @Display(Model.Content)
+                </div>
+            </div>
+            <div class="col-sm-3 summary-beside-second">@Display(Model.BesideContent)</div>
+        </div>
+    }
+    else
+    {
+        <div>
+            @Display(Model.Content)
+        </div>
+    }
+</div>
+@if (Model.Footer != null)
+{
+    <footer>
+        @Display(Model.Footer)
+    </footer>
+}
+@tag.EndElement
+
+

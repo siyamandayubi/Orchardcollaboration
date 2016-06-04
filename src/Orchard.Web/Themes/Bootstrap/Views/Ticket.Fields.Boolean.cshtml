@@ -1,0 +1,26 @@
+﻿@using Orchard.Utility.Extensions;
+@{
+    string name = Model.ContentField.DisplayName;
+    string valueToDisplay;
+    bool? booleanValue = Model.ContentField.Value;
+    if (booleanValue.HasValue)
+    {
+        valueToDisplay = booleanValue.Value
+            ? T(Model.Settings.OnLabel).ToString()
+            : T(Model.Settings.OffLabel).ToString();
+    }
+    else
+    {
+        valueToDisplay = T(Model.Settings.NotSetLabel).ToString();
+    }
+}
+
+<div class="field-container-full-width">
+    <div class="label-container">@name.CamelFriendly()</div>
+    <div class="combobox">
+        <span>
+           @valueToDisplay
+        </span>    
+    </div>
+</div>
+<div class="clear"></div>

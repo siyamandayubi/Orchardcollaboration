@@ -1,0 +1,33 @@
+﻿@using Orchard.CRM.Core.ViewModels;
+@Display(New.Stylesheet())
+@model EmailTemplateViewModel
+@using (Html.BeginFormAntiForgeryPost(Url.Action("CreatePost", "EmailTemplate", new { area = "Orchard.CRM.Core" }), FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <h1 >@T("Create")</h1>
+    <div class="group">
+        <fieldset>
+            <label for="Name">@T("Name")</label>
+            <input id="Name" name="Name" value="@Model.Name" type="text" maxlength="50" class="text-medium" />
+            @Html.ValidationMessageFor(c => c.Name)
+       </fieldset>
+        <fieldset>
+            <label for="Subject">@T("Subject")</label>
+            <input id="Subject" name="Subject" value="@Model.Subject" type="text" maxlength="50" class="text-medium" />
+            @Html.ValidationMessageFor(c => c.Subject)
+     </fieldset>
+        <fieldset>
+            <label for="TypeId">@T("TypeId")</label>
+            @Html.DropDownList("TypeId", Model.Types, new { @class = "k" })
+        </fieldset>
+        <fieldset>
+            <label for="Email Body">@T("Email Body")</label>
+            <div class="email">
+                @Display.Body_Editor(Text: Model.Text, EditorFlavor: "html")
+                @Html.ValidationMessageFor(c => c.Text)
+         </div>
+        </fieldset>
+        <fieldset class="save-button">
+            <button class="primaryAction" type="submit" value="@T("Save")">@T("Save")</button>
+            </fieldset>
+        </div>
+}

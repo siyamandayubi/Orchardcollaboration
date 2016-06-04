@@ -1,0 +1,82 @@
+﻿@using Orchard.ContentManagement;
+@using Orchard.CRM.Core.Models;
+@using Orchard.Utility.Extensions;
+@{
+    ContentItem contentItem = Model.ContentItem;
+    AttachToProjectPart attachToProjectPart = contentItem.As<AttachToProjectPart>();
+    List<string> buildInContentType = new List<string>(){ "ProjectDetail" };
+}
+
+@if (attachToProjectPart == null || buildInContentType.Contains(contentItem.ContentType))
+{ 
+    if (Model.Title != null) {
+        Layout.Title = Model.Title;
+    }
+
+    Model.Classes.Add("content-item");
+    
+    var contentTypeClassName = ((string)Model.ContentItem.ContentType).HtmlClassify();
+    Model.Classes.Add(contentTypeClassName);
+    
+    var tag = Tag(Model, "article");    
+    
+    @tag.StartElement
+        <header>
+            @Display(Model.Header)
+            @if (Model.Meta != null) {
+                <div class="metadata">
+                    @Display(Model.Meta)
+                </div>
+            }
+        </header>
+        @Display(Model.Content)
+        if(Model.Footer != null) {
+            <footer>
+                @Display(Model.Footer)
+            </footer>
+        }
+    @tag.EndElement
+}
+else
+{
+    // Move Title and common parts from Header to the Content
+    if (Model.Header != null)
+    {
+        for(var i = 0; i < Model.Header.Items.Count; i++)
+        {
+            var item = Model.Header.Items[i];
+            if (item.Metadata.Type == "Parts_Title")
+            {
+                Model.Header.Items.Remove(item);              
+                Model.Content.Items.Insert(0, item);
+                break;
+            }
+        }
+    }
+
+    if (Model.Meta != null) 
+    { 
+        for (var i = 0; i < Model.Meta.Items.Count; i++)
+        {
+            var item = Model.Meta.Items[i];
+            if (item.Metadata.Type == "Parts_Common_Metadata")
+            {
+                Model.Meta.Items.Remove(item);
+                Model.Content.Items.Insert(1, item);
+                break;
+            }
+        }
+    }
+
+    if (Model.Footer != null)
+    {
+        Model.Footer.Items.Add(New.EditButton(Model: Model));
+    }
+    else
+    {
+        Model.Footer = New.EditButton(Model: Model);
+    }
+    <div class="project-custom-content">
+        @Display(New.ProjectContent(Model: Model))   
+    </div>
+}

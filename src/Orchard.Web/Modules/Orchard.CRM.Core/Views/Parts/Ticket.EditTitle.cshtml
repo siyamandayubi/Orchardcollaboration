@@ -1,0 +1,32 @@
+﻿<div class="ticket-title-wrapper">
+    <div class="ticket-title">
+        <h1 class="titr">
+            @if (Model.ParentTicketNumber != null)
+            {
+                string parentTitle = string.IsNullOrEmpty(Model.ParentTitle)?
+                    T("NO TITLE").Text:
+                    Model.ParentTitle.Length > 30 ? Model.ParentTitle.Substring(0, 27) + "..." : Model.ParentTitle;
+
+                <a href="@Url.Action("Display", "Ticket", new { area = "Orchard.CRM.Core", id = Model.ParentTicketId })">
+                    <span>@(Model.ParentTicketNumber)</span>
+                    <span class="text" title="@Model.ParentTitle">@parentTitle</span>
+                </a>
+                <span class="seperator">@Html.Raw("/")</span>
+            }
+            @if (Model.TicketId == default(int))
+            {
+                <span>@T("Create Ticket")</span>
+            }
+            else
+            {
+                string title = string.IsNullOrEmpty(Model.Title) ?
+                     T("NO TITLE").Text :
+                     Model.Title.Length > 50 ? Model.Title.Substring(0, 47) + "..." : Model.Title;
+                <span class="child-text">@T("Edit ")</span>
+                <span class="child-text">@(Model.TicketNumber + " - ")</span>
+                <span class="child-text" title="@Model.Title">@title </span>
+            }
+        </h1>
+    </div>
+</div>
+

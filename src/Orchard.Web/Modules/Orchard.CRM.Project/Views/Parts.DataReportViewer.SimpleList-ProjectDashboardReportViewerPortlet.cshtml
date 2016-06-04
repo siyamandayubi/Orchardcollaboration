@@ -1,0 +1,26 @@
+﻿@using Orchard.Reporting.ViewModels;
+@{
+    DataReportViewerViewModel dataReportViewerViewModel = Model.Model;
+}
+<div class="panel panel-default  dashboard-part @dataReportViewerViewModel.ContainerCssClass">
+    <div class="panel-heading">
+        <h5>@dataReportViewerViewModel.ReportTitle</h5>
+    </div>
+    <div class="panel-body">
+        @if (dataReportViewerViewModel.Data.Count == 0)
+        {
+            <div>@T("There is no data")</div>
+        }
+        else
+        {
+            <ul>
+                @foreach (var item in dataReportViewerViewModel.Data)
+                {
+                    string label = T("{0} Tickets", string.IsNullOrEmpty(item.Label) ? "(No Status)" : item.Label).Text;
+                    string count = Convert.ToInt32(item.AggregationValue).ToString();
+                    <li><h5>@label<span>&nbsp;(@count)</span></h5></li>
+                }
+            </ul>
+        }
+    </div>
+</div>

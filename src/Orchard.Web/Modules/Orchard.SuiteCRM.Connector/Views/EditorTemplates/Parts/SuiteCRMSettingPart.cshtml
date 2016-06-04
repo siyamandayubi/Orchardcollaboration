@@ -1,0 +1,59 @@
+﻿@using Orchard.SuiteCRM.Connector;
+@model Orchard.SuiteCRM.Connector.Models.SuiteCRMSettingPart
+@{
+    
+}
+<fieldset>
+    <legend>@T("SuiteCRM Connection Setting")</legend>
+    <div>
+        <label for="@Html.FieldIdFor(m => m.WebAddress)">@T("Root Address of the web instance")</label>
+        @Html.TextBoxFor(m => m.WebAddress, new { type = "text medium", @class = "text medium" })
+        @Html.ValidationMessage("WebAddress", "*")
+        <span class="hint">@T("The web address of the SuiteCRM instance. Please note to enter the root address")</span>
+    </div>
+    <div>
+        <label >@T("Provider")</label>
+        @Html.DropDownListFor(m => m.Provider
+        , new SelectListItem[] { new SelectListItem { Text = Constants.MySql, Value=Constants.MySql}, new SelectListItem{Value = Constants.SqlServer, Text = Constants.SqlServer} }
+        , new { placeholder = "Provider", @class = "text medium" })
+        @Html.ValidationMessage("Provider", "*")
+        <span class="hint">@T("Provider")</span>
+    </div>
+    <div>
+        <label for="@Html.FieldIdFor(m => m.Host)">@T("Host name")</label>
+        @Html.TextBoxFor(m => m.Host, new { placeholder = "Host Name of the database server", @class = "text medium" })
+        @Html.ValidationMessage("Host", "*")
+        <span class="hint">@T("Host Name of the database server")</span>
+    </div>
+    <div>
+        <label for="@Html.FieldIdFor(m => m.Port)">@T("Port number")</label>
+        @Html.TextBoxFor(m => m.Port, new { placeholder = "Port number of the database Server, e.g. <i>3306 for MySql</i>", @class = "text medium" })
+        @Html.ValidationMessage("Port", "*")
+        <span class="hint">@T("Port number of the database Server, e.g. <i>3306 for MySql")</span>
+    </div>
+    <div>
+        <label for="@Html.FieldIdFor(m => m.Database)">@T("Schema")</label>
+        @Html.TextBoxFor(m => m.Database, new { placeholder = "Name of the Database or Schema", @class = "text medium" })
+        @Html.ValidationMessage("Database", "*")
+        <span class="hint">@T("Name of the Database or Schema")</span>
+    </div>
+    <div>
+        @Html.EditorFor(m => m.EnableSsl)
+        <label for="@Html.FieldIdFor(m => m.EnableSsl)" class="forcheckbox">@T("Enable SSL communications")</label>
+        @Html.ValidationMessage("EnableSsl", "*")
+        <span class="hint">@T("Check if the server requires SSL communications.")</span>
+    </div>
+    <div>
+        <label for="@Html.FieldIdFor(m => m.Username)">@T("User name")</label>
+        @Html.TextBoxFor(m => m.Username, new { @class = "text medium" })
+        @Html.ValidationMessage("Username", "*")
+        <span class="hint">@T("The username for authentication.")</span>
+    </div>
+    <div>
+        <label for="@Html.FieldIdFor(m => m.Password)">@T("Password")</label>
+        @Html.TextBoxFor(m => m.Password, new { type = "password", @class = "text medium" })
+        @Html.ValidationMessage("Password", "*")
+        <span class="hint">@T("The password for authentication.")</span>
+    </div>
+
+</fieldset>

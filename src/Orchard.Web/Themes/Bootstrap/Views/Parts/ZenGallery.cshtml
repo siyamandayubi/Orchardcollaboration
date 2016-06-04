@@ -1,0 +1,29 @@
+﻿@using System.Linq;
+@using Orchard.MediaLibrary.Models
+
+@{
+    Script.Include("jquery.prettyPhoto.js");
+    Style.Include("prettyPhoto");
+    Style.Include("zengallery.css");
+    
+    var images = (IEnumerable<MediaPart>)Model.Images;
+    var count = images.Count();
+    
+    if (images != null && count > 0) {
+        <ul class="gallery clearfix">
+            @foreach (var img in images) {
+                <li class="col-lg-2">
+                    <a rel="prettyPhoto[inline]" href="@img.MediaUrl" title="@img.Caption"><img class="img-responsive" src="@img.MediaUrl" alt="@img.AlternateText" title="@img.Title"/></a>
+                </li>
+            }
+        </ul>
+    }
+    
+    using (Script.Foot()) {
+        <script type="text/javascript">
+            $('.gallery a[rel^="prettyPhoto"]').prettyPhoto({
+                theme: 'light_rounded'
+            });
+        </script>
+    }
+}

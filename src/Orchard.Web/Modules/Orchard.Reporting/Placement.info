@@ -1,0 +1,5 @@
+﻿<Placement>
+  <Place Parts_DataReportViewer_Edit="Content:3"/>
+  <Place Parts_DataReportViewer_PieChart="Content:3"/>
+  <Place Parts_DataReportViewer_SimpleList="Content:3"/>
+</Placement>

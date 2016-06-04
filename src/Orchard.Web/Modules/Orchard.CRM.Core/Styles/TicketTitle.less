@@ -1,0 +1,149 @@
+﻿.ticket-title-wrapper .ticket-title {
+    width: 100%; //unit(@ticket-detail-title-width, px);
+    padding-left: 10px;
+    padding-right: 60px;
+    margin-left: 0px;
+}
+
+    .ticket-title-wrapper .ticket-title .menu-container {
+        float: right;
+    }
+
+@media screen and (max-width: 500px) {
+    .ticket-title-wrapper .ticket-title .menu-container {
+        float: none !important;
+    }
+}
+
+    .ticket-title-wrapper .ticket-title .follow-link {
+        display: inline-block;
+        line-height: 3em;
+    }
+
+    .ticket-title-wrapper .ticket-title .seperator {
+        color: #E0E0E0;
+        display: inline-block;
+        padding-top: 4px;
+        margin: 0px 5px;
+        font-family: Tahoma, "Helvetica Neue", Arial, Helvetica, sans-serif;
+        font-size: 11px;
+    }
+
+    .ticket-title-wrapper .ticket-title .text {
+        font-family: Tahoma, "Helvetica Neue", Arial, Helvetica, sans-serif;
+        font-size: 14px;
+    }
+
+    .ticket-title-wrapper .ticket-title a {
+        text-decoration: none;
+        font-family: Tahoma, "Helvetica Neue", Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        line-height: 19px;
+    }
+
+    .ticket-title-wrapper .ticket-title span {
+        font-family: @label-font-family;
+        font-size: 13px;
+        font-weight: bold;
+        padding: 0px;
+        line-height: 21px;
+    }
+
+.ticket-title {
+    display: inline-block;
+    margin-top: 0px;
+    margin-left: 15px;
+}
+
+.titr {
+    font-family: @label-font-family;
+    font-size: 10pt;
+    font-weight: bold;
+    padding: 0px;
+}
+
+.ticket-menu {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 60px;
+    height: 40px;
+}
+
+    .ticket-menu .ticket-menu-icon1 {
+        background-image: url(Images/tools-icon.png);
+        background-repeat: no-repeat;
+        background-size: 20px 20px;
+        width: 45px;
+        height: 40px;
+        display: inline-block;
+        background-position: 17px 10px;
+    }
+
+    .ticket-menu .ticket-menu-icon2 {
+        background-image: url(Images/DownTriangle2.png);
+        background-repeat: no-repeat;
+        background-size: 9px 7px;
+        width: 15px;
+        height: 40px;
+        display: inline-block;
+        background-position: 0px 17px;
+        visibility: hidden;
+    }
+
+    .ticket-menu:hover .ticket-menu-icon2 {
+        visibility: visible;
+    }
+
+    .ticket-menu .ticket-toolbar-menu {
+        position: absolute;
+        top: 40px;
+        width: 125px;
+        list-style: none;
+        border-bottom: 1px solid #353535;
+        border-right: none;
+        right: -1px;
+        background-color: #646660;
+        /*height: 109px;*/
+        visibility: hidden;
+        padding: 0px;
+        margin: 0px;
+    }
+
+        .ticket-menu .ticket-toolbar-menu li {
+            font-family: Tahoma, "Helvetica Neue", Arial, Helvetica, sans-serif;
+            color: #fff;
+            font-size: 13px;
+            padding: 0px;
+            line-height: 30px;
+            height: 30px;
+            margin: 0px;
+            width: 100%;
+            text-align: left;
+            border: none;
+        }
+
+            .ticket-menu .ticket-toolbar-menu li a {
+                color: #fff;
+            }
+
+    .ticket-menu:hover .ticket-toolbar-menu {
+        visibility: visible;
+    }
+
+.ticket-toolbar-menu a {
+    padding: 0% 1% 0% 5%;
+    width: 95%;
+    display: inline-block;
+}
+
+.ticket-toolbar-menu li:hover {
+    color: #fff;
+    background-color: #9dc975;
+    background-image: url('../Content/Images/menu-hover-left.png');
+    background-repeat: no-repeat;
+}
+
+    .ticket-toolbar-menu li:hover a {
+        color: #fff;
+    }

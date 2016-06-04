@@ -1,0 +1,135 @@
+﻿@using Orchard.CRM.Project.ViewModels;
+@using Orchard.CRM.Project.Services;
+@model InviteUserToProjectViewModel
+@Display(New.Stylesheet())
+@{
+    Style.Include("jquery-ui.css");
+    Style.Include("chosen/chosen.css");
+    Script.Require("Chosen");
+}
+<div class="space"></div>
+<div class="panel panel-default user-detail">
+    <div class="panel-heading">
+        <div class="panel-heading">
+            <div class="navbar">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#userEditMenu">...</button>
+                        <div class="zone zone-header">
+                            <h2>@T("User Detail")</h2>
+                        </div>
+                    </div>
+                    <div class="collapse navbar-collapse" id="userEditMenu">
+                        <ul class="nav navbar-nav pull-right">
+                            <li><a href="@Url.Action("Edit", "Admin", new { area = "Orchard.Users", id = Model.User.UserId })">@T("Edit")</a></li>
+                            <li><a href="@Url.Action("Delete", "Admin", new { area = "Orchard.Users", id = Model.User.UserId })">@T("Delete")</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-md-2">
+                @{
+                    string imageSource = string.IsNullOrEmpty(Model.User.Thumbnail) ? Url.Content("~/Modules/Orchard.CRM.Project/Styles/Images/user-icon-small.jpg") : Model.User.Thumbnail;
+                }
+                <img src="@imageSource" width="96" height="96" src="@imageSource" title="@Model.User.Fullname" />
+            </div>
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div>
+                            <span class="user-profile-label">@T("Username:")</span>
+                            <span class="user-profile-field">@Model.User.Username</span>
+                        </div>
+                        <div>
+                            <span class="user-profile-label">@T("Full Name:")</span>
+                            <span class="user-profile-field">@Model.User.Fullname</span>
+                        </div>
+                        <div>
+                            <span class="user-profile-label">@T("Email:")</span>
+                            @{
+                                string email = string.IsNullOrEmpty(Model.User.Email) ? "-" : Model.User.Email;
+                            }
+                            <span class="user-profile-field">@email</span>
+                        </div>
+                        <div>
+                                <span class="user-profile-label">@T("Skype Id:")</span>
+                                @{
+                                    string skypeId = string.IsNullOrEmpty(Model.User.SkypeId) ? "-" : Model.User.SkypeId;
+                                    string skypeLink = string.IsNullOrEmpty(Model.User.SkypeId) ? "#" : string.Format("skype:{0}?chat", Model.User.SkypeId);
+                                }
+                            <a href="@skypeLink" class="skype-icon  user-profile-field">@skypeId</a>
+                            </div>
+                        <div>
+                                <span class="user-profile-label">@T("Tel:")</span>
+                                @{
+                                    string tel = string.IsNullOrEmpty(Model.User.Tel) ? "-" : Model.User.Tel;
+                                    string telUrl = string.IsNullOrEmpty(Model.User.Tel) ? "#" : string.Format("skype:{0}?call", Model.User.Tel);
+                               }
+                            <a href="@telUrl" class="skype-icon user-profile-field">@tel</a>
+                            </div>
+                        <div>
+                                <span class="user-profile-label">@T("Mobile:")</span>
+                                @{
+                                    string mobile = string.IsNullOrEmpty(Model.User.Mobile) ? "-" : Model.User.Mobile;
+                                    string moblieUrl = string.IsNullOrEmpty(Model.User.Mobile) ? "#" : string.Format("skype:{0}?call", Model.User.Mobile);
+                                }
+                            <a href="@moblieUrl" class="skype-icon user-profile-field">@mobile</a>
+                            </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div>
+                            <span class="user-profile-label current-projects-label">@T("Current Projects:")</span>
+                            @if (Model.User.UserProjects.Count > 0)
+                            {
+                                foreach (var project in Model.User.UserProjects)
+                                {
+                                    <a href="@Url.Action("Display", "Project", new { id = project.Value })" class="user-profile-field">@project.Text</a>
+                                }
+                            }
+                            else
+                            {
+                                <span class="user-profile-field">@T("User does not member of any project")</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h5>@T("Invite to projects")</h5>
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginFormAntiForgeryPost(Url.Action("InvitePost"), FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            if (Model.Projects.Count > 0)
+            {
+                <div class="form-group">
+                    @Html.DropDownList("Projects", Model.Projects, new { multiple = true })
+                    <input type="hidden" name="UserId" value="@Model.User.UserId" />
+                </div>
+                <button type="submit" class="btn btn-default">@T("Invite")</button>
+            }
+            else
+            {
+                <div class="well">@T("There is no new project and user already has been invited to existing projects.")</div>
+            }
+        }
+    </div>
+</div>
+@using (Script.Foot())
+{
+    Script.Require("JQueryUI");
+    <script language="javascript" type="text/javascript">
+        $(document).ready(function () {
+            $("#Projects").chosen();
+        });
+    </script>
+}

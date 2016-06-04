@@ -1,0 +1,8 @@
+﻿Name: OrchardCollaboration.Project.Setup
+AntiForgery: enabled
+Author: Siyamand Ayubi
+Website: http://OrchardCollaboration.com
+Version: 2.3
+Dependencies: S22.IMAP, Orchard.Email, Orchard.Search, Lucene, Orchard.Tokens, Orchard.MediaLibrary, Orchard.Alias, Orchard.CRM.Core, Orchard.Taxonomies, Orchard.Reporting, Orchard.Lists, Orchard.CRM.Project, Orchard.Recipes
+Description: Contains the installation recipie for OrchardCollaboration that installs necessary modules, creates customized menus and etc. The module uses Bootstrap theme, so please download it before using the module.
+Category: Collaboration

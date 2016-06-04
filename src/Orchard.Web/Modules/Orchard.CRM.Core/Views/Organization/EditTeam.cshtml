@@ -1,0 +1,23 @@
+﻿@using Orchard.CRM.Core.ViewModels;
+@model TeamViewModel
+@Display(New.Stylesheet())
+@using (Html.BeginFormAntiForgeryPost(Url.Action("EditTeam", "Organization", new { area = "Orchard.CRM.Core" }), FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div>
+        <div class="label-col">
+            @T("Name:")
+        </div>
+        <div class="data-col"><input id="Name" name="Name" value="@Model.Name" type="text" /></div>
+    </div>
+    <div class="Description">
+        <div class="label-col">
+            @T("Description:")
+        </div>
+        <div><textarea class="text" id="Description" name="Description">@Model.Description</textarea></div>
+    </div>
+    <div>
+        <input type="hidden" name="BusinessUnitId" id="BusinessUnitId" value="@Model.BusinessUnitId" />
+        <input class="submit" type="submit" value="@T("Submit")" />
+    </div>
+}
+

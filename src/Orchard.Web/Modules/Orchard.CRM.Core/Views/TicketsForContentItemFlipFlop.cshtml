@@ -1,0 +1,32 @@
+﻿<style>
+    .top-left {
+        left: 0px;
+        top: 0px;
+    }
+
+    .top-right {
+        right: 0px;
+        top: 0px;
+    }
+
+    .bottom-right {
+        right: 0px;
+        bottom: 0px;
+    }
+
+    .bottom-left {
+        left: 0px;
+        bottom: 0px;
+    }
+</style>
+@{
+    string className = Model.Model;
+}
+<div class="@className" data-state="active-buttons" data-activetitle="@T("hide ticket menus for contentItems")" data-inactivetitle="@T("show ticket menus for contentItems")" title="@T("hide ticket menus for contentItems")" id="ticketsForContentItemFlipFlop" style="position:fixed; border-radius:10px; z-index:100000; width:20px; height:20px; background-color:green"></div>
+@using (Script.Foot())
+{
+    Script.Require("CRMWidgets");
+    <script language="javascript" type="text/javascript">
+        $("#ticketsForContentItemFlipFlop").TicketsForContentItemsWidget();
+    </script>
+}

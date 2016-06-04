@@ -1,0 +1,56 @@
+﻿@using System.Web.Mvc.Html
+@using Orchard.Mvc.Html
+@model Orchard.CRM.Project.Settings.FileFieldSettings
+<fieldset>
+    @Html.CheckBoxFor(m => m.Required)
+    <label class="forcheckbox" for="@Html.FieldIdFor(m => m.Required)">@T("Required")</label>
+    <span class="hint">@T("If checked, the file will be mandatory.")</span>
+</fieldset>
+<fieldset>
+    <label for="@Html.FieldIdFor(m => m.MediaFolder)">@T("Media folder")</label>
+    @Html.TextBoxFor(m => m.MediaFolder, new { @class = "textMedium" })
+    <span class="hint">@T("The name of the media folder where the file will be saved. You can also use these tokens: {content-type}, {field-name}, {content-item-id}.")</span>
+</fieldset>
+<fieldset>
+    <label for="@Html.FieldIdFor(m => m.Hint)">@T("Help text")</label>
+    @Html.TextAreaFor(m => m.Hint, new { @class = "textMedium", rows = "5" })
+    <span class="hint">@T("The help text is written under the field when authors are editing the content item.")</span>
+    @Html.ValidationMessageFor(m => m.Hint)
+</fieldset>
+<fieldset>
+    <select name="@Html.FieldNameFor(m => m.OpenAction)" size="1">
+        @foreach (var item in Enum.GetValues(typeof(Orchard.CRM.Project.Settings.OpenAction)))
+        {
+            var name = Enum.GetName(typeof(Orchard.CRM.Project.Settings.OpenAction), item);
+            <option value="@item" @if (Convert.ToInt32(Model.OpenAction) == Convert.ToInt32(item))
+                                  { <text>selected="selected"</text> }>@T(name)</option>
+        }
+    </select>
+    <span class="hint">@T("_blank: Open the linked document in a new window.")</span>
+    <span class="hint">@T("_self: Open the linked document in the same frame as it was clicked (this is default).")</span>
+    <span class="hint">@T("_parent: Open the linked document in the parent frameset.")</span>
+    <span class="hint">@T("_top: Open the linked document in the full body of the window.")</span>
+</fieldset>
+<fieldset>
+    <label for="@Html.FieldIdFor(m => m.ExtenstionsAllowed)">@T("Extenstions Allowed")</label>
+    @Html.TextBoxFor(m => m.ExtenstionsAllowed, new { @class = "textMedium" })
+    <span class="hint">@T("File extenstions allowed to upload sperated by comma. example .jpg, .png")</span>
+</fieldset>
+<fieldset>
+    <select name="@Html.FieldNameFor(m => m.NameTag)" size="1">
+        @foreach (var item in Enum.GetValues(typeof(Orchard.CRM.Project.Settings.NameTags)))
+        {
+            var name = Enum.GetName(typeof(Orchard.CRM.Project.Settings.NameTags), item);
+            <option value="@item" @if (Convert.ToInt32(Model.NameTag) == Convert.ToInt32(item))
+                                  { <text>selected="selected"</text> }>@T(name)</option>
+        }
+    </select>
+    <span class="hint">@T("Timestamp: System will add timestamp (yyyyMMddhhmmss) to the attached file, example file-20140312131520.pdf.")</span>
+    <span class="hint">@T("Index: System will add the index to the attached file like in Windows, example file (1).pdf.")</span>
+</fieldset>
+<fieldset>
+    <label for="@Html.FieldIdFor(m => m.MaxFileSize)">@T("Maximum file size")</label>
+    @Html.TextBoxFor(m => m.MaxFileSize, new { @class = "textMedium", rows = "5" })
+    <span class="hint">@T("The maximum file size in Kilobytes.")</span>
+    @Html.ValidationMessageFor(m => m.MaxFileSize)
+</fieldset>

@@ -1,0 +1,30 @@
+﻿@using Orchard.Comments.Models
+@using Orchard.ContentManagement
+
+@{
+    CommentPart comment = Model.ContentPart;
+    CommentsPart comments = comment.CommentedOnContentItem.As<CommentsPart>();
+
+    var children = New.List(Items: Model.Items);
+    children.Classes.Add("comment-list");
+}
+<li class="comment well well-sm">
+    <article id="comment-@comment.Id">
+        <div class="row">
+            <!--<div class="col-lg-1">
+                @Display.CommentGravatar(ContentPart: comment)
+            </div>-->
+            <div class="col-lg-12">
+                @Display.CommentAuthor(ContentPart: comment)
+                @Display.CommentMetadata(ContentPart: comment)
+                @Display.CommentText(ContentPart: Model.ContentPart, ContentItem: Model.ContentItem)
+                <div class="clearfix"></div>
+                @if (comments.ThreadedComments) {
+                    @Display.CommentReplyButton(ContentPart: comment)
+                }
+                <div class="cleafix"></div>
+                @Display(children)
+            </div>
+        </div>
+    </article>
+</li>

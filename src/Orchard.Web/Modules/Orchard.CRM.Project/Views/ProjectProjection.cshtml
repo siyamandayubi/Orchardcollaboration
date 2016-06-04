@@ -1,0 +1,40 @@
+﻿@Display(New.Stylesheet())
+@using Orchard.ContentManagement;
+@using Orchard.Core.Title.Models;
+@using Orchard.CRM.Project;
+@using Orchard.CRM.Core.Models;
+@{
+    dynamic contentItem = Model.ContentItem;
+    string itemType = contentItem.ProjectProjection.ItemContentType.Value;
+    string itemTypeDisplayName = contentItem.ProjectProjection.ItemContentTypeDisplayName.Value;
+    AttachToProjectPart attachToProject = contentItem.AttachToProjectPart;
+    TitlePart titlePart = contentItem.TitlePart;
+    int? projectId = attachToProject != null && attachToProject.Record.Project != null ? (int?)attachToProject.Record.Project.Id : null;
+}
+<div class="project-discussions-header">
+    <h3>@T("Project " + titlePart.Title)</h3>
+    <div class="toolbar">
+        <a class="btn btn-primary" href="@Url.Action("Create", "Item", new { area = "Orchard.CRM.Core", id = itemType, projectId = projectId })">@T("New " + itemTypeDisplayName)</a>
+    </div>
+    <div class="clear"></div>
+</div>
+@{
+    Func<IEnumerable<dynamic>> shapeBuilder = Model.BuildShapes;
+    var shapes = shapeBuilder();
+}
+<div>
+    @if (shapes == null || shapes.Count() == 0)
+    {
+        <div class="well">@T("There is no " + itemTypeDisplayName)</div>
+    }
+    else
+    {
+        foreach (var shape in shapes)
+        {
+            <div>
+                @Display(shape)
+            </div>
+            <hr />
+        }
+    }
+</div>

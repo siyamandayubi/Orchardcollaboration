@@ -1,0 +1,111 @@
+﻿@using System.Web.Routing;
+@using Orchard.ContentManagement;
+@using Orchard.CRM.Core.Models;
+@using Orchard.CRM.Core.ViewModels;
+@{
+    var model = Model.Model;
+    ContentItem contentItem = model.Part.ContentItem;
+    AttachToProjectPart attachToProjectPart = contentItem.As<AttachToProjectPart>();
+    bool thereIsTicket = model.OverrudeTicketCount > 0 || model.UnAssignedTicketCount > 0;
+}
+<style type="text/css">
+    .tickets-for-content-item1 a {
+        margin-top: 5px;
+        margin-bottom: 3px;
+        min-width: 100px;
+    }
+
+        .tickets-for-content-item1 a .number {
+            font-weight: bold;
+            color: yellow;
+        }
+
+    .tickets-for-content-item1 .well {
+        margin-top: 5px !important;
+    }
+</style>
+@Display(New.ThemeAwareStylesheet())
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="pull-left">@T("Related Tickets")</h4>
+        @{
+            RouteValueDictionary routeValues = new RouteValueDictionary();
+            routeValues.Add("area", "Orchard.CRM.Core");            
+            routeValues.Add("TicketPart.RelatedContentItemId", model.Part.ContentItem.Id);
+
+            if (attachToProjectPart != null && attachToProjectPart.Record.Project != null)
+            {
+                routeValues.Add("projectId", attachToProjectPart.Record.Project.Id);
+            }
+            
+            routeValues.Add("id", "Ticket");
+        }
+        <div class="pull-right">
+            <a class="btn btn-primary" target="_blank" href="@Url.Action("Create", "Ticket", routeValues)" title="@T("Add  ticket")"><span>@T("Add")</span></a>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="panel-body tickets-for-content-item1">
+        <div class="links">
+            @{
+                routeValues = new RouteValueDictionary();
+                routeValues["area"] = "Orchard.CRM.Core";
+                routeValues["DueDate"] = PostedTicketSearchViewModel.OverDueDate;
+                routeValues["RelatedContentItemId"] = model.Part.ContentItem.Id;
+
+                if (model.OverrudeTicketCount > 0)
+                {
+                    <a class="btn btn-primary" href="@Url.Action("Search", "Ticket", routeValues)" title="@T("Overdue tickets")">
+                        <span class="name">@T("Overdue:")</span>
+                        <span class="number">@(model.OverrudeTicketCount.ToString())</span>
+                    </a>
+                }
+
+                foreach (var item in model.TicketsGroupByStatus)
+                {
+                    if (item.Count == 0)
+                    {
+                        continue;
+                    }
+
+                    thereIsTicket = true;
+                    routeValues = new RouteValueDictionary();
+                    routeValues["area"] = "Orchard.CRM.Core";
+                    routeValues["RelatedContentItemId"] = model.Part.ContentItem.Id;
+                    if (item.Id != null)
+                    {
+                        routeValues["Status"] = item.Id;
+                    }
+                    else
+                    {
+                        routeValues["UnStatus"] = true;
+                    }
+                    string name = item.Name.ToString();
+                    string title = T(name) + " " + T("Ticket");
+                    <a class="btn btn-primary" target="_blank" href="@Url.Action("Search", "Ticket", routeValues)" title="@title">
+                        <span class="name">@T(name):&nbsp;</span>
+                        <span class="number">@item.Count</span>
+                    </a>
+                }
+
+                if (model.UnAssignedTicketCount > 0)
+                {
+                    routeValues = new RouteValueDictionary();
+                    routeValues["area"] = "Orchard.CRM.Core";
+                    routeValues["Unassigned"] = true;
+                    routeValues["RelatedContentItemId"] = model.Part.ContentItem.Id;
+
+                    <a class="btn btn-primary" href="@Url.Action("Search", "Ticket", routeValues)" title="@T("Unassigned tickets")">
+                        <span class="name">@T("Unassigned:")</span>
+                        <span class="number">@(model.UnAssignedTicketCount.ToString())</span>
+                    </a>
+                }
+            }
+        </div>
+        @if (!thereIsTicket)
+        {
+            <div class="well">@T("There is no related ticket")</div>
+        }
+   </div>
+ </div>
+

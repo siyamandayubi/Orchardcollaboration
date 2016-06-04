@@ -1,0 +1,36 @@
+﻿@using Orchard.CRM.Core.ViewModels;
+@using System.Globalization;
+@{
+    var model = (ContentItemSetPermissionsViewModel)Model.Model;
+}
+<fieldset class="edit-contentitempermission">
+    <div class="edit-contentitempermission-properties">
+        <div class="field-container">
+            <div class="label-container">@T("Assignee Group:")</div>
+            <div>
+                <select name="ContentItemPermissionPart.GroupId" id="ContentItemPermissionPart_GroupId" class="combobox selects-width">
+                    <option value=""></option>
+                    @foreach (var businessUnit in model.BusinessUnits)
+                    {
+                        string isSelected = businessUnit.Checked ? "selected=selected" : string.Empty;
+                        string businessUnitId = string.Format(CultureInfo.InvariantCulture, "BusinessUnit:{0}", businessUnit.BusinessUnitId.ToString(CultureInfo.InvariantCulture));
+                        <option @isSelected value="@businessUnitId">@businessUnit.Name</option>
+                        foreach (var team in businessUnit.Teams)
+                        {
+                            isSelected = team.Checked ? "selected=selected" : string.Empty;
+                            string teamId = string.Format(CultureInfo.InvariantCulture, "Team:{0}", team.TeamId.ToString(CultureInfo.InvariantCulture));
+                            <option @isSelected value="@teamId">@("  " + team.Name)</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="field-container">
+            @if (!model.IsCurrentUserCustomer)
+            {
+                <div class="label-container">@T("Assignee User:")</div>
+                <div>@Html.DropDownList("ContentItemPermissionPart.UserId", model.Users, new { @class = "combobox selects-width" })</div>
+            }
+        </div>
+    </div>
+</fieldset>

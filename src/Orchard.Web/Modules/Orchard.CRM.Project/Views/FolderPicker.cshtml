@@ -1,0 +1,22 @@
+﻿@{
+    string fieldName = Model.FieldName;
+}
+<ul>
+    @foreach (var root in Model.Model)
+    {
+        string isChecked = root.IsSelected ? "checked='checked'" : string.Empty;
+        string jsTreeData = string.Format(
+            "{{ \"selected\":{0}, \"opened\":{1} }}",
+            root.IsSelected.ToString().ToLower(),
+            root.IsSelected.ToString().ToLower());
+        
+        <li data-id="@root.FolderId" data-jstree="@jsTreeData">
+            <input type="radio" name="@fieldName" @isChecked value="@root.FolderId" />
+            <span>@root.Title</span>
+            @if (root.Folders.Count > 0)
+            {
+                @Display(New.FolderPicker(Model: root.Folders, FieldName: fieldName))
+            }
+        </li>
+    }
+</ul>

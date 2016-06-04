@@ -1,0 +1,38 @@
+﻿@{
+    DateTime lastSyncTime = Model.Model.LastSyncTime;
+    int taskId = Model.Model.TaskId;
+    string externalId = Model.Model.ExternalId;
+    string lastSyncTimeString = lastSyncTime == default(DateTime) ? string.Empty : lastSyncTime.ToString("dd/MM/yyyy hh:mm tt");
+    string suiteCRMAddress = Model.Model.SuiteCRMAddress;
+    bool isProjectTask = Model.Model.IsProjectTask;
+    string syncText = string.IsNullOrEmpty(suiteCRMAddress) ? T("Sync SuiteCRM").Text : T("Sync").Text;
+    string suiteCRMAddressClass = string.IsNullOrEmpty(suiteCRMAddress) ? "hidden" : string.Empty;
+}
+<div class="task-sync-info">
+    <a class="view-in-suitecrm @suiteCRMAddressClass" href="@suiteCRMAddress" target="_blank">@T("View in SuiteCRM")</a>
+    <a class="sync-hyperlink" 
+       data-isprojecttask="@isProjectTask"
+        data-taskId="@taskId " 
+        data-externalid="@externalId" 
+        data-copyto="@Url.Action("CopyOrchardTicketToSuiteTasks", "Sync", new { area = "Orchard.SuiteCRM.Connector" })" 
+        href="#">@syncText</a>
+    @if (!string.IsNullOrEmpty(lastSyncTimeString))
+    {
+        <span class="last-sync-time-label">@T("Last Sync Time:")</span>
+        <span class="sync-time">@lastSyncTimeString</span>
+    }
+    else
+    {
+        <span class="hidden last-sync-time-label">@T("Last Sync Time:")</span>
+        <span class="hidden sync-time" ></span>
+        <span class="not-sync-yet">@T("Not synced yet")</span>
+    }
+</div>
+@using (Script.Foot())
+{
+    <script language="javascript" type="text/javascript">
+        $(document).ready(function () {
+            $(".task-sync-info").syncTicketWidget();
+        });
+    </script>
+}

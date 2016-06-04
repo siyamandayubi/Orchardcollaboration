@@ -1,0 +1,7 @@
+﻿@using Orchard.ContentManagement
+@using Orchard.Utility.Extensions
+@Display(New.Stylesheet())
+@{
+    ContentItem contentItem = Model.ContentItem;
+    Html.AddPageClassNames("detail-" + contentItem.ContentType.HtmlClassify());
+}@Display(Model)

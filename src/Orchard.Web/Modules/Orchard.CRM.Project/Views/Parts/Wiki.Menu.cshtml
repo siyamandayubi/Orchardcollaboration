@@ -1,0 +1,72 @@
+﻿@using Orchard.CRM.Project;
+@using Orchard.CRM.Project.ViewModels;
+@{
+    ProjectDetailViewModel model = Model.Model;
+    string wikiLink = Url.Action("DisplayProjectRelatedItem", "Project", new { contentType = ContentTypes.WikiContentType, projectId = model.ProjectPart.Record.Id, area = "Orchard.CRM.Project" });
+    string activityStreamLink = Url.Action("DisplayProjectRelatedItem", "Project", new { contentType = ContentTypes.ProjectActivityStreamType, projectId = model.ProjectPart.Record.Id, area = "Orchard.CRM.Project" });
+    string ticketsLink = Url.Action("DisplayProjectRelatedItem", "Project", new { contentType = ContentTypes.ProjectTicketsContentType, projectId = model.ProjectPart.Record.Id, area = "Orchard.CRM.Project" });
+    string discussionsLink = Url.Action("DisplayProjectRelatedItem", "Project", new { contentType = ContentTypes.ProjectDiscussionsContentType, projectId = model.ProjectPart.Record.Id, area = "Orchard.CRM.Project" });
+}
+<ul class="nav nav-pills" role="tablist">
+@if (model.CurrentUserCanEdit)
+{
+    <li class="pull-right">
+        <div class="collapse navbar-collapse" id="searchMenu">
+            @using (Html.BeginFormAntiForgeryPost(Url.Action("Index", "Search", new { area = "Orchard.CRM.Project" }), FormMethod.Get, new { @id = "searchForm" }))
+            {
+                var projectId = model.ProjectPart.Id;
+                string[] contentTypess = new[] { "Ticket", ContentTypes.DiscussionContentType, ContentTypes.WikiItemType, ContentTypes.FolderContentType };
+                string contentTypesString = string.Join(", ", contentTypess);
+                <div class="form-group">
+                    <input type="hidden" name="projectId" value="@projectId" />
+                    <input type="hidden" name="contentTypes" value="@contentTypesString" />
+                    <input type="text" class="form-control" name="searchPhrase" value="@Model.Query" placeholder="@T("Search")" />
+                    <button type="submit" class="btn btn-default hidden">@T("Submit")</button>
+                </div>
+            }
+        </div>
+    </li>
+    <li class="pull-right">
+        <div class="project-item-menu-container">
+            <span class="pivot">
+                <span class="icon"></span>
+                <span class="icon"></span>
+                <span class="icon"></span>
+            </span>
+            <ul class="project-item-menu menu-hidden z2">
+                @if (model.CurrentUserCanEdit)
+                {
+                    <li><a href="@Url.Action("Edit", "Project", new { area = "Orchard.CRM.Project", id = model.ProjectPart.Id })">@T("Edit")</a></li>
+                }
+                <li><a href="@wikiLink">@T("Wiki")</a></li>
+                <li><a href="@activityStreamLink">@T("Activity Stream")</a></li>
+                <li><a href="@ticketsLink">@T("Tickets")</a></li>
+                <li><a href="@discussionsLink">@T("Discussions")</a></li>
+                @if (model.CurrentUserCanChangePermission)
+                {
+                    <li><a href="@Url.Action("Edit", "ProjectItemsOwnership", new { area = "Orchard.CRM.Project", ids = model.ProjectPart.Id })">@T("People")</a></li>
+                }
+            </ul>
+        </div>
+    </li>
+    <li class="pull-right dropdown project-new-dropdown">
+        <a class="dropdown-toggle" aria-expanded="false" role="button" data-toggle="dropdown" href="#">@T("New")<b class="caret"></b></a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="projectNewDropdown">
+            <li> <a href="@Url.Action("Create", "Folder", new { area = "Orchard.CRM.Project", id = "FolderItem", projectId = model.ProjectPart.Record.Id })">@T("Add Folder")</a></li>
+            <li><a href="@Url.Action("Create", "WikiItem", new { area = "Orchard.CRM.Project", id = "WikiItem", projectId = model.ProjectPart.Record.Id })">@T("Add Item")</a></li>
+        </ul>
+    </li>
+}
+</ul>
+@{
+    Script.Require("JQueryUI");
+    Script.Require("ProjectWidgets");
+}
+@using (Script.Foot())
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".project-item-menu-container").ProjectMenu();
+        });
+    </script>
+}

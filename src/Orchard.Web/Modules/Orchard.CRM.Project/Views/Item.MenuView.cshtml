@@ -1,0 +1,83 @@
+@using Orchard.Utility.Extensions;
+@using Orchard.ContentManagement;
+@using Orchard.CRM.Project.Models;
+@using Orchard.CRM.Project;
+@using Orchard.CRM.Core.Models;
+@{
+    var returnUrl = ViewContext.RequestContext.HttpContext.Request.ToUrlString();
+    ContentItem contentItem = Model.ContentItem;
+    AttachToFolderPart attachToFolder = contentItem.As<AttachToFolderPart>();
+    AttachToProjectPart attachToProject = contentItem.As<AttachToProjectPart>();
+    string removeLinkReturnUrl = string.Empty;
+
+    if (attachToFolder != null)
+    {
+        removeLinkReturnUrl = attachToFolder.Record.Folder != null ?
+         Url.Action("Display", "Folder", new { area = "Orchard.CRM.Project", id = attachToFolder.Record.Folder.Id }) :
+         Url.Action("DisplayProjectRelatedItem", "Project", new { area = "Orchard.CRM.Project", contentType = ContentTypes.RootWikiContentType, projectId = attachToProject.Record.Project.Id });
+    }
+    else
+    {
+        removeLinkReturnUrl = Url.Action("Display", "Project", new { area = "Orchard.CRM.Project", id = attachToProject.Record.Project.Id });
+    }
+}
+<div class="project-item-menu-container item-menu" id="discussionMenu">
+    <span class="pivot">
+        <span class="icon"></span>
+        <span class="icon"></span>
+        <span class="icon"></span>
+    </span>
+    <ul class="project-item-menu z1">
+        @if (contentItem.Has<FollowerPart>())
+        {
+            <li>@Display(New.FollowLink(contentItem: contentItem))</li>
+        }
+        @if (Model.CanEdit)
+        {
+            <li><a href="@Url.Action("Edit", "Item", new { area = "Orchard.CRM.Core", id = Model.ContentItem.Id, returnUrl = returnUrl })">@T("Edit")</a></li>
+        }
+
+        @if (Model.CanChangePermission)
+        {
+            <li><a href="@Url.Action("Edit", "ProjectItemsOwnership", new { area = "Orchard.CRM.Project", ids = Model.ContentItem.Id, returnUrl = returnUrl })">@T("People")</a></li>
+        }
+
+        @if (Model.IsAdvancedOperator)
+        {
+            <li><a class="remove-discussion" href="@Url.Action("Remove", "Item", new { area = "Orchard.CRM.Core", ids = Model.ContentItem.Id, returnUrl = removeLinkReturnUrl })">@T("Remove")</a></li>
+        }
+        @{
+            RouteValueDictionary routeValues = new RouteValueDictionary();
+            routeValues.Add("area", "Orchard.CRM.Core");
+            routeValues.Add("TicketPart.RelatedContentItemId", Model.ContentItem.Id);
+
+            if (attachToProject != null && attachToProject.Record.Project != null)
+            {
+                routeValues.Add("projectId", attachToProject.Record.Project.Id);
+            }
+
+            routeValues.Add("id", "Ticket");
+        }
+        <li><a href="@Url.Action("Create", "Ticket", routeValues)">@T("Create Ticket")</a></li>
+         @{
+             routeValues = new RouteValueDictionary();
+             routeValues["area"] = "Orchard.CRM.Core";
+             routeValues["RelatedContentItemId"] = Model.ContentItem.Id;
+
+         }
+              <li><a href="@Url.Action("Search", "Ticket", routeValues)">@T("Related Tickets")</a></li>
+    </ul>
+    <div class="clear"></div>
+</div>
+@{
+    Script.Require("JQueryUI");
+    Script.Require("ProjectWidgets");
+}
+@using (Script.Foot())
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".project-item-menu-container").ProjectMenu();
+        });
+    </script>
+}

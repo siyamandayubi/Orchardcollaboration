@@ -1,0 +1,52 @@
+﻿@using Orchard.Comments;
+@using Orchard.Comments.Models
+@using Orchard.Comments.Settings
+@using Orchard.Utility.Extensions;
+
+@{
+    CommentsPart commentsPart = Model.ContentPart;
+    var settings = commentsPart.TypePartDefinition.Settings.GetModel<CommentsPartSettings>();
+}
+
+@if (!Model.ContentPart.CommentsActive) {
+    if (Model.ContentPart.Comments.Count > 0) {
+    <div class="comments">
+        <h4>@T("Comments have been disabled for this content.")</h4>
+    </div>
+    }
+}
+else if (settings.MustBeAuthenticated && WorkContext.CurrentUser == null) {
+    <div class="respond">
+        <div class="title"><h4>Post Reply</h4></div>
+        <p>@T("You must {0} to comment.", Html.ActionLink(T("sign in").ToString(), "LogOn",
+           new { Controller = "Account", Area = "Orchard.Users", ReturnUrl = string.Format("{0}#addacomment", Context.Request.RawUrl) }))</p>
+    </div>
+}
+else if (WorkContext.CurrentUser == null && !AuthorizedFor(Permissions.AddComment)) {
+    <div class="respond">
+        <div class="title"><h4>Post Reply</h4></div>
+        <p>@T("You must {0} to comment.", Html.ActionLink(T("sign in").ToString(), "LogOn",
+           new { Controller = "Account", Area = "Orchard.Users", ReturnUrl = string.Format("{0}#addacomment", Context.Request.RawUrl) }))</p>
+    </div>
+}
+else {
+    @Html.ValidationSummary() 
+    <span id="comment-form-beacon" />
+    <div class="respond well well-sm">
+        <h4>Post Reply</h4>
+        <div class="form">
+            @using (Html.BeginFormAntiForgeryPost(Url.Action("Create", "Comment", new { Area = "Orchard.Comments", ReturnUrl = Context.Request.ToUrlString() }), FormMethod.Post, new { @class = "comment-form" })) {
+                if (TempData.ContainsKey("Comments.InvalidCommentEditorShape")) {
+                    @Display(TempData["Comments.InvalidCommentEditorShape"]);
+                }
+                else {
+                    @Display(Model.EditorShape)
+                }
+                <div class="form-group col-lg-12">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="reset" class="btn btn-default">Reset</button>
+                </div>
+            }
+        </div>
+    </div>
+}

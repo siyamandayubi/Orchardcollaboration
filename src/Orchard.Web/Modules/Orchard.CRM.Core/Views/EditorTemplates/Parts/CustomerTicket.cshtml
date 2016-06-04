@@ -1,0 +1,43 @@
+﻿@model Orchard.CRM.Core.ViewModels.TicketViewModel
+<div>
+    <fieldset class="ticket-fieldset">
+        <div>
+            <div class="row-title">
+                <div class="label">@T("Title:")<span>@Html.ValidationMessageFor(c => c.Title)</span></div>
+                <div>
+                    <div>@Html.TextBoxFor(c => c.Title, new { maxlength = 100 })</div>
+                </div>
+            </div>
+            <div class="row-description">
+                <div class="label">@T("Description:")</div>
+                <div>@Display.Body_Editor(Text: Model.Text, EditorFlavor: "html")</div>
+            </div>
+            <div class="ticket-edit-properties">
+                <div class="column">
+                    <div class="label">@T("Service:")</div>
+                    <div>@Html.DropDownList("ServiceId", Model.Services, new { @class = "combobox selects-width" })</div>
+                </div>
+                 <div class="column">
+                    <div class="label">@T("Priority:")</div>
+                    <div>@Html.DropDownList("PriorityId", Model.Priorities, new { @class = "combobox selects-width" })</div>
+                    <div>@Html.ValidationMessageFor(c => c.PriorityId)</div>
+                </div>
+                <div class="column">
+                    <div class="label">@T("Type:")</div>
+                    <div>@Html.DropDownList("TypeId", Model.Types, new { @class = "combobox selects-width" })</div>
+                    <div>@Html.ValidationMessageFor(c => c.TypeId)</div>
+                </div>
+            </div>
+        </div>
+
+        @if (Model.RelatedContentItemId.HasValue)
+        {
+            <input type="hidden" name="TicketPart.RelatedContentItemId" value="@Model.RelatedContentItemId.Value" />
+        }
+
+        @if (Model.ParentTicketId.HasValue)
+        {
+            <input type="hidden" name="TicketPart.ParentTicketId" value="@Model.ParentTicketId.Value" />
+        }
+    </fieldset>
+</div>

@@ -1,0 +1,48 @@
+﻿@using Orchard.CRM.Core.ViewModels;
+@using Orchard.CRM.Core.Models;
+@using System.Globalization;
+@model StatusViewModel
+@Display(New.Stylesheet())
+@{
+    var statusTypeRecords = new SelectListItem[]{
+        new SelectListItem{Value = string.Empty, Text = string.Empty},
+        new SelectListItem{Value = StatusRecord.NewStatus.ToString(CultureInfo.InvariantCulture), Text = T("New").Text},
+        new SelectListItem{Value = StatusRecord.OpenStatus.ToString(CultureInfo.InvariantCulture), Text = T("In Progress").Text},
+        new SelectListItem{Value = StatusRecord.DeferredStatus.ToString(CultureInfo.InvariantCulture), Text = T("Deferred").Text},
+        new SelectListItem{Value = StatusRecord.PendingInputStatus.ToString(CultureInfo.InvariantCulture), Text = T("Pending input").Text},
+        new SelectListItem{Value = StatusRecord.ClosedStatus.ToString(CultureInfo.InvariantCulture), Text = T("Completed").Text},
+    };
+}
+@using (Html.BeginFormAntiForgeryPost(Url.Action("EditStatusPost", "BasicData", new { area = "Orchard.CRM.Core" }), FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="hidden" name="StatusId" value="@Model.StatusId" />
+    <h1>@T("Edit Status")</h1>
+    <div class="group">
+        <fieldset>
+            <label for="Name">
+                @T("Name")
+            </label>
+            <input id="Name" name="Name" value="@Model.Name" type="text" class="text medium" />
+            @Html.ValidationMessageFor(c => c.Name)
+        </fieldset>
+        <fieldset>
+            <label for="Status Type">
+                @T("Status Type")
+            </label>
+            @Html.DropDownListFor(c => c.StatusTypeId, statusTypeRecords, new { @class = "text medium" })
+            @Html.ValidationMessageFor(c => c.StatusTypeId)
+            <p>@T("OrchardCollaboration needs four basic status items. ('New', 'Open', 'Solved' and 'Closed'). You can change items, add new items, or remove items. But the four basic status items must remain in the system. This field allows you to announce the system whether the current item is one of the four basic ones and which one or not.")</p>
+        </fieldset>
+        <fieldset>
+            <label for="Order">
+                @T("Order")
+            </label>
+            <input id="OrderId" name="OrderId" value="@Model.OrderId" type="number" class="text medium" />
+            @Html.ValidationMessageFor(c => c.OrderId)
+        </fieldset>
+        <fieldset class="save-button">
+            <button class="primaryAction" type="submit" value="@T("Save")">@T("Save")</button>
+        </fieldset>
+    </div>
+}
+

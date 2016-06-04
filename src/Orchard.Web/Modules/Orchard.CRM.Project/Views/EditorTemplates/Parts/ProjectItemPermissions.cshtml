@@ -1,0 +1,61 @@
+﻿@using Orchard.CRM.Core.ViewModels;
+@using System.Globalization;
+@using Orchard.CRM.Core.Models;
+@{
+    Style.Include("jquery-ui.css");
+    Style.Include("chosen/chosen.css");
+    Script.Require("Chosen");
+    Script.Require("ProjectWidgets");
+    ContentItemSetPermissionsViewModel model = (ContentItemSetPermissionsViewModel)Model;
+    string clientId = Guid.NewGuid().ToString();
+}
+<div id="@clientId">
+    <input type="hidden" name="ProjectItemPermissionsPart.ProjectId" id="ProjectItemPermissionsPart.ProjectId" value="@Model.Tag" />
+    <div>
+        <input type="checkbox" name="ProjectItemPermissionsPart.VisibleToAll" id="ProjectItemPermissionsPart.VisibleToAll" value="true" checked="checked" /><span class="visible-to-all">@T("Visible to all")</span>
+    </div>
+    <div class="row groups-and-agents">
+        <div class="col-md-3">
+            <div>@T("Groups")</div>
+            <div>
+                <select multiple size="5" name="ProjectItemPermissionsPart.BusinessUnits" id="ProjectItemPermissionsPart.BusinessUnits">
+                    @foreach (BusinessUnitViewModel businessUnit in model.BusinessUnits)
+                    {
+                        <option value="@businessUnit.BusinessUnitId">@businessUnit.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="edit-content-ownership-title">@T("Agents")</div>
+            <div>
+                <select multiple size="5" name="ProjectItemPermissionsPart.Users" id="ProjectItemPermissionsPart.Users">
+                    @foreach (var user in model.Users)
+                    {
+                        <option value="@user.Value">@user.Text</option>
+                    }
+                </select>
+            </div>
+        </div>
+        @if (model.Customers.Count > 0)
+        {
+           <div class="col-md-3">
+                <div class="edit-content-ownership-title">@T("Customers")</div>
+                <div>
+                    <select multiple size="5" name="ProjectItemPermissionsPart.Customers" id="ProjectItemPermissionsPart.Customers">
+                        @foreach (var user in model.Customers)
+                        {
+                            <option value="@user.Value">@user.Text</option>
+                        }
+                    </select>
+                </div>
+            </div>
+        }
+      </div>
+</div>
+@using (Script.Foot())
+{
+    <script type="text/javascript">
+        $("#@clientId").PeopleInitialization() ;
+    </script>
+}

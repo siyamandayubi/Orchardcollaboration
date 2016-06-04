@@ -1,0 +1,32 @@
+﻿@using Orchard.ContentManagement;
+@using Orchard.Core.Title.Models;
+@using Orchard.CRM.Core.Models;
+@{
+    dynamic contentItem = Model.ContentItem;    
+    AttachToProjectPart attachToProject = contentItem.AttachToProjectPart;
+    int? projectId = attachToProject != null && attachToProject.Record.Project != null ? (int?)attachToProject.Record.Project.Id : null;
+
+    IEnumerable<dynamic> shapes = Model.BuildShapes;
+}
+<div class="project-tickets-header">
+    <div class="toolbar">
+        <a class="btn btn-primary" href="@Url.Action("Create", "Ticket", new { area = "Orchard.CRM.Core", id = "Ticket", projectId = projectId })">@T("Create new Ticket")</a>
+    </div>
+    <div class="clear"></div>
+</div>
+<div>
+    @if (shapes == null || shapes.Count() == 0)
+{
+    <div class="well">@T("There is no ticket")</div>
+}
+else
+{
+    foreach (var shape in shapes)
+    {
+            <div>
+                @Display(shape)
+            </div>
+        <hr />
+        }
+    }
+</div>

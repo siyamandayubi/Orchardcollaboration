@@ -1,0 +1,98 @@
+﻿@using Orchard.ContentManagement
+@using Orchard.Utility.Extensions
+@{
+    ContentItem contentItem = Model.ContentItem;
+    var typeDisplayName = contentItem.TypeDefinition.DisplayName ?? contentItem.ContentType.CamelFriendly();
+    var pageTitle = T("New {0}", typeDisplayName);
+
+    Layout.Title = (string)pageTitle.Text;
+    Style.Include("jquery-ui.css");
+    Style.Include("chosen/chosen.css");
+    Script.Require("Chosen");
+    Script.Require("ProjectWidgets");
+    Script.Require("JsTree");
+    Style.Include("JsTree/style.css");
+}
+<div class="space"></div>
+@Display(New.Stylesheet())
+@using Orchard.Utility.Extensions;
+@{
+    if (Model.Title != null)
+    {
+        Layout.Title = Model.Title;
+    }
+
+    Model.Classes.Add("content-item");
+    Model.Classes.Add("panel panel-default");
+    Model.Classes.Add("project-content-item");
+
+    var contentTypeClassName = ((string)Model.ContentItem.ContentType).HtmlClassify();
+    Model.Classes.Add(contentTypeClassName);
+
+    var tag = Tag(Model, "article");
+}
+@tag.StartElement
+<header class="panel-heading">
+    @Display(Model.Header)
+    @if (Model.Meta != null)
+    {
+        <div class="metadata">
+            @Display(Model.Meta)
+        </div>
+    }
+    <div class="clear"></div>
+</header>
+<div class="panel-body">
+    @if (Model.BeforeContent != null)
+    {
+        <div>@Display(Model.BeforeContent)</div>
+    }
+    <div class="wiki-row">
+        @if (Model.BesideContent != null)
+        {
+            <div class="beside-content-list-container">@Display(Model.BesideContent)</div>
+        }
+        <div class="wiki-main-container">
+            @using (Html.BeginFormAntiForgeryPost(Url.Action("CreatePOST", new { id = contentItem.ContentType, returnUrl = Request.QueryString["returnUrl"] }), FormMethod.Post, new { id = "folderForm", enctype = "multipart/form-data" }))
+            {
+                <div class="edit-folder-form">
+                    <input type="hidden" id="editUrl" value="@Url.Action("EditPOST")" />
+                    <h3 class="panel-title">@T("Create Folder")</h3>
+                    @Html.ValidationSummary()
+                    @Display(Model.Content)
+                    @if (!String.IsNullOrWhiteSpace(Request.QueryString["returnUrl"]))
+                    {
+                        @Html.Hidden("returnUrl", Request.QueryString["returnUrl"])
+                    }
+                    <div class="edit-item-secondary group">
+                        @if (Model.Actions != null)
+                        {
+                            <div class="edit-item-actions">
+                                @Display(Model.Actions)
+                            </div>
+                        }
+                        @if (Model.Sidebar != null)
+                        {
+                            <div class="edit-item-sidebar group">
+                                @Display(Model.Sidebar)
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@if (Model.Footer != null)
+{
+    <footer>
+        @Display(Model.Footer)
+    </footer>
+}
+@tag.EndElement
+@using (Script.Foot())
+{
+    <script language="javascript" type="text/javascript">
+        $("#folderForm").EditFolder();
+    </script>
+}

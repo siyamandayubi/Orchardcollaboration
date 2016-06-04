@@ -1,0 +1,12 @@
+﻿@using Orchard.Utility.Extensions;
+
+@{
+  string name = Model.ContentField.Name;  
+}
+@if (!string.IsNullOrWhiteSpace(Model.ContentField.Path))
+{
+    <p class="file-field">
+       <span class="name">@name.CamelFriendly()</span>
+       <a href="@Url.Content(Model.ContentField.Path)" target="@Model.Settings.OpenAction">@Model.ContentField.Text</a>
+    </p>
+}

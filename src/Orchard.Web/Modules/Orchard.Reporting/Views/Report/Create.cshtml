@@ -1,0 +1,67 @@
+﻿@using Orchard.Reporting.ViewModels
+@model ReportViewModel
+@{
+    Style.Include("reporting");
+}
+@using (Html.BeginFormAntiForgeryPost(Url.Action("CreatePost", "Report", new { area = "Orchard.Reporting" }), FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <h1>@T("Create")</h1>
+    <div class="group">
+        <fieldset>
+            <label for="Name">@T("Name")</label>
+            <input id="Name" name="Name" value="@Model.Name" type="text" maxlength="50" class="text-medium" />
+            @Html.ValidationMessageFor(c => c.Name)
+        </fieldset>
+        <fieldset>
+            <label for="Title">@T("Title")</label>
+            <input id="Title" name="Title" value="@Model.Title" type="text" maxlength="50" class="text-medium" />
+            @Html.ValidationMessageFor(c => c.Title)
+        </fieldset>
+        <fieldset>
+            <label for="QueryId">@T("Query")</label>
+            @Html.DropDownListFor(c => c.QueryId, Model.Queries, new { @class = "select-medium" })
+            @Html.ValidationMessageFor(c => c.QueryId)
+        </fieldset>
+        <fieldset>
+            <label for="ChartTypeId">@T("Chart Types")</label>
+            @Html.DropDownListFor(c => c.ChartTypeId, Model.ChartTypes, new { @class = "select-medium" })
+            @Html.ValidationMessageFor(c => c.ChartTypeId)
+        </fieldset>
+        <fieldset>
+            <label for="AggregateMethod">@T("Aggregate Method")</label>
+            @Html.DropDownListFor(c => c.AggregateMethod, Model.Aggregations, new { @class = "select-medium" })
+            @Html.ValidationMessageFor(c => c.AggregateMethod)
+        </fieldset>
+       <fieldset>
+            <h2>@T("Group By field")</h2>
+            @foreach (var groupByCollection in Model.GroupByFieldsCollection.OrderBy(x => x.Name.Text))
+            {
+                <h4>@groupByCollection.Name</h4>
+
+                <table class="items">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col" style="width:300px">@T("Name")</th>
+                            <th scope="col">@T("Description")</th>
+                        </tr>
+                    </thead>
+                    @foreach (var descriptor in groupByCollection.GroupByFields)
+                    {
+                        string isChecked = descriptor.CategoryAndType == Model.CategoryAndType ? "checked='checked'" : string.Empty;
+                        <tr>
+                            <td><input type="radio" name="CategoryAndType" value="@descriptor.CategoryAndType" @isChecked /></td>
+                            <td>@descriptor.Name</td>
+                            <td>@descriptor.Description</td>
+                        </tr>
+                    }
+                </table>
+                @Html.ValidationMessageFor(c => c.CategoryAndType)
+            }
+        </fieldset>
+        <fieldset class="save-button">
+            <button class="primaryAction" type="submit" value="@T("Save")">@T("Save")</button>
+        </fieldset>
+    </div>
+
+}

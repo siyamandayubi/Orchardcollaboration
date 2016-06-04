@@ -1,0 +1,32 @@
+﻿@using System.Globalization
+@using Orchard.Fields.Settings;
+@{
+    var currentModel = Model.Model;
+    string value = currentModel.Value;
+    Dictionary<string, object> textBoxProperties = new Dictionary<string, object>();
+    textBoxProperties.Add("class", "ticket-input-field");
+    textBoxProperties.Add("min", (currentModel.Settings.Minimum != null) ? currentModel.Settings.Minimum.Value : 0);
+    textBoxProperties.Add("max", (currentModel.Settings.Maximum != null) ? currentModel.Settings.Maximum.Value : 1000000);
+    textBoxProperties.Add("step", Math.Pow(10, 0 - currentModel.Settings.Scale).ToString(CultureInfo.InvariantCulture));
+
+    if (currentModel.Settings.Required)
+    {
+        textBoxProperties.Add("required", "required");
+    }
+
+    string prefix = Model.Prefix + ".Value";
+}
+<fieldset>
+   <div class="field-container">
+       <div class="label-container">@currentModel.Field.DisplayName
+            @if (currentModel.Settings.Required)
+            {
+                <text>*</text>
+            }
+       </div>
+        <div>
+             @Html.TextBox(prefix, value, textBoxProperties)
+             @Html.ValidationMessage(prefix)
+       </div>
+    </div>  
+</fieldset>

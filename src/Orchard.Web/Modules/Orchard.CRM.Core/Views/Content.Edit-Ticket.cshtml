@@ -1,0 +1,88 @@
+﻿@using Orchard.ContentManagement
+@using Orchard.Utility.Extensions
+@Display(New.ThemeAwareStylesheet())
+@{
+    Style.Include("jquery-ui.css");
+    Style.Include("chosen/chosen.css");
+    Script.Require("Chosen");
+}
+
+<div class="edit-item edit-ticket-page">
+    <div class="edit-item-primary">
+        @if (Model.Content != null)
+        {
+            <div class="edit-item-content content-ticket-edit">
+                @if (Model.Header != null)
+                {
+                    <div class="ticket-header">
+                        @Display(Model.Header)
+                    </div>
+                }
+                <div class="ticket-item">                    
+                    <div class="ticket-main-content">
+                        @Display(Model.Content)
+                        @if (Model.Actions != null)
+                        {
+                            <div class="edit-item-actions">
+                                @Display(Model.Actions)
+                            </div>
+                        }
+                        @if (Model.Sidebar != null)
+                        {
+                            <div class="edit-item-sidebar group">
+                                @Display(Model.Sidebar)
+                            </div>
+                        }
+                    </div>
+                    <div class="ticket-details-sidebar ">
+                        @if (Model.Dates != null)
+                        {
+                            <div>
+                                <h4>@T("Dates")</h4>
+                                @Display(Model.Dates)
+                            </div>
+                        }
+                        @if (Model.People != null)
+                        {
+                            <div>
+                                <hr class="properties-seperator">
+                                <h4>@T("People")</h4>
+                                @Display(Model.People)
+                            </div>
+                        }
+                        @if (Model.FieldsAndProperties != null)
+                        {
+                            <div>
+                                <hr class="properties-seperator">
+                                <h4>@T("Properties")</h4>
+                                @Display(Model.FieldsAndProperties)
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+        @if (Model.AsideSecond != null)
+        {
+            <div class="left-item">@Display(Model.AsideSecond)</div>
+        }
+    </div>
+</div>
+@if (!String.IsNullOrWhiteSpace(Request.QueryString["returnUrl"]))
+{
+    @Html.Hidden("returnUrl", Request.QueryString["returnUrl"])
+}
+
+@using (Script.Foot())
+{
+    Script.Require("CRMWidgets");
+    <script language="javascript" type="text/javascript">
+        $(document).ready(function () {
+            $("body").EditTicket();
+        });
+    </script>
+}
+@{
+    Style.Include("jquery-ui.css");
+}
+

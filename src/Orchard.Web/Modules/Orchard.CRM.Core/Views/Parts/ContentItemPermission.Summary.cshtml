@@ -1,0 +1,98 @@
+﻿@using Orchard.CRM.Core.ViewModels;
+@using System.Globalization;
+@using Orchard.CRM.Core.Models;
+@{
+    ContentItemSetPermissionsViewModel model = Model.Model;
+    bool isCurrentUserAdmin = model.IsCurrentUserAdmin;
+    var contentItemPermissionsModel = model.ContentItems.First();
+    var owner = contentItemPermissionsModel.CurrentPermissions.FirstOrDefault(c => c.AccessType == ContentItemPermissionAccessTypes.Assignee);
+}
+<div class="field-container">
+    <div class="label-container">@T("Assignee Group")</div>
+    <div class="popup-host ticket-input-field group-owner-value">
+        <div class="inner">
+            <span>
+                @if (owner != null && (owner.BusinessUnitId.HasValue || owner.TeamId.HasValue))
+                {
+                    @owner.Name
+                }
+                else
+                {
+                    string temp = "-";
+                    @temp;
+                }
+            </span>
+        </div>
+        @if (contentItemPermissionsModel.IsCurrentUserOwner || isCurrentUserAdmin || owner == null)
+        {
+            <div class="popup-menu-box change-group-options">
+                <ul>
+                    <li>
+                        <a href="@Url.Action(
+                    "QuickUpdate",
+                    "Ticket",
+                    new { area = "Orchard.CRM.Core", Ids = Model.ContentItem.Id, UpdateBusinessUnitId = true })">-</a>
+                </li>
+                    @foreach (var businessUnit in model.BusinessUnits)
+                    {
+                        <li>
+                            <a data-businessid="@businessUnit.BusinessUnitId" href="@Url.Action(
+                    "QuickUpdate",
+                    "Ticket",
+                    new { area = "Orchard.CRM.Core", Ids = Model.ContentItem.Id, BusinessUnitId = businessUnit.BusinessUnitId, UpdateBusinessUnitId = true })">@businessUnit.Name</a>
+                </li>
+
+                        foreach (var team in businessUnit.Teams)
+                        {
+                            <li>
+                                <a data-teamid="@team.TeamId" href="@Url.Action(
+                                "QuickUpdate",
+                                "Ticket",
+                                new { area = "Orchard.CRM.Core", Id = Model.ContentItem.Id, TeamId = team.TeamId, UpdateTeamId = true })">&nbsp;&nbsp;@team.Name</a>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        }
+    </div>
+</div>
+<div class="field-container">
+    <div class="label-container">@T("Assignee User")</div>
+    <div class="popup-host ticket-input-field user-owner-value">
+        <div class="inner">
+        <span>
+            @if (owner != null && owner.UserId.HasValue)
+            {
+                @owner.Name
+            }
+            else
+            {
+                string temp = "-";
+                @temp;
+            }
+        </span>
+            </div>
+        @if (contentItemPermissionsModel.IsCurrentUserOwner || isCurrentUserAdmin || owner == null)
+        {
+            <div class="popup-menu-box change-user-options">
+                <ul>
+                    <li>
+                        <a href="@Url.Action("QuickUpdate", "Ticket", new { area = "Orchard.CRM.Core", Ids = Model.ContentItem.Id, UpdateUserId = true })">-</a>
+                    </li>
+                    @foreach (var user in model.Users)
+                    {
+                        <li>
+                            <a href="@Url.Action("QuickUpdate", "Ticket", new { area = "Orchard.CRM.Core", Ids = Model.ContentItem.Id, UserId = user.Value, UpdateUserId = true })">@user.Text</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        }
+    </div>
+    @if (contentItemPermissionsModel.CurrentPermissions.Count > 0)
+    {
+        var contentItemId = contentItemPermissionsModel.ContentItem.Id;
+    }
+</div>
+<div class="clear"></div>

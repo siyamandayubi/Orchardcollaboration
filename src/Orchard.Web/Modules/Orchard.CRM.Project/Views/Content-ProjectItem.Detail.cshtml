@@ -1,0 +1,49 @@
+﻿@using Orchard.Utility.Extensions;
+@Display(New.ThemeAwareStylesheet())
+@{
+    Style.Include("jquery-ui.css");
+}
+<div class="space"></div>
+<article class="content-item panel panel-default project-content-item project-main-panel project-detail">
+    <header class="panel-heading">
+        @Display(Model.Header)
+        @if (Model.Meta != null)
+        {
+            <div class="metadata">
+                @Display(Model.Meta)
+            </div>
+        }
+    </header>
+    <div class="panel-body">
+        @if (Model.BeforeContent != null)
+        {
+            @Display(Model.BeforeContent)
+        }
+        <div class="project-item">
+            @if (Model.AsideFirst != null)
+            {
+                <div class="left-item">@Display(Model.AsideFirst)</div>
+            }
+            @Display(Model.Content)
+        </div>
+        @if (Model.AsideSecond != null)
+        {
+            <div>@Display(Model.AsideSecond)</div>
+        }
+        @if (Model.Footer != null)
+        {
+            <footer>
+                @Display(Model.Footer)
+            </footer>
+        }
+    </div>
+</article>
+
+@using (Script.Foot())
+{
+    Script.Require("JQueryUI");
+    Script.Require("CRMWidgets");
+    <script language="javascript" type="text/javascript">
+        $("body").DisplayTicket();
+    </script>
+}

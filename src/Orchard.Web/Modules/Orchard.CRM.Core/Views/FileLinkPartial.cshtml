@@ -1,0 +1,14 @@
+﻿@{
+    Orchard.CRM.Core.Models.FileDisplayViewModel file = Model.Model;
+    string url = Url.Action("DownloadFile", "FileUpload", file.RouteValues);
+    bool currentUserHasEditAccess = Model.CurrentUserHasEditAccess;
+}
+<li class="file-field" data-id="@file.Name">
+    <a class="file-link" target="_blank" href="@url">@file.Name @Display(New.DateTimeRelative(dateTimeUtc: file.Uploaded.ToUniversalTime()))</a>
+
+    @if (currentUserHasEditAccess)
+{
+    var deleteTitle = T("Delete");
+    <a title="@deleteTitle" class="file-delete" data-id="@file.Name" href="@Url.Action("DeleteFile", "FileUpload", file.RouteValues)">X</a>
+}
+</li>

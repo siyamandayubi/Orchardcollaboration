@@ -1,0 +1,13 @@
+@using Orchard.CRM.Project.Models;
+@using Orchard.ContentManagement;
+@{
+    ContentItem contentItem = Model.ContentItem;
+    MilestonePart milestonePart = contentItem.As<MilestonePart>();
+}
+<h4>
+    @Model.Title
+    @if (milestonePart != null && milestonePart.Record.IsCurrent) 
+    { 
+        <span class="title-milestone-is-current">@T("({0})", "current")</span>
+    }
+</h4>

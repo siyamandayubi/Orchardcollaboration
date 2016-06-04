@@ -1,0 +1,72 @@
+﻿@using Orchard.ContentManagement;
+@using Orchard.Core.Title.Models;
+@using Orchard.CRM.Core.Models;
+@{
+    ContentItem contentItem = (ContentItem)Model.ContentItem;
+    TicketPart ticketPart = (TicketPart)contentItem.Parts.FirstOrDefault(c => c.PartDefinition.Name == "TicketPart");
+
+    string returnUrlString = Model.ReturnUrl;
+
+    var ticketViewMoodel = (Orchard.CRM.Core.ViewModels.TicketViewModel)Model.Model;
+    string description = ticketViewMoodel.Text;
+    Style.Include("jquery-ui.css");
+    string title = ticketPart.Record.Title.Length > 50 ? ticketPart.Record.Title.Substring(0, 47) + "..." : ticketPart.Record.Title;
+}
+@Display(New.Stylesheet())
+<div class="ticket-summary">
+    <div class="property-section">
+        <div class="id ticketpart-record">
+            <h5>
+                <a href="@Url.Action("Display", "Ticket", new { area = "Orchard.CRM.Core", id = contentItem.Id})">
+                    @if (ticketPart.Record.Identity != null)
+                    {
+                        <span class="identity">
+                            @ticketPart.Record.Identity.Id
+                        </span>
+                    }
+                    <span title="@ticketPart.Record.Title">
+                        @title
+                    </span>
+                </a>
+            </h5>
+        </div>
+        <div class="clear"></div>
+        <div>
+            <label class="label-container">@T("Due Date:")</label>
+            <span class="result">
+                @if (ticketViewMoodel.DueDate.HasValue)
+                {
+                @ticketViewMoodel.DueDate.Value.ToLongDateString();
+                }
+                else
+                {
+                    string noDateTime = "-";
+                @noDateTime;
+                }
+            </span>
+        </div>
+    </div>
+
+    <ul class="title-section">
+        <li>
+            <label class="label-container">@T("Status:")</label>
+            <span class=" result">
+                <span>@T(ticketViewMoodel.StatusName)</span>
+            </span>
+        </li>
+        <li>
+            <label class="label-container">@T("Priority:")</label>
+            <span class="ticket-priority-value result">
+                <span>@T(ticketViewMoodel.PriorityName)</span>
+            </span>
+        </li>
+
+        <li>
+            <label class="label-container">@T("Type:")</label>
+            <span class="ticket-service-value result">
+                <span>@T(ticketViewMoodel.TypeName)</span>
+            </span>
+        </li>
+    </ul>
+    <div class="clear"></div>
+</div>

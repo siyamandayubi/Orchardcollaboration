@@ -1,0 +1,39 @@
+﻿@using System.Dynamic;
+@using Newtonsoft.Json;
+@{
+    Script.Require("JQueryUI");
+    Script.Require("ProjectWidgets");
+    Script.Require("CRMProjectComponents");
+
+    // route table. We must send the routes to the client, so that in the client we don't have to hard-code the routes
+    dynamic routeTable = new ExpandoObject();
+    routeTable.DisplayTicket = Url.Action("Display", "Ticket", new { area = "Orchard.CRM.Core", id = "{id}" });
+    routeTable.QuickTicketUpdate = Url.Action("QuickUpdate", "Ticket", new { area = "Orchard.CRM.Core" });
+    Model.Routes = routeTable;
+
+    // Sending translate table to the client
+    dynamic translateTable = new ExpandoObject();
+    translateTable.TicketsTitle = T("Tickets").Text;
+    translateTable.Type = T("Type").Text;
+    translateTable.Priority = T("Priority").Text;
+    Model.TranslateTable = translateTable;
+}
+@{
+    // Generate Anti forgery token. This token is used by AJAX requests.
+}
+@using (Html.BeginFormAntiForgeryPost())
+{
+}
+<script type="application/json" id="milestoneTicketsData">
+    @Html.Raw(JsonConvert.SerializeObject(Model))
+</script>
+@using (Script.Foot())
+{
+    <script language="javascript" type="text/javascript">
+        $(document).ready(function () {
+            crm.project.MilestonePlannerController("milestoneTicketsContainer", "milestoneTicketsData");
+        });
+    </script>
+}
+<div id="milestoneTicketsContainer">
+</div>

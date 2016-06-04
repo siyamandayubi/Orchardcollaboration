@@ -1,0 +1,59 @@
+﻿@{
+    var userName = Request.QueryString["UserName"];
+    var externalLoginData = Request.QueryString["ExternalLoginData"];
+}
+
+<div class="well well-sm logreg">
+    <h3>Register with @WorkContext.CurrentSite.SiteName</h3>
+    <hr />
+
+    @if (!string.IsNullOrWhiteSpace(userName) && !string.IsNullOrWhiteSpace(externalLoginData)) {
+        <p>@T("This user account will be linked to <b>{0}</b> when you login.", userName)</p>
+    }
+
+    @using (Html.BeginFormAntiForgeryPost(Url.Action("Register"), FormMethod.Post, new { @class = "form-horizontal" })) {
+        <!-- Username -->
+        <div class="form-group">
+            <label for="username" class="col-lg-3 control-label">@T("Username")</label>
+            <div class="col-lg-9">
+                @Html.TextBox("username", string.Empty, new { @class = "form-control" })
+                @Html.ValidationMessage("username")
+            </div>
+        </div>
+        <!-- Email -->
+        <div class="form-group">
+            <label for="email" class="col-lg-3 control-label">@T("Email")</label>
+            <div class="col-lg-9">
+                @Html.TextBox("email", string.Empty, new { @class = "form-control" })
+                @Html.ValidationMessage("email")
+            </div>
+        </div>
+        <!-- Password -->
+        <div class="form-group">
+            <label for="password" class="col-lg-3 control-label">@T("Password")</label>
+            <div class="col-lg-9">
+                @Html.Password("password", string.Empty, new { @class = "form-control" })
+                @Html.ValidationMessage("password")
+            </div>
+        </div>
+        <!-- Password Confirm -->
+        <div class="form-group">
+            <label for="confirmpassword" class="col-lg-3 control-label">@T("Confirm")</label>
+            <div class="col-lg-9">
+                @Html.Password("confirmpassword", string.Empty, new { @class = "form-control" })
+                @Html.ValidationMessage("confirmPassword")
+            </div>
+        </div>
+        <!-- Buttons -->
+        <div class="form-group">
+            <div class="col-lg-offset-3 col-lg-9">
+                <button type="submit" class="btn btn-primary">@T("Register")</button>
+                <button type="reset" class="btn btn-default">@T("Reset")</button>
+            </div>
+        </div>
+    }
+    <hr />
+    <div class="lregister">
+        Already have account with us? @Html.ActionLink(T("Login").ToString(), "LogOn", new { Controller = "Account", Area = "Orchard.Users", ReturnUrl = (Request.QueryString["ReturnUrl"] ?? Request.RawUrl) }, new { rel = "nofollow" })
+    </div>
+</div>

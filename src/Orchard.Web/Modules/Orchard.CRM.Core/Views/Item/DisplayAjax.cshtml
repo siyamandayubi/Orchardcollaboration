@@ -1,0 +1,26 @@
+﻿@using Orchard.ContentManagement
+@using Orchard.Utility.Extensions
+@{
+    ContentItem contentItem = Model.ContentItem;
+    Html.AddPageClassNames("detail-" + contentItem.ContentType.HtmlClassify());
+    var contentTypeClassName = ((string)Model.ContentItem.ContentType).HtmlClassify();
+}
+@if (Model.Header != null)
+{
+    <header>
+        @Display(Model.Header)
+        @if (Model.Meta != null)
+        {
+            <div class="metadata">
+                @Display(Model.Meta)
+            </div>
+        }
+    </header>
+}
+@Display(Model.Content)
+@if (Model.Footer != null)
+{
+    <footer>
+        @Display(Model.Footer)
+    </footer>
+}

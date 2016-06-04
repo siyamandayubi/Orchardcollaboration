@@ -1,0 +1,83 @@
+﻿@using NGM.OpenAuthentication.Extensions
+@using NGM.OpenAuthentication.Models
+@using Orchard.ContentManagement
+@using Orchard.Utility.Extensions
+
+@{
+    var userCanRegister = WorkContext.CurrentSite.As<Orchard.Users.Models.RegistrationSettingsPart>().UsersCanRegister;
+    var enableLostPassword = WorkContext.CurrentSite.As<Orchard.Users.Models.RegistrationSettingsPart>().EnableLostPassword;
+
+    var clientsData = (List<OrchardAuthenticationClientData>)Model.ClientsData;
+
+    var userName = Request.QueryString["UserName"];
+    var externalLoginData = Request.QueryString["ExternalLoginData"];
+    var returnUrl = Request.QueryString["ReturnUrl"];
+}
+
+<div class="well well-sm logreg">
+    <h3>Sign In to @WorkContext.CurrentSite.SiteName</h3>
+    <hr />
+
+    @if (!string.IsNullOrWhiteSpace(userName) && !string.IsNullOrWhiteSpace(externalLoginData)) {
+        <p>@T("This user account will be linked to <b>{0}</b> when you login.", userName)</p>
+    }
+
+    @if (clientsData.Any()) {
+        using (Html.BeginFormAntiForgeryPost(Url.OpenAuthLogOn(returnUrl))) {
+        <div class="social">
+            @foreach (OrchardAuthenticationClientData clientData in clientsData) {
+                <a class="circle @clientData.ProviderName" href="#" onclick="document.getElementById('providerName').value='@clientData.ProviderName'; get_form(this).submit(); return false" title="@T("Log in using your {0} account", clientData.DisplayName)">
+                    <img src="@Href(Html.ThemePath(WorkContext.CurrentTheme, "/Content/" + clientData.ProviderName + ".png"))" alt="" /></a>
+                @Html.Hidden("providerName")
+            }
+        </div>
+        <div class="division">
+            <div class="line l"></div>
+            <span>or</span>
+            <div class="line r"></div>
+        </div>
+        }
+    }
+
+    @using (Html.BeginFormAntiForgeryPost(Url.LogOn(returnUrl, userName, externalLoginData), FormMethod.Post, new { @class = "form-horizontal" })) {
+        <!-- Username -->
+        <div class="form-group">
+            <label for="userNameOrEmail" class="col-lg-3 control-label">@T("Username")</label>
+            <div class="col-lg-9">
+                @Html.TextBox("userNameOrEmail", "", new { id = "username-email", @class = "form-control", autofocus = "autofocus" })
+                @Html.ValidationMessage("userNameOrEmail")
+            </div>
+        </div>
+        <!-- Password -->
+        <div class="form-group">
+            <label for="password" class="col-lg-3 control-label">@T("Password")</label>
+            <div class="col-lg-9">
+                @Html.Password("password", string.Empty, new { @class = "form-control" })
+                @Html.ValidationMessage("password")
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-offset-3 col-lg-9">
+                <div class="checkbox">
+                    <label>
+                        @Html.CheckBox("rememberMe", new { id = "remember-me" })
+                        @T("Remember me")
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-offset-3 col-lg-9">
+                <button type="submit" class="btn btn-primary">@T("Login")</button>
+                <button type="reset" class="btn btn-default">@T("Reset")</button>
+            </div>
+        </div>
+    }
+    @if (userCanRegister) {
+        <hr />
+        <div class="lregister">
+            Don't have Account? @Html.ActionLink(T("Register").Text, "Register")<br />
+            @if (enableLostPassword) { @Html.ActionLink(T("Lost your Password?").Text, "RequestLostPassword") }
+        </div>
+    }
+</div>

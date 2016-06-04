@@ -1,0 +1,19 @@
+﻿@using System.Globalization;
+@{
+    var ticketViewMoodel = (Orchard.CRM.Core.ViewModels.TicketViewModel)Model.Model;
+    string description = ticketViewMoodel.Text;
+}
+<div class="field-container-full-width">
+    <div class="label-container">@T("Reporter")</div>
+    <div class="combobox">
+        @{
+            string reporterName = string.IsNullOrEmpty(ticketViewMoodel.RequestingUserFullName) ? ticketViewMoodel.RequestingUsername : ticketViewMoodel.RequestingUserFullName;
+            if (reporterName == null)
+            {
+                reporterName = "-";
+            }
+        }
+        <span title="@ticketViewMoodel.RequestingUserEmail">@reporterName</span>
+    </div>
+</div>
+<div class="clear"></div>

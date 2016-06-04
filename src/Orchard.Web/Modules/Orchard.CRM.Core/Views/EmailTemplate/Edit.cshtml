@@ -1,0 +1,39 @@
+﻿@using Orchard.CRM.Core.ViewModels;
+@Display(New.Stylesheet())
+@model EmailTemplateViewModel
+@using (Html.BeginFormAntiForgeryPost(Url.Action("EditPost", "EmailTemplate", new { area = "Orchard.CRM.Core" }), FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="hidden" name="EmailTemplateId" value="@Model.EmailTemplateId" id="EmailTemplateId" />
+    <h1 >@T("Email Templates Edit")</h1>
+    <div class="group">
+        <fieldset>
+        <label for="Name">
+            @T("Name")
+        </label>
+            <input id="Name" name="Name" value="@Model.Name" type="text" class="text medium" maxlength="50" />
+            @Html.ValidationMessageFor(c => c.Name)
+       </fieldset>
+        <fieldset>
+        <label for="Subject">
+            @T("Subject")
+        </label>
+            <input class="text medium" id="Subject" name="Subject" value="@Model.Subject" type="text" maxlength="50" />
+            @Html.ValidationMessageFor(c => c.Subject)
+       </fieldset>
+        <fieldset>
+        <label>@T("TypeId")</label>
+              <div>@Html.DropDownList("TypeId", Model.Types)</div>
+            @Html.ValidationMessageFor(c => c.Text)
+    </fieldset>
+        <fieldset>
+            <label for="Email Body">@T("Email Body")</label>
+        <div>
+            @Display.Body_Editor(Text: Model.Text, EditorFlavor: "html")
+       </div>
+        </fieldset>
+        <div class="save-button">
+            <button class="primaryAction" type="submit" value="@T("Save")" >@T("Save")</button>
+            <a class="admin-cancel" href="@Url.Action("Index", "EmailTemplate", new { area = "Orchard.CRM.Core" })"><span>@T("Cancel")</span></a>
+        </div>
+    </div>
+}

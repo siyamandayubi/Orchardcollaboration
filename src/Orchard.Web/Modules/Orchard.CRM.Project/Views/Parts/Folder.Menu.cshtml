@@ -1,0 +1,58 @@
+﻿@using Orchard.Utility.Extensions;
+@using Orchard.CRM.Project;
+@using Orchard.CRM.Project.ViewModels;
+@{
+    FolderViewModel folder = Model.Model;
+    var returnUrl = ViewContext.RequestContext.HttpContext.Request.ToUrlString();
+    var removeLinkReturnUrl = folder.Parent != null? 
+        Url.Action("Display", "Folder", new { area = "Orchard.CRM.Project", id = folder.Parent.FolderId }):
+        Url.Action("DisplayProjectRelatedItem", "Project", new { area = "Orchard.CRM.Project", contentType = ContentTypes.RootWikiContentType, projectId = folder.ProjectId });
+}
+<ul class="nav nav-pills" id="folder-toolbar" role="tablist">
+    <li class="pull-right">
+        <div class="project-item-menu-container">
+            <span class="pivot">
+                <span class="icon"></span>
+                <span class="icon"></span>
+                <span class="icon"></span>
+            </span>
+            <ul class="project-item-menu menu-hidden z2">
+                @if (folder.FolderId.HasValue && folder.FolderId != default(int))
+                {
+                    <li><a href="@Url.Action("Edit", "Folder", new { area = "Orchard.CRM.Project", id = folder.FolderId, returnUrl = returnUrl })">@T("Edit")</a></li>
+                    <li><a href="@Url.Action("Edit", "ProjectItemsOwnership", new { area = "Orchard.CRM.Project", ids = folder.FolderId, returnUrl = returnUrl })">@T("Permissions")</a></li>
+                    <li><a class="remove-folder" href="@Url.Action("Remove", "Folder", new { area = "Orchard.CRM.Project", ids = folder.FolderId, returnUrl = removeLinkReturnUrl })">@T("Remove")</a></li>
+                }
+            </ul>
+        </div>
+    </li>
+     <li class="pull-right dropdown project-new-dropdown">
+        <a class="dropdown-toggle" aria-expanded="false" role="button" data-toggle="dropdown" href="#">@T("New")<b class="caret"></b></a>
+        <ul class="dropdown-menu" role="menu" aria-labelledby="projectNewDropdown">
+            <li>
+                <a href="@Url.Action("Create", "Ticket", new { id = "Ticket", area = "Orchard.CRM.Core", projectId = folder.ProjectId})">@T("Ticket")</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Create", "Item", new { id = ContentTypes.DiscussionContentType, area = "Orchard.CRM.Core", projectId = folder.ProjectId })">@T("Discussion")</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Create", "WikiItem", new { id = ContentTypes.WikiItemType, area = "Orchard.CRM.Project", projectId = folder.ProjectId })">@T("Wiki Page")</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Create", "Folder", new { area = "Orchard.CRM.Project", id = "FolderItem", projectId = folder.ProjectId })">@T("Wiki Folder")</a>
+            </li>
+        </ul>
+    </li>
+</ul>
+@{
+    Script.Require("JQueryUI");
+    Script.Require("ProjectWidgets");
+}
+@using (Script.Foot())
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".project-item-menu-container").ProjectMenu();
+        });
+    </script>
+}

@@ -1,0 +1,49 @@
+﻿@{
+    Script.Require("jQuery");
+    Script.Require("jquery-filetype");
+    Style.Include("jquery-filetype.css");
+    Style.Include("fileuploader.css");   
+
+    var files = Model.Files as IEnumerable<Orchard.CRM.Core.Models.FileDisplayViewModel>;
+    bool currentUserHasEditAccess = Model.CurrentUserHasEditAccess;
+    string noFilesHaveBeenUploadedText = "No files have been uploaded";
+}
+
+<div id="file-list" data-nofilestext="@noFilesHaveBeenUploadedText">
+        <h4>@T("Uploaded Files")</h4>
+        <ul class="files">
+        @if (files.Any())
+        {
+            foreach (var file in files)
+            {
+                if (file.RouteValues != null && file.RouteValues.ContainsKey("id") && file.RouteValues.ContainsKey("name"))
+                {
+                    @Display(New.FileLinkPartial(Model: file, CurrentUserHasEditAccess: currentUserHasEditAccess))
+                }
+            }
+        }
+        else
+        {
+            <li class="noFile"><div class="well">@T(noFilesHaveBeenUploadedText)</div></li>
+        }
+    </ul>
+</div>
+<div class="hidden">
+    <div id="deleteFilesConfirmDialog" title="@T(" delete items")">
+        <div class="dlete-item-answer">@T("Are you sure you want to delete the file?")</div>
+        <div class="buttons">
+            <button id="deleteFileConfirmDialogYesButton" class="crm-button" data-url="@Url.Action("DeleteFile", "FileUpload", new { area = "Orchard.CRM.Core" })">@T("Yes")</button>
+            <button id="deleteFileConfirmDialogNoButton" class="crm-button">@T("No")</button>
+        </div>
+    </div>
+</div>
+@using (Script.Foot())
+{
+    <script>
+        $(function () {
+            var files = $('.files');
+            files.FileList();
+            files.find('.file-field .file-link').linktype();
+        });
+    </script>
+}

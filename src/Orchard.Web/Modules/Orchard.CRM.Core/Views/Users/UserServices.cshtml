@@ -1,0 +1,19 @@
+﻿@using Orchard.CRM.Core.ViewModels;
+@using Orchard.ContentManagement;
+@using Orchard.CRM.Core.Models;
+@model ServiceUsersViewModel;
+<div>
+    @foreach (var item in Model.Items)
+    {
+        UserServicePart userPart = item.As<UserServicePart>();
+        <div>
+            @userPart.Record.UserPartRecord.UserName
+        </div>
+    }
+</div>
+@if (Model.Pager != null)
+{
+    <div class="pager">
+        @Display(Model.Pager)
+    </div>
+}

@@ -1,0 +1,10 @@
+﻿Name: OrchardCollaboration
+AntiForgery: disabled
+Author: Siyamand Ayubi
+Website: http://OrchardCollaboration.com
+Version: 2.3
+OrchardVersion: 1.9.2
+Description: The module adds an integrated ticketing system to Orchard.
+Dependencies: S22.IMAP, Orchard.Reporting, Orchard.Email, Orchard.Search, Lucene, Orchard.Tokens, Orchard.MediaLibrary, Orchard.Alias
+FeatureDescription:  Orchard Collaboration is a free ticketing system and collaboration framework build on top of the Orchard CMS. It natively integrates with Orchard CMS and extends its features by allowing its users to collaboratively work on the content. It can also be used for communication with the customers.
+Category: Collaboration

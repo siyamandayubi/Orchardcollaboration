@@ -1,0 +1,168 @@
+﻿@using Orchard.CRM.Core.ViewModels;
+@using System.Globalization;
+@using Orchard.CRM.Core.Models;
+@model ContentItemSetPermissionsViewModel
+@{
+    Style.Include("jquery-ui.css");
+    Style.Include("chosen/chosen.css");
+    Script.Require("Chosen");
+    ContentItemSetPermissionsViewModel model = (ContentItemSetPermissionsViewModel)Model;
+}
+@Display(New.ThemeAwareStylesheet())
+<div class="space"></div>
+<div class="panel panel-default project-content-item">
+    <div class="panel-heading">
+        @if (model.ContentItems[0].ContentItemShape.Header != null)
+        {
+            @Display(model.ContentItems[0].ContentItemShape.Header)
+        }
+        <div class="clear"></div>
+    </div>
+    <div class="panel-body edit-ownership-container">
+        @using (Html.BeginFormAntiForgeryPost(Url.Action("EditPost"), FormMethod.Get, new { enctype = "multipart/form-data" }))
+        {
+            <div class="space"></div>
+            <div>
+                @if (model.ContentItems[0].ContentItemShape.Content != null)
+                {
+                    <div class="row">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4>@T("Selected {0}", model.ContentItems[0].ContentItemShape.ContentItem.TypeDefinition.DisplayName)</h4>
+                            </div>
+                            <div class="panel-body">
+                                @Display(model.ContentItems[0].ContentItemShape.Content)
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><h4>@T("Grant new Permissions")</h4></div>
+                            <div class="panel-body edit-ownership-bar">
+                                <div class="space"></div>
+                                <div>
+                                    <div>
+                                        <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+                                        <div class="edit-content-ownership-title">@T("Type")</div>
+                                        <div>
+                                            <select name="AccessType">
+                                                <option selected="selected" value="@ContentItemPermissionAccessTypes.Assignee">@T("Owner")</option>
+                                                <option value="@ContentItemPermissionAccessTypes.SharedForEdit">@T("Edit Access")</option>
+                                                <option value="@ContentItemPermissionAccessTypes.SharedForView">@T("Readonly Access (Watcher)")</option>
+                                            </select>
+                                        </div>
+                                        @{
+                                            string prefix = "Targets[{0}].{1}";
+                                            int counter = 0;
+                                        }
+                                    </div>
+                                   <div class="space"></div>
+                                 <div>
+                                        <div class="edit-content-ownership-title">@T("Groups")</div>
+                                        <div>
+                                            <select multiple size="5" name="BusinessUnits" id="BusinessUnits">
+                                                @foreach (BusinessUnitViewModel businessUnit in Model.BusinessUnits)
+                                    {
+                                    <option value="@businessUnit.BusinessUnitId">@businessUnit.Name</option>
+                                    }
+                                            </select>
+                                        </div>
+                                    </div>
+                                <div class="space"></div>
+                                    <div>
+                                        <div class="edit-content-ownership-title">@T("Agents")</div>
+                                        <div>
+                                            <select multiple size="5" name="Users" id="Users">
+                                                @foreach (var user in Model.Users)
+                                    {
+                                    <option value="@user.Value">@user.Text</option>
+                                    }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    @if (Model.Customers.Count > 0)
+                        {
+                        <div class="edit-content-ownership-section">
+                            <div class="edit-content-ownership-title">@T("Customers")</div>
+                            <div>
+                                <select multiple size="5" name="Customers" id="Customers">
+                                    @foreach (var user in Model.Customers)
+                                        {
+                                        <option value="@user.Value">@user.Text</option>
+                                        }
+                                </select>
+                            </div>
+                        </div>
+                        }
+                                </div>
+                                <div class="edit-content-ownership-title">
+                                    <div class="removePreviousPermissionDiv">
+                                        <input type="checkbox" name="RemoveOldPermission" id="removeOldPermission" value="true" /><span>@T("Remove old permission")</span>
+                                    </div>
+                                    @if (Model.HasChildren)
+                        {
+                        <div class="apply-to-children"><input type="checkbox" name="ApplyToChildren" id="ApplyToChildren"  checked="checked" value="true" /><span>@T("Apply to children")</span></div>
+                        }
+                                </div>
+                                <div class="buttons">
+                                    <input class="btn btn-primary" type="submit" value="@T("Grant")" />
+                                    @if (!string.IsNullOrEmpty(Model.ReturnUrl))
+                        {
+                        <a class="btn btn-primary" href="@Model.ReturnUrl">@T("Return")</a>
+                        }
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4>@T("Current Permissions")</h4>
+                            </div>
+                            <div class="panel-body">
+                                <div class="space"></div>
+                                <div class="share-content-ownership">
+                                    @{
+                        counter = 0;
+                        foreach (var contentItem in model.ContentItems)
+                        {
+                            string contentItemId = string.Format(CultureInfo.InvariantCulture, "ContentIds[{0}]", counter.ToString(CultureInfo.InvariantCulture));
+                            counter++;
+                        <input type="hidden" name="@contentItemId" id="@contentItemId" value="@contentItem.ContentItem.Id" />
+                        <div class="bordered-list">
+                            <div>@Display(New.CurrentContentItemPermissions(ContentItem: contentItem))</div>
+                        </div>
+                        }
+                                    }
+                                    <div class="clear"></div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="hidden">
+    <div id="deleteConfirmDialog" title="@T(" delete items")">
+        <div class="dlete-item-answer">@T("Are you sure you want to delete the given permission?")</div>
+        <div class="buttons">
+            <button id="deleteConfirmDialogYesButton" class="btn btn-primary" data-url="@Url.Action("Remove", "Ticket" , new { area="Orchard.CRM.Core" })">@T("Yes")</button>
+            <button id="deleteConfirmDialogNoButton" class="btn btn-primary">@T("No")</button>
+        </div>
+    </div>
+</div>
+<div class="clear"></div>
+@using (Script.Foot())
+{
+    Script.Require("JQueryUI");
+    Script.Require("CRMWidgets");
+    <script language="javascript" type="text/javascript">
+        $("body").EditPermissions();
+    </script>
+}

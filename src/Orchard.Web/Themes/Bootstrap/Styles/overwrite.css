@@ -1,0 +1,108 @@
+/* STICKY FOOTER
+================================================== */
+footer { margin: 0; }
+/* Lastly, apply responsive CSS fixes as necessary */
+@media (max-width: 767px) {
+    #footer { margin-left: -20px; margin-right: -20px; padding-left: 20px; padding-right: 20px; }
+}
+
+
+/* FLUID LAYOUT
+================================================== */
+.container-fluid .row { margin-left: 0; margin-right: 0; }
+
+
+/* SECONDARY NAV ADJUSTMENTS
+================================================== */
+.nav.nav-pills { padding-left: 15px; padding-right: 15px; }
+#sub-menu .navbar-form { margin-top: -35px; }
+
+
+/* BOOTSWATCH ADJUSTMENTS
+================================================== */
+/* Set the top margin on the content Section to 0. Change the top padding to 0 unless using a fixed navbar */
+#content { padding-top: 0; margin-top: 0; }
+/*.well { padding: 5px 10px; }*/
+.page-header { margin: 0 0 5px; padding-bottom: 0; }
+
+
+/* BACK TO TOP
+================================================== */
+#toTop { bottom: 10px; cursor: pointer; display: none; position: fixed; right: 5px; text-align: center; z-index: 500; }
+#toTop:hover { opacity: .7; }
+
+
+/* FORM ERROR
+================================================== */
+.input-validation-error { border-color: #bd4247 !important; -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075) !important; -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075) !important; box-shadow: inset 0 1px 1px rgba(0,0,0,0.075) !important; }
+.validation-summary-errors, .field-validation-error { font-size: .9em; color: #bd4247; }
+
+
+/* LOGIN/REGISTRATION FORM
+================================================== */
+/* set size and position of login/registration form */
+.logreg { width: 500px; margin: 40px auto; padding: 20px 10px; border-radius: 10px; }
+.logreg .lregister { text-align: center; }
+.logreg .social { margin: 0 auto 20px; float: none; text-align: center; }
+.logreg .social a.circle { text-align: center; width: 56px; height: 56px; border-radius: 100%; margin: 0 20px; display: inline-block; -webkit-transition: border-color ease-in .1s; -moz-transition: border-color ease-in .1s; -o-transition: border-color ease-in .1s; transition: border-color ease-in .1s; }
+.logreg .social a.circle:hover { border-color: rgba(0, 0, 0, 0.3); }
+.logreg .social a.circle img { display: inline-block; margin-top: 15px; }
+.logreg .social a.facebook { background: #45619d; border: 1px solid #45619d; }
+.logreg .social a.twitter { background: #19b1e7; border: 1px solid #19b1e7; }
+.logreg .social a.google { background: #d74937; border: 1px solid #d74937; }
+.logreg .division { margin: 0 auto 18px; float: none; overflow: hidden; width: 100%; position: relative; text-align: center; }
+.logreg .division .line { border-top: 1px solid #eee; width: 34%; top: 10px; position: absolute; }
+.logreg .division .l { left: 0; }
+.logreg .division .r { right: 0; }
+
+
+/* BLOG
+================================================== */
+.tags,
+.meta { font-size: .9em; }
+/* move comment count inline with other meta items */
+.commentcount { margin-top: -18px !important; margin-right: 5px; }
+/* remove list style and margin from blog list */
+.search-results.content-items,
+.blog-posts,
+.tagged-posts,
+.comment-list,
+.archive-trail + ul,
+.projection-page ul { list-style: none; margin-left: 0; padding-left: 0; }
+/* reduce size of author & meta and display on same line */
+.comment-author,
+.cmeta { font-size: .9em; display: inline-block; }
+/* create space between meta and comment text */
+.comment p { margin-top: 5px; }
+/* add spacing for threaded comments */
+.comment .comment-list { margin: 20px 20px 0; }
+.comment-form { margin-top: 10px; }
+
+
+/* SEARCH WIDGET
+================================================== */
+.widget-search-form { float: none !important; }
+
+
+/* TWITTER WIDGET
+================================================== */
+.latest-twitter-list h5 { display: inline-block; margin: 0; }
+.latest-twitter-list { margin-left: 0 !important; padding-left: 0; }
+
+
+/* RECENT BLOG POSTS WIDGET
+================================================== */
+.widget-recent-blog-posts .content-items { padding-left: 0; }
+.widget-recent-blog-posts .icon-li { margin-top: 3px; }
+
+
+/* SHAREBAR
+================================================== */
+.well .sharebar { padding-top: 5px; }
+
+
+/* ZEN GALLERY
+================================================== */
+ul.gallery { padding-left: 0; }
+ul.gallery li { padding: 0 5px !important; }
+.pp_nav p { margin: 0 4px !important; }

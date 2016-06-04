@@ -1,0 +1,42 @@
+﻿@{
+    Script.Require("JQueryUI");
+    Script.Require("ProjectWidgets");
+    Style.Include("jquery-ui.css");
+}
+
+@using Orchard.CRM.Project.ViewModels;
+<fieldset>
+    <h4>@T("Portlets in Dashboard")</h4>
+    <div class="portlet-picker">
+        <ul class="portlet-list">
+            @{
+                int counter = 0;
+                string prefix = "Portlets";
+                foreach (EditPortletViewModel portlet in Model)
+                {
+                    string checkBoxId = string.Format("{0}[{1}].IsChecked", prefix, counter);
+                    string hiddenId = string.Format("{0}[{1}].PortletId", prefix, counter);
+                    string orderId = string.Format("{0}[{1}].Order", prefix, counter);
+                    string isChecked = portlet.IsChecked ? "checked='checked'" : string.Empty;
+                    string title = portlet.Title;
+                    counter++;
+                    <li class="ui-state-default">
+                        <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>
+                        <input type="checkbox" value="true" @isChecked id="@checkBoxId" name="@checkBoxId" />
+                        <input type="hidden" value="@portlet.PortletId" name="@hiddenId" id="@hiddenId" />
+                        <input type="hidden" value="@portlet.Order" name="@orderId" id="@orderId" />
+                        <span>@title</span>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+</fieldset>
+@using (Script.Foot())
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".portlet-picker").EditProjectDashboardPortlets();
+        });
+    </script>
+}

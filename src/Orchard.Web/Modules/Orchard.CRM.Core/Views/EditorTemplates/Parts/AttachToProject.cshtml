@@ -1,0 +1,8 @@
+﻿@using Orchard.CRM.Core.ViewModels;
+@model EditAttachToViewModel
+<fieldset>
+    <div class="field-container">
+        <div class="label-container">@T("Project:")</div>
+        <div>@Html.DropDownList("SelectedId", Model.Items, new { @class = "ticket-input-field project-select" })</div>
+    </div>
+</fieldset>

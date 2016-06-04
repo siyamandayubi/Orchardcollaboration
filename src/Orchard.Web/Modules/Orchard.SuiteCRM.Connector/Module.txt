@@ -1,0 +1,9 @@
+﻿Name: Orchard.SuiteCRM.Connector
+AntiForgery: enabled
+Author: Siyamand Ayubi
+Website: http://orchardcollaboration.com
+Version: 1.0
+OrchardVersion: 1.9.2
+Dependencies: Orchard.CRM.Core, Orchard.CRM.Project, Orchard.Users
+Description: It is a connector for SuiteCRM and SugarCRM databases
+FeatureDescription:It is a connector for SuiteCRM and SugarCRM databases

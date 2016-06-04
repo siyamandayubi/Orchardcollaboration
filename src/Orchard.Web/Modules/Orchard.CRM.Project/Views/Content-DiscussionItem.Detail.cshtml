@@ -1,0 +1,96 @@
+﻿@{
+    Script.Require("JQueryUI");
+    Script.Require("CRMWidgets");
+    Script.Require("ProjectWidgets");
+    Style.Include("jquery-ui.css");
+}
+
+<div class="space"></div>
+@Display(New.ThemeAwareStylesheet())
+@using Orchard.Utility.Extensions;
+@{
+    if (Model.Title != null)
+    {
+        Layout.Title = Model.Title;
+    }
+
+    Model.Classes.Add("content-item");
+    Model.Classes.Add("project-content-item");
+    Model.Classes.Add("panel panel-default");
+
+    var contentTypeClassName = ((string)Model.ContentItem.ContentType).HtmlClassify();
+    Model.Classes.Add(contentTypeClassName);
+
+    var tag = Tag(Model, "article");
+}
+@tag.StartElement
+<header class="panel-heading">
+    @if (Model.Header != null)
+    {
+        @Display(Model.Header)
+    }
+    @if (Model.Meta != null)
+    {
+        <div class="metadata">
+            @Display(Model.Meta)
+        </div>
+    }
+</header>
+<div class="panel-body">
+    <div class="space"></div>
+    @if (Model.BeforeContent != null)
+    {
+        <div>@Display(Model.BeforeContent)</div>
+    }
+    <div class="wiki-content">
+        <div class="row">
+            @if (Model.BesideContent != null)
+            {
+                <div class="col-md-2">@Display(Model.BesideContent)</div>
+            }
+            <div class="col-md-10">
+                @Display(Model.Content)
+            </div>
+        </div>
+        @if (Model.AfterContent != null)
+        {
+            <div>
+                @Display(Model.AfterContent)
+            </div>
+        }
+
+    </div>
+    @if (Model.BesideContent2 != null)
+    {
+        <div class="beside-content-2 hidden">
+            @Display(Model.BesideContent2)
+        </div>
+    }
+    <div class="hidden">
+        @using (Html.BeginFormAntiForgeryPost(Url.Action("Remove", "WikiItem", new { area = "Orchard.CRM.Project" }), FormMethod.Post, new { @id = "deleteItem" }))
+        {
+            // Generate anti-forgery token
+        }
+        <div id="deleteConfirmDialog" title="@T(" delete items")">
+            <div class="dlete-item-answer">@T("Are you sure you want to delete the given items?")</div>
+            <div class="buttons">
+                <button id="deleteConfirmDialogYesButton" class="crm-button" data-url="@Url.Action("Remove", "Item" , new { area="Orchard.CRM.Core" })">@T("Yes")</button>
+                <button id="deleteConfirmDialogNoButton" class="crm-button">@T("No")</button>
+            </div>
+        </div>
+    </div>
+</div>
+@if (Model.Footer != null)
+{
+    <footer>
+        @Display(Model.Footer)
+    </footer>
+}
+@tag.EndElement
+@using (Script.Foot())
+{
+    <script language="javascript" type="text/javascript">
+        $("body").Discussion();
+        $("body").WikiItem();
+    </script>
+}

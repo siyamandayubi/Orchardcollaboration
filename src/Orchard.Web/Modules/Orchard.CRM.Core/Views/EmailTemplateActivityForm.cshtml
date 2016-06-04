@@ -1,0 +1,46 @@
+﻿@using Orchard.CRM.Core.ViewModels;
+@using Orchard.CRM.Core.Providers;
+@{
+    var model = (IEnumerable<EmailTemplateViewModel>)Model.EmailTemplates;
+}
+<fieldset>
+    <h1>@T("Select Email Template")</h1>
+    <table cellpadding="0" cellspacing="0" class="items">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+               <th scope="col">@T("Name")</th>
+                <th scope="col">@T("Subject")</th>
+                <th scope="col">@T("Type")</th>
+            </tr>
+        </thead>
+        @{
+            bool alternative = true;
+            foreach (EmailTemplateViewModel emailTemplate in model)
+            {
+                string alternativeClass = alternative ? "alt" : string.Empty;
+
+                alternative = !alternative;
+                <tr class="@alternativeClass">
+                    <td>
+                    <input type="radio" value="@emailTemplate.EmailTemplateId" name="@EmailTemplateActivityForm.EmailTemplateIdFieldName" /></td>
+                    <td>@emailTemplate.Name</td>
+                    <td>@emailTemplate.Subject</td>
+                    <td>@emailTemplate.TypeName</td>
+                </tr>
+            }
+        }
+    </table>
+    <div>
+        <input type="checkbox" name="@EmailTemplateActivityForm.SentToRequestingUserFieldName" value="true" />
+        <span>@T("Send to Requesting User")</span>
+    </div>
+    <div>
+        <input type="checkbox" name="@EmailTemplateActivityForm.SentToOwnerFieldName" value="true" />
+        <span>@T("Send to Assignee")</span>
+    </div>
+    <div>
+        <input type="checkbox" name="@EmailTemplateActivityForm.SentToSharedUsersFieldName" value="true" />
+        <span>@T("Send to users who have shared/read only access to the ticket")</span>
+    </div>
+</fieldset>

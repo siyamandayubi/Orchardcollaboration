@@ -1,0 +1,25 @@
+﻿@using Orchard.CRM.Core.ViewModels;
+@model PriorityViewModel
+
+@Display(New.Stylesheet())
+
+@using (Html.BeginFormAntiForgeryPost(Url.Action("CreatePriorityPost", "BasicData", new { area = "Orchard.CRM.Core" }), FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <h1>@T("Create Priority")</h1>
+    <div class="group">
+        <fieldset>
+            <label for="Name">@T("Name")</label>
+            <input id="Name" name="Name" value="@Model.Name" type="text" class="text-medium" />
+            @Html.ValidationMessageFor(c => c.Name)
+        </fieldset>
+        <fieldset>
+            <label for="Order">@T("Order")</label>
+            <input id="OrderId" name="OrderId" value="@Model.OrderId" type="number" class="text-medium" />
+            @Html.ValidationMessageFor(c => c.OrderId)
+        </fieldset>
+        <fieldset class="save-button">
+            <button class="primaryAction" type="submit" value="@T("Save")">@T("Save")</button>
+            <a class="admin-cancel" href="@Url.Action("Priorities", "BasicData", new { area = "Orchard.CRM.Core" })"><span>@T("Cancel")</span></a>
+        </fieldset>
+    </div>
+}

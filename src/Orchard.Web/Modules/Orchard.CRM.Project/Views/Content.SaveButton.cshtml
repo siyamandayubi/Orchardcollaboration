@@ -1,0 +1,9 @@
+﻿@using Orchard.Utility.Extensions
+<fieldset>
+    <button class="btn btn-primary primaryAction" type="submit" name="submit.Save" value="submit.Save">@T("Save")</button>
+    
+    @{
+        var returnUrl = Request.QueryString["returnUrl"];
+    }
+
+</fieldset>

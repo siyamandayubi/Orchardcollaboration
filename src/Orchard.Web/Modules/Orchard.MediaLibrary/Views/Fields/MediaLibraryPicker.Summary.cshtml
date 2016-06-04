@@ -1,0 +1,18 @@
+﻿@using Orchard.Core.Contents
+@using Orchard.MediaLibrary.Fields
+@using Orchard.Utility.Extensions;
+
+@{
+    var field = (MediaLibraryPickerField) Model.ContentField;
+    string displayName = field.DisplayName;
+    string name = field.Name;
+    var mediaParts = field.MediaParts;
+}
+@if (mediaParts.Any()) {
+<span class="name">@displayName:</span>
+<p class="media-@name.HtmlClassify()">    
+        @foreach (var contentItem in mediaParts) {
+                @Display(BuildDisplay(contentItem, "Thumbnail"))
+        }
+</p>
+}

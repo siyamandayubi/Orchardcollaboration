@@ -1,0 +1,48 @@
+﻿@using Orchard.CRM.Core.ViewModels;
+@using System.Globalization;
+@using Orchard.CRM.Core.Models;
+@{
+    ContentItemSetPermissionsViewModel model = Model.Model;
+
+    string prefix = "Targets[{0}].{1}";
+    int counter = 0;
+}
+<h3>@T("Assignee")</h3>
+<div>
+    @foreach (BusinessUnitViewModel businessUnit in Model.BusinessUnits)
+    {
+        string businessUnitCheckBox = string.Format(prefix, counter, "Checked");
+        string businessUnitId = string.Format(prefix, counter, "BusinessUnitId");
+        counter++;
+        <div>
+            <div>
+                <input name="@businessUnitCheckBox" id="@businessUnitCheckBox" value="true" type="checkbox" />
+                <input type="hidden" name="@businessUnitId" id="@businessUnitId" value="@businessUnit.BusinessUnitId" />
+                @businessUnit.Name
+            </div>
+            <div>
+                @foreach (TeamViewModel team in businessUnit.Teams)
+                {
+                    string teamCheckBox = string.Format(prefix, counter, "Checked");
+                    string teamUnitId = string.Format(prefix, counter, "TeamId");
+                    counter++;
+                    <input name="@teamCheckBox" id="@teamCheckBox" value="true" type="checkbox" />
+                    <input type="hidden" name="@teamUnitId" id="@teamUnitId" value="@team.TeamId" />
+                    @team.Name
+                }
+            </div>
+        </div>
+    }
+</div>
+<div>
+    @foreach (SelectListItem user in Model.Users)
+    {
+        string userCheckBox = string.Format(prefix, counter, "Checked");
+        string userIdStr = string.Format(prefix, counter, "UserId");
+        counter++;
+        <input name="@userCheckBox" id="@userCheckBox" value="true" type="checkbox" />
+        <input type="hidden" name="@userIdStr" id="@userIdStr" value="@user.Value" />
+        @user.Text
+    }
+</div>
+<hr />

@@ -1,0 +1,24 @@
+﻿@using Orchard.CRM.Core.ViewModels;
+@model ActivityStreamEditModel
+           @{
+               var queris = Model.Queries.ToList();
+               queris.Insert(0, new SelectListItem());
+           }
+<fieldset>
+    <div class="">
+        <div class="">@T("Query:")</div>
+        <div class="">@Html.DropDownList("SelectedQueryId", queris)</div>
+    </div>
+</fieldset>
+<fieldset>
+    <div class="">
+        <div class="">@T("Page Size:")</div>
+        <div class="">@Html.TextBoxFor(c=>c.PageSize)</div>
+    </div>
+</fieldset>
+<fieldset>
+    <div class="">
+        <div class="">@T("Show Pagere:")</div>
+        <div class="">@Html.TextBoxFor(c => c.ShowPager)</div>
+    </div>
+</fieldset>

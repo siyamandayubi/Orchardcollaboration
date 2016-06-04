@@ -1,0 +1,10 @@
+﻿@if (Model.Html == null || string.IsNullOrEmpty(Model.Html.ToString()))
+{
+    <div class="well">@T("There is no content")</div>
+}
+else
+{
+    <div class="break-text discussion-body">
+        @Model.Html
+    </div>
+}

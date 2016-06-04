@@ -1,0 +1,20 @@
+﻿<div class="field-container-full-width">
+    <div class="label-container">@T("Milestone")</div>
+    <div class="combobox">
+        @{
+            string title = Model.Model.Title;
+        }
+        <a href="@Url.Action("Display", "Item", new { area = "Orchard.CRM.Core", id = Model.Model.MilestoneId })">@T(title)</a>
+    </div>
+</div>
+<div class="field-container-full-width">
+    <div class="label-container">@T("Size")</div>
+    <div class="combobox">
+        @{
+            int? size = Model.Model.Size;
+        }
+        <span>@size</span>
+    </div>
+</div>
+<div class="clear">
+</div>

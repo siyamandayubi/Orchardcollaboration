@@ -1,0 +1,81 @@
+﻿@using Orchard.Utility.Extensions;
+@Display(New.ThemeAwareStylesheet())
+@{
+    Style.Include("jquery-ui.css");
+    Style.Include("JAlert/jAlert-v3.css");
+}
+<div class="space"></div>
+<div class="content-item ticket">
+    <div class="ticket-display-header">
+         <div class="ticket-header">
+             @if (Model.Header != null) 
+             { 
+                 Model.Header.Items[0].Menu = Model.Menu;
+                @Display(Model.Header)
+             }
+        </div>
+        @if (Model.Meta != null)
+        {
+            <div class="metadata">
+                @Display(Model.Meta)
+            </div>
+        }
+    </div>
+    @if (Model.BeforeContent != null)
+    {
+        @Display(Model.BeforeContent)
+    }
+    <div class="ticket-item">
+        @if (Model.AsideFirst != null)
+        {
+            <div class="left-item">@Display(Model.AsideFirst)</div>
+        }
+        <div class="ticket-main-content">
+            @Display(Model.Content)
+        </div>
+        <div class="ticket-details-sidebar ">
+            @if (Model.Dates != null)
+            {
+                <div>
+                    <h4>@T("Dates")</h4>
+                    @Display(Model.Dates)
+                </div>
+            }
+            @if (Model.People != null)
+            {
+                <div>
+                    <div class="properties-seperator"></div>
+                    <h4>@T("People")</h4>
+                    @Display(Model.People)
+                </div>
+            }
+            @if (Model.FieldsAndProperties != null)
+            {
+                <div>
+                    <div class="properties-seperator"></div>
+                    <h4>@T("Properties")</h4>
+                    @Display(Model.FieldsAndProperties)
+                </div>
+            }
+        </div>
+        <div class="clear"></div>
+   </div>
+    @if (Model.AsideSecond != null)
+    {
+        <div>@Display(Model.AsideSecond)</div>
+    }
+    @if (Model.Footer != null)
+    {
+        <footer>
+            @Display(Model.Footer)
+        </footer>
+    }
+</div>
+
+@using (Script.Foot())
+{
+    Script.Require("CRMWidgets");
+    <script language="javascript" type="text/javascript">
+        $("body").DisplayTicket();
+    </script>
+}

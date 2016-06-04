@@ -1,0 +1,64 @@
+﻿@using Orchard.CRM.Project.Services;
+@{
+    var model = Model.Model;
+}
+<div class="panel panel-default dashboard-part">
+    <div class="panel-heading">
+        <h5>@T("Latest project updates")</h5>
+    </div>
+    <div class="panel-body">
+        <div class="activity-stream">
+            @if (model.Days.Count == 0)
+            {
+                <div>@T("There is no activity so far")</div>
+            }
+            else
+            {
+                foreach (var day in model.Days)
+                {
+                    bool dayIsRenderd = false;
+                    foreach (var item in day.Items)
+                    {
+                        var route = item.Route ?? null;
+                        <div class="row">
+                            <div class="col-md-2">
+                                <span class="date">
+                                    @{
+                        if (!dayIsRenderd)
+                        {
+                            dayIsRenderd = true;
+                            @day.Date.ToString("MMM dd")
+                        }
+                                    }
+                                </span>
+                            </div>
+                            <div class="col-md-2">
+                                <span class="time">@item.DateTime.ToString("hh:mm tt")</span>
+                            </div>
+                            <div class="col-md-8">
+                                <a href="@Url.Action("Display", "User", new { userId = item.UserId, area = "Orchard.CRM.Project" })">
+                                    <span class="user">
+                                        @item.UserFullName
+                                    </span>
+                                </a>
+                                <span class="project-activity-content">
+                                    @{
+                                       string contentDescription = ProjectHelper.SplitWithUnvisibleWhitespaces(item.ContentDescription.Value);
+                                    }
+                                    @if (route != null)
+                                    {
+                                        <a href="@Url.RouteUrl(route)">@Html.Raw(contentDescription)</a>
+                                    }
+                                    else
+                                    {
+                                        <a>@Html.Raw(contentDescription)</a>
+                                    }
+                                </span>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        </div>
+    </div>
+</div>

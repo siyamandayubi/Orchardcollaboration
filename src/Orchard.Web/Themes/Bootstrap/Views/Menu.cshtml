@@ -1,0 +1,26 @@
+﻿@using Bootstrap;
+@{
+    // Model is Model.Menu from the layout (Layout.Menu)
+    bool useFixedNav = WorkContext.SettingsEval(Constants.UseFixedNav);
+    
+    if (useFixedNav) {
+        Model.Classes.Add("nav navbar-nav");
+    }
+    else {
+        Model.Classes.Add("nav nav-pills");
+    }
+
+    var tag = Tag(Model, "ul");
+
+    var items = (IList<dynamic>)Enumerable.Cast<dynamic>(Model.Items);
+
+    if (items.Any()) {
+        items[0].Classes.Add("first");
+        items[items.Count - 1].Classes.Add("last");
+    }    
+}
+
+@tag.StartElement
+@* see MenuItem shape template *@
+@DisplayChildren(Model)
+@tag.EndElement

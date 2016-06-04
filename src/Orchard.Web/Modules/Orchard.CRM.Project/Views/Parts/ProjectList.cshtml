@@ -1,0 +1,29 @@
+﻿@Display(New.Stylesheet())
+
+@if (Model.Model.CanCreateProject)
+{
+    <div class="toolbar">
+        <a class="btn btn-primary" href="@Url.Action("Create", "Project", new { area = "Orchard.CRM.Project", id = "ProjectItem" })">@T("Create new project")</a>
+    </div>
+}
+@if (Model.Model.Projects.Count > 0)
+{
+    <div class="row">
+        @foreach (var project in Model.Model.Projects)
+        {
+            <div class="col-lg-4">
+                @Display(project)
+            </div>
+        }
+    </div>
+    if (Model.Model.Pager.TotalItemCount > Model.Model.Pager.PageSize)
+    {
+        <div>
+            @Display(Model.Model.Pager)
+        </div>
+    }
+}
+else
+{
+    <div class="well">@T("There is no project!")</div>
+}

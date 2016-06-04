@@ -1,0 +1,1625 @@
+.modal-open {
+  padding-right: 15px;
+}
+.modal-open header {
+  padding-right: 15px;
+}
+body.modal-open,
+.modal-open .navbar-fixed-top,
+.modal-open .navbar-fixed-bottom {
+  margin-right: 0px !important;
+}
+.modal-open,
+.modal-open header {
+  padding-right: 0px !important;
+}
+input,
+textarea {
+  border: 1px solid #ddd;
+}
+.toolbar {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.space {
+  height: 10px;
+}
+.beside-content-list-container {
+  margin-top: 10px;
+  padding-left: 14px;
+  float: left;
+  width: 20%;
+  min-width: 150px;
+  border-right: 1px solid gray;
+  min-height: 300px;
+}
+.clear {
+  clear: both;
+}
+.row-no-padding {
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+.add-comment {
+  margin-top: 20px;
+}
+.add-comment {
+  margin-top: 20px;
+}
+.project-comments .project-comment {
+  margin-top: 20px;
+}
+.groups-and-agents select {
+  width: 200px;
+  min-width: 200px;
+}
+.chosen-container {
+  width: 100% !important;
+}
+/*File List*/
+/*******************************************************************************/
+.project-content-item #file-list h3 {
+  Margin: 5px;
+}
+.project-content-item #file-list ul {
+  padding: 0px;
+}
+.project-content-item .qq-upload-button {
+  width: 120px;
+}
+/*******************************************************************************/
+/*Discussion*/
+/***************************************************/
+.discussions-summary ul li a {
+  display: inline-block;
+  margin-right: 10px;
+}
+.discussions-summary .discussions-a {
+  color: black;
+}
+.edit-project-related-item #Title_Title {
+  width: 100%;
+}
+.edit-project-related-item fieldset {
+  margin-bottom: 10px;
+}
+.edit-project-related-item footer {
+  padding-left: 15px;
+}
+/****************************************************/
+/*******************************************/
+.customer-navbar {
+  margin-bottom: 0px !important;
+}
+.invite-to-project-button {
+  display: inline-block;
+  margin-right: 10px !important;
+  margin-bottom: 10px !important;
+}
+@media screen and (max-width: 700px) {
+  .invite-to-project-button {
+    margin-top: 10px !important;
+  }
+}
+.user-profile-label {
+  display: inline-block;
+  width: 100px;
+  padding-right: 10px;
+}
+.user-profile-field {
+  color: #646660;
+}
+.current-projects-label {
+  width: 130px !important;
+}
+.user-detail .panel-heading {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+.user-detail h2 {
+  margin-bottom: 0px !important;
+}
+.user-detail .navbar {
+  margin-bottom: 10px !important;
+  z-index: 999;
+}
+/********************************************/
+/*88888888888888888888888888888888888888888888888*/
+.widget-tickets-dashboard-widget {
+  border: 1px solid #ddd;
+  margin-top: 10px;
+  position: relative;
+}
+.widget-tickets-dashboard-widget header {
+  background-color: #f5f5f5;
+  padding-top: 10px;
+}
+.widget-tickets-dashboard-widget header h3 {
+  padding-left: 10px;
+  margin-top: 0px !important;
+  height: 30px;
+}
+.widget-tickets-dashboard-widget .dashboard-content,
+.widget-tickets-dashboard-widget .activity-stream {
+  margin-left: 10px;
+}
+.activity-stream .time,
+.activity-stream .date {
+  font-size: 12px !important;
+}
+.activity-stream .activity-stream-label {
+  font-size: 12px !important;
+}
+.activity-stream .day-label {
+  font-weight: bold;
+}
+.activity-stream .activity-stream-day {
+  padding-left: 20px;
+}
+.wiki-content-file-view-selector-container {
+  position: relative;
+}
+.wiki-content-file-view-selector-container .wiki-content-file-view-selector {
+  position: relative;
+  min-width: 220px;
+  top: 1px;
+}
+.wiki-content-file-view-selector span {
+  display: inline-block;
+  min-width: 120px;
+  height: 25px;
+  text-align: center;
+  border: 1px solid #e7e7e7;
+  border-bottom: none !important;
+}
+.wiki-content-file-view-selector .selected {
+  z-index: 1000;
+  background-color: white;
+}
+.wiki-row {
+  display: table;
+  height: 100%;
+  width: 100%;
+  min-height: 400px;
+}
+.wiki-row .beside-content-list-container {
+  display: table-cell !important;
+  float: none !important;
+  width: 240px !important;
+  vertical-align: top;
+  height: 400px;
+  min-height: 400px;
+  padding-left: 0px !important;
+}
+.wiki-row .beside-content-list-collapsed {
+  display: none !important;
+  float: none !important;
+  width: 0px !important;
+  vertical-align: top;
+  height: 400px;
+  min-height: 400px;
+  padding-left: 0px !important;
+}
+.wiki-row .beside-content-list-mobile {
+  position: absolute;
+  z-index: 10000;
+  top: 0px;
+  left: 10px;
+  width: 240px;
+  display: none;
+  height: 400px;
+  min-height: 400px;
+  padding-left: 0px !important;
+  border-right: 1px solid gray;
+}
+.wiki-row .beside-content-list-mobile-collapsed {
+  display: none;
+}
+.wiki-row .beside-content-list-mobile-expanded {
+  display: block;
+}
+.wiki-row .wiki-main-container {
+  display: table-cell !important;
+  min-width: 240px !important;
+  float: none !important;
+  vertical-align: top;
+  height: 100%;
+  padding-left: 20px !important;
+}
+.wiki-item-navbar {
+  border-width: 1px;
+  border-style: solid;
+  margin-bottom: 10px;
+  background-color: #f8f8f8;
+  border-color: #e7e7e7;
+}
+.wiki-item-navbar .header {
+  position: relative;
+  padding-right: 60px;
+  min-height: 45px;
+}
+.wiki-item-navbar .header .menu-container {
+  position: absolute;
+  top: 0px;
+  right: 10px;
+}
+.wiki-item-navbar h3,
+.wiki-item-navbar h4 {
+  margin-top: 15px !important;
+  margin-bottom: 5px !important;
+  padding-top: 0px !important;
+}
+.wiki-item-navbar .navbar {
+  margin-bottom: 5px;
+}
+.wiki-item-navbar .navbar-nav li a {
+  padding-bottom: 5px !important;
+}
+.visible-to-all {
+  display: inline-block;
+  padding-left: 10px;
+}
+.project-activity-content,
+.project-activity-content a {
+  color: #646660 !important;
+}
+.project-tickets-header .toolbar,
+.project-discussions-header .toolbar {
+  float: right !important;
+  min-width: 200px;
+  text-align: right !important;
+}
+.project-tickets-header h3,
+.project-discussions-header h3 {
+  float: left;
+  min-width: 300px;
+}
+.main-search-container h4 {
+  font-size: 12pt !important;
+}
+.main-search-container h3 {
+  margin-top: 5px !important;
+  margin-bottom: 0px !important;
+}
+.main-search-container header,
+.main-search-container .panel-heading {
+  padding-bottom: 0px !important;
+}
+.main-search-container hr {
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+  background-color: white !important;
+}
+.main-search-container .user-row {
+  padding-top: 10px;
+  padding-bottom: 5px;
+}
+.main-search-container .alternative {
+  background-color: #e6e6e6;
+}
+.main-search-container .panel-body {
+  padding-top: 10px !important;
+}
+.search-item-type {
+  padding-top: 10px;
+}
+.summary-beside-second {
+  text-align: right;
+  padding-right: 30px;
+}
+.activity-detail-view {
+  border: 1px solid gray;
+  border-radius: 7px;
+  width: 25px;
+  text-align: center;
+  margin-top: 0px;
+  margin-left: 2px;
+  height: 15px;
+  line-height: 0.7em;
+  display: inline-block;
+  font-size: 11pt;
+  font-weight: bold;
+  color: gray;
+}
+.activity-detail-view:hover {
+  color: darkgray;
+  border: 1px solid darkgray;
+  font-size: 12pt;
+}
+.discussions-summary .discussion-link {
+  color: #646660 !important;
+}
+.project-crm-comments {
+  padding: 0px;
+}
+.project-crm-comments .ticket-edit-project-crm-comments {
+  padding-left: 0px;
+  margin: 15px 0px;
+}
+.project-crm-comments .ticket-edit-project-crm-comments li:hover {
+  border: none !important;
+}
+.project-crm-comments .ticket-edit-project-crm-comments li {
+  list-style: none;
+  font-family: helvitca;
+  padding-left: 10px;
+  margin-bottom: 10px;
+  display: table;
+  width: 100%;
+}
+.project-crm-comments .ticket-edit-project-crm-comments .item-date {
+  font-size: 10pt;
+  color: #787676;
+}
+.project-crm-comments .ticket-edit-project-crm-comments .user {
+  display: table-cell;
+  min-width: 130px;
+  padding-right: 5px;
+}
+.project-crm-comments .ticket-edit-project-crm-comments .item-comment {
+  font-size: 10pt;
+  color: #333333;
+  margin: 5px 5px;
+  border: 1px solid lightgray;
+  width: 100%;
+  display: table-cell;
+  padding-top: 10px;
+  padding-left: 5px;
+}
+.project-crm-comments button,
+.project-crm-comments input[type='submit'],
+.project-crm-comments input[type='button'] {
+  background-color: #646660 !important;
+  border: 1px solid #353535;
+  color: white;
+  cursor: pointer;
+  width: 150px !important;
+  display: inline-block;
+  font: 12px Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  padding: 5px 14px 5px 14px;
+  text-align: center;
+  text-shadow: rgba(40, 53, 9, 0.2) 0px 0px 1px;
+  box-shadow: inset 0px 0px 1px #ffffff, 1px 1px 1px rgba(102, 102, 102, 0.2);
+  text-decoration: none;
+  margin-top: 10px;
+}
+.activity-stream-item {
+  position: relative;
+}
+.user-context-menu {
+  position: absolute;
+  background-color: #f5f5f5;
+  border: 1px solid #999;
+  border-radius: 12px;
+  font-size: 12px !important;
+  min-width: 280px;
+  padding-right: 10px;
+  max-width: 350px;
+  min-height: 100px;
+  max-height: 200px;
+  display: none;
+  z-index: 10000;
+}
+.activity-stream-item .user-context-menu {
+  top: 35px;
+  left: 52px;
+}
+.ticket-edit-project-crm-comments .user {
+  position: relative;
+}
+.ticket-edit-project-crm-comments .user .user-context-menu {
+  position: absolute;
+  top: 50px;
+  left: 20px;
+}
+.user-context-menu ul {
+  padding: 0px;
+  list-style: none;
+  text-align: left !important;
+}
+.user-context-menu ul li {
+  padding-left: 4px !important;
+}
+.user-context-menu .user-context-menu-close {
+  position: absolute;
+  top: 6px;
+  right: 5px;
+  display: inline-block;
+  border: none;
+  text-decoration: none;
+  border-radius: 2px;
+  width: 16px;
+  height: 16px;
+  color: gray;
+  padding-left: 2px;
+  line-height: 1.1em;
+}
+.user-context-menu .user-context-menu-close:hover {
+  color: #444;
+  border-color: black;
+}
+.skype-icon {
+  display: inline-block;
+  min-width: 100px;
+  padding-left: 30px;
+  background-image: url("images/skype-icon.png");
+  background-repeat: no-repeat;
+  background-position: 0px 0px;
+  background-size: 24px 24px;
+  height: 30px;
+  line-height: 2em;
+}
+.skype-tooltip span {
+  display: inline-block;
+  min-width: 80px;
+  color: #5e5e5e !important;
+}
+.files .well {
+  margin-top: 5px !important;
+}
+div.mce-fullscreen {
+  z-index: 1050;
+}
+.activity-stream-item a {
+  text-decoration: none;
+}
+.ticket-related-item {
+  padding-left: 10px;
+}
+.ticket-related-item label {
+  display: inline-block;
+  margin-right: 10px;
+  font-family: Arial;
+  font-size: 13px;
+  font-weight: 700;
+}
+.add-crm-comments-host {
+  margin-left: 10px;
+}
+.add-crm-comments {
+  padding: 0px;
+  display: table;
+  width: 100%;
+}
+.add-crm-comments .user {
+  display: table-cell;
+  min-width: 130px;
+  padding-right: 5px;
+}
+.add-crm-comments .new-comment {
+  display: table-cell;
+  padding: 0px;
+  width: 100%;
+}
+.add-crm-comments .new-comment textarea {
+  margin-bottom: 5px !important;
+}
+.user .published {
+  font-size: 11px;
+}
+.wiki-body,
+.discussion-body {
+  background-color: #f4f4f4;
+  padding-left: 10px;
+}
+.break-text {
+  /* These are technically the same, but use both */
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-word-break: break-all;
+  /* This is the dangerous one in WebKit, as it breaks things wherever */
+  word-break: break-all;
+  /* Instead use this non-standard one: */
+  word-break: break-word;
+  /* Adds a hyphen where the word breaks, if supported (No Blink) */
+  -ms-hyphens: auto;
+  -moz-hyphens: auto;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+.user-tag-display {
+  display: inline-block;
+  margin-left: 5px;
+  margin-right: 5px;
+  background-color: #eee;
+  border: 1px solid lightgray;
+  border-radius: 3px;
+  text-align: center;
+  min-width: 60px;
+}
+.main-search-container .customer-navbar {
+  z-index: 999 !important;
+}
+.wiki-panel-body {
+  overflow-x: scroll;
+  overflow-y: hidden;
+}
+.dashboard-part {
+  min-height: 320px;
+}
+.dashboard-part .panel-heading h5 {
+  font-size: 16px !important;
+}
+.title-milestone-is-current {
+  color: green;
+  display: inline-block;
+  margin-left: 5px;
+  font-size: 10pt;
+}
+.milestone-date {
+  color: green;
+  display: inline-block;
+  margin-left: 5px;
+  font-size: 10pt;
+  min-width: 100px;
+}
+.milestone-field-label {
+  display: inline-block;
+}
+.item-title-container {
+  padding-left: 10px;
+}
+.elipse-text {
+  white-space: -moz-pre-wrap;
+  /* Mozilla, supported since 1999 */
+  white-space: -pre-wrap;
+  /* Opera */
+  white-space: -o-pre-wrap;
+  /* Opera */
+  white-space: pre-wrap;
+  /* CSS3 - Text module (Candidate Recommendation) http://www.w3.org/TR/css3-text/#white-space */
+  word-wrap: break-word;
+  /* IE 5.5+ */
+  text-overflow: ellipsis;
+  display: inline-block;
+}
+@media (max-width: 600px) {
+  .elipse-text {
+    max-width: 200px;
+  }
+}
+@media (max-width: 800px) and (min-width: 600px) {
+  .elipse-text {
+    max-width: 300px;
+  }
+}
+@media (min-width: 800px) {
+  .elipse-text {
+    max-width: 400px;
+  }
+}
+.edit-button {
+  margin: 10px;
+}
+.project-custom-content .meta {
+  margin-top: 10px !important;
+}
+.edit-user label {
+  font-weight: normal;
+  width: 150px;
+}
+.jstree-default .jstree-node {
+  min-width: 140px !important;
+}
+.folder-list ul {
+  margin-left: 10px;
+  padding-left: 0px;
+  list-style: circle;
+}
+.folder-list a {
+  white-space: normal !important;
+  height: auto !important;
+  padding: 1px 2px;
+}
+.folder-list ul li {
+  float: none;
+  display: block;
+}
+.folder-list .selected {
+  color: green;
+}
+.wiki-main-container {
+  float: left;
+  width: 80%;
+  min-width: 200px;
+  min-height: 300px;
+  padding: 10px;
+}
+.folder-picker {
+  margin: 10px 0px;
+}
+.project-content-item .panel-body {
+  padding-top: 0px !important;
+}
+.project-item .panel-heading,
+.project-content-item .panel-heading {
+  padding-bottom: 0px !important;
+}
+.project-item .panel-heading .nav,
+.project-content-item .panel-heading .nav {
+  padding-left: 0px !important;
+}
+.project-item .panel-heading .nav a,
+.project-content-item .panel-heading .nav a {
+  padding: 10px 20px 5px 0px;
+}
+.project-item .panel-heading .nav .dropdown-menu a,
+.project-content-item .panel-heading .nav .dropdown-menu a {
+  padding: 3px 20px !important;
+}
+.wiki-main-container .edit-folder-form {
+  margin: 10px;
+}
+.wiki-main-container .edit-folder-form h3 {
+  margin-bottom: 10px;
+}
+.wiki-main-container .edit-folder-form .content-part {
+  margin: 10px 0px;
+}
+.wiki-main-container .edit-folder-form fieldset {
+  margin: 10px 0px;
+}
+.folder-list-outer-container-collapsed {
+  height: 100%;
+  min-height: 400px;
+  position: relative;
+}
+.expand-button-container .panel-body {
+  position: relative;
+}
+.expand-button-container .panel-body #folderListExpandButton {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 20px;
+  height: 20px;
+  background-image: url("Images/section-expand64.png");
+  background-repeat: no-repeat;
+  background-position: 0px 0px;
+  background-size: 16px 16px;
+}
+.expand-button-container .panel-body #folderListExpandButton:hover {
+  background-image: url("Images/section-expand64-hover.png");
+}
+.folder-list-outer-container {
+  height: 100%;
+  min-height: 400px;
+  width: 240px;
+  position: relative;
+}
+.folder-list-outer-container h4 {
+  position: absolute;
+  top: 7px;
+  left: 0px;
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+}
+.folder-list-outer-container .folder-list-header {
+  height: 35px;
+  border-bottom: 1px solid #eee;
+}
+.folder-list-outer-container .collapse-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+  background-image: url("Images/section-collapse64.png");
+  background-repeat: no-repeat;
+  background-position: 0px 0px;
+  background-size: 16px 16px;
+}
+.folder-list-outer-container .collapse-icon:hover {
+  background-image: url("Images/section-collapse64-hover.png");
+}
+.folder-list-container {
+  height: 100%;
+  padding-top: 10px;
+  min-height: 360px;
+  width: 200px;
+  overflow: auto;
+}
+.wiki-main-container #Title_Title {
+  width: 100%;
+  height: 30px;
+  padding-left: 5px;
+}
+.folder-path-title {
+  margin-left: 5px;
+}
+.folder-item {
+  min-width: 450px !important;
+}
+.wiki-item,
+.root-wiki,
+.project-wiki {
+  min-width: 550px !important;
+}
+.active-users {
+  list-style: none;
+  list-style-type: none;
+  margin: 5px;
+  padding: 0px;
+}
+.active-users li {
+  float: left;
+  margin: 4px;
+}
+.active-users li img {
+  border-radius: 24px;
+  border: 1px solid black;
+}
+.project-main-panel {
+  min-width: 360px;
+}
+.project-detail .panel-heading h3 {
+  margin-top: 5px !important;
+  margin-bottom: 5px !important;
+}
+.project-item {
+  margin-top: 10px;
+}
+.project-item .panel-body {
+  padding-top: 10px !important;
+}
+.project-list-item .panel-heading {
+  padding-bottom: 10px !important;
+}
+.project-new-dropdown {
+  z-index: 1001;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding-left: 5px;
+}
+.project-new-dropdown .dropdown-toggle {
+  padding-top: 5px !important;
+  padding-right: 10px !important;
+}
+.item-menu {
+  margin-top: 10px;
+}
+.project-item-menu-container {
+  position: relative;
+}
+.project-item-menu-container .pivot {
+  background-color: #f8f8f8;
+  display: inline-block;
+  min-width: 25px;
+  min-height: 33px;
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+  margin: 0px 5px 0px 15px;
+  border-radius: 4px;
+}
+.project-item-menu-container .selected-pivot {
+  border-color: gray;
+}
+.project-item-menu-container .pivot .icon {
+  display: block;
+  width: 22px;
+  height: 2px;
+  margin-top: 4px;
+  border-radius: 1px;
+  background-color: #ccc;
+}
+@media (min-width: 330px) {
+  .project-item-menu-container .project-item-menu {
+    width: 287px;
+  }
+  .project-item-menu-container .project-item-menu li {
+    min-width: 140px;
+  }
+}
+@media (max-width: 330px) {
+  .project-item-menu-container .project-item-menu {
+    width: 227px;
+  }
+  .project-item-menu-container .project-item-menu li {
+    min-width: 110px;
+    font-size: 8pt !important;
+  }
+}
+.project-item-menu-container .project-item-menu {
+  position: absolute;
+  top: 33px;
+  right: 5px;
+  background-color: white;
+  min-height: 100px;
+  border: 1px solid #ccc;
+  list-style: none;
+  padding: 0px;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.175);
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  border-radius: 4px;
+}
+.project-item-menu-container .menu-hidden {
+  display: none;
+}
+.project-item-menu-container .z1 {
+  z-index: 1000;
+}
+.project-item-menu-container .z2 {
+  z-index: 2000;
+}
+.project-item-menu-container .project-item-menu li {
+  display: inline-block;
+  margin: 0px 0px;
+  min-height: 25px;
+  padding-left: 10px;
+  line-height: 1.2em;
+}
+.project-item-menu-container .project-item-menu .menu {
+  margin-left: 0px !important;
+}
+.project-item-menu-container .project-item-menu li a {
+  display: inline-block;
+  color: black;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  padding: 10px 20px 5px 0px;
+}
+.project-item-menu-container .project-item-menu li:hover {
+  background-color: #428bca !important;
+  color: white;
+}
+.project-item-menu-container .project-item-menu li:hover a {
+  background-color: #428bca !important;
+  color: white;
+}
+.project-item-menu-container:hover .menu-hidden {
+  display: block;
+}
+.project-title {
+  padding-top: 7px;
+  line-height: 2em;
+}
+.portlet-list {
+  list-style-type: none;
+  margin-bottom: 15px;
+  padding: 0;
+  width: 49%;
+}
+.portlet-list li {
+  margin: 4px 3px 3px 3px;
+  padding: 0.4em 0.6em 0.6em 0.6em;
+  padding-left: 1.5em;
+  font-size: 1em;
+  min-height: 35px;
+}
+.portlet-list li .ui-icon {
+  position: absolute;
+  margin-left: -1.3em;
+  margin-top: 2px;
+}
+.project-dashboard-report-viewer-portlet .panel-body ul {
+  padding-left: 10px !important;
+}
+@media (max-width: 600px) {
+  .zone-footer {
+    font-size: 8pt;
+  }
+  .zone-footer a {
+    font-size: 8pt;
+  }
+}
+.content-permissions-lis {
+  border: 1px solid #AAA;
+  height: 20px;
+  border-radius: 3px;
+  margin: 0px 5px 3px 0px;
+  float: left;
+  line-height: 17px;
+}
+.content-permissions-lis .delete-button a {
+  color: gray;
+  font-size: 9px;
+  text-decoration: none;
+  margin-right: 5px;
+  font-family: Arial;
+  font-weight: 600;
+}
+.content-permissions-lis .delete-button a:hover {
+  color: #282828;
+}
+.content-permissions-lis .item-name {
+  font-family: helvetica;
+  color: #262020;
+  font-size: 11px;
+  margin: 0px 4px;
+}
+.content-permissions-lis .accessType {
+  color: gray;
+  font-family: helvetica;
+  font-size: 11px;
+  margin-right: 4px;
+}
+.edit-ownership-container .edit-ownership-bar {
+  width: 67%;
+  padding: 20px 10px 10px 10px;
+  color: #333;
+  font-family: Arial;
+  min-height: 500px;
+  min-height: 100px;
+}
+.edit-ownership-container ul {
+  padding-left: 0px;
+  margin-top: 5px;
+}
+.edit-ownership-bar .buttons {
+  margin-top: 20px;
+}
+.buttons .crm-button input {
+  padding: 4.5px 0px !important;
+}
+.edit-ownership-container .share-content-ownership {
+  width: 72%;
+  float: left;
+  margin: 0px 10px 10px 0px;
+}
+.edit-ownership-container .panel-heading h4 {
+  margin-top: 0px;
+  margin-bottom: 5px;
+}
+.edit-contentitempermission {
+  padding: 0px;
+  border: 0px;
+}
+.edit-contentitempermission-properties {
+  height: 50px;
+}
+.edit-contentitempermission-properties .label {
+  text-align: left;
+  line-height: 20px;
+  margin-left: 2px;
+}
+.contentitempermission {
+  width: 100%;
+  min-height: 50px;
+}
+.contentitempermission .label {
+  text-align: left;
+  line-height: 20px;
+  margin-left: 2px;
+}
+.permissetions-groups-agents {
+  display: table;
+  width: 100%;
+}
+.edit-content-ownership-section {
+  margin-bottom: 0px;
+  font-family: Arial;
+  font-size: 11px;
+  width: 20%;
+  display: table-cell;
+  padding-right: 10px;
+}
+.edit-content-ownership-section ul {
+  list-style: none;
+  margin: 0px;
+  padding-left: 0px;
+}
+.edit-content-ownership-section li {
+  margin: 0px;
+  font-size: 11px;
+  padding-left: 0px;
+}
+.edit-content-ownership-section input {
+  margin-left: 0px;
+  margin-bottom: 0px;
+  margin: .2em 0.5em 0.2em 0 !important;
+}
+.edit-content-ownership-section .search-bar {
+  margin-bottom: 25px;
+  font-family: Arial;
+  font-size: 12px;
+}
+.edit-content-ownership-header {
+  height: 9px;
+  font-family: Verdana;
+  font-size: 13px;
+  color: #393939;
+  font-weight: 600;
+  margin-bottom: 10px;
+  margin-top: 5px;
+  line-height: 12px;
+}
+.edit-content-ownership-title {
+  font-family: 'Segoe UI';
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 16px;
+  margin-bottom: 5px;
+  color: #393939;
+}
+.current-permission-ownership {
+  width: 100%;
+}
+.current-permission-ownership .permissetions {
+  float: left;
+  width: 75%;
+}
+.current-permission-ownership ul {
+  padding: 0px;
+  list-style: none;
+  margin-left: 0px;
+}
+.current-permission-ownership ul li {
+  float: left;
+}
+.current-permission-ownership .delete-button a {
+  display: inline-block;
+}
+.buttons .button {
+  background-color: #646660;
+  border: 1px solid #353535;
+  color: #e8f0f6;
+}
+.buttons .button a {
+  background-color: #646660;
+  border: 1px solid #353535;
+  color: #e8f0f6;
+}
+.current-permission-ownership .label-current {
+  font-family: Arial;
+  font-size: 10pt;
+  font-weight: 300;
+  margin: 9px 0px 5px 0px;
+  float: left;
+  width: 20%;
+}
+#BusinessUnits {
+  width: 180px;
+  border-radius: 3px;
+}
+#Users {
+  width: 180px;
+  border-radius: 3px;
+}
+#milestoneTicketsContainer {
+  overflow-x: auto;
+}
+.filter-box {
+  margin: 5px 0px;
+}
+.filter-box input {
+  height: 25px;
+}
+.render-mode {
+  display: inline-block;
+  margin-left: 20px;
+}
+.bars-table {
+  display: table;
+  width: 100%;
+}
+.bars-table .milestone-drop-hover .header {
+  border-top: 1px dotted green !important;
+  border-bottom: 1px dotted green !important;
+}
+.bars-table .milestone-drop-active .header {
+  border-top: 1px dotted green !important;
+  border-bottom: 1px dotted green !important;
+}
+.bars-table .bar {
+  display: table-cell;
+  border-bottom: none;
+  text-align: left;
+  border-top: none;
+  min-width: 200px;
+  border-right: 4px solid white;
+  background-color: #ccc;
+}
+.bars-table .bar .header {
+  background-color: #f8f8f8;
+  border-right: 1px solid #e7e7e7;
+  border-left: 1px solid #e7e7e7;
+  border-top: 1px solid #f8f8f8;
+  color: #333;
+  height: 30px;
+  max-height: 30px !important;
+  min-height: 30px !important;
+}
+.bars-table .bar .header .col-header {
+  margin-right: 15px;
+  padding-left: 11px;
+  display: inline-block;
+  font-weight: bold;
+}
+.bars-table .bar .header .count,
+.bars-table .bar .header .size {
+  color: #d0a428;
+  display: inline-block;
+  margin-right: 15px;
+  font-weight: bold;
+  font-size: 12pt;
+}
+.bars-table .bar .body article {
+  background-color: white;
+}
+.milestone-items {
+  width: 100%;
+  min-width: 600px;
+  border-collapse: separate;
+  border-spacing: 0px;
+}
+.milestone-items tbody .milestone-drop-hover {
+  border-top: 1px dotted green !important;
+  border-bottom: 1px dotted green !important;
+}
+.milestone-items tbody .milestone-drop-active {
+  border-top: 1px dotted green !important;
+  border-bottom: 1px dotted green !important;
+}
+.milestone-items .alt-row td:first-child {
+  border-left: 3px solid gray;
+}
+.milestone-items .normal-row td:first-child {
+  border-left: 3px solid #eee;
+}
+.milestone-items thead {
+  background-color: #f8f8f8;
+  border-right: 1px solid #e7e7e7;
+  border-left: 1px solid #e7e7e7;
+  color: #333;
+  height: 30px;
+  max-height: 30px !important;
+  min-height: 30px !important;
+}
+.milestone-items thead th {
+  position: relative;
+}
+.milestone-items thead .col-header {
+  margin-right: 15px;
+  display: inline-block;
+  font-weight: bold;
+}
+.milestone-items thead .count,
+.milestone-items thead .size {
+  color: #d0a428;
+  display: inline-block;
+  margin-right: 15px;
+  font-weight: bold;
+  font-size: 12pt;
+}
+.milestone-items tbody {
+  height: 100%;
+}
+.milestone-items thead th {
+  min-width: 200px;
+  text-align: left;
+  padding-left: 11px;
+  font-size: 10pt;
+  font-weight: normal;
+  height: 30px;
+  max-height: 30px !important;
+  min-height: 30px !important;
+}
+.milestone-items tr td {
+  min-height: 50px;
+  vertical-align: top;
+  background-color: #ccc;
+}
+.milestone-items tr td article {
+  background-color: white;
+}
+.milestone-items tbody tr td {
+  border-bottom: none;
+  border-top: none;
+  border-right: 4px solid white;
+}
+.milestone-items tbody tr td:last-child {
+  border-right: none !important;
+}
+.milestone-items thead tr:last-child th:first-child {
+  border-left: 1px solid #e7e7e7;
+}
+.milestone-items thead tr:last-child th:last-child {
+  border-right: 1px solid #e7e7e7;
+}
+.milestone-tickets-header {
+  margin-top: 20px;
+  margin-bottom: 0px;
+  padding: 10px;
+  border-right: 1px solid #e7e7e7;
+  background-color: #f8f8f8;
+  border-left: 1px solid #e7e7e7;
+  border-top: 1px solid #e7e7e7;
+  border-bottom: none;
+}
+.milestone-tickets-header .milestone-tickets-title {
+  font-size: 14pt;
+  font-weight: bold;
+  display: inline-block;
+  margin-right: 10px;
+}
+.milestone-tickets-header .milestone-size-label {
+  display: inline-block;
+  margin-right: 5px;
+}
+.milestone-tickets-header .milestone-size-value {
+  display: inline-block;
+  margin-right: 5px;
+  color: #d0a428;
+  font-weight: bold;
+}
+/*TODO: ticket-related selectors must be in Orchard.CRM.Core module*/
+.ticket-pinboard {
+  margin-right: 3%;
+  margin-left: 3%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 94%;
+  padding: 0px 4px;
+  border: solid 1px #e7e7e7;
+}
+.ticket-pinboard .identity {
+  display: inline-block;
+  margin-right: 10px;
+}
+.ticket-pinboard h4 {
+  font-size: 10pt;
+  max-width: 150px;
+  white-space: normal !important;
+}
+.ticket-pinboard .label-container {
+  color: gray;
+  font-size: 8pt;
+}
+.ticket-pinboard .ticket-service-value {
+  color: gray;
+  font-size: 8px;
+}
+.milestone-items-list {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0px;
+  word-break: break-all;
+}
+.milestone-items-list thead {
+  background-color: #f8f8f8;
+  border-right: 1px solid #e7e7e7;
+  border-left: 1px solid #e7e7e7;
+  color: #333;
+  height: 30px;
+  max-height: 30px !important;
+  min-height: 30px !important;
+}
+.milestone-items-list tbody td {
+  height: 33px;
+  padding-right: 10px;
+  vertical-align: top;
+}
+.milestone-items-list .ticket-status-col {
+  min-width: 80px;
+}
+@media (max-width: 350px) {
+  .milestone-items-list {
+    font-size: 8pt;
+  }
+  .milestone-items-list .ticket-status-col {
+    display: none;
+  }
+}
+.milestone-no-item {
+  margin: 20px 0px;
+}
+.milestone-fields-header {
+  margin: 10px 0px;
+}
+.milestone-fields-header .milestone-closed,
+.milestone-fields-header .milestone-open,
+.milestone-fields-header .backlog-icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  border-radius: 10px;
+}
+.milestone-fields-header .milestone-closed {
+  background-color: gray;
+}
+.milestone-fields-header .milestone-open {
+  background-color: green;
+}
+.milestone-fields-header .backlog-icon {
+  background-color: #d0a428;
+}
+.info-page {
+  border: 1px solid gray;
+  background-color: white;
+  position: fixed;
+  width: 300px;
+  height: 100px;
+  top: 50%;
+  left: 50%;
+  margin-top: -50px;
+  margin-left: -150px;
+  padding: 15px;
+}
+.info-page .close-link {
+  display: inline-block;
+  padding-left: 15px;
+}
+.ticket-menu-container {
+  position: relative;
+  display: block;
+}
+.ticket-menu-container .ticket-milestone-menu {
+  position: fixed;
+  width: 240px;
+  background-color: white;
+  min-height: 50px;
+  border: 1px solid #ccc;
+  list-style: none;
+  padding: 5px 0px 0px 0px;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.175);
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  border-radius: 4px;
+}
+.ticket-menu-container .ticket-milestone-menu li {
+  display: inline-block;
+  margin: 0px 0px;
+  width: 100%;
+  min-height: 25px;
+  padding-left: 10px;
+  padding-top: 5px;
+  line-height: 1.2em;
+}
+.ticket-menu-container .ticket-milestone-menu li a {
+  display: inline-block;
+  color: black;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  padding: 10px 20px 5px 0px;
+}
+.ticket-menu-container .ticket-milestone-menu li:hover {
+  background-color: #428bca !important;
+  color: white;
+}
+.ticket-menu-container .ticket-milestone-menu li:hover a {
+  background-color: #428bca !important;
+  color: white;
+}
+.ticket-menu-container .menu-hidden {
+  display: none;
+  visibility: hidden;
+}
+.ticket-menu-container .z2 {
+  z-index: 2000;
+}
+.ticket-menu-container .z1 {
+  z-index: 1000;
+}
+.milestone-item-menu-container {
+  position: relative;
+  width: 40px;
+  display: block;
+  visibility: hidden;
+}
+tr:hover .milestone-item-menu-container {
+  visibility: visible;
+}
+.milestone-item-menu-container .pivot {
+  background-color: #f8f8f8;
+  display: inline-block;
+  min-width: 25px;
+  min-height: 25px;
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+  margin: 0px 5px 0px 15px;
+  border-radius: 4px;
+}
+.milestone-item-menu-container .selected-pivot {
+  border-color: gray;
+}
+.milestone-item-menu-container .pivot {
+  background-image: url(Images/tools-icon.png);
+  width: 18px;
+  height: 21px;
+  background-size: 16px 16px;
+  background-position: center center;
+  display: inline-block;
+  background-repeat: no-repeat;
+}
+.milestone-item-menu-container .milestone-item-menu {
+  position: absolute;
+  top: 25px;
+  right: 0px;
+  width: 240px;
+  background-color: white;
+  min-height: 50px;
+  border: 1px solid #ccc;
+  list-style: none;
+  padding: 0px;
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.175);
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  border-radius: 4px;
+}
+.milestone-item-menu-container .menu-hidden {
+  display: none;
+}
+.milestone-item-menu-container .z1 {
+  z-index: 1000;
+}
+.milestone-item-menu-container .z2 {
+  z-index: 2000;
+}
+.milestone-item-menu-container .milestone-item-menu li {
+  display: inline-block;
+  margin: 0px 0px;
+  width: 100%;
+  min-height: 25px;
+  padding-left: 10px;
+  line-height: 1.2em;
+}
+.milestone-item-menu-container .milestone-item-menu li a {
+  display: inline-block;
+  color: black;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  padding: 10px 20px 5px 0px;
+}
+.milestone-item-menu-container .milestone-item-menu li:hover {
+  background-color: #428bca !important;
+  color: white;
+}
+.milestone-item-menu-container .milestone-item-menu li:hover a {
+  background-color: #428bca !important;
+  color: white;
+}
+.milestone-item-menu-container:hover .menu-hidden {
+  display: block;
+}
+.ticket-menu-col {
+  width: 50px;
+}
+.milestone-gantt-items td {
+  padding-left: 0px;
+  padding-right: 0px;
+  height: 30px;
+}
+.milestone-gantt-items .alt-row td:first-child {
+  border-left: 3px solid gray;
+}
+.milestone-gantt-items .normal-row td:first-child {
+  border-left: 3px solid #bbb;
+}
+.milestone-gantt-items .ticket-gantt-row-id {
+  vertical-align: top;
+  width: 50px;
+  padding-left: 5px;
+  padding-right: 10px;
+  text-align: right;
+}
+.milestone-gantt-items .ticket-gantt-row-name {
+  vertical-align: top;
+  width: 200px;
+}
+.milestone-gantt-items .ticket-gantt-row-name a {
+  display: inline-block;
+  width: 200px;
+  overflow: hidden;
+}
+.milestone-gantt-items .date-col {
+  width: 50px;
+  text-align: center;
+  padding-right: 10px;
+}
+.milestone-gantt-items .month-col {
+  text-align: center;
+}
+.milestone-gantt-items .month {
+  display: inline-block;
+  padding: 0px 10px;
+}
+.ganttchart-guide h4 {
+  margin-top: 20px;
+  margin-left: 5px;
+  margin-bottom: 2px;
+  font-weight: bold;
+}
+.ganttchart-guide span {
+  display: inline-block;
+  width: 100px !important;
+  height: 25px;
+  text-align: center;
+  padding-top: 4px;
+  margin: 5px;
+}
+.open-status-type,
+.deferred-status-type,
+.closed-status-type,
+.new-status-type,
+.overdue-status,
+.pending-status-type {
+  width: 100%;
+  height: 20px;
+  vertical-align: top;
+}
+.overdue-status {
+  background-color: red;
+  color: white;
+}
+.new-status-type {
+  background-color: yellow;
+}
+.open-status-type {
+  background-color: lightgreen;
+}
+.deferred-status-type {
+  background-color: pink;
+}
+.pending-status-type {
+  background-color: #d0a428;
+}
+.closed-status-type {
+  background-color: darkgreen;
+  color: white;
+}
+.milestoneGantt {
+  position: relative;
+}
+.milestone-gantt-container1 {
+  border: 1px solid #e7e7e7;
+}
+.milestone-gantt-container1 .milestone-tickets-header {
+  border: none !important;
+  margin-top: 0px !important;
+}
+.milestone-gantt-container {
+  width: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
+  /*border-right: 1px solid #e7e7e7;
+    border-left: 1px solid #e7e7e7;*/
+}
+.ticket-add-comment-modal textarea {
+  width: 100%;
+}
+.ticket-add-comment-modal .label-row {
+  margin-top: 10px;
+}
+.ticket-edit-modal input[type='text'],
+.ticket-edit-modal select {
+  width: 100%;
+}
+.ticket-edit-modal .full-mode-link {
+  display: inline-block;
+  margin-left: 15px;
+  font-size: 12px !important;
+}
+.ticket-edit-modal .label-row {
+  margin-top: 10px;
+}
+.project-sync-info {
+  margin-bottom: 10px;
+}
+.project-sync-info span {
+  font-size: 12px;
+}
+.project-sync-info a {
+  background-color: #eee;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  display: inline-block;
+  padding-left: 4px;
+  padding-right: 4px;
+  text-decoration: none;
+  font-size: 14px;
+}
+.project-sync-info a:hover {
+  background-color: #ccc;
+}
+#syncProjectDialog .copy-from-suitecrm,
+#syncProjectDialog .copy-to-suitecrm {
+  width: 120px !important;
+}
+#syncProjectDialog .disabled {
+  background-color: lightgray !important;
+}

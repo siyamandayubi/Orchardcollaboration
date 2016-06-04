@@ -1,0 +1,12 @@
+﻿@using System.Globalization;
+@{
+    var ticketViewMoodel = (Orchard.CRM.Core.ViewModels.TicketViewModel)Model.Model;
+    string description = ticketViewMoodel.Text;
+}
+<div>
+    <div class="label-container">@T("Description")</div>
+</div>
+<div class="ticket-descrioption break-text">@Html.Raw(description)</div>
+<div class="clear"></div>
+
+

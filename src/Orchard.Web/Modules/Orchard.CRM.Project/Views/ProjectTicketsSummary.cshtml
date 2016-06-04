@@ -1,0 +1,57 @@
+﻿@using Orchard.CRM.Core.Services;
+@using Orchard.Core.Common.Models;
+@using Orchard.Core.Title.Models;
+@using Orchard.ContentManagement;
+@using Orchard.CRM.Project;
+@using Orchard.CRM.Core.Models;
+@{
+    ContentItem mainContentItem = Model.ContentItem;
+    CommonPart mainCommonPart = mainContentItem.As<CommonPart>();
+    AttachToProjectPart attachToProject = mainCommonPart.Container.As<AttachToProjectPart>();
+    int? projectId = attachToProject != null && attachToProject.Record.Project != null ? (int?)attachToProject.Record.Project.Id : null;
+
+    Func<IEnumerable<dynamic>> shapeBuilder = Model.BuildShapes;
+    var shapes = shapeBuilder();
+    IEnumerable<ContentItem> contentItems = Model.ContentItems;
+
+    TitlePart mainTitlePart = mainContentItem.As<TitlePart>();
+    string title = mainTitlePart != null ? mainTitlePart.Title : "Tickets";
+}
+<div class="panel panel-default dashboard-part">
+    <div class="panel-heading">
+        <h5>@T(title)</h5>
+    </div>
+    <div class="panel-body">
+        <div class="discussions-summary">
+            @if (contentItems == null || contentItems.Count() == 0)
+            {
+                <p>@T("There is no items")</p>
+            }
+            else
+            {
+                <ul>
+                    @foreach (ContentItem contentItem in contentItems)
+                    {
+                        TicketPart ticketPart = contentItem.As<TicketPart>();
+                        string ticketIdentity = ticketPart.Record.Identity != null ? ticketPart.Record.Identity.Id.ToString() : string.Empty;
+                        string ticketTitle = ticketPart.Record.Title ?? T("[NO TITLE]").Text;
+                        string ticketUrl = Url.Action("Display", "Ticket", new { area = "Orchard.CRM.Core", id = ticketPart.Id });
+                        <li>
+                            <h5>
+                                <a href="@ticketUrl ">
+                                    @if (!string.IsNullOrEmpty(ticketIdentity))
+                                    {
+                                        <span>@ticketIdentity</span>
+                                        <span>&nbsp;-&nbsp;</span>
+                                    }
+                                    @ticketPart.Record.Title
+                                </a>
+                            </h5>
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>

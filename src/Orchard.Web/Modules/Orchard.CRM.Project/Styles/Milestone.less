@@ -1,0 +1,635 @@
+﻿#milestoneTicketsContainer {
+    overflow-x: auto;
+}
+
+.filter-box {
+    margin: 5px 0px;
+}
+
+    .filter-box input {
+        height: 25px;
+    }
+
+.render-mode {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.bars-table {
+    display: table;
+    width: 100%;
+
+    .milestone-drop-hover .header {
+        border-top: 1px dotted green !important;
+        border-bottom: 1px dotted green !important;
+    }
+
+    .milestone-drop-active .header {
+        border-top: 1px dotted green !important;
+        border-bottom: 1px dotted green !important;
+    }
+
+    .bar {
+        display: table-cell;
+        border-bottom: none;
+        text-align: left;
+        border-top: none;
+        min-width: 200px;
+        border-right: 4px solid white;
+        background-color: #ccc;
+
+        .header {
+            background-color: #f8f8f8;
+            border-right: 1px solid #e7e7e7;
+            border-left: 1px solid #e7e7e7;
+            border-top: 1px solid #f8f8f8;
+            color: #333;
+            height: 30px;
+            max-height: 30px !important;
+            min-height: 30px !important;
+
+            .col-header {
+                margin-right: 15px;
+                padding-left: 11px;
+                display: inline-block;
+                font-weight: bold;
+            }
+
+            .count, .size {
+                color: #d0a428;
+                display: inline-block;
+                margin-right: 15px;
+                font-weight: bold;
+                font-size: 12pt;
+            }
+        }
+
+        .body {
+
+            article {
+                background-color: white;
+            }
+        }
+    }
+}
+
+.milestone-items {
+    width: 100%;
+    min-width: 600px;
+    border-collapse: separate;
+    border-spacing: 0px;
+
+    tbody {
+
+        .milestone-drop-hover {
+            border-top: 1px dotted green !important;
+            border-bottom: 1px dotted green !important;
+        }
+
+        .milestone-drop-active {
+            border-top: 1px dotted green !important;
+            border-bottom: 1px dotted green !important;
+        }
+    }
+}
+
+    .milestone-items .alt-row td:first-child {
+        border-left: 3px solid gray;
+    }
+
+    .milestone-items .normal-row td:first-child {
+        border-left: 3px solid #eee;
+    }
+
+    .milestone-items thead {
+        background-color: #f8f8f8;
+        border-right: 1px solid #e7e7e7;
+        border-left: 1px solid #e7e7e7;
+        color: #333;
+        height: 30px;
+        max-height: 30px !important;
+        min-height: 30px !important;
+    }
+
+        .milestone-items thead th {
+            position: relative;
+        }
+
+        .milestone-items thead .col-header {
+            margin-right: 15px;
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        .milestone-items thead .count, .milestone-items thead .size {
+            color: #d0a428;
+            display: inline-block;
+            margin-right: 15px;
+            font-weight: bold;
+            font-size: 12pt;
+        }
+
+    .milestone-items tbody {
+        height: 100%;
+    }
+
+    .milestone-items thead th {
+        min-width: 200px;
+        text-align: left;
+        padding-left: 11px;
+        font-size: 10pt;
+        font-weight: normal;
+        height: 30px;
+        max-height: 30px !important;
+        min-height: 30px !important;
+    }
+
+    .milestone-items tr td {
+        min-height: 50px;
+        vertical-align: top;
+        background-color: #ccc;
+    }
+
+        .milestone-items tr td article {
+            background-color: white;
+        }
+
+    .milestone-items tbody tr td {
+        border-bottom: none;
+        border-top: none;
+        border-right: 4px solid white;
+    }
+
+        .milestone-items tbody tr td:last-child {
+            border-right: none !important;
+        }
+
+    .milestone-items thead tr:last-child th:first-child {
+        border-left: 1px solid #e7e7e7;
+    }
+
+    .milestone-items thead tr:last-child th:last-child {
+        border-right: 1px solid #e7e7e7;
+    }
+
+.milestone-tickets-header {
+    margin-top: 20px;
+    margin-bottom: 0px;
+    padding: 10px;
+    border-right: 1px solid #e7e7e7;
+    background-color: #f8f8f8;
+    border-left: 1px solid #e7e7e7;
+    border-top: 1px solid #e7e7e7;
+    border-bottom: none;
+}
+
+    .milestone-tickets-header .milestone-tickets-title {
+        font-size: 14pt;
+        font-weight: bold;
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+    .milestone-tickets-header .milestone-size-label {
+        display: inline-block;
+        margin-right: 5px;
+    }
+
+    .milestone-tickets-header .milestone-size-value {
+        display: inline-block;
+        margin-right: 5px;
+        color: #d0a428;
+        font-weight: bold;
+    }
+
+/*TODO: ticket-related selectors must be in Orchard.CRM.Core module*/
+.ticket-pinboard {
+    margin-right: 3%;
+    margin-left: 3%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width: 94%;
+    padding: 0px 4px;
+    border: solid 1px #e7e7e7;
+}
+
+    .ticket-pinboard .identity {
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+    .ticket-pinboard h4 {
+        font-size: 10pt;
+        max-width: 150px;
+        white-space: normal !important;
+    }
+
+    .ticket-pinboard .label-container {
+        color: gray;
+        font-size: 8pt;
+    }
+
+    .ticket-pinboard .ticket-service-value {
+        color: gray;
+        font-size: 8px;
+    }
+
+.milestone-items-list {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0px;
+    word-break: break-all;
+}
+
+    .milestone-items-list thead {
+        background-color: #f8f8f8;
+        border-right: 1px solid #e7e7e7;
+        border-left: 1px solid #e7e7e7;
+        color: #333;
+        height: 30px;
+        max-height: 30px !important;
+        min-height: 30px !important;
+    }
+
+    .milestone-items-list tbody td {
+        height: 33px;
+        padding-right: 10px;
+        vertical-align: top;
+    }
+
+    .milestone-items-list .ticket-status-col {
+        min-width: 80px;
+    }
+
+@media(max-width: 350px) {
+    .milestone-items-list {
+        font-size: 8pt;
+    }
+
+        .milestone-items-list .ticket-status-col {
+            display: none;
+        }
+}
+
+.milestone-no-item {
+    margin: 20px 0px;
+}
+
+.milestone-fields-header {
+    margin: 10px 0px;
+}
+
+    .milestone-fields-header .milestone-closed, .milestone-fields-header .milestone-open, .milestone-fields-header .backlog-icon {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+        border-radius: 10px;
+    }
+
+    .milestone-fields-header .milestone-closed {
+        background-color: gray;
+    }
+
+    .milestone-fields-header .milestone-open {
+        background-color: green;
+    }
+
+    .milestone-fields-header .backlog-icon {
+        background-color: #d0a428;
+    }
+
+.info-page {
+    border: 1px solid gray;
+    background-color: white;
+    position: fixed;
+    width: 300px;
+    height: 100px;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px; // Negative half of height.
+    margin-left: -150px; //
+    padding: 15px;
+}
+
+    .info-page .close-link {
+        display: inline-block;
+        padding-left: 15px;
+    }
+
+.ticket-menu-container {
+    position: relative;
+    display: block;
+
+    .ticket-milestone-menu {
+        position: fixed;
+        width: 240px;
+        background-color: white;
+        min-height: 50px;
+        border: 1px solid #ccc;
+        list-style: none;
+        padding: 5px 0px 0px 0px;
+        box-shadow: 0px 6px 12px rgba(0,0,0,0.175);
+        -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+        border-radius: 4px;
+
+        li {
+            display: inline-block;
+            margin: 0px 0px;
+            width: 100%;
+            min-height: 25px;
+            padding-left: 10px;
+            padding-top: 5px;
+            line-height: 1.2em;
+        }
+
+            li a {
+                display: inline-block;
+                color: black;
+                width: 100%;
+                height: 100%;
+                text-decoration: none;
+                padding: 10px 20px 5px 0px;
+            }
+
+            li:hover {
+                background-color: #428bca !important;
+                color: white;
+            }
+
+                li:hover a {
+                    background-color: #428bca !important;
+                    color: white;
+                }
+    }
+
+    .menu-hidden {
+        display: none;
+        visibility: hidden;
+    }
+
+    .z2 {
+        z-index: 2000;
+    }
+
+    .z1 {
+        z-index: 1000;
+    }
+}
+
+.milestone-item-menu-container {
+    position: relative;
+    width: 40px;
+    display: block;
+    visibility: hidden;
+}
+
+tr:hover .milestone-item-menu-container {
+    visibility: visible;
+}
+
+.milestone-item-menu-container .pivot {
+    background-color: #f8f8f8;
+    display: inline-block;
+    min-width: 25px;
+    min-height: 25px;
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+    margin: 0px 5px 0px 15px;
+    border-radius: 4px;
+}
+
+.milestone-item-menu-container .selected-pivot {
+    border-color: gray;
+}
+
+.milestone-item-menu-container .pivot {
+    background-image: url(Images/tools-icon.png);
+    width: 18px;
+    height: 21px;
+    background-size: 16px 16px;
+    background-position: center center;
+    display: inline-block;
+    background-repeat: no-repeat;
+}
+
+.milestone-item-menu-container .milestone-item-menu {
+    position: absolute;
+    top: 25px;
+    right: 0px;
+    width: 240px;
+    background-color: white;
+    min-height: 50px;
+    border: 1px solid #ccc;
+    list-style: none;
+    padding: 0px;
+    box-shadow: 0px 6px 12px rgba(0,0,0,0.175);
+    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+    border-radius: 4px;
+}
+
+.milestone-item-menu-container .menu-hidden {
+    display: none;
+}
+
+.milestone-item-menu-container .z1 {
+    z-index: 1000;
+}
+
+.milestone-item-menu-container .z2 {
+    z-index: 2000;
+}
+
+
+.milestone-item-menu-container .milestone-item-menu li {
+    display: inline-block;
+    margin: 0px 0px;
+    width: 100%;
+    min-height: 25px;
+    padding-left: 10px;
+    line-height: 1.2em;
+}
+
+    .milestone-item-menu-container .milestone-item-menu li a {
+        display: inline-block;
+        color: black;
+        width: 100%;
+        height: 100%;
+        text-decoration: none;
+        padding: 10px 20px 5px 0px;
+    }
+
+    .milestone-item-menu-container .milestone-item-menu li:hover {
+        background-color: #428bca !important;
+        color: white;
+    }
+
+        .milestone-item-menu-container .milestone-item-menu li:hover a {
+            background-color: #428bca !important;
+            color: white;
+        }
+
+.milestone-item-menu-container:hover .pivot {
+}
+
+.milestone-item-menu-container:hover .menu-hidden {
+    display: block;
+}
+
+.ticket-menu-col {
+    width: 50px;
+}
+
+.milestone-gantt-items td {
+    padding-left: 0px;
+    padding-right: 0px;
+    height: 30px;
+}
+
+
+.milestone-gantt-items .alt-row td:first-child {
+    border-left: 3px solid gray;
+}
+
+.milestone-gantt-items .normal-row td:first-child {
+    border-left: 3px solid #bbb;
+}
+
+
+.milestone-gantt-items .ticket-gantt-row-id {
+    vertical-align: top;
+    width: 50px;
+    padding-left: 5px;
+    padding-right: 10px;
+    text-align: right;
+}
+
+.milestone-gantt-items .ticket-gantt-row-name {
+    vertical-align: top;
+    width: 200px;
+}
+
+    .milestone-gantt-items .ticket-gantt-row-name a {
+        display: inline-block;
+        width: 200px;
+        overflow: hidden;
+    }
+
+.milestone-gantt-items {
+    .date-col {
+        width: 50px;
+        text-align: center;
+        padding-right: 10px;
+    }
+
+    .month-col {
+        text-align: center;
+    }
+
+    .month {
+        display: inline-block;
+        padding: 0px 10px;
+    }
+}
+
+.ganttchart-guide {
+    h4 {
+        margin-top: 20px;
+        margin-left: 5px;
+        margin-bottom: 2px;
+        font-weight: bold;
+    }
+
+    span {
+        display: inline-block;
+        width: 100px !important;
+        height: 25px;
+        text-align: center;
+        padding-top: 4px;
+        margin: 5px;
+    }
+}
+
+.open-status-type, .deferred-status-type, .closed-status-type, .new-status-type, .overdue-status, .pending-status-type {
+    width: 100%;
+    height: 20px;
+    vertical-align: top;
+}
+
+.overdue-status {
+    background-color: red;
+    color: white;
+}
+
+.new-status-type {
+    background-color: yellow;
+}
+
+.open-status-type {
+    background-color: lightgreen;
+}
+
+.deferred-status-type {
+    background-color: pink;
+}
+
+.pending-status-type {
+    background-color: #d0a428;
+}
+
+.closed-status-type {
+    background-color: darkgreen;
+    color: white;
+}
+
+#milestoneGanttChartContainer {
+}
+
+.milestoneGantt {
+    position: relative;
+}
+
+.milestone-gantt-container1 {
+    border: 1px solid #e7e7e7;
+}
+
+    .milestone-gantt-container1 .milestone-tickets-header {
+        border: none !important;
+        margin-top: 0px !important;
+    }
+
+.milestone-gantt-container {
+    width: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
+    /*border-right: 1px solid #e7e7e7;
+    border-left: 1px solid #e7e7e7;*/
+}
+
+
+.ticket-add-comment-modal {
+    textarea {
+        width: 100%;
+    }
+
+    .label-row {
+        margin-top: 10px;
+    }
+}
+
+.ticket-edit-modal {
+
+    input[type='text'], select {
+        width: 100%;
+    }
+
+    .full-mode-link {
+        display: inline-block;
+        margin-left: 15px;
+        font-size: 12px !important;
+    }
+
+    .label-row {
+        margin-top: 10px;
+    }
+}

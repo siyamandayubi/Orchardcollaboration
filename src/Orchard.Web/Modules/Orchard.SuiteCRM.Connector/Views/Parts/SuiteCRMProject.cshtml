@@ -1,0 +1,37 @@
+﻿@{
+    DateTime lastSyncTime = Model.Model.LastSyncTime;
+    int projectId = Model.Model.ProjectId;
+    string externalId = Model.Model.ExternalId;
+    string lastSyncTimeString = lastSyncTime == default(DateTime) ? string.Empty : lastSyncTime.ToString("dd/MM/yyyy hh:mm tt");
+    string suiteCRMAddress = Model.Model.SuiteCRMAddress;
+
+    string syncText = string.IsNullOrEmpty(suiteCRMAddress) ? T("Sync SuiteCRM").Text : T("Sync").Text;
+}
+<div class="project-sync-info">
+    @if (!string.IsNullOrEmpty(suiteCRMAddress))
+    {
+        <a href="@Model.Model.SuiteCRMAddress" target="_blank">@T("View in SuiteCRM")</a>
+    }
+    <a class="sync-hyperlink" 
+        data-projectid="@projectId " 
+        data-externalid="@externalId" 
+        data-copyto="@Url.Action("CopyOrchardProjectsToSuite", "Sync", new { area = "Orchard.SuiteCRM.Connector" })" 
+        data-copyfrom="@Url.Action("CopySuiteToOrchardProjects", "Sync", new { area = "Orchard.SuiteCRM.Connector" })" href="#">@syncText</a>
+    @if (!string.IsNullOrEmpty(lastSyncTimeString))
+    {
+        <span>@T("Last Sync Time:")</span>
+        <span class="sync-time">@lastSyncTimeString</span>
+    }
+    else
+    {
+        <span>@T("Not synced yet")</span>
+    }
+</div>
+@using (Script.Foot())
+{
+    <script language="javascript" type="text/javascript">
+        $(document).ready(function () {
+            $(".project-sync-info").syncProjectWidget();
+        });
+    </script>
+}

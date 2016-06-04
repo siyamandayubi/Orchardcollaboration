@@ -1,0 +1,314 @@
+﻿<Placement>
+  <Place Parts_Project="Content:3"/>
+  <Place Parts_ContentItemPermission="Content:4"/>
+  <Place Parts_ProjectList="Content:3"/>
+  <Place Parts_FolderList="BesideContent:1"/>
+  <Place Parts_Discussion="Content:3"/>
+  <Place Parts_Project_Edit="Content:3"/>
+  <Place Parts_Folder_Edit="Content:3"/>
+  <Place Parts_Discussion_Edit="Content:3"/>
+  <Place Parts_AttachToProject_HiddenField_Edit="Content:3"></Place>
+  <Place Parts_AttachToFolder_Edit="Content:3"/>
+  <Match ContentType="ProjectListItem">
+    <Place Parts_Common_Body_Summary="-"
+        Parts_Common_Body="-"
+        Parts_Common_Metadata="-"/>
+  </Match>
+  <Match ContentType="ProjectWiki">
+    <Place Parts_Project_Title="Header:1"/>
+    <Place Parts_FilesList="-"/>
+    <Place Parts_Common_Metadata="-"/>
+    <Place Parts_Common_Metadata_Summary="-"/>
+    <Place Parts_Wiki_Title="Header:1"/>
+    <Place Parts_Project_Menu="Header:2"/>
+  </Match>
+  <Match ContentType="RootWiki">
+    <Place Parts_Project_Title="Header:1"/>
+    <Place Parts_FilesList="-"/>
+    <Place Parts_Common_Metadata="-"/>
+    <Place Parts_Common_Metadata_Summary="-"/>
+    <Place Parts_Wiki_Title="Header:1"/>
+    <Place Parts_Project_Menu="Header:2"/>
+    <Place Parts_AttachedToFolderList="Content:2"/>
+  </Match>
+  <Match ContentType="FolderItem">
+    <Place Parts_Project_Title="-"/>
+    <Place Parts_Folder_Title="Header:1"/>
+    <Place Parts_Folder_Menu="Header:2"/>
+    <Place Parts_FilesList="-"/>
+    <Place Parts_AttachedToFolderList="Content:2"/>
+    <Place Parts_Common_Metadata="-"/>
+    <Place Parts_Common_Metadata_Summary="-"/>
+    <Place Parts_Common_Owner_Edit="-"/>
+    <Place Parts_Common_Container_Edit="-"/>
+    <Place Parts_ContentItemPermission_Edit="-"></Place>
+    <Match DisplayType="ChangePermissionsTitle">
+      <Place Parts_Folder_ChangePermissionsTitle="Header:1"/>
+      <Place Parts_FilesList="-"/>
+      <Place Parts_Common_Metadata="-"/>
+      <Place Parts_Common_Metadata_Summary="-"/>
+    </Match>
+    <Match DisplayType="TitleAndMenu">
+      <Place Parts_Common_Body="-"/>
+      <Place Parts_Common_Body_Summary="-"/>
+      <Place Parts_Folder_ChangePermissionsTitle="Header:1"/>
+      <Place Parts_Common_Metadata_Summary="Content:2"/>
+    </Match>
+    <Match DisplayType="Summary">
+      <Place Parts_Common_Metadata="BesideContent:1"/>
+      <Place Parts_Folder_Summary="Content:1"/>
+      <Place Parts_Title="-"/>
+      <Place Parts_Folder_Title="Content:1"/>
+      <Place Parts_FolderList="-"/>
+      <Place Parts_Wiki_Menu="-"/>
+      <Place Parts_Wiki_Title="-"/>
+      <Place Parts_Folder_Menu="-"/>
+    </Match>
+  </Match>
+  <Match ContentType="WikiItem">
+    <Place Parts_Common_Metadata_Summary="-"/>
+    <Place Parts_Common_Owner_Edit="-"/>
+    <Place Parts_Common_Container_Edit="-"/>
+    <Place Parts_Common_Body_Edit="Content:2"/>
+    <Place Parts_Common_Body="-"/>
+    <Place Parts_Common_Body_Summary="-"/>
+    <Place Parts_ContentItemPermission_Edit="-"></Place>
+    <Place Parts_Folder_Title="Header:1"/>
+    <Place Parts_Wiki_Title="Header:1"/>
+    <Place Parts_Project_Menu="-"/>
+    <Place Parts_Folder_Menu="Header:2"/>
+    <Match DisplayType="Detail">
+      <Place Parts_Common_Metadata="Content:0.5"/>
+      <Place Parts_Title_Summary="-"/>
+      <Place Parts_Title="BeforeContent:1"/>
+      <Place Parts_FilesList="BesideContent2:2" />
+      <Place Parts_FileUpload_Edit="BesideContent2:3" />
+      <Place Parts_TicketsForContentItem="BesideContent2:1"/>
+      <Place Parts_Common_Body="Content:2"/>
+      <Place Parts_Project_Menu="Header:2"/>
+    </Match>
+    <Match DisplayType="Summary">
+      <Place Parts_Common_Metadata="BesideContent:1"/>
+      <Place Parts_Title_Summary="Content:1"/>
+      <Place Parts_Title="-"/>
+      <Place Parts_Folder_Title="-"/>
+      <Place Parts_FolderList="-"/>
+      <Place Parts_Wiki_Menu="-"/>
+      <Place Parts_Wiki_Title="-"/>
+      <Place Parts_Folder_Menu="-"/>
+      <Place Parts_FilesList_Summary="Content:2"/>
+      <Place Parts_CRMComments_Summary="Content:2"/>
+    </Match>
+    <Match DisplayType="TitleAndMenu">
+      <Place Parts_Common_Body="-"/>
+      <Place Parts_Common_Body_Summary="-"/>
+      <Place Parts_Title_Summary="Content:1"/>
+      <Place Parts_Common_Metadata_Summary="-"/>
+      <Place Parts_Folder_Menu="-"/>
+    </Match>
+  </Match>
+  <Match ContentType="ProjectActivityStream">
+    <Place Parts_Project_Title="Header:1"/>
+    <Place Parts_Title="-"/>
+    <Place Parts_Project_Menu="Header:2"/>
+    <Place Parts_Common_Metadata="-"/>
+    <Place Parts_Common_Metadata_Summary="-"/>
+    <Place Parts_Common_Owner_Edit="-"/>
+    <Place Parts_Common_Container_Edit="-"/>
+  </Match>
+  <Match ContentType="DiscussionItem">
+    <Place Parts_Project_Title="Header:1"/>
+    <Place Parts_Project_Menu="Header:2"/>
+    <Place Parts_Common_Body="Content:2"/>
+    <Place Parts_Common_Metadata_Summary="-"/>
+    <Place Parts_Common_Owner_Edit="-"/>
+    <Place Parts_Common_Container_Edit="-"/>
+    <Place Parts_ContentItemPermission_Edit="-"></Place>
+    <Match DisplayType="Summary">
+      <Place Parts_Common_Body="-"/>
+      <Place Parts_Common_Body_Summary="-"/>
+      <Place Parts_Title_Summary="Content:1"/>
+      <Place Parts_FilesList_Summary="Content:2"/>
+      <Place Parts_CRMComments_Summary="Content:2"/>
+      <Place Parts_Common_Metadata="BesideContent:1"/>
+    </Match>
+    <Match DisplayType="TitleAndMenu">
+      <Place Parts_Common_Body="-"/>
+      <Place Parts_Common_Body_Summary="-"/>
+      <Place Parts_Title_Summary="Content:1"/>
+    </Match>
+    <Match DisplayType="Detail">
+      <Place Parts_Common_Metadata="BesideContent:1"/>
+      <Place Parts_Title="BeforeContent:1"/>
+      <Place Parts_FilesList="BesideContent2:1" />
+      <Place Parts_CRMComments="AfterContent:1"/>
+      <Place Parts_FileUpload_Edit="BesideContent2:2" />
+    </Match>
+  </Match>
+  <Match ContentType="MilestoneItem">
+    <Place Parts_Project_Title="Header:1"/>
+    <Place Parts_Project_Menu="Header:2"/>
+    <Place Parts_Common_Metadata_Summary="-"/>
+    <Place Parts_Common_Owner_Edit="-"/>
+    <Place Parts_Common_Container_Edit="-"/>
+    <Place Parts_Milestone_Edit="Content:2"/>
+    <Place Parts_Milestone_Tickets="Content:2"/>
+    <Place Parts_Milestone_Planner="Content:2"/>
+    <Place Parts_Milestone_GanttChart="Content:2"/>
+    <Place Parts_ContentItemPermission_Edit="-"></Place>
+    <Match DisplayType="Summary">
+      <Place Parts_Title_Summary="Content:1"/>
+      <Place Parts_Common_Metadata="BesideContent:1"/>
+      <Place Parts_Milestone_Data="Content:3"/>
+    </Match>
+    <Match DisplayType="TitleAndMenu">
+      <Place Parts_Title_Summary="Content:1"/>
+    </Match>
+    <Match DisplayType="Detail">
+      <Place Parts_Common_Metadata="-"/>
+      <Place Parts_Title="BeforeContent:1"/>
+      <Place Parts_Milestone_Data="BeforeContent2:1"/>
+    </Match>
+    <Match DisplayType="GanttChart">
+      <Place Parts_Common_Metadata="-"/>
+      <Place Parts_Title="BeforeContent:1"/>
+      <Place Parts_Milestone_Data="BeforeContent2:1"/>
+    </Match>
+    <Match DisplayType="Planner">
+      <Place Parts_Milestone_Data="BeforeContent2:1"/>
+      <Place Parts_Common_Metadata="-"/>
+      <Place Parts_Title="BeforeContent:1"/>
+    </Match>
+  </Match>
+  <Match ContentType="ProjectMenu">
+    <Place Parts_Common_Metadata="-"/>
+    <Place Parts_Common_Metadata_Summary="-"/>
+    <Place Parts_Contents_Publish="-"></Place>
+  </Match>
+  <Match ContentType="ProjectItem">
+    <Place Parts_Project_Title="Header:1"/>
+    <Place Parts_Project_Menu="Header:2"/>
+    <Place Parts_Project_Summary="Content:3"/>
+    <Place Parts_Common_Metadata="-"/>
+    <Place Parts_Common_Metadata_Summary="-"/>
+    <Place Parts_Common_Owner_Edit="-"/>
+    <Place Parts_ProjectDashboardEditor_Edit="Content:4"/>
+    <Place Parts_MenuWidget="-"/>
+    <Place Parts_Common_Container_Edit="-"/>
+    <Match DisplayType="Detail">
+      <Place Parts_MenuWidget="Header:2"/>
+    </Match>
+    <Match DisplayType="ChangePermissionsTitle">
+      <Place Parts_Project_ChangePermissionsTitle="Header:1"/>
+      <Place Parts_FilesList="-"/>
+      <Place Parts_Common_Metadata="-"/>
+      <Place Parts_Common_Metadata_Summary="-"/>
+    </Match>
+    <Match  DisplayType="Summary">
+      <Place Parts_FilesList="-"/>
+      <Place Parts_Common_Metadata="-"/>
+      <Place Parts_Common_Metadata_Summary="-"/>
+      <Place Parts_Project_LastChange="Content:1"/>
+      <Place Parts_LatestActiveUsers="Footer:1"/>
+    </Match>
+  </Match>
+  <Match ContentType="ProjectDetail">
+    <Place Parts_Common_Metadata="-"/>
+    <Place Parts_Common_Metadata_Summary="-"/>
+    <Place Parts_Common_Owner_Edit="-"/>
+    <Place Parts_Common_Container_Edit="-"/>
+  </Match>
+  <Match ContentType="ProjectTicketsSummaryGroupByStatus">
+    <Place Parts_Common_Metadata="-"/>
+    <Place Parts_Common_Metadata_Summary="-"/>
+    <Place Parts_Common_Owner_Edit="-"/>
+    <Place Parts_Common_Container_Edit="-"/>
+  </Match>
+  <Match ContentType="ProjectLastActivityStream">
+    <Place Parts_Common_Metadata="-"/>
+    <Place Parts_Common_Metadata_Summary="-"/>
+    <Place Parts_Common_Owner_Edit="-"/>
+    <Place Parts_Common_Container_Edit="-"/>
+    <Place Parts_Title="-"/>
+  </Match>
+  <Match ContentType="ProjectTickets">
+    <Place Parts_Project_Title="Header:1"/>
+    <Place Parts_Project_Menu="Header:2"/>
+    <Place Parts_Common_Metadata="-"/>
+    <Place Parts_Common_Metadata_Summary="-"/>
+    <Place Parts_Common_Owner_Edit="-"/>
+    <Place Parts_Common_Container_Edit="-"/>
+    <Place Parts_Title="-"/>
+  </Match>
+  <Match ContentType="ProjectDiscussions">
+    <Place Parts_Project_Title="Header:1"/>
+    <Place Parts_Project_Menu="Header:2"/>
+    <Place Parts_Common_Metadata="-"/>
+    <Place Parts_Common_Metadata_Summary="-"/>
+    <Place Parts_Common_Owner_Edit="-"/>
+    <Place Parts_Common_Container_Edit="-"/>
+    <Place Parts_Title="-"/>
+  </Match>
+  <Match ContentType="DiscussionsSummary">
+    <Place Parts_Common_Metadata="-"/>
+    <Place Parts_Common_Metadata_Summary="-"/>
+    <Place Parts_Common_Owner_Edit="-"/>
+    <Place Parts_Common_Container_Edit="-"/>
+    <Place Parts_Title="-"/>
+  </Match>
+  <Match ContentType="Ticket">
+    <Place Parts_Follow_Link="Menu:1"></Place>
+    <Match  DisplayType="Detail">
+      <Place Parts_AttachMilestone="FieldsAndProperties:2"></Place>
+    </Match>
+  </Match>
+  <Match ContentType="TicketsSummary">
+    <Place Parts_Common_Metadata="-"/>
+    <Place Parts_Common_Metadata_Summary="-"/>
+    <Place Parts_Common_Owner_Edit="-"/>
+    <Place Parts_Common_Container_Edit="-"/>
+    <Place Parts_Title="-"/>
+  </Match>
+  <Place Fields_Project_File_Edit="Content:2.5"/>
+  <Match DisplayType="SummaryAdmin">
+    <Place Fields_Project_File="-"/>
+  </Match>
+  <Match DisplayType="Summary">
+    <Place Fields_Project_File="-"/>
+  </Match>
+  <Place Fields_Project_File="Content:after"/>
+  <Place Parts_ProjectItemPermissions_Edit="Content:3"></Place>
+  <Match ContentType="EmptyContentItem">
+    <Place Parts_Common_Metadata="-"/>
+    <Place Parts_Common_Metadata_Summary="-"/>
+    <Place Parts_Common_Owner_Edit="-"/>
+    <Place Parts_Common_Container_Edit="-"/>
+    <Place Parts_Title_Summary="-"/>
+    <Place Parts_Title="Content:1"/>
+  </Match>
+  <Match ContentType="ProjectDashboardProjectionPortlet">
+    <Place Parts_Common_Metadata="-"/>
+    <Place Parts_Common_Metadata_Summary="-"/>
+    <Place Parts_Common_Owner_Edit="-"/>
+    <Place Parts_Common_Container_Edit="-"/>
+    <Place Parts_Title="-"/>
+  </Match>
+  <Match ContentType="ProjectDashboardReportViewerPortlet">
+    <Place Parts_Title="-"/>
+    <Place Parts_Common_Metadata="-"/>
+    <Place Parts_Common_Metadata_Summary="-"/>
+    <Place Parts_Common_Owner_Edit="-"/>
+    <Place Parts_Common_Container_Edit="-"/>
+  </Match>
+  <Match ContentType="ProjectProjection">
+    <Place Parts_Project_Title="Header:1"/>
+    <Place Parts_Common_Metadata="-"/>
+    <Place Parts_Common_Metadata_Summary="-"/>
+    <Place Parts_Common_Owner_Edit="-"/>
+    <Place Parts_Common_Container_Edit="-"/>
+    <Place Parts_Title="-"/>
+    <Place Fields_Input="-"/>
+  </Match>
+  <Place Parts_Project_Menu="Header:2"/>
+  <Place Parts_Project_Title="Header:1"/>
+</Placement>

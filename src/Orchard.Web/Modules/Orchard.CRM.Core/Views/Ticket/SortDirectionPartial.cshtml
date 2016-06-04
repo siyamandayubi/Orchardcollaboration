@@ -1,0 +1,19 @@
+﻿@using System.Web.Routing;
+@using System.Globalization;
+@using Orchard.CRM.Core.Models;
+@using Orchard.CRM.Core.ViewModels;
+@using Orchard.ContentManagement;
+@model SearchTicketsViewModel
+@{
+    string columnName = (string)ViewData["ColumnName"];
+    string hiddenClass = Model.PagerParameters.SortField == columnName ? string.Empty : "hidden";
+
+    string directionClass = "sort-direction-up";
+    if (columnName == Model.PagerParameters.SortField && Model.PagerParameters.Descending)
+    {
+        directionClass = "sort-direction-down";
+    }
+}
+<div class="sort-dir @hiddenClass @directionClass">
+    <span>&nbsp;</span>
+</div>

@@ -1,0 +1,64 @@
+﻿@using Orchard.ContentManagement;
+@using System.Globalization;
+@using Orchard.Core.Title.Models;
+@using Orchard.CRM.Core.ViewModels;
+@{
+    TicketViewModel ticketViewModel = Model.Model;
+    string returnUrlString = Model.ReturnUrl;
+}
+<td class="id idColumn">
+    @if (ticketViewModel.TicketNumber != null)
+    {
+        <a class="link" href="@Url.Action("Display", "Ticket", new { area = "Orchard.CRM.Core", id = ticketViewModel.ContentItemId, returnUrl = returnUrlString })">@ticketViewModel.TicketNumber</a>
+    }
+</td>
+<td>
+    @{
+        string title = !string.IsNullOrEmpty(ticketViewModel.Title) && ticketViewModel.Title.Length > 50 ? ticketViewModel.Title.Substring(0, 50) + "..." : ticketViewModel.Title;
+    }
+    <a class="link" href="@Url.Action("Display", "Ticket", new { area = "Orchard.CRM.Core", id = ticketViewModel.ContentItemId, returnUrl = returnUrlString })" title="@ticketViewModel.Title">@title</a>
+</td>
+<td class="time">
+    @if (ticketViewModel.DueDate.HasValue)
+    {
+        DateTime dateTime = ticketViewModel.DueDate.Value;
+        DateTime date = dateTime.Date;
+        string dateTimeString = string.Format(CultureInfo.InvariantCulture, "{0} {1}", dateTime.ToLongDateString(), dateTime.ToShortTimeString());
+        DateTime now = DateTime.Now.Date;
+        var threeDays = now.AddDays(3);
+
+        if (date == now)
+        {
+            <span title="@dateTimeString">@T("Today")</span>
+        }
+        else if (date == now.AddDays(1))
+        {
+            <span title="@dateTimeString">@T("Tomorrow")</span>
+        }
+        else if (date > now.AddDays(1) &&
+                ticketViewModel.DueDate.Value.Date <= threeDays)
+        {
+            <span title="@dateTimeString">
+                @T("In three days")
+            </span>
+        }
+        else if (date > threeDays)
+        {
+            int days = date.Subtract(now).Days;
+
+            <span title="@dateTimeString">
+                @T("overdue in " + days.ToString() + " days")
+            </span>
+        }
+        else if (date < now)
+        {
+            <span title="@dateTimeString">@T("Overdue")</span>
+        }
+    }
+</td>
+<td class="priority">
+    @ticketViewModel.PriorityName
+</td>
+<td class="status">
+    @ticketViewModel.StatusName
+</td>

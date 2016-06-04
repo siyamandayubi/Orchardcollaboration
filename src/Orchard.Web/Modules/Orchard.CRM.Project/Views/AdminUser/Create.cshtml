@@ -1,0 +1,16 @@
+@{ Layout.Title = T("Add User").ToString(); }
+@Display(New.Stylesheet())
+
+<article class="panel panel-default edit-user">
+    <header class="panel-heading">
+        <h2>@T("Add User")</h2>
+    </header>
+    <div class="panel-body">
+        @using (Html.BeginFormAntiForgeryPost())
+        {
+            @Html.ValidationSummary()
+            // Model is a Shape, calling Display() so that it is rendered using the most specific template for its Shape type
+            @Display(Model)
+        }
+    </div>
+</article>

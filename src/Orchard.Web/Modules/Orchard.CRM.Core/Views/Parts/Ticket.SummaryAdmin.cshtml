@@ -1,0 +1,13 @@
+﻿@using Orchard.ContentManagement;
+@using Orchard.Core.Title.Models;
+@using Orchard.CRM.Core.Models;
+@{
+      var ticketViewMoodel = (Orchard.CRM.Core.ViewModels.TicketViewModel)Model.Model;
+}
+<div class="ticket-summary-admin">
+    <span>@T("Ticket Identity:")</span>
+    @{
+        string ticketIdentity = ticketViewMoodel.TicketId.HasValue ? ticketViewMoodel.TicketId.ToString() : string.Empty;
+    }
+    <span>@ticketIdentity </span>
+</div>

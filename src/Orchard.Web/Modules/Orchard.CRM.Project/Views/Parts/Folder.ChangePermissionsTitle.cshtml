@@ -1,0 +1,20 @@
+﻿@using Orchard.CRM.Project.ViewModels;
+@using Orchard.CRM.Project;
+@{
+    FolderWithAncestorsViewModel folder = Model.Model;
+}
+<h4>
+    <span>@T("Edit Permissions - ")</span>
+    <a href="@Url.Action("Display", "Folder", new { area = "Orchard.CRM.Project", id = folder.FolderId })">@folder.Title</a>
+</h4>
+<div>
+    <span>@T("Project:")</span>
+    <a href="@Url.Action("Display", "Project", new { area = "Orchard.CRM.Project", id = folder.ProjectId })">@folder.Project.Title</a>
+    <a href="@Url.Action("DisplayProjectRelatedItem", "Project", new { area = "Orchard.CRM.Project", projectId = folder.ProjectId, contentType = ContentTypes.WikiContentType })">@T(" - Wiki")</a>
+    @foreach (var item in folder.Ancestors)
+    {
+        <span>@Html.Raw(" > ")</span>
+        <a href="@Url.Action("Display", "Folder", new { id = item.FolderId, area ="Orchard.CRM.Project" })">@item.Title</a>
+    }
+</div>
+<div class="space"></div>

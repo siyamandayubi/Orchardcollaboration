@@ -1,0 +1,89 @@
+﻿<?xml version="1.0"?>
+<Orchard>
+  <Recipe>
+    <Name>OrchardCollaboration - Sugar/Suite CRMs Integration</Name>
+    <Description>In addition to the default features of OrchardCollaboration such as ticketing system, project management and collaboration framework, the recipe contains integration module with Sugar/Suite CRMS.
+    The integration allows user to import/export data between OrchardCollaboration and Sugar/Suite CRMs</Description>
+    <Author>Siyamand Ayubi</Author>
+    <WebSite>http://orchardcollaboration.com</WebSite>
+    <Category>Orchard Collaboration</Category>
+    <Tags></Tags>
+    <Version>1.0</Version>
+    <IsSetupRecipe>true</IsSetupRecipe>
+  </Recipe>
+
+  <Feature enable="Orchard.Blogs,Orchard.Comments,Orchard.Tags,Orchard.Alias,Orchard.Autoroute,
+                   TinyMce,Orchard.MediaLibrary,Orchard.ContentPicker,Orchard.PublishLater,
+                   Orchard.jQuery,Orchard.Widgets,Orchard.ContentTypes,
+                   Orchard.Scripting,Orchard.Scripting.Lightweight,PackagingServices,Orchard.Packaging,
+                   Orchard.Projections,Orchard.Fields,Orchard.OutputCache,Orchard.Taxonomies,Orchard.Workflows,Orchard.Workflows.Timer,
+                   S22.IMAP, Orchard.Email, Orchard.Search, Lucene, Orchard.Tokens, Orchard.CRM.Core, 
+                   Orchard.Taxonomies, Orchard.Reporting, Orchard.Lists, Orchard.CRM.Project, Orchard.SuiteCRM.Connector, Orchard.Recipes,Orchard.CustomForms,Orchard.Layouts,Orchard.Layouts.Tokens,
+                   Bootstrap" />
+  <Metadata>
+    <Types>
+      <Page ContentTypeSettings.Draftable="True" TypeIndexing.Indexes="Search">
+        <TagsPart />
+        <LocalizationPart />
+        <TitlePart/>
+        <AutoroutePart />
+        <MenuPart />
+      </Page>
+      <BlogPost ContentTypeSettings.Draftable="True" TypeIndexing.Indexes="Search">
+        <CommentsPart />
+        <TagsPart />
+        <LocalizationPart />
+        <TitlePart/>
+        <AutoroutePart />
+      </BlogPost>
+    </Types>
+    <Parts>
+      <BodyPart BodyPartSettings.FlavorDefault="html" />
+    </Parts>
+  </Metadata>
+
+  <Settings />
+
+  <Migration features="*" />
+
+  <Command>
+    layer create Default /LayerRule:"true" /Description:"The widgets in this layer are displayed on all pages"
+
+    layer create Authenticated /LayerRule:"authenticated" /Description:"The widgets in this layer are displayed when the user is authenticated"
+    layer create AuthenticatedOperator /LayerRule:"authenticated and (permission('OperatorPermission') or permission('AdvancedOperatorPermission'))" /Description:"The widgets in this layer are displayed to operator and advanced-operator users"
+    layer create AuthenticatedOperatorHomePage /LayerRule:"url('~/') and authenticated and (permission('OperatorPermission') or permission('AdvancedOperatorPermission'))" /Description:"The widgets in this layer are displayed to operator and advanced-operator users"
+    layer create AuthenticatedCustomer /LayerRule:"authenticated and permission('CustomerPermission') and not (permission('OperatorPermission') or permission('AdvancedOperatorPermission'))" /Description:"The widgets in this layer are displayed to customer users"
+    layer create AuthenticatedCustomerHomePage /LayerRule:"url('~/') and authenticated and permission('CustomerPermission') and not (permission('OperatorPermission') or permission('AdvancedOperatorPermission'))" /Description:"The widgets in this layer are displayed to customer users"
+    layer create Anonymous /LayerRule:"not authenticated" /Description:"The widgets in this layer are displayed when the user is anonymous"
+    layer create AnonymousHomePage /LayerRule:"not authenticated and url('~/')" /Description:"The widgets in this layer are displayed in the homepage for anonymous users"
+
+    layer create Disabled /LayerRule:"false" /Description:"The widgets in this layer are never displayed"
+    layer create TheHomepage /LayerRule:"url '~/'" /Description:"The widgets in this layer are displayed on the home page"
+    site setting set baseurl
+
+    menu create /MenuName:"Main Operator Menu"
+    ticket-dashboard-widget create /Title:"Dashboard" /LayerName:"AuthenticatedOperatorHomePage" /Zone:"Content" /RenderTitle:false
+    tickets-menu create /MenuName:"Main Operator Menu" /MenuText:"Tickets"
+    projectlist-create /MenuName:"Main Operator Menu" /MenuText:"Projects"
+    menuitem create /MenuPosition:"0" /MenuText:"Home" /Url:"~/" /MenuName:"Main Operator Menu"
+    menuitem create /MenuPosition:"3" /MenuText:"Customers" /Url:"~/OrchardCollaboration.Project/User/Customers" /MenuName:"Main Operator Menu"
+    menuitem create /MenuPosition:"3" /MenuText:"Operators" /Url:"~/OrchardCollaboration.Project/User/Operators" /MenuName:"Main Operator Menu"
+    menuitem create /MenuPosition:"4" /MenuText:"SuiteCRM" /Url:"~/Orchard.SuiteCRM.Connector/Sync/Index" /MenuName:"Main Operator Menu"
+    widget create MenuWidget /Title:"Main Operator Menu" /RenderTitle:false /Zone:"Navigation" /Position:"1" /Layer:"AuthenticatedOperator" /Identity:"MenuWidget1" /MenuName:"Main Operator Menu"
+
+    menu create /MenuName:"Main Customer Menu"
+    ticket-dashboard-widget create /Title:"Dashboard" /LayerName:"AuthenticatedCustomerHomePage" /Zone:"Content" /RenderTitle:false
+    tickets-menu create /MenuName:"Main Customer Menu" /MenuText:"Tickets"
+    projectlist-create /MenuName:"Main Customer Menu" /MenuText:"Projects"
+    menuitem create /MenuPosition:"0" /MenuText:"Home" /Url:"~/" /MenuName:"Main Customer Menu"
+    widget create MenuWidget /Title:"Main Customer Menu" /RenderTitle:false /Zone:"Navigation" /Position:"1" /Layer:"AuthenticatedCustomer" /Identity:"MenuWidget2" /MenuName:"Main Customer Menu"
+
+    menu create /MenuName:"Anonymous Menu"
+    menuitem create /MenuPosition:"0" /MenuText:"Home" /Url:"~/" /MenuName:"Anonymous Menu"
+    widget create MenuWidget /Title:"Anonymous Menu" /RenderTitle:false /Zone:"Navigation" /Position:"1" /Layer:"Anonymous" /Identity:"MenuWidget3" /MenuName:"Anonymous Menu"
+
+    orchardcollaboration homepage create /Title:"Welcome to Orchard Collaboration!" /RenderTitle:true /Zone:"Content" /Position:"1" /Layer:"AnonymousHomePage" /Identity:"PageWidget1"
+    empty-item create /Slug:"welcome-to-orchard-collaboration" /Title:"Welcome to Orchard Collaboration!" /Path:"welcome-to-orchard-collaboration" /Homepage:true
+    theme activate "Bootstrap"
+  </Command>
+</Orchard>

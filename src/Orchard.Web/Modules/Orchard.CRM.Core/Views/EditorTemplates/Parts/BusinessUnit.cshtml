@@ -1,0 +1,13 @@
+﻿@model Orchard.CRM.Core.Models.BusinessUnitPart
+<fieldset>
+    <div>
+        <div class="label-container">
+            <div class="col1 label">@("Name:")</div>
+            <div class="col2">@Html.TextBoxFor(m => m.Name)</div>
+        </div>
+        <div>
+            <div class="col1 label">@T("Description:")</div>
+            <div class="col5">@Html.TextAreaFor(m => m.Description)</div>
+        </div>
+    </div>
+</fieldset>

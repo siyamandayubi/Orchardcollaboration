@@ -1,0 +1,24 @@
+@using Orchard.CRM.Core.Services;
+@using Orchard.ContentManagement;
+@using Orchard.Core.Common.Models;
+@{
+    Layout.Title = Model.Title;
+    ContentItem contentItem = Model.ContentItem;
+}
+<div class="wiki-item-navbar">
+    <div class="header">
+        <div class="item-title-container pull-left">
+            <h4>@Model.Title</h4>
+        </div>
+        <div class="menu-container">
+            @Display(New.ItemMenu(contentItem: Model.ContentItem))
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div id="wiki-content-file-switcher" class="wiki-content-file-view-selector-container">
+        <div class="wiki-content-file-view-selector">
+            <span class="contentSwitcher selected">@T("Content")</span>
+            <span class="fileSwitcher">@T("Related Files")</span>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,58 @@
+﻿.tickets-for-content-item {
+    padding: 5px 0px;
+}
+
+    .tickets-for-content-item:hover {
+        background-color: lightgray;
+    }
+
+    .tickets-for-content-item a {
+        display: inline-block;
+        min-width: 100px;
+        height: 20px;
+        font-size: 9pt;
+        font-family: Arial;
+        line-height: 1.5em;
+        padding: 0px 10px;
+        background-color: @background-color-button !important;
+        border: @border-button !important;
+        border-radius: 5px;
+        color: @color-button !important;
+        text-decoration: none;
+    }
+
+        .tickets-for-content-item a .number {
+            font-weight: bold;
+        }
+
+        .tickets-for-content-item a:hover {
+            text-decoration: none;
+            background-color: @background-color-button-hover !important;
+            border: @border-button-hover !important;
+            border-bottom: @border-button !important;
+            text-shadow: @button-text-shadow;
+        }
+
+  .tickets-for-content-item label {
+        display: inline-block;
+        height: 20px;
+        font-size: 10pt;
+        font-family: Arial;
+        line-height: 1.5em;
+        padding: 0px 10px;
+        margin: 3px;
+        background-color: @background-color-button;
+        border: @border-button !important;
+        border-radius: 2px;
+        color: #e8f0f6;
+    }
+
+    .tickets-for-content-item .links {
+        visibility: hidden;
+    }
+
+
+
+    .tickets-for-content-item:hover .links {
+        visibility: visible;
+    }

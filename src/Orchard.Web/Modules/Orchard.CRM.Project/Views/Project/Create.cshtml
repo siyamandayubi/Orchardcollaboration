@@ -1,0 +1,71 @@
+﻿@using Orchard.ContentManagement
+@using Orchard.Utility.Extensions
+@Display(New.ThemeAwareStylesheet())
+
+@{
+    ContentItem contentItem = Model.ContentItem;
+    var typeDisplayName = contentItem.TypeDefinition.DisplayName ?? contentItem.ContentType.CamelFriendly();
+    var pageTitle = T("New {0}", typeDisplayName);
+
+    Layout.Title = (string)pageTitle.Text;
+    Style.Include("jquery-ui.css");
+    Style.Include("chosen/chosen.css");
+    Script.Require("Chosen");
+}
+<br />
+@using (Html.BeginFormAntiForgeryPost(Url.Action("CreatePOST", new { id = contentItem.ContentType, returnUrl = Request.QueryString["returnUrl"] }), FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="hidden" id="editUrl" value="@Url.Action("EditPOST")" />
+    // Model is a Shape, calling Display() so that it is rendered using the most specific template for its Shape type
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">@T("Create New Project")</h3>
+        </div>
+        <div class="panel-body">
+            <div class="edit-item-primary">
+                @if (Model.Content != null)
+            {
+            <div class="edit-item-content content-project">
+                @if (Model.Header != null)
+                    {
+                    <div class="project-header">
+                        @Display(Model.Header)
+                    </div>
+                    }
+                @Html.ValidationSummary()
+                <div class="project-item">
+                    @Display(Model.Content)
+                </div>
+            </div>
+            }
+                @if (Model.AsideSecond != null)
+            {
+            <div class="left-item">@Display(Model.AsideSecond)</div>
+            }
+            </div>
+            <div class="edit-item-secondary group">
+                @if (Model.Actions != null)
+            {
+            <div class="edit-item-actions">
+                @Display(Model.Actions)
+            </div>
+            }
+                @if (Model.Sidebar != null)
+            {
+            <div class="edit-item-sidebar group">
+                @Display(Model.Sidebar)
+            </div>
+            }
+            </div>
+        </div>   
+    </div>
+
+    if (!String.IsNullOrWhiteSpace(Request.QueryString["returnUrl"]))
+    {
+        @Html.Hidden("returnUrl", Request.QueryString["returnUrl"])
+    }
+}
+
+@{
+    Style.Include("jquery-ui.css");
+}

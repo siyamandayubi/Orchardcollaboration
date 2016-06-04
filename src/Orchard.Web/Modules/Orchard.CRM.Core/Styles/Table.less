@@ -1,0 +1,165 @@
+﻿.search-ticket-container .items {
+    margin: .5em 0 1.4em 0;
+    background: #fff;
+    border: 1px solid #eaeaea;
+    border-bottom: none;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+}
+
+    .search-ticket-container .items .edit-link {
+        background-image: url(Images/tools-icon.png);
+        width: 18px;
+        height: 21px;
+        background-size: 16px 16px;
+        background-position: right center;
+        display: inline-block;
+        background-repeat: no-repeat;
+        position: absolute;
+        top: 6px;
+        right: 15px;
+        visibility: hidden;
+    }
+
+.edit-link-container {
+    position: relative;
+}
+
+.search-ticket-container .items tr:hover .edit-link {
+    visibility: visible;
+}
+
+.search-ticket-container .items .col {
+    border-spacing: 0;
+    display: table-cell;
+    position: relative;
+}
+
+    .search-ticket-container .items .col:hover a {
+        color: #36748E;
+        text-decoration: none;
+    }
+
+.col .sort-direction-up {
+    background-image: url('Images/DownTriangle.png');
+    background-position: center center;
+    background-size: @background-size-sort-direction;
+    background-repeat: no-repeat;
+}
+
+.col:hover .sort-direction-up {
+    background-image: url('Images/DownTriangleHover.png');
+    background-position: center center;
+    background-size: @background-size-sort-direction;
+    background-repeat: no-repeat;
+}
+
+.col .sort-direction-down {
+    background-image: url('Images/UpTraingle.png');
+    background-position: 1px 4px;
+    background-size: @background-size-sort-direction;
+    background-repeat: no-repeat;
+    padding-top: 5px;
+}
+
+.col:hover .sort-direction-down {
+    background-image: url('Images/UpTraingleHover.png');
+    background-position: 1px 4px;
+    background-size: @background-size-sort-direction;
+    background-repeat: no-repeat;
+}
+
+.search-ticket-container .items .col .sort-dir {
+    position: absolute;
+    right: 5px;
+    width: 10px;
+    top: 10px;
+}
+
+.search-ticket-container .items tbody {
+    border-spacing: 0;
+    vertical-align: middle;
+}
+
+.search-ticket-container .items thead {
+    background: @tickets-tabele-header-background-color;
+    overflow: hidden;
+    text-align: left;
+    white-space: nowrap;
+    color: #333;
+}
+
+.search-ticket-container .items th {
+    color: @table-th-color !important;
+    border-bottom: @tickets-tabele-header-border !important;
+    border-top: @tickets-tabele-header-border !important;
+    height: 30px;
+}
+
+    .search-ticket-container .items th a {
+        color: @table-th-a-color !important;
+    }
+
+.items th a:hover {
+    background-color: transparent !important;
+    color: #67747a !important;
+}
+
+.search-ticket-container .items th, .items td {
+    border-bottom: 1px solid #eaeaea;
+    border-spacing: 0px;
+    display: table-cell;
+    padding: 3px 17px 0px 12px;
+    font-weight: inherit;
+    font-style: inherit;
+    font-size: 100%;
+    font-family: inherit;
+    vertical-align: baseline;
+    text-align: left;
+}
+
+.search-ticket-container .items td {
+    color: @table-td-color;
+}
+
+.search-ticket-container .items .ticketRow:hover {
+    background-color: #e8f5ed;
+}
+
+.search-ticket-container .items .idColumn {
+    width: @ticket-search-idColumn;
+}
+
+.search-ticket-container .items .titleColumn {
+    width: @ticket-search-titleColumn;
+}
+
+.search-ticket-container .items .checkboxColumn {
+    width: @ticket-search-checkboxColumn;
+    height: 30px;
+}
+
+.search-ticket-container .items .timeColumn {
+    width: @ticket-search-timeColumn;
+}
+
+.search-ticket-container .items .priorityColumn {
+    width: @ticket-search-priorityColumn;
+}
+
+.search-ticket-container .items .statusColumn {
+    width: @ticket-search-statusColumn;
+}
+
+.search-ticket-container .items .groupColumn {
+    width: @ticket-search-groupColumn;
+}
+
+.search-ticket-container .items .userColumn {
+    width: @ticket-search-userColumn;
+}
+
+.search-ticket-container .items .linksColumn {
+    width: @ticket-search-linksColumn;
+}

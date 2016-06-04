@@ -1,0 +1,642 @@
+﻿@background-color: #11619b;
+@input-width: 200;
+@background-color-button-hover:#337AB7;
+@border-hover:1px solid #2E6DA4;
+@color-hover:#fff;
+@advance-search-border-bottom:1px solid #d7d7d7;
+
+
+.search-ticket-container {
+    min-width: @tickets-search-layout-min-width;
+    font-weight: lighter;
+    font-family: @label-font-family;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 16px;
+    font-family: Verdana;
+}
+
+.advanced-search-button {
+    float: right;
+    width: 20px;
+    height: 24px;
+    margin-left: 4px;
+    position: relative;
+}
+
+@media screen and (max-width : 600px) {
+    .advanced-search-button {
+        display: none !important;
+        visibility: collapse !important;
+    }
+}
+
+.advanced-search-button .icon:hover {
+    background-image: url('Images/DownTriangleHover.png');
+    background-size: @background-size-advance-search;
+    background-position: left center;
+    background-repeat: no-repeat;
+}
+
+.advanced-search-button .icon {
+    width: 20px;
+    height: 24px;
+    margin: 0px;
+    padding: 0px;
+    display: inline-block;
+    background-image: url('Images/DownTriangleIcon.png');
+    background-size: @background-size-advance-search;
+    background-position: left center;
+    background-repeat: no-repeat;
+}
+
+
+.ui-widget-header {
+    background-color: @assign-selected-item-background-color !important;
+    color: @assign-selected-item-color !important;
+}
+
+.advanced-search-button .title-advanced-search {
+    width: 100%;
+    height: 27px;
+    background-color: @advance-search-background-color;
+    line-height: 24px;
+    padding-left: 0px;
+    margin-bottom: 10px;
+    font-family: 'Segoe UI';
+    font-size: 15px;
+    font-weight: bold;
+    border-bottom: @advance-search-border-bottom;
+    color: @advance-search-title-color;
+}
+
+.advanced-search-button .title-advanced-search .dialog-title {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.advanced-search-button .search-bar {
+    position: absolute;
+    top: 24px;
+    right: 0px;
+    width: 450px;
+    padding: 0px;
+    color: #333;
+    background-color: white;
+    border: 1px solid #d7d7d7;
+    font-family: @label-font-family;
+    min-height: 100px;
+    z-index: 1000;
+}
+
+.advanced-search-button .search-bar select {
+    width: unit(@input-width + 1,px);
+}
+
+.advanced-search-button .search-bar input[type='text'] {
+    width: unit(@input-width - 10, px);
+    height: 23px;
+    border: 1px solid #c7c7c7;
+    border-radius: 3px;
+}
+
+.advanced-search-button .search-bar input[type='checkbox'], .advanced-search-button .search-bar input[type='radio'] {
+    padding: 0px;
+    margin: 0px;
+}
+
+.advanced-search-button .search-bar .ticket-toolbar-title {
+    margin-left: 2px;
+    font-weight: 500;
+    font-family: 'Segoe UI';
+    font-size: 10px;
+}
+
+.advanced-search-button .search-bar h1, .advanced-search-button .search-result h1 {
+    font-size: 18px;
+}
+
+.advanced-search-button .search-bar .checkbox-container {
+    vertical-align: middle;
+}
+
+.advanced-search-button .search-bar .title {
+    text-align: left;
+    margin-bottom: 7px;
+    line-height: 20px;
+    display: inline-block;
+    font-family: 'Segoe UI';
+    font-size: 9pt;
+    font-weight: 600;
+}
+
+.search-ticket-container {
+    margin-top: 10px;
+}
+
+.search-ticket-container .agents-container, .search-ticket-container .groups-container {
+    width: 200px;
+    border: none;
+}
+
+.search-ticket-container .agents-container select, .search-ticket-container .groups-container select {
+    max-height: 100px;
+    padding-left: 4px;
+}
+
+
+.search-ticket-container .search-result {
+    min-width: 600px;
+    width: 100%;
+    padding-top: 10px;
+    min-height: 400px;
+    margin-top: 5px;
+}
+
+.search-ticket-container .search-result h3 {
+    margin: 15px 5px !important;
+    text-align: left;
+}
+
+.checkbox-list li {
+    list-style: none;
+    font-family: @label-font-family;
+    font-size: @label-font-size;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.checkbox-list {
+    padding-left: 0px;
+    margin: 5px 0px;
+}
+
+.checkbox-listsearch-ticket-container {
+    padding: 0px;
+    list-style-type: none;
+    text-align: left;
+    line-height: 20px;
+    color: #5c5757;
+    margin-top: 0px;
+    width: 630px;
+}
+
+.quick-search {
+    float: right;
+    width: 170px;
+    height: 26px;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    font-family: 'Segoe UI';
+    padding: 2px;
+    position: relative;
+}
+
+.quick-search input[type='text'] {
+    border: 0px;
+    width: 150px;
+    padding: 0px 0px 0px 4px;
+    height: 20px;
+    display: inline-block;
+}
+
+.quick-search button[type='submit'] {
+    position: absolute;
+    right: 4px;
+    top: 0px;
+    border: none;
+    background-color: transparent;
+    background-image: url('Images/search.png');
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+    background-position: right center;
+    width: 20px;
+    height: 20px;
+}
+
+.quick-search:hover {
+    border: @advance-search-border-hover;
+}
+
+.ticket-toolbar {
+    min-width: 600px;
+    margin: 5px 0px;
+    width: 100%;
+    height: 30px;
+    padding-left: 0px;
+    border-radius: 5px;
+}
+
+.ticket-toolbar a {
+    height: 30px;
+    text-align: left;
+    background-color: @background-color-a-button;
+    width: 15%;
+    display: inline-block;
+    line-height: 27px;
+    font-family: @label-font-family;
+    font-size: 15px;
+    color: @button-a-color;
+    text-decoration: none;
+    border: @border-button;
+    padding: 0px 20px;
+    float: left;
+    margin-bottom: 5px;
+}
+
+.ticket-toolbar a:hover {
+    background: @background-color-button-hover;
+    border: @border-hover;
+    color: @color-hover;
+    font: @label-font-family;
+    font-size: 15px;
+    font-weight: 400;
+    box-shadow: inset 0px 0px 1px rgba(255, 255, 255, 1.0), 1px 1px 1px rgba(102, 102, 102, 0.2);
+    text-decoration: none;
+    line-height: 27px;
+}
+
+.ticket-toolbar button {
+    height: 30px;
+    margin: 5px 5px 5px 0px;
+    text-align: left;
+    background-color: #f8f6f6;
+    width: 18%;
+    min-width: 100px;
+    display: inline-block;
+    line-height: 27px;
+    font-family: @label-font-family;
+    font-size: 15px;
+    color: lightgray;
+    text-decoration: none;
+    border: 1px solid #e8e8e8;
+    padding: 0px 30px;
+    float: left;
+}
+
+.ticket-toolbar button:hover {
+    background-color: white;
+}
+
+.search {
+    margin: 5px 5px 0px 0px;
+    text-align: left;
+    border-radius: 3px;
+    display: inline-block;
+    line-height: 1.4;
+    font-family: @label-font-family;
+    font-size: 13px;
+    color: black;
+    text-decoration: none;
+}
+
+.columnHeader {
+    width: 70px;
+    display: inline-block;
+}
+
+.ticket-pager li {
+    overflow: hidden;
+    display: inline-block;
+    margin: 1px;
+    border: 1px solid lightgray;
+    text-align: center;
+    width: 25px;
+    height: 17px;
+    padding-top: 2px;
+    font-family: @label-font-family;
+    font-size: 10pt;
+}
+
+.ticket-pager a {
+    text-decoration: none;
+    color: gray;
+}
+
+.ticket-pager li:hover {
+    background-color: lightgray;
+    border-color: #bdbbbb;
+}
+
+.ticket-pager a:hover {
+    color: black;
+}
+
+.search-ticket-section-title {
+    font-family: 'Segoe UI';
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 16px;
+    margin-bottom: 5px;
+}
+
+.search-ticket-header {
+    height: @label-font-size;
+    font-family: Verdana;
+    font-size: 13.2px;
+    color: black;
+    font-weight: 600;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    padding-left: 3px;
+    line-height: @label-font-size;
+}
+
+.search-ticket-section {
+    margin-bottom: 5px;
+    float: left;
+    width: 50%;
+    font-family: @label-font-family;
+    font-size: @label-font-size;
+}
+
+.search-ticket-section .checkbox-list {
+    min-height: 100px;
+}
+
+.search-ticket-section .checkbox-list select {
+    width: 95%;
+    margin: 0px 2%;
+}
+
+.search-ticket-section input {
+    margin: .2em 0 .2em !important;
+}
+
+#removeOldPermission {
+    margin-right: 4px;
+}
+
+.button:hover {
+    background-color: @background-color-button;
+}
+
+.inactive-assignButton {
+    background-image: url('Images/share.png');
+    background-size: 20px 20px;
+    background-position: 5px 4px;
+    background-repeat: no-repeat;
+}
+
+.inactive-closeButton {
+    background-image: url('Images/close.png');
+    background-size: 16px 15px;
+    background-position: 5px 7px;
+    background-repeat: no-repeat;
+}
+
+.closeButton {
+    background-image: url('Images/active-close.png');
+    background-size: 16px 15px;
+    background-position: 5px 7px;
+    background-repeat: no-repeat;
+}
+
+.inactive-reopenButton {
+    background-image: url('Images/open.png');
+    background-size: 12px 13px;
+    background-position: 6px 8px;
+    background-repeat: no-repeat;
+}
+
+.reopenButton {
+    background-image: url('Images/active-open.png');
+    background-size: 13px 13px;
+    background-position: 5px 8px;
+    background-repeat: no-repeat;
+}
+
+.inactive-deleteButton {
+    background-image: url('Images/delete.png');
+    background-size: 12px 14px;
+    background-position: 5px 7px;
+    background-repeat: no-repeat;
+}
+
+.deleteButton {
+    background-image: url('Images/active-delete.png');
+    background-size: 12px 15px;
+    background-position: 5px 7px;
+    background-repeat: no-repeat;
+}
+
+#createbutton {
+    background-image: url('Images/active-create.png');
+    background-size: 12px 14px;
+    padding-left: 30px;
+    background-repeat: no-repeat;
+    background-position: 5px 7px;
+}
+
+.assignButton {
+    background-image: url('Images/active-share.png');
+    background-size: 20px 20px;
+    background-position: 5px 4px;
+    background-repeat: no-repeat;
+}
+
+.items-count {
+    font-size: 17px;
+    color: #538398;
+}
+
+#closeButton:hover {
+    background-image: url('Images/close-hover.png');
+    background-repeat: no-repeat;
+    background-size: 16px 15px;
+    background-position: 5px 7px;
+}
+
+#deleteButton:hover {
+    background-image: url('Images/deleteHover.png');
+    background-repeat: no-repeat;
+    background-size: 12px 15px;
+    background-position: 5px 7px;
+}
+
+#assignButton:hover {
+    background-image: url('Images/shareHover.png');
+    background-size: 20px 20px;
+    background-position: 5px 4px;
+    background-repeat: no-repeat;
+}
+
+#reopenButton:hover {
+    background-image: url('Images/openHover.png');
+    background-size: 13px 13px;
+    background-position: 5px 8px;
+    background-repeat: no-repeat;
+}
+
+#createbutton:hover {
+    background-image: url('Images/createHover.png');
+    background-size: 12px 14px;
+    background-position: 5px 7px;
+    background-repeat: no-repeat;
+    padding-left: 30px;
+}
+
+
+.active-buttons {
+    color: gray;
+    background-color: #d3d3d3;
+}
+
+.ticket-toolbar .active-buttons {
+    color: @button-activ-color;
+    border: @button-activ-border;
+    background-color: @button-activ-background-color;
+}
+
+.ticket-toolbar .active-buttons:hover {
+    border: @border-hover;
+    color: @color-button-hover;
+    background-color: @background-color-button-hover;
+    font: @label-font-family,Helvetica,sans-serif;
+    font-weight: 400;
+    padding: 0px 30px;
+    text-decoration: none;
+    line-height: 27px;
+}
+
+.search-bar-row {
+    width: 100%;
+    margin-bottom: 10px;
+    display: table;
+    padding-left: 5px;
+}
+
+.search-bar-row .ticket-part {
+    margin-left: 10px;
+    display: table-cell;
+}
+
+.search-bar-row .advanced-search-filter input {
+    float: right;
+    width: 75px;
+    border: 1px solid lightgray;
+    margin-right: 23px;
+    margin-bottom: 0px;
+    text-align: center;
+    padding: 4px 8px;
+}
+
+.search-bar-row .advanced-search-filter input[type='submit']:hover, .search-bar-row .advanced-search-filter input[type='button']:hover {
+    background-color: @background-color-button-hover !important;
+    border: @border-button;
+    color: @color-button;
+    font: @label-font-family,Helvetica,sans-serif;
+    font-weight: 400;
+    box-shadow: inset 0px 0px 1px rgba(255, 255, 255, 1.0), 1px 1px 1px rgba(102, 102, 102, 0.2);
+}
+
+
+#advanceSearchCloseId {
+    float: right;
+    border: hidden;
+    font-size: 12px;
+    padding: 0px 5px 0px 0px;
+    margin-bottom: 0px;
+    background-color: @advance-search-close-button-background-color;
+    background-image: none;
+    color: @advance-search-close-button-color;
+}
+
+#advanceSearchCloseId:hover {
+    color: @advance-search-close-button-color-hover;
+    font-weight: bold;
+}
+
+.search-description {
+    margin-top: 10px;
+}
+
+.search-description .descriptons-selected {
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    background-color: @search-description-background-color;
+    padding: 5px 25px 5px 5px;
+    display: inline-block;
+    min-height: 20px;
+    position: relative;
+}
+
+.search-description .descriptons-selected a {
+    color: gray;
+    text-decoration: none;
+    font-size: 12px;
+    font-family: 'Segoe UI';
+    margin-left: 7px;
+    position: absolute;
+    top: 6px;
+    right: 8px;
+}
+
+.search-description .descriptons-selected a:hover {
+    text-decoration: none;
+    color: @search-description-link-hover-color;
+}
+
+.search-description .label {
+    font-weight: bold;
+}
+
+
+
+#viewSharePageLink {
+    background-color: @background-color-button;
+    border: @border-button;
+    color: @color-button;
+    cursor: pointer;
+    display: inline-block;
+    font: @label-font-size @label-font-family,Helvetica,sans-serif;
+    font-weight: 400;
+    padding: 4px 8px;
+    text-align: center;
+    text-shadow: rgba(40,53,9,.2) 0px 0px 1px;
+    box-shadow: inset 0px 0px 1px rgba(255, 255, 255, 1.0), 1px 1px 1px rgba(102, 102, 102, 0.2);
+    text-decoration: none;
+    width: 130px;
+}
+
+.removePreviousPermissionDiv {
+    height: 20px;
+    display: inline-block;
+    margin-top: 5px;
+    padding-right: 20px;
+}
+
+.apply-to-children {
+    display: inline-block;
+}
+
+.apply-to-children span {
+    display: inline-block;
+    padding-left: 5px;
+}
+
+.share-dialog-main-part {
+    display: table;
+    width: 100%;
+}
+
+.ui-dialog {
+    padding: 0px 0px 3px 0px;
+}
+
+.share-dialog-main-part .sub-part {
+    margin-bottom: 25px;
+    display: table-cell;
+    border: none;
+    min-height: 95px;
+    float: left;
+    width: 47%;
+    font-family: @label-font-family;
+    font-size: @label-font-size;
+    margin-right:10px;
+}
+
+.share-dialog-main-part .sub-part select {
+    width: 95%;
+    margin: 0px 2%;
+}

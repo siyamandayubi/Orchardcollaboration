@@ -1,0 +1,25 @@
+﻿@{
+    Style.Require("jQueryCalendars_Picker");
+    Style.Require("jQueryUI_Calendars_Picker");
+    Style.Require("jQueryTimeEntry");
+    Style.Require("jQueryDateTimeEditor");
+
+    Script.Require("jQueryCalendars_All").AtFoot();
+    Script.Require("jQueryCalendars_Picker_Ext").AtFoot();
+    Script.Require("jQueryTimeEntry").AtFoot();
+}
+@model Orchard.CRM.Core.ViewModels.TicketViewModel
+<div>
+    <fieldset class="ticket-fieldset">
+        <div>
+            <div class="ticket-edit-properties">
+                <div class="field-container">
+                    <div class="label-container">@T("Due Date:")</div>
+                    <div>@Html.TextBoxFor(c => c.DueDate, new { @class = "ticket-input-field", autocomplete = "off" })</div>
+                    <div>@Html.ValidationMessageFor(c => c.DueDate)</div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</div>
+@Display.CalendarsPickerLocalization()

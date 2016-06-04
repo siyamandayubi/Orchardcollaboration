@@ -1,0 +1,20 @@
+﻿@{
+    IEnumerable<SelectListItem> reports = Model.Reports;
+}
+<div>
+    <fieldset>
+        <div>
+            <div class="label">@T("Report:")</div>
+            <div>@Html.DropDownList("ReportId", reports, new { @class = "combobox selects-width" })</div>
+        </div>
+    </fieldset>
+    <fieldset>
+        <label>@T("Container Css Class")</label>
+        <input type="text" value="@Model.ContainerCssClass" id="DataReportViewerPart.ContainerCssClass" name="DataReportViewerPart.ContainerCssClass" />
+               <br />
+
+        <label>@T("ChartTag Css Class")</label>
+        <input type="text" value="@Model.ChartTagCssClass" id="DataReportViewerPart.ChartTagCssClass" name="DataReportViewerPart.ChartTagCssClass" />
+        <br />
+    </fieldset>
+</div>

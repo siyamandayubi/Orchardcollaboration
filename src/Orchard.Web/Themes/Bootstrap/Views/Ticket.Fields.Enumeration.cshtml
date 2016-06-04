@@ -1,0 +1,24 @@
+﻿@using Orchard.Utility.Extensions;
+@using System.Linq;
+@{
+    string name = Model.ContentField.DisplayName;
+    string valueToDisplay = string.Empty;
+    string[] selectedValues = Model.ContentField.SelectedValues;
+    if (selectedValues != null)
+    {
+        string valueFormat = T("{0}").ToString();
+        string[] translatedValues = selectedValues.Select(v => string.Format(valueFormat, T(v).Text)).ToArray();
+        string separator = T(", ").ToString();
+        valueToDisplay = string.Join(separator, translatedValues);
+    }
+}
+
+<div class="field-container-full-width">
+    <div class="label-container">@name.CamelFriendly()</div>
+    <div class="combobox">
+        <span>
+           @valueToDisplay
+        </span>    
+    </div>
+</div>
+<div class="clear"></div>

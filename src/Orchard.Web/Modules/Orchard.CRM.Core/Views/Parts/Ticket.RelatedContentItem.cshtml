@@ -1,0 +1,74 @@
+﻿@using Orchard.ContentManagement;
+@using Orchard.Core.Title.Models;
+@using Orchard.Core.Common.Models;
+@using Orchard.CRM.Core.Services;
+@{
+    ContentItem contentItem = (ContentItem)Model.Model.ContentItem;
+    bool isPublished = Model.Model.IsPublished;
+    TitlePart titlePart = contentItem.As<TitlePart>();
+    string title = titlePart != null ? titlePart.Title : "-";
+    string type = contentItem.ContentType;
+    CommonPart commonPart = contentItem.As<CommonPart>();
+    <div class="ticket-item relatedcontentitem">
+        @if (commonPart != null)
+        {
+            <div class="type-and-title">
+                <div class="type-label">
+                    @T("Type:")
+                </div>
+                <div class="type-value">
+                    @type
+                </div>
+                <div class="title-label">
+                    @T("Title:")
+                </div>
+                <div class="title-value">
+                    @title
+                </div>
+            </div>
+            <div class="dates">
+                <div class="create-date-label">
+                    @T("Creation Date:")
+                </div>
+                <div class="create-date-value">
+                    @{
+            string createdUtc = commonPart.CreatedUtc.HasValue ? commonPart.CreatedUtc.Value.ToLongDateString() : T("-").Text;
+                    }
+                    @createdUtc
+                </div>
+                <div class="publish-date-label">
+                    @T("Publish Date:")
+                </div>
+                <div class="publish-date-value">
+                    @{
+            string publishDataValue = commonPart.PublishedUtc.HasValue && isPublished ? commonPart.PublishedUtc.Value.ToLongDateString() : T("Not Published").Text;            
+                    }
+                    @publishDataValue 
+                </div>
+            </div>
+            <div class="ticket-creator">
+                <div class="creator-label">@T("Creator:")</div>
+                <div class="creator-value">@CRMHelper.GetFullNameOfUser(commonPart.Owner)</div>
+            </div>
+            <div>
+                @if (isPublished)
+                {
+                    <a id="unPublishLink" class="hidden crm-button" href="@Url.Action("Unpublish", "Admin", new { area = "Contents", id = contentItem.Id ,returnUrl = Request.Url.AbsoluteUri })">@T("Unpublish")</a>
+                }
+                else
+                {
+                    <a id="publishLink" class="hidden crm-button" href="@Url.Action("Publish", "Admin", new { area = "Contents", id = contentItem.Id, returnUrl = Request.Url.AbsoluteUri })">@T("Publish")</a>
+                }
+
+                @{
+                string editLink = Url.Action("Edit", "Admin", new { id = contentItem.Id, area = "Contents" });
+                string viewContentAction = isPublished ? "Display" : "Preview";
+                string viewLinkText = isPublished ? "View" : "Preview";
+                string viewLink = Url.Action(viewContentAction, "Item", new { id = contentItem.Id, area = "Contents" });
+                }
+                <a class="crm-button" target="_blank" href="@editLink">@T("Edit")</a>
+                <a class="crm-button" target="_blank" href="@viewLink">@T(viewLinkText)</a>
+            </div>
+        }
+    </div>
+}

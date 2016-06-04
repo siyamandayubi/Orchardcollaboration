@@ -1,0 +1,13 @@
+@using Bootstrap;
+@{
+    var homeUrl = Href("~/");
+    bool useFixedNav = WorkContext.SettingsEval(Constants.UseFixedNav);
+}
+
+@if (useFixedNav) { 
+    <a class="navbar-brand" href="@homeUrl">@WorkContext.CurrentSite.SiteName</a>
+}
+else {
+    <h1>@WorkContext.CurrentSite.SiteName</h1>
+    <p class="lead">Your tagline here.</p>
+}

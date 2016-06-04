@@ -1,0 +1,11 @@
+﻿@using System.Globalization;
+@using Orchard.CRM.Core.ViewModels;
+@{
+    var model = (BusinessUnitMembersViewModel)Model.Model;
+}
+<ul id="businessUnitMembers" data-jq-widget="BusinessUnitUsers">
+    @foreach (var user in model.BusinessUnitMembers)
+    {
+        <li class="businessUnitMember" data-id="@user.Id">@user.UserPartRecord.UserName<a class="delete" data-id="@user.Id" href="@Url.Action("Remove","Item", new { area = "Orchard.CRM.Core", id = user.Id })">@T("Delete")</a></li>
+    }
+</ul>

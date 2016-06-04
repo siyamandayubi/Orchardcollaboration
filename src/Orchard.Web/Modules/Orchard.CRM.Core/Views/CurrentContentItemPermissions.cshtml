@@ -1,0 +1,47 @@
+﻿@using Orchard.CRM.Core.ViewModels;
+@using System.Globalization;
+@using Orchard.CRM.Core.Models;
+@{
+    ContentItemSetPermissionsViewModel.ContentItemPermissionsModel model = (ContentItemSetPermissionsViewModel.ContentItemPermissionsModel)Model.ContentItem;
+}
+@if (model.CurrentPermissions.Count > 0)
+{
+    <div class="current-permission-ownership">
+        <div class="label-current">@T("Current Permissions")</div>
+        <div class="permissetions">
+            <ul>
+                @foreach (var item in model.CurrentPermissions)
+            {
+                bool isOwner = item.AccessType == ContentItemPermissionAccessTypes.Assignee;
+                string accessType = string.Empty;
+                switch (item.AccessType)
+                {
+                    case ContentItemPermissionAccessTypes.Assignee:
+                        accessType = "Assignee";
+                        break;
+                    case ContentItemPermissionAccessTypes.SharedForEdit:
+                        accessType = "Edit Access";
+                        break;
+                    case ContentItemPermissionAccessTypes.SharedForView:
+                        accessType = "Readonly (Watcher)";
+                        break;
+                }
+                <li data-id="@item.Id">
+                    <div class="content-permissions-lis">
+                        <span class="item-name">@item.Name:</span>
+
+                        <span class="accessType">@T(accessType)</span>
+                        <span class="delete-button">
+                            @if (item.AccessType != ContentItemPermissionAccessTypes.Assignee)
+                            {
+                            <a data-id="@item.Id" href="@Url.Action("Delete", "ContentOwnership", new { area = "Orchard.CRM.Core", id = item.Id, contentId = model.ContentItem.Id })">@T("X")</a>
+                            }
+                        </span>
+                    </div>
+                </li>
+            }
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </div>
+}

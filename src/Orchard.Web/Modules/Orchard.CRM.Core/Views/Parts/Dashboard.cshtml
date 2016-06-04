@@ -1,0 +1,137 @@
+﻿@using Orchard.CRM.Core.ViewModels;
+@using System.Web.Routing;
+@Display(New.Stylesheet())
+@{
+    DashboardViewModel model = Model.Model;
+    RouteValueDictionary routeValues = new RouteValueDictionary();
+}
+<div class="dashboard-content">
+    @if (model.IsCustomer)
+    {
+        <div>
+            <h3 class="lead">@T("Your tickets summary")</h3>
+            <ul class="tickets-dashboard-summary">
+                <li>
+                    @{
+        routeValues["area"] = "Orchard.CRM.Core";
+        routeValues["DueDate"] = PostedTicketSearchViewModel.OverDueDate;
+                    }
+                    <a href="@Url.Action("Search", "Ticket", routeValues)">
+                        <span class="overdu-items">@T("Overdue items")</span>
+                        <h4 class="number-summary overdu-items">@(model.CurrentUserOverrudeRequestingTicketCount.ToString())</h4>
+                    </a>
+                </li>
+                @foreach (var item in model.CurrentUserRequestingTickets)
+                {
+                    routeValues = new RouteValueDictionary();
+                    routeValues["area"] = "Orchard.CRM.Core";
+                    if (item.Id != null)
+                    {
+                        routeValues["Status"] = item.Id;
+                    }
+                    else
+                    {
+                        routeValues["UnStatus"] = true;
+                    }
+                    string name = item.Name.ToString();
+                    <li>
+                        <a href="@Url.Action("Search", "Ticket", routeValues)">
+                            <span>@T(name)</span>
+                            <h4 class="number-summary">@item.Count</h4>
+                        </a>
+                    </li>
+                }
+            </ul>
+            <div class="clear"></div>
+        </div>
+    }
+    @{
+        if (model.IsOperator)
+        {
+            <div>
+                <h6 class="lead">@T("Your tickets summary")</h6>
+                <ul class="tickets-dashboard-summary">
+                    <li>
+                        @{
+            routeValues["area"] = "Orchard.CRM.Core";
+            routeValues["DueDate"] = PostedTicketSearchViewModel.OverDueDate;
+            routeValues["Users"] = model.CurrentUserId;
+                        }
+
+                        <a href="@Url.Action("Search", "Ticket", routeValues)">
+                            <span class="overdu-items">@T("Overdue items")</span>
+                            <h4 class="number-summary overdu-items">@(model.CurrentUserOverrudeItemsCount.ToString())</h4>
+                        </a>
+                    </li>
+                    @foreach (var item in model.CurrentUserTickets)
+                    {
+                        string name = item.Name.ToString();
+                        routeValues = new RouteValueDictionary();
+                        routeValues["area"] = "Orchard.CRM.Core";
+                        if (item.Id != null)
+                        {
+                            routeValues["Status"] = item.Id;
+                        }
+                        else
+                        {
+                            routeValues["UnStatus"] = true;
+                        }
+
+                        routeValues["Users"] = model.CurrentUserId;
+                        <li>
+                            <a href="@Url.Action("Search", "Ticket", routeValues)">
+                                <span>@T(name)</span>
+                                <h4 class="number-summary">@item.Count</h4>
+                            </a>
+                        </li>
+                    }
+                </ul>
+                <div class="clear"></div>
+            </div>
+        }
+
+        if (model.AllTickets != null)
+        {
+            <div class="all-tickets-dashboard-summary">
+                <h6 class="lead">@T("All tickets summary")</h6>
+                <ul class="tickets-dashboard-summary">
+                    <li>
+                        <a href="@Url.Action("Search", "Ticket", new { DueDate = PostedTicketSearchViewModel.OverDueDate, area = "Orchard.CRM.Core" })">
+                            <span class="overdu-items">@T("All Overdue items")</span>
+                            <h4 class="number-summary overdu-items">@(model.AllOverrudeItemsCount.ToString())</h4>
+                        </a>
+                    </li>
+                    @foreach (var item in model.AllTickets)
+                    {
+                        string name = item.Name.ToString();
+                        routeValues = new RouteValueDictionary();
+                        routeValues["area"] = "Orchard.CRM.Core";
+                        if (item.Id != null)
+                        {
+                            routeValues["Status"] = item.Id;
+                        }
+                        else
+                        {
+                            routeValues["UnStatus"] = true;
+                        }
+                        <li>
+                            <a href="@Url.Action("Search", "Ticket", routeValues)">
+                                <span>@T(name)</span>
+                                <h4 class="number-summary">@item.Count</h4>
+                            </a>
+                        </li>
+                    }
+                </ul>
+                <div class="clear"></div>
+            </div>
+        }
+
+        if (model.IsOperator || model.AllTickets != null)
+        {
+            <div class="unassigned-tickets">
+                <label class="lead">@T("unassigned tickets")</label>
+                <span><a href="@Url.Action("Search", "Ticket", new { Unassigned = true, area = "Orchard.CRM.Core" })">(@(model.AllItemsWithoutOwnerCount.ToString()))</a></span>
+            </div>
+        }
+    }
+</div>

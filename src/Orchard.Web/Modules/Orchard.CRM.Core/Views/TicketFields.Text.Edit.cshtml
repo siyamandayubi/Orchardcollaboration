@@ -1,0 +1,26 @@
+﻿@{
+    Orchard.Core.Common.ViewModels.TextFieldDriverViewModel currentModel = Model.Model;
+    Dictionary<string, object> textBoxProperties = new Dictionary<string, object>();
+    textBoxProperties.Add("class", "ticket-input-field");
+
+    if (currentModel.Settings.Required)
+    {
+        textBoxProperties.Add("required", "required");
+    }
+
+    string prefix = Model.Prefix + ".Text";
+}
+<fieldset>
+   <div class="field-container">
+       <div class="label-container">@currentModel.Field.DisplayName
+            @if (currentModel.Settings.Required)
+            {
+                <text>*</text>
+            }
+       </div>
+        <div>
+             @Html.TextBox(prefix, currentModel.Text, textBoxProperties)
+             @Html.ValidationMessage(prefix)
+       </div>
+    </div>  
+</fieldset>

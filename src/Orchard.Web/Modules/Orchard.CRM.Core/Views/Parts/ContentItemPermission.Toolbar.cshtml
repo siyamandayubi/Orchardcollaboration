@@ -1,0 +1,12 @@
+﻿@using Orchard.ContentManagement;
+@{
+    ContentItem contentItem = (ContentItem)Model.ContentItem;
+}   
+
+<div class="item-toolbar">
+    @if (Model.HasPermissionToShare)
+    {
+        <a class="share" href="@Url.Action("Edit", "ContentOwnership", new { area = "Orchard.CRM.Core", id = contentItem.Id })">@T("Share")</a>
+        <a class="edit" href="@Url.Action("Edit", "Item", new { area = "Orchard.CRM.Core", id = contentItem.Id })">@T("Edit")</a>
+    }
+</div>

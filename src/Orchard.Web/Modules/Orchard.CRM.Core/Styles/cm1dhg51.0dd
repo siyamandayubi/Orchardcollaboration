@@ -1,0 +1,606 @@
+﻿@label-lineHeight: 20px;
+@background-color-button: #646660;
+@background-color-button-hover: #85b35c;
+@border-button-hover: 1px solid #85b35c;
+@color-button-hover: #fff;
+@button-text-shadow: 0px -1px 0px #535550;
+@border-button: 1px solid #353535;
+@background-color-a-button: #646660;
+@button-a-color: #fff;
+@label-font-size: 12px;
+@button-activ-color: #fff;
+@button-activ-border: 1px solid #353535;
+@button-activ-background-color: #646660;
+@tickets-tabele-header-background-color: #81B4C9;
+@tickets-tabele-header-border: 1px solid #538398;
+@color-button: #e8f0f6;
+@label-font-family: Arial;
+@label-color: #323232;
+@ticket-search-idColumn: 40px;
+@ticket-search-titleColumn: 400px;
+@ticket-search-checkboxColumn: 20px;
+@ticket-search-timeColumn: 50px;
+@ticket-search-priorityColumn: 50px;
+@ticket-search-statusColumn: 50px;
+@ticket-search-groupColumn: 70px;
+@ticket-search-userColumn: 70px;
+@ticket-search-linksColumn: 50px;
+@table-th-color: #fff;
+@table-td-color: #333;
+@table-th-a-color: #fff;
+@assign-selected-item-background-color: #81b4c9;
+@assign-selected-item-color: white;
+@advance-search-border-hover: 1px solid #48A4EA;
+@advance-search-background-color: #81b4c9;
+@advance-search-close-button-background-color: #81b4c9;
+@advance-search-close-button-color: #e8f0f6;
+@advance-search-close-button-color-hover: white;
+@advance-search-border-bottom: 1px solid #538398;
+@advance-search-title-color: #fff;
+@backgound-image-downTriangle-hover: url('Images/DownTriangleIcon.png');
+@backgound-image-downTriangle: url('Images/DownTriangleIcon.png');
+@background-size-sort-direction: 7px 6px;
+@background-size-advance-search: 10px 9px;
+@field-width-in-admin-dashboard: 343px;
+@layout-width: 935px;
+@edit-ownership-bar-width: 67%;
+@edit-ownership-bar-border: 1px solid #333;
+@edit-ownership-bar-background-color: #eee;
+@search-description-background-color: #f8f6f6;
+@search-description-link-hover-color: #141313;
+@ticket-detail-title-background-color: #81b4c9;
+@ticket-detail-title-border: 1px solid #538398;
+@ticket-detail-title-border-radius: 3px;
+@ticket-detail-title-width: 721;
+@ticket-detail-title-height: 40px;
+@border-button-hover: 1px solid #85b35c;
+@button-text-shadow: 0px -1px 0px #535550;
+@edit-ownership-bar-width: 67%;
+@edit-ownership-bar-min-height: 150px;
+
+@ticket-list-header-color: #fff;
+@ticket-list-header-background-color: #646660;
+@select-list-border-hover: 1px solid gray;
+@select-list-border-popup-menu: 1px solid gray;
+@select-list-li-hover-background-color: #85b35c;
+
+.validation-summary-errors ul {
+    padding-left: 10px;
+}
+
+.validation-summary-errors li {
+    color: red;
+    font-family: 'Segoe UI';
+    font-size: 11pt;
+    font-weight: 600;
+    list-style: none;
+}
+
+.field-validation-error {
+    color: red;
+    font-family: 'Segoe UI';
+    font-size: 9pt;
+    margin: 5px 10px;
+    font-weight: 500;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.together-combobox {
+    float: left;
+    width: 95%;
+    /*border: 1px solid #CCC;*/
+    height: 30px;
+    padding: 2px 0px 0px 0px;
+    font-family: @label-font-family;
+    color: @label-color;
+    font-size: @label-font-size;
+    line-height: 17px;
+}
+
+    .together-combobox .inner {
+        border: 1px solid #CCC;
+        width: 100%;
+        padding:5px;
+        height: 30px;
+    }
+
+.column-full-lenght .combobox {
+    width: 97%;
+    border: 1px solid #CCC;
+    height: 30px;
+    padding: 2px 5px 0px 5px;
+    font-family: @label-font-family;
+    color: @label-color;
+    font-size: @label-font-size;
+    line-height: 24px;
+}
+
+.combobox {
+    float: left;
+    width: 190px;
+    border: 1px solid #CCC;
+    height: 19px;
+    padding: 2px 5px 0px 5px;
+    font-family: @label-font-family;
+    color: @label-color;
+    font-size: @label-font-size;
+    line-height: 24px;
+}
+
+
+    .combobox:hover {
+        border: @select-list-border-hover;
+    }
+
+.selects-width {
+    height: 22px;
+    width: 200px;
+}
+
+.label {
+    font-family: @label-font-family;
+    line-height: @label-lineHeight;
+    font-size: @label-font-size;
+    color: @label-color;
+    margin: 0px 5px 0px 0px;
+}
+
+.label-col {
+    font-family: @label-font-family;
+    width: 90px;
+    height: 18px;
+    font-size: 14px;
+    margin-top: 10px;
+    color: #6f6d6d;
+    text-align: right;
+}
+
+.data-col input[type='text'], .data-col input[type='number'] {
+    float: right;
+    width: 250px;
+    height: 25px;
+    border: 1px solid #9f9c9c;
+    background-color: white;
+    border-radius: 6px;
+    padding: 2px;
+    box-shadow: 1px 1px 8px #9f9c9c;
+}
+
+.data-col input[type='submit'] {
+    float: right;
+    width: 78px;
+    height: 30px;
+    border-radius: 3px;
+    font-size: small;
+    margin-left: 30px;
+    color: #10507d;
+    margin-right: 2px;
+}
+
+
+.r {
+    text-align: center;
+    font-family: @label-font-family;
+    font-size: 13px;
+    color: gray;
+    border: 0px;
+    height: 25px;
+}
+
+    .r tr:hover {
+        color: #124263;
+    }
+
+.alt {
+    background-color: white;
+}
+
+.ticket-item {
+    width: 100%;
+    background-color: #faf9f9;
+    padding: 15px;
+    height: 100%;
+    min-height: 500px;
+    border: 1px solid lightgray;
+    margin-left: 0px;
+}
+
+.popup-host {
+    position: relative;
+    display: inline-block;
+    line-height: 17px;
+}
+
+    .popup-host span {
+        overflow: hidden;
+        display: inline-block;
+        height: 20px;
+    }
+
+    .popup-host:hover span {
+        background-image: @backgound-image-downTriangle-hover;
+        background-size: 8px 8px;
+        display: inline-block;
+        width: 100%;
+        background-position: right center;
+        background-repeat: no-repeat;
+        line-height: 17px;
+    }
+
+.line-property {
+    color: gray;
+    border-style: inset;
+    border-width: 0.5px;
+}
+
+.popup-host .popup-menu-box {
+    display: none;
+    position: absolute;
+    top: 21px;
+    left: 0px;
+    background-color: white;
+    z-index: 100;
+}
+
+.popup-host .popup-menu {
+    display: none;
+    position: absolute;
+    top: 21px;
+    left: 0px;
+    background-color: white;
+    z-index: 100;
+}
+
+.popup-menu-box {
+    width: 100%;
+    border: @select-list-border-popup-menu;
+    border-top: none;
+    font-family: @label-font-family;
+    color: black;
+    font-size: 13px;
+}
+
+.popup-menu {
+    width: 200px;
+    border: @select-list-border-popup-menu;
+    border-top: none;
+    font-family: @label-font-family;
+    color: black;
+    font-size: 13px;
+}
+
+    .popup-menu ul {
+        padding: 0px;
+        margin: 0px;
+        z-index: 100;
+        margin-left: 5px;
+    }
+
+.popup-menu-box ul {
+    padding: 0px;
+    margin: 0px;
+    z-index: 100;
+    margin-left: 5px;
+}
+
+.popup-menu-box li {
+    overflow: hidden;
+    text-decoration: none;
+    text-align: left;
+    font-family: @label-font-family;
+    padding: 0px;
+    margin: 0px;
+    color: gray;
+    font-size: @label-font-size;
+    line-height: 22px;
+}
+
+.popup-menu li {
+    overflow: hidden;
+    text-decoration: none;
+    text-align: left;
+    font-family: @label-font-family;
+    padding: 0px;
+    margin: 0px;
+    color: gray;
+    font-size: @label-font-size;
+    line-height: 22px;
+}
+
+.popup-menu-box a {
+    color: gray;
+    display: inline-block;
+    width: 100%;
+    text-decoration: none;
+}
+
+.popup-menu a {
+    color: gray;
+    display: inline-block;
+    width: 100%;
+    text-decoration: none;
+}
+
+.popup-menu-box li:hover a {
+    color: white;
+    font-weight: 200;
+    text-decoration: none;
+}
+
+.popup-menu li:hover a {
+    color: white;
+    font-weight: 200;
+    text-decoration: none;
+}
+
+.popup-menu-box li:hover {
+    color: white;
+    background-color: @select-list-li-hover-background-color;
+    font-weight: 200;
+}
+
+.popup-menu li:hover {
+    color: white;
+    background-color: @select-list-li-hover-background-color;
+    font-weight: 200;
+}
+
+.col3 {
+    text-align: left;
+    font-family: @label-font-family;
+    font-size: @label-font-size;
+    color: @label-color;
+    margin-right: 5px;
+    line-height: @label-lineHeight;
+    margin-bottom: 0px;
+}
+
+.zone-header {
+    padding: 0px;
+}
+
+.label {
+    font-family: @label-font-family;
+    line-height: @label-lineHeight;
+    font-size: @label-font-size;
+    color: @label-color;
+    margin: 0px 5px 0px 0px;
+}
+
+.column-full-lenght {
+    width: 100%;
+    height: 50px;
+    margin: 0px 0px 5px 0px;
+    font-family: @label-font-family;
+    background-color: transparent;
+}
+
+.column {
+    width: 50%;
+    height: 50px;
+    margin: 0px 0px 5px 0px;
+    float: left;
+    font-family: @label-font-family;
+    background-color: transparent;
+}
+
+.alt {
+    background-color: white;
+}
+
+.due {
+    line-height: 16px;
+}
+
+.Description {
+    float: left;
+    margin-left: 30px;
+    min-height: 200px;
+    min-width: 300px;
+}
+
+.active-buttons {
+    border: 1px solid gray;
+    border-radius: 3px;
+    height: 20px;
+    width: 90px;
+    margin: 0px;
+}
+
+.clear {
+    clear: both;
+}
+
+.select {
+    width: 100%;
+    min-height: 200px;
+    margin-top: 25px;
+}
+
+.link {
+    text-decoration: none;
+    font-family: @label-font-family;
+    color: #1e5d7d;
+}
+
+.share {
+    color: white;
+    text-decoration: none;
+}
+
+.Publish-Date {
+    height: 25px;
+    line-height: inherit;
+    font-family: @label-font-family;
+    font-size: 12px;
+    float: left;
+    color: #323232;
+}
+
+.date {
+    height: 25px;
+    width: 100%;
+}
+
+.menu-selected {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-bottom: none;
+    background-color: white;
+}
+
+.ticket-status select {
+    width: 140px;
+    height: 23px;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+}
+
+.manage {
+    margin-top: 15px;
+    float: left;
+}
+
+#deleteConfirmDialog .button {
+    background: #12578e;
+    border: 1px solid #12578e;
+    color: #e8f0f6;
+    cursor: pointer;
+    display: inline-block;
+    font: 10px @label-font-family,Helvetica,sans-serif;
+    font-weight: 200;
+    padding: 5px 14px 5px 14px;
+    text-align: center;
+    text-shadow: rgba(40,53,9,.2) 0px 0px 1px;
+    box-shadow: inset 0px 0px 1px rgba(255, 255, 255, 1.0), 1px 1px 1px rgba(102, 102, 102, 0.2);
+    text-decoration: none;
+    margin-top: 10px;
+    width: 70px;
+    height: 23px;
+}
+
+.button {
+    background: #6a7b42;
+    border: 1px solid #487328;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font: @label-font-size @label-font-family,Helvetica,sans-serif;
+    font-weight: 400;
+    padding: 5px;
+    text-align: center;
+    text-shadow: rgba(40,53,9,.2) 0px 0px 1px;
+    box-shadow: inset 0px 0px 1px rgba(255, 255, 255, 1.0), 1px 1px 1px rgba(102, 102, 102, 0.2);
+    text-decoration: none;
+}
+
+.crm-button {
+    background-color: @background-color-button !important;
+    background-image: none !important;
+    border: @border-button !important;
+    color: @color-button !important;
+    cursor: pointer;
+    display: inline-block;
+    font: @label-font-size @label-font-family,Helvetica,sans-serif;
+    font-weight: 400;
+    text-decoration: none !important;
+    padding: 4px 8px;
+    text-align: center;
+    text-shadow: rgba(40,53,9,.2) 0px 0px 1px;
+    text-decoration: none;
+    width: 75px;
+}
+
+.edit-ownership-bar .crm-button {
+    margin: .2em 0 0em 0;
+}
+
+.crm-button:hover {
+    text-decoration: none !important;
+    background-color: @background-color-button-hover !important; /* Old browsers */
+    border-bottom: @border-button !important;
+    text-shadow: @button-text-shadow;
+    border-top: @border-button-hover !important;
+    border-left: @border-button-hover !important;
+    border-right: @border-button-hover !important;
+}
+
+.ticketActivity-select {
+    width: @field-width-in-admin-dashboard;
+}
+
+.setting {
+    margin-bottom: 25px !important;
+}
+
+    .setting select, .setting input[type='text'] {
+        width: @field-width-in-admin-dashboard;
+    }
+
+.dlete-item-answer {
+    font-family: 'Segoe UI';
+    font-size: 10pt;
+    font-weight: 400;
+}
+
+
+.buttons {
+    margin-top: 5px;
+}
+
+    .buttons a {
+        color: white;
+    }
+
+#shareDialog .buttons {
+    font-size: @label-font-size;
+}
+
+#shareDialog .error {
+    font-family: Arial;
+    font-size: 10pt;
+    color: red;
+}
+
+.admin-cancel span {
+    color: white;
+}
+
+.admin-cancel {
+    background-color: #6a7b42;
+    border: 1px solid #487328;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font: 12px @label-font-family, Helvetica, sans-serif;
+    padding: 5px 14px 3px 14px;
+    text-align: center;
+    text-decoration: none;
+    text-shadow: rgba(40, 53, 9, 0.2) 0px 0px 1px;
+    -webkit-box-shadow: inset 0px 0px 1px #ffffff, 1px 1px 1px rgba(102, 102, 102, 0.2);
+    -moz-box-shadow: inset 0px 0px 1px #ffffff, 1px 1px 1px rgba(102, 102, 102, 0.2);
+    box-shadow: inset 0px 0px 1px #ffffff, 1px 1px 1px rgba(102, 102, 102, 0.2);
+    filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, startColorstr='#ff9bb36c', endColorstr='#ff809f43');
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    height: 16px;
+}
+
+    .admin-cancel:hover {
+        background-color: #809f43;
+        color: #eefcec;
+    }
+
+.qq-upload-button {
+    background-color: @background-color-button !important;
+    background-image: none !important;
+}
+
+    .qq-upload-button:hover {
+        background-color: @background-color-button-hover !important;
+        background-image: none !important;
+    }

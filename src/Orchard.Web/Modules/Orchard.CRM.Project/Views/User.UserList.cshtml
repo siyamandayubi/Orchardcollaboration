@@ -1,0 +1,96 @@
+﻿@using Orchard.CRM.Project.ViewModels;
+@Display(New.Stylesheet())
+@{
+    string actionName = Model.ActionName;
+    string title = Model.Title;
+}
+<div class="space"></div>
+<div class="panel panel-default main-search-container">
+    <div class="panel-heading">
+        <div class="navbar customer-navbar">
+            <div class="container">
+                <div class="navbar-header">
+                    <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#customersMenu">...</button>
+                    <div class="zone zone-header">
+                        <h3>@T(title)</h3>
+                    </div>
+                </div>
+                <div class="collapse navbar-collapse" id="customersMenu">
+                    @using (Html.BeginFormAntiForgeryPost(Url.Action(actionName), FormMethod.Get, new { role = "search", @class = "navbar-form navbar-right", enctype = "multipart/form-data" }))
+                    {
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search" name="Search" value="@Model.Model.Search">
+                        </div>
+                        <button type="submit" class="btn btn-default">@T("Submit")</button>
+                    }
+                    <ul class="nav navbar-nav pull-right">
+                        <li><a href="@Url.Action("Create", "AdminUser", new { area = "Orchard.CRM.Project" })">@T("Create")</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        @if (Model.Model.Users.Count == 0)
+        {
+            <div>@T("There is no result")</div>
+        }
+        @{
+            bool alt = false;
+            foreach (UserViewModel user in Model.Model.Users)
+            {
+                string userDetailUrl = Url.Action("Display", "User", new { userId = user.UserId, area = "Orchard.CRM.Project" });
+                string altClass = alt ? "alternative" : string.Empty;
+                alt = !alt;
+                <div class="row user-row @altClass">
+                    <div class="col-md-1">
+                        @{
+                string imageSource = string.IsNullOrEmpty(user.Thumbnail) ? Url.Content("~/Modules/Orchard.CRM.Project/Styles/Images/user-icon-small.jpg") : user.Thumbnail;
+                        }
+                        <a href="@userDetailUrl"><img src="@imageSource" width="48" height="48" src="@imageSource" title="@user.Fullname" /></a>
+                    </div>
+                    <div class="col-md-10">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div>
+                                    <span class="user-profile-label">@T("Username:")</span>
+                                    <a href="@userDetailUrl" class="user-profile-field">@user.Username</a>
+                                </div>
+                                <div>
+                                    <span class="user-profile-label">@T("Full Name:")</span>
+                                    <a href="@userDetailUrl" class="user-profile-field">@user.Fullname</a>
+                                </div>
+                                <div>
+                                    <span class="user-profile-label">@T("Email:")</span>
+                                    @{
+                                      string email = string.IsNullOrEmpty(user.Email) ? "-" : user.Email;
+                                    }
+                                    <a href="@userDetailUrl" class="user-profile-field">@email</a>
+                                </div>
+                           </div>
+                            <div class="col-md-7">
+                                <div>
+                                    <a href="@Url.Action("Invite", "User", new { area = "Orchard.CRM.Project", userId = user.UserId })" class="invite-to-project-button btn btn-default">@T("Invite to Projects")</a>          
+                                </div>
+                                <div>
+                                    <span class="user-profile-label current-projects-label">@T("Current Projects:")</span>
+                                    @if (user.UserProjects.Count > 0)
+                                    {
+                                        foreach (var project in user.UserProjects)
+                                        {
+                                            <a href="@Url.Action("Display", "Project", new { id = project.Value })" class="user-profile-field">@project.Text</a>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span class="user-profile-field">@T("User does not member of any project")</span>
+                                    }                  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>

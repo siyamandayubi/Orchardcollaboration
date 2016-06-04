@@ -1,0 +1,12 @@
+﻿@using Orchard.CRM.Core.Services;
+@{
+    int userId = Model.ContentPart.Owner.Id;
+    string imageDefaultSource = Url.Content("~/Modules/Orchard.CRM.Project/Styles/Images/user-icon-small.jpg");
+    string userProfileUrl = Url.Action("Display", "User", new { area = "Orchard.CRM.Project", userId = userId });
+}
+<div>
+    @Display.UserThumbnail(userId: userId, width: 48, height: 48, source: imageDefaultSource, userProfileUrl: userProfileUrl)
+    <a href="@userProfileUrl">@CRMHelper.GetFullNameOfUser(Model.ContentPart.Owner)</a>
+    <div class="published">@Model.ContentPart.CreatedUtc.ToString("MMM dd") &nbsp; @Model.ContentPart.CreatedUtc.ToString("hh:mm")</div>
+</div>
+<div class="space"></div>

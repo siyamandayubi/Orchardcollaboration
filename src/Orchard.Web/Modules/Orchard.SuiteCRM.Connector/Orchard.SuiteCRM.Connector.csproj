@@ -1,0 +1,297 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A820C221-2DD3-4A85-9F31-B48D007E9301}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Orchard.SuiteCRM.Connector</RootNamespace>
+    <AssemblyName>Orchard.SuiteCRM.Connector</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>..\..\..\OrchardBasicCorrectness.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data.Entity.EF6, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\MySql.Data.Entity.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Web, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\MySql.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\newtonsoft.json\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Mvc, Version=5.2.3, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\aspnetmvc\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\aspnetmvc\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets.json" />
+    <Content Include="Assets\Styles.less" />
+    <Content Include="Lib\EntityFramework.dll" />
+    <Content Include="Lib\EntityFramework.SqlServer.dll" />
+    <Content Include="Lib\EntityFramework.SqlServer.xml" />
+    <Content Include="Lib\EntityFramework.xml" />
+    <Content Include="Lib\MySql.Data.dll" />
+    <Content Include="Lib\MySql.Data.Entity.EF6.dll" />
+    <Content Include="Lib\MySql.Web.dll" />
+    <Content Include="Recipes\orchardcollaboration.recipe.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Scripts\JSX\readme.txt" />
+    <Content Include="Scripts\SuiteCRM.js" />
+    <Content Include="Scripts\SuiteCRMComponents.js" />
+    <Content Include="Styles\Images\left_round.png" />
+    <Content Include="Styles\Images\right_round.png" />
+    <Content Include="Styles\SuiteCRM.css" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Scripts\Web.config" />
+    <Content Include="Styles\Web.config" />
+    <Content Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Module.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Orchard\Orchard.Framework.csproj">
+      <Project>{2D1D92BB-4555-4CBE-8D0E-63563D6CE4C6}</Project>
+      <Name>Orchard.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Orchard.Core.csproj">
+      <Project>{9916839C-39FC-4CEB-A5AF-89CA7E87119F}</Project>
+      <Name>Orchard.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.CRM.Core\Orchard.CRM.Core.csproj">
+      <Project>{7ae1c659-22dd-4f7a-8d81-dadf0fae6a74}</Project>
+      <Name>Orchard.CRM.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.CRM.Project\Orchard.CRM.Project.csproj">
+      <Project>{68622c6d-5af8-4cee-9463-d275ae8532ea}</Project>
+      <Name>Orchard.CRM.Project</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Roles\Orchard.Roles.csproj">
+      <Project>{d10ad48f-407d-4db5-a328-173ec7cb010f}</Project>
+      <Name>Orchard.Roles</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Orchard.Users\Orchard.Users.csproj">
+      <Project>{79aed36e-abd0-4747-93d3-8722b042454b}</Project>
+      <Name>Orchard.Users</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Constants.cs" />
+    <Compile Include="Controllers\SyncController.cs" />
+    <Compile Include="Database\emails_beans.cs" />
+    <Compile Include="Database\email_addresses.cs" />
+    <Compile Include="Database\email_addr_bean_rel.cs" />
+    <Compile Include="Database\Entities.cs" />
+    <Compile Include="Database\IEntity.cs" />
+    <Compile Include="Database\note.cs" />
+    <Compile Include="Database\SuiteCRMDataContext.cs" />
+    <Compile Include="Database\project.cs" />
+    <Compile Include="Database\project_task.cs" />
+    <Compile Include="Database\task.cs" />
+    <Compile Include="Database\user.cs" />
+    <Compile Include="Drivers\ProjectDriver.cs" />
+    <Compile Include="Drivers\SuiteCRMUserDriver.cs" />
+    <Compile Include="Drivers\SuiteCRMTaskDriver.cs" />
+    <Compile Include="Drivers\SuiteCRMProjectDriver.cs" />
+    <Compile Include="Drivers\SuiteCRMSettingPartDriver.cs" />
+    <Compile Include="Drivers\SuiteCRMStatusNotificationDriver.cs" />
+    <Compile Include="FieldNames.cs" />
+    <Compile Include="Lib\Handlers\SuiteCRMHandler.cs" />
+    <Compile Include="Initiliaziation.cs" />
+    <Compile Include="Migrations.cs" />
+    <Compile Include="Models\SuiteCRMNotePart.cs" />
+    <Compile Include="Models\SuiteCRMStatusNotificationPart.cs" />
+    <Compile Include="Models\SuiteCRMUserPart.cs" />
+    <Compile Include="Models\SuiteCRMTaskPart.cs" />
+    <Compile Include="Models\SuiteCRMProjectPart.cs" />
+    <Compile Include="Models\SuiteCRMSettingPart.cs" />
+    <Compile Include="Permissions.cs" />
+    <Compile Include="Providers\Serialization\SuiteCRMProjectPartConverter.cs" />
+    <Compile Include="ResourceManifest.cs" />
+    <Compile Include="Services\Helper.cs" />
+    <Compile Include="Services\ISuiteCRMDataService.cs" />
+    <Compile Include="Services\ISuiteCRMSyncUserService.cs" />
+    <Compile Include="Services\SuiteCRMEmailAddressBeanUnitOfWork.cs" />
+    <Compile Include="Services\SuiteCRMEmailAddressUnitOfWork.cs" />
+    <Compile Include="Services\SuiteCRMSyncUsersService.cs" />
+    <Compile Include="Services\SuiteCRMUserUnitOfWork.cs" />
+    <Compile Include="Services\SuiteCRMTaskUnitOfWork.cs" />
+    <Compile Include="Services\SuiteCRMProjectTaskUnitOfWork.cs" />
+    <Compile Include="Services\SuiteCRMProjectUnitOfWork.cs" />
+    <Compile Include="Services\ISuiteCRMUnitOfWork.cs" />
+    <Compile Include="Services\ISuiteCRMSyncService.cs" />
+    <Compile Include="Services\SuiteCRMDataService.cs" />
+    <Compile Include="Services\SuiteCRMSyncService.cs" />
+    <Compile Include="Services\SuiteCRMUnitOfWork.cs" />
+    <Compile Include="ViewModels\CopyOrchardTasksToSuiteViewModel.cs" />
+    <Compile Include="ViewModels\CopyOrchardProjectToSuiteViewModel.cs" />
+    <Compile Include="ViewModels\CopySuiteCRMUsersToOrchardViewModel.cs" />
+    <Compile Include="ViewModels\SuiteCRMTaskDetailViewModel.cs" />
+    <Compile Include="ViewModels\SuiteCRMProjectDetailViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\SuiteCRMUserViewModel.cs" />
+    <Compile Include="ViewModels\SuiteCRMViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\EditorTemplates\Parts\SuiteCRMSettingPart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Sync\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\JSX\SuiteCRMComponents.jsx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Placement.info">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\SyncProjectTitle.Summary.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Styles\SuiteCRM.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Sync\Settings.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\SuiteCRMStatusNotification.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\SuiteCRMProject.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\SyncDialogs.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\SuiteCRMTask.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\SuiteCRMTaskContactLink.cshtml" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target> -->
+  <Target Name="AfterBuild" DependsOnTargets="AfterBuildCompiler">
+    <PropertyGroup>
+      <AreasManifestDir>$(ProjectDir)\..\Manifests</AreasManifestDir>
+    </PropertyGroup>
+    <!-- If this is an area child project, uncomment the following line:
+    <CreateAreaManifest AreaName="$(AssemblyName)" AreaType="Child" AreaPath="$(ProjectDir)" ManifestPath="$(AreasManifestDir)" ContentFiles="@(Content)" />
+    -->
+    <!-- If this is an area parent project, uncomment the following lines:
+    <CreateAreaManifest AreaName="$(AssemblyName)" AreaType="Parent" AreaPath="$(ProjectDir)" ManifestPath="$(AreasManifestDir)" ContentFiles="@(Content)" />
+    <CopyAreaManifests ManifestPath="$(AreasManifestDir)" CrossCopy="false" RenameViews="true" />
+    -->
+  </Target>
+  <Target Name="AfterBuildCompiler" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(ProjectDir)\..\$(ProjectName)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>45979</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://orchard.codeplex.com</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

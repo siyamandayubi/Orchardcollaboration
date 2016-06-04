@@ -1,0 +1,36 @@
+﻿@model Orchard.CRM.Project.ViewModels.EditMilestoneViewModel
+<fieldset>
+    <div class="edit-milestone">
+        <div class="">
+            <div class="">@T("Start:")</div>
+            <div class="">@Html.TextBoxFor(m => m.Start, new { style = "width:200px", @class = "stat-date" })</div>
+        </div>
+        <div class="space"></div>
+        <div class="">
+            <div class="">@T("End:")</div>
+            <div class="">@Html.TextBoxFor(m => m.End, new { style = "width:200px", @class = "end-date" })</div>
+        </div>
+        <div class="space"></div>
+        <div class="">
+            <span class="">@Html.CheckBoxFor(m => m.IsCurrent)</span>
+            <span class="">@T("Is Current")</span>
+        </div>
+        <div class="space"></div>
+        <div class="">
+            <span class="">@Html.CheckBoxFor(m => m.IsClosed)</span>
+            <span class="">@T("Is Closed")</span>
+        </div>
+    </div>
+</fieldset>
+@{
+    Script.Require("JQueryUI");
+    Script.Require("ProjectWidgets");
+}
+@using (Script.Foot())
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".edit-milestone").EditMilestone();
+        });
+    </script>
+}

@@ -1,0 +1,54 @@
+﻿@using System.Dynamic;
+@using Newtonsoft.Json;
+@{
+    Script.Require("JQueryUI");
+    Script.Require("ProjectWidgets");
+    Script.Require("CRMProjectComponents");
+
+    // route table. We must send the routes to the client, so that in the client we don't have to hard-code the routes
+    dynamic routeTable = new ExpandoObject();
+    routeTable.DisplayTicket = Url.Action("Display", "Ticket", new { area = "Orchard.CRM.Core", id = "{id}" });
+    routeTable.EditTicket = Url.Action("Edit", "Ticket", new { area = "Orchard.CRM.Core", id = "{id}" });
+    routeTable.QuickTicketUpdate = Url.Action("QuickUpdate", "Ticket", new { area = "Orchard.CRM.Core" });
+    routeTable.UpdateMilestoneItems = Url.Action("UpdateMilestoneItems", "Milestone", new { area = "Orchard.CRM.Project" });
+    Model.Routes = routeTable;
+    
+    // Sending translate table to the client
+    dynamic translateTable = new ExpandoObject();
+    translateTable.TicketsTitle = T("Tickets").Text;
+    translateTable.SendToBacklog = T("Send to Backlog").Text;
+    translateTable.MoveToTop = T("Move to top").Text;
+    translateTable.Type = T("Type").Text;
+    translateTable.Edit = T("Edit").Text;
+    translateTable.Priority = T("Priority").Text;
+    translateTable.SendToBacklog = T("Send to Backlog").Text;
+    translateTable.MoveToTop = T("Move to top").Text;
+    translateTable.MoveToBottom = T("Move to bottom").Text;
+    translateTable.SendToTop = T("Send to the top of the milestone").Text;
+    translateTable.SendToBottom = T("Send to the bottom of the milestone").Text;
+    translateTable.NoItemsInMilestone = T("There is no item in the Milestone").Text;
+    translateTable.NoItemsInBacklog = T("There is no item in the Backlog").Text;
+    translateTable.Summary = T("Summary").Text;
+    translateTable.Backlog = T("Backlog").Text;
+    translateTable.Status = T("Status").Text;
+    Model.TranslateTable = translateTable;
+}
+@{
+    // Generate Anti forgery token. This token is used by AJAX requests.
+}
+@using (Html.BeginFormAntiForgeryPost())
+{
+}
+<script type="application/json" id="milestonePlannerData">
+  @Html.Raw(JsonConvert.SerializeObject(Model)) 
+</script>
+@using (Script.Foot())
+{
+    <script language="javascript" type="text/javascript">
+        $(document).ready(function () {
+            crm.project.MilestonePlannerController("milestonePlannerContainer", "milestonePlannerData");
+        });
+    </script>
+}
+<div id="milestonePlannerContainer">
+</div>

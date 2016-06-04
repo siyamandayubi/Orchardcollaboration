@@ -1,0 +1,14 @@
+﻿@using Orchard.CRM.Core.Models;
+@using Orchard.Users.Models;
+
+<ul id="businessUnitMembers" data-jq-widget="BusinessUnitMembers">
+    @{
+        foreach (var shape in Model.BuildShapes)
+        {
+            @Display(shape)
+        }
+    }
+    <script type="text/template" id="businessUnitMemberTemplate">
+        <li class="businessUnitMember" data-id="{{Id}}">{{UserPartRecord.UserName}}<a class="delete" data-id="{{Id}}" href="@Url.Action("Remove","Item", new { area = "Orchard.CRM.Core"})/{{Id}}">@T("Delete")</a></li>
+    </script>
+</ul>

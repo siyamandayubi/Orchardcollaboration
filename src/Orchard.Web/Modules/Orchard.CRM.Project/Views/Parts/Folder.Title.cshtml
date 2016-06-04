@@ -1,0 +1,10 @@
+﻿@using Orchard.CRM.Project;
+@using Orchard.CRM.Project.ViewModels;
+@{
+    FolderWithAncestorsViewModel folder = Model.Model;
+}
+<div class="pull-left project-title">
+        <a href="@Url.Action("Display", "Project", new { area = "Orchard.CRM.Project", id = folder.ProjectId })"><span class="panel-title">@folder.Project.Title</span></a><span>&nbsp;-&nbsp;</span>
+        <a href="@Url.Action("DisplayProjectRelatedItem", "Project", new { area = "Orchard.CRM.Project", projectId = folder.ProjectId, contentType = ContentTypes.WikiContentType })">@T("Wiki")</a>
+    <div class="clear"></div>
+</div>

@@ -1,0 +1,43 @@
+﻿@model Orchard.CRM.Core.Models.FileUpoadViewModel
+@using Orchard.CRM.Core.Settings
+@{
+    Style.Include("fileuploader.css");
+    Script.Require("jQuery");
+    Script.Require("jQueryUI");
+    Script.Require("CRMWidgets");
+    Script.Include("fileuploader.js");
+
+    var settings = Model.Settings as FileUploadPartSettings;
+    var allowedFileTypes = (settings != null && !string.IsNullOrEmpty(settings.FileTypes)) ? 
+        settings.FileTypes.Split(',') : 
+        new string[] { "jpg", "jpeg", "txt", "doc", "docx", "csv", "bmp", "png", "rtf", "pdf", "xls", "xlsx" ,"ppt", "pptx" };
+    var sizeLimit = 10 * 1024 * 1024;//settings.FileSizeLimit * 1024 * 1024;
+    RouteValueDictionary routeValues = new RouteValueDictionary();
+    routeValues.Add("area", "Orchard.CRM.Core");
+    routeValues.Add("guid", Model.Guid);
+    routeValues.Add("contentTypeForFile", Model.ContentType);
+    routeValues.Add("controller", "FileUpload");
+    string url = Url.Action("UploadFile", "FileUpload", new { guid = Model.Guid, contentType = Model.ContentType, area = "Orchard.CRM.Core" });
+    url = Url.Action("UploadFile", routeValues);
+}
+
+<div id="fileuploader_@(Model.ContentId)"></div>
+@Html.Hidden("Guid", Model.Guid)
+
+@using (Script.Foot())
+{
+    <script>
+        $(document).ready(function () {
+            $("body").FileUpload({
+                url:'@Html.Raw(url)',
+                element: $('#fileuploader_@(Model.ContentId)')[0],
+                allowedExtensions: [ '@Html.Raw(string.Join("', '", allowedFileTypes))' ],
+                sizeLimit: @sizeLimit,
+                fileUploadComplete: function(event, obj){
+                    // find files tag
+                    var filesWidget = $('.files').FileList("addNewFile", obj);
+                }
+            });
+        });
+    </script>
+}

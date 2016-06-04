@@ -1,0 +1,31 @@
+﻿@using Orchard.CRM.Core.Services;
+@{
+    int userId = Model.ContentPart.Owner.Id;
+    string imageDefaultSource = Url.Content("~/Modules/Orchard.CRM.Project/Styles/Images/user-icon-small.jpg");
+    string userProfileUrl = Url.Action("Display", "User", new { area = "Orchard.CRM.Project", userId = userId });
+}
+<div class="user">
+    @Display.UserThumbnail(userId: userId, width: 48, height: 48, source: imageDefaultSource, userProfileUrl: userProfileUrl)
+    <a class="user-link" href="@userProfileUrl">@CRMHelper.GetFullNameOfUser(Model.ContentPart.Owner)</a>
+    <span class="published">@Model.ContentPart.CreatedUtc.ToString("MMM dd") &nbsp; @Model.ContentPart.CreatedUtc.ToString("hh:mm")</span>
+    <div class="user-context-menu">
+        @Display(New.SkypeTooltip(Model: Model.ContentPart.Owner))
+    </div>
+</div>
+<div class="space"></div>
+@using (Script.Foot())
+{
+    Script.Require("JQueryUI");
+    Script.Require("ProjectWidgets");
+    <script language="javascript" type="text/javascript">
+        $(document).ready(function(){
+            $(".content-item").Skype({
+                userLinkCssClass: "user-link",
+                mainContainerClass: "content-item",
+                subContainerClass: "user",
+                contextMenuCssClass: "user-context-menu",
+                contextMenuCloseButtonClass: "user-context-menu-close"
+            });
+        });
+    </script>
+}

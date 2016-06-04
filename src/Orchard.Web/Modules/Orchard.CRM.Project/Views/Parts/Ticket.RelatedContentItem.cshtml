@@ -1,0 +1,19 @@
+﻿@using Orchard.ContentManagement;
+@using Orchard.Core.Title.Models;
+@using Orchard.Core.Common.Models;
+@using Orchard.CRM.Core.Services;
+@{
+    ContentItem contentItem = (ContentItem)Model.Model.ContentItem;
+    bool isPublished = Model.Model.IsPublished;
+    string viewContentAction = isPublished ? "Display" : "Preview";
+    string viewLink = Url.Action(viewContentAction, "Item", new { id = contentItem.Id, area = "Contents" });
+    TitlePart titlePart = contentItem.As<TitlePart>();
+    string title = titlePart != null ? titlePart.Title : "-";
+    string type = contentItem.ContentType;
+    CommonPart commonPart = contentItem.As<CommonPart>();
+    <div class="ticket-related-item">
+        <label>@T("Related Item:")</label>
+        <a href="@viewLink">@title</a>
+    </div>
+
+}

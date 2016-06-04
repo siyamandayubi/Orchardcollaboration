@@ -1,0 +1,90 @@
+﻿@using Orchard.CRM.Project.Services;
+@using Orchard.Security;
+@{
+    var model = Model.Model;
+    Style.Include("jquery-ui.css");
+}
+<h4>@T("Activity Stream")</h4>
+<div class="activity-stream">
+    @if (model.Days.Count == 0)
+    {
+        <div>@T("There is no activity so far")</div>
+    }
+    else
+    {
+        foreach (var day in model.Days)
+        {
+            <div class="activity-stream-day">
+                <h6 class="activity-stream-label day-label">@day.Title</h6>
+                @foreach (var item in day.Items)
+                {
+                    IUser user = item.User;
+                    string userThumbnail = user != null ? ProjectHelper.GetThumbnailImageOfUser(user) : string.Empty;
+                    string imageSource = string.IsNullOrEmpty(userThumbnail) ? Url.Content("~/Modules/Orchard.CRM.Project/Styles/Images/user-icon-small.jpg") : userThumbnail;
+                   var route = item.Route ?? null;
+                    <div class="activity-stream-item">
+                        <div>
+                            <a class="user-link" href="@Url.Action("Display", "User", new { userId = item.UserId, area = "Orchard.CRM.Project" })">
+                                <img src="@imageSource" width="48" height="48" src="@imageSource" title="@item.UserFullName" />
+                                <span class="user">
+                                    @item.UserFullName
+                                </span>
+                            </a>
+                            <div class="user-context-menu">
+                                @Display(New.SkypeTooltip(Model: user, Topic: item.ContentDescription))
+                            </div>
+                            <span class="content">
+                                @if (route != null)
+                                {
+                                    <a href="@Url.RouteUrl(route)">@item.ContentDescription</a>
+                                }
+                                else
+                                {
+                                    <a>@item.ContentDescription</a>
+                                }
+                            </span>
+                             @if (item.Changes.Count > 0)
+                            {
+                                string detailId = "detail" + @item.ActivityStreamId;
+                                <span data-detail-id="@detailId" class="activity-detail-view">...</span>
+                            }
+                      </div>
+                        @if (item.Changes.Count > 0)
+                        {
+                            string detailId = "detail" + @item.ActivityStreamId;
+                            <ul id="@detailId" class="detail hidden">
+                                @foreach (var change in item.Changes)
+                                {
+                                    <li class="activity-stream-label">
+                                        @change
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        <div class="date-time">
+                            @item.DateTime.ToLongTimeString()
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        if (model.Pager.TotalItemCount > model.Pager.PageSize)
+        {
+            <!--<div class="ticket-pager">-->
+            <div>
+                @Display(model.Pager)
+            </div>
+        }
+    }
+</div>
+@using (Script.Foot())
+{
+    Script.Require("JQueryUI");
+    Script.Require("ProjectWidgets");
+    <script language="javascript" type="text/javascript">
+        $(document).ready(function(){
+            $(".activity-stream").ActivityStreamViewer();
+            $(".activity-stream").Skype();
+        });
+    </script>
+}
