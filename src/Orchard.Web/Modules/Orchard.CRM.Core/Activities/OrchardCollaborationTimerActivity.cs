@@ -43,7 +43,7 @@ namespace Orchard.CRM.Core.Activities
         }
 
         public override LocalizedString Description {
-            get { return T("Wait for a specific time has passed."); }
+            get { return T("Wait until a specific time has passed."); }
         }
 
         public override string Form {

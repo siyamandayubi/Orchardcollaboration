@@ -11,9 +11,16 @@ function alert(title, msg) {
 }
 
 /* Optional: Overwrites javascript's built-in confirm function (DANGER: operates differently - returns true every time and doesn't stop execution!) - You must provide a callback */
-function confirm(confirmCallback, denyCallback) {
-	$.jAlert({ 'type': 'confirm', 'onConfirm': confirmCallback, 'onDeny': denyCallback });
+var originalConfirm = window.confirm;
+var newConfirm = function (confirmCallback, denyCallback) {
+    if (typeof confirmCallback == "string" && !denyCallback) {
+        return originalConfirm(confirmCallback);
+    }
+    else {
+        $.jAlert({ 'type': 'confirm', 'onConfirm': confirmCallback, 'onDeny': denyCallback });
+    }
 }
+window.confirm = newConfirm;
 
 /* Optional Alert shortcuts based on color */
 function showAlert(title, msg, theme) {

@@ -1,0 +1,9 @@
+﻿Name: OC.SVNConnector
+AntiForgery: enabled
+Author: Siyamand Ayubi
+Website: http://orchardcollaboration.com
+Version: 1.0
+OrchardVersion: 1.10.1
+Description: A Connector for SVN Source control
+FeatureDescription: A Connector for SVN Source control
+Dependencies: Orchard.Workflows

@@ -1,0 +1,8 @@
+﻿<Placement>
+  <Place Parts_GITCommit="Content:20"/>
+  <Place Parts_GITCommit_Edit="Content:1"></Place>
+  <Match ContentType="GITCommit">
+    <Place Parts_Common_Metadata_Summary="-"/>
+    <Place Parts_Common_Metadata="-"/>
+  </Match>
+</Placement>

@@ -1,23 +1,6 @@
-﻿/// Orchard Collaboration is a series of plugins for Orchard CMS that provides an integrated ticketing system and collaboration framework on top of it.
-/// Copyright (C) 2014-2016  Siyamand Ayubi
-///
-/// This file is part of Orchard Collaboration.
-///
-///    Orchard Collaboration is free software: you can redistribute it and/or modify
-///    it under the terms of the GNU General Public License as published by
-///    the Free Software Foundation, either version 3 of the License, or
-///    (at your option) any later version.
-///
-///    Orchard Collaboration is distributed in the hope that it will be useful,
-///    but WITHOUT ANY WARRANTY; without even the implied warranty of
-///    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-///    GNU General Public License for more details.
-///
-///    You should have received a copy of the GNU General Public License
-///    along with Orchard Collaboration.  If not, see <http://www.gnu.org/licenses/>.
 
-
-var orchardcollaboration = orchardcollaboration || {};
+window.orchardcollaboration = window.orchardcollaboration || {};
+var orchardcollaboration = window.orchardcollaboration;
 orchardcollaboration.react = orchardcollaboration.react || {};
 orchardcollaboration.react.allComponents  = orchardcollaboration.react.allComponents  || {};
 
@@ -537,7 +520,10 @@ var MilestonePlanner = React.createClass({
 				return <x.Display root={root} notWrap="true" shape={item} key={item.ContentItem.Id} ></x.Display>;
 				});
 			backLogComponent = <div>
-									<h4>{root.T("Backlog")}</h4>
+									<h4>
+										{root.T("Backlog")}
+										<span className="backlog-description">{root.T("BacklogDescription", "only non completed tickets of backlog are shown")}</span>
+									</h4>
 									<table className="backlog milestone-items-list">
 										<thead>
 											<tr>
@@ -556,7 +542,10 @@ var MilestonePlanner = React.createClass({
 		else{
 			backLogComponent =
 				<div>
-					<h4>{root.T("Backlog")}</h4>
+					<h4>
+						{root.T("Backlog")}
+						<span className="backlog-description">{root.T("BacklogDescription", "only non completed tickets of backlog are shown")}</span>
+					</h4>
 					<div className="drop-target"><h5 className="milestone-no-item">{root.T("NoItemsInBacklog", "There is no item in the Backlog")}</h5></div>
 				</div>
 		}
@@ -737,7 +726,7 @@ var AddCommentModal = React.createClass({
 
 	save: function(){
 		var data = {
-			comment: this.refs.comment.innerText,
+			comment: this.refs.comment.value,
 			id : this.props.selectedTicketId
 		};
 
@@ -766,7 +755,7 @@ var EditTicketModal = React.createClass({
 
 		var data = {
 			title: this.refs.title.value,
-			description: this.refs.description.innerHTML,
+			description: this.refs.description.value,
 			priorityId: priority.selectedIndex? priority.options[priority.selectedIndex].value: null,
 			ticketTypeId: ticketType.selectedIndex? ticketType.options[ticketType.selectedIndex].value: null,
 			id: this.props.editModalData.id

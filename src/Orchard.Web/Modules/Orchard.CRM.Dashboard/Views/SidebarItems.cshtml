@@ -1,0 +1,31 @@
+﻿@using Orchard.ContentManagement;
+@using Orchard.CRM.Core.Models;
+@{
+    Func<IEnumerable<dynamic>> shapeBuilder = Model.BuildShapes;
+    var shapes = shapeBuilder();
+}
+<div class="sidebar-tickets">
+    @if (shapes == null || shapes.Count() == 0)
+    {
+        <div class="well">@T("There is no item")</div>
+    }
+    else
+    {
+        foreach (var shape in shapes)
+        {
+            dynamic contentItem = shape.ContentItem;
+
+            if (contentItem.TitlePart != null)
+            {
+                string title = contentItem.TitlePart.Title;
+                <div class="ticket-title"><a href="@Url.Action("Display", "Item", new { area = "Orchard.CRM.Core", id = contentItem.Id})">@title</a></div>
+            }
+            else
+            {
+            <div>
+                @Display(shape)
+            </div>
+            }
+        }
+    }
+</div>

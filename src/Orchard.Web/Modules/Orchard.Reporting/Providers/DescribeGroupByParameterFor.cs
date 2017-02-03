@@ -25,7 +25,7 @@ namespace Orchard.Reporting.Providers
         public LocalizedString Description { get; private set; }
         public List<GroupByDescriptor> Types { get; private set; }
 
-        public DescribeGroupByParameterFor Element(string type, LocalizedString name, LocalizedString description, Func<IHqlQuery, AggregateMethods, IEnumerable<AggregationResult>> run, Func<FilterContext, LocalizedString> display, IList<AggregateMethods> aggregateMethods)
+        public DescribeGroupByParameterFor Element(string type, LocalizedString name, LocalizedString description, Func<IHqlQuery, AggregateMethods,string, IEnumerable<AggregationResult>> run, Func<FilterContext, LocalizedString> display, IList<AggregateMethods> aggregateMethods)
         {
             var groupByDescriptor = new GroupByDescriptor { Type = type, Name = name, Description = description, Category = _category, Run= run, Display = display};
             groupByDescriptor.AggregateMethods.AddRange(aggregateMethods);

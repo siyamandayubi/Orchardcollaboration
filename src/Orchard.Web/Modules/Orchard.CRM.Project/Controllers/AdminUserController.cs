@@ -25,6 +25,9 @@ using System.Globalization;
 using Orchard.CRM.Core.Providers.ActivityStream;
 using Orchard.Themes;
 using Orchard.Environment.Configuration;
+using Orchard.Data;
+using Orchard.Roles.Models;
+using Orchard.Roles.ViewModels;
 
 namespace Orchard.CRM.Project.Controllers
 {
@@ -38,8 +41,10 @@ namespace Orchard.CRM.Project.Controllers
         private readonly ISiteService _siteService;
         private readonly ICRMContentOwnershipService crmContentOwnershipService;
         private readonly IActivityStreamService activityStreamService;
+        private readonly IRepository<RolesPermissionsRecord> rolesPermissionsRepository;
 
         public AdminUserController(
+            IRepository<RolesPermissionsRecord> rolesPermissionsRepository,
             IActivityStreamService activityStreamService,
             ICRMContentOwnershipService crmContentOwnershipService,
             IOrchardServices services,
@@ -49,6 +54,7 @@ namespace Orchard.CRM.Project.Controllers
             IUserEventHandler userEventHandlers,
             ISiteService siteService)
         {
+            this.rolesPermissionsRepository = rolesPermissionsRepository;
             this.activityStreamService = activityStreamService;
             this.crmContentOwnershipService = crmContentOwnershipService;
             Services = services;
@@ -119,7 +125,7 @@ namespace Orchard.CRM.Project.Controllers
             {
                 results = results.Where(c => !string.Equals(c.UserName, siteSettings.SuperUser, StringComparison.Ordinal)).ToList();
             }
-            
+
             var model = new UsersIndexViewModel
             {
                 Users = results
@@ -184,7 +190,7 @@ namespace Orchard.CRM.Project.Controllers
             return RedirectToAction("Index", ControllerContext.RouteData.Values);
         }
 
-        public ActionResult Create()
+        public ActionResult Create(string defaultRole)
         {
             if (!Services.Authorizer.Authorize(Permissions.ManageUsers, T("Not authorized to manage users")))
                 return new HttpUnauthorizedResult();
@@ -193,9 +199,38 @@ namespace Orchard.CRM.Project.Controllers
             var editor = Shape.EditorTemplate(TemplateName: "Parts/User.Create", Model: new UserCreateViewModel(), Prefix: null);
             editor.Metadata.Position = "2";
             var model = Services.ContentManager.BuildEditor(user);
-            model.Content.Add(editor);
-
+            model.Content.Items.Insert(0, editor);
+            FilterRolesToItemsWithCRMCorePermissions(model, defaultRole);
             return View(model);
+        }
+
+        private void FilterRolesToItemsWithCRMCorePermissions(dynamic model, string defaultRole)
+        {
+            var allowedRoles = this.rolesPermissionsRepository.Table.Where(c =>
+            (c.Permission.Name == Orchard.CRM.Core.Permissions.OperatorPermission.Name ||
+            c.Permission.Name == Orchard.CRM.Core.Permissions.CustomerPermission.Name ||
+            c.Permission.Name == Orchard.CRM.Core.Permissions.AdvancedOperatorPermission.Name) &&
+            c.Permission.FeatureName == "Orchard.CRM.Core").Select(c => c.Role.Id).ToArray();
+
+            if (model.Content == null || model.Content.Items == null)
+            {
+                return;
+            }
+
+            foreach (var item in model.Content.Items)
+            {
+                if (item.Prefix == "UserRoles")
+                {
+                    UserRolesViewModel viewModel = item.Model;
+                    viewModel
+                        .Roles
+                        .Where(role => !allowedRoles.Any(r => r == role.RoleId))
+                        .ToList()
+                        .ForEach(c => viewModel.Roles.Remove(c));
+
+                    viewModel.Roles.Where(c => c.Name == defaultRole).ToList().ForEach(c => c.Granted = true);
+                }
+            }
         }
 
         [HttpPost, ActionName("Create")]
@@ -241,7 +276,7 @@ namespace Orchard.CRM.Project.Controllers
 
                 var editor = Shape.EditorTemplate(TemplateName: "Parts/User.Create", Model: createModel, Prefix: null);
                 editor.Metadata.Position = "2";
-                model.Content.Add(editor);
+                model.Content.Items.Insert(0, editor);
 
                 return View(model);
             }
@@ -268,7 +303,8 @@ namespace Orchard.CRM.Project.Controllers
             var editor = Shape.EditorTemplate(TemplateName: "Parts/User.Edit", Model: new UserEditViewModel { User = user }, Prefix: null);
             editor.Metadata.Position = "2";
             var model = Services.ContentManager.BuildEditor(user);
-            model.Content.Add(editor);
+            model.Content.Items.Insert(0, editor);
+            FilterRolesToItemsWithCRMCorePermissions(model, string.Empty);
 
             return View(model);
         }
@@ -321,7 +357,7 @@ namespace Orchard.CRM.Project.Controllers
 
                 var editor = Shape.EditorTemplate(TemplateName: "Parts/User.Edit", Model: editModel, Prefix: null);
                 editor.Metadata.Position = "2";
-                model.Content.Add(editor);
+                model.Content.Items.Insert(0, editor);
 
                 return View(model);
             }
@@ -355,8 +391,8 @@ namespace Orchard.CRM.Project.Controllers
                 if (!string.IsNullOrEmpty(shellSettings.RequestUrlPrefix) && string.Equals(user.UserName, siteSettings.SuperUser, StringComparison.Ordinal))
                 {
                     throw new OrchardSecurityException(T("You don't have permission to moderate the user"));
-                } 
-                
+                }
+
                 if (String.Equals(Services.WorkContext.CurrentSite.SuperUser, user.UserName, StringComparison.Ordinal))
                 {
                     Services.Notifier.Error(T("The Super user can't be removed. Please disable this account or specify another Super user account."));
@@ -434,8 +470,8 @@ namespace Orchard.CRM.Project.Controllers
                 if (!string.IsNullOrEmpty(shellSettings.RequestUrlPrefix) && string.Equals(user.UserName, siteSettings.SuperUser, StringComparison.Ordinal))
                 {
                     throw new OrchardSecurityException(T("You don't have permission to moderate the user"));
-                } 
-                
+                }
+
                 if (String.Equals(Services.WorkContext.CurrentUser.UserName, user.UserName, StringComparison.Ordinal))
                 {
                     Services.Notifier.Error(T("You can't disable your own account. Please log in with another account"));

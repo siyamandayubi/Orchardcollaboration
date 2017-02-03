@@ -69,7 +69,7 @@ namespace Orchard.Reporting.Services
             return contentQueries.Sum(c => c.Count());
         }
 
-        public IEnumerable<AggregationResult> RunReport(ReportRecord report, IContent container)
+        public ReportResult RunReport(ReportRecord report, IContent container)
         {
             if (report == null) { throw new ArgumentNullException("report"); }
             if (report.Query == null) { throw new ArgumentException("There is no QueryRecord associated with the Report"); }
@@ -86,28 +86,30 @@ namespace Orchard.Reporting.Services
 
             var contentQueries = this.GetContentQueries(queryRecord, queryRecord.SortCriteria, container);
 
-            Dictionary<string, AggregationResult> returnValue = new Dictionary<string, AggregationResult>();
+            Dictionary<string, AggregationResult> result = new Dictionary<string, AggregationResult>();
 
             foreach (var contentQuery in contentQueries)
             {
-                var dictionary = descriptor.Run(contentQuery, (AggregateMethods)report.AggregateMethod);
+                var dictionary = descriptor.Run(contentQuery, (AggregateMethods)report.AggregateMethod, report.State);
 
                 foreach (var item in dictionary)
                 {
-                    if (returnValue.ContainsKey(item.Label))
+                    if (result.ContainsKey(item.Label))
                     {
-                        var previousItem = returnValue[item.Label];
+                        var previousItem = result[item.Label];
                         previousItem.AggregationValue += item.AggregationValue;
-                        returnValue[item.Label] = previousItem;
+                        result[item.Label] = previousItem;
                     }
                     else
                     {
-                        returnValue[item.Label] = item;
+                        result[item.Label] = item;
                     }
                 }
             }
 
-            return returnValue.Values;
+            ReportResult returnValue1 = new ReportResult();
+            returnValue1.Items.AddRange(result.Values);
+            return returnValue1;
         }
 
         public IHqlQuery ApplyFilter(IHqlQuery contentQuery, string category, string type, dynamic state)

@@ -1,4 +1,5 @@
 ﻿<Placement>
+  <Place Parts_Followers="Footer:1"></Place>
   <Place Parts_Project="Content:3"/>
   <Place Parts_ContentItemPermission="Content:4"/>
   <Place Parts_ProjectList="Content:3"/>
@@ -32,6 +33,7 @@
     <Place Parts_AttachedToFolderList="Content:2"/>
   </Match>
   <Match ContentType="FolderItem">
+    <Place Parts_Followers="-"></Place>
     <Place Parts_Project_Title="-"/>
     <Place Parts_Folder_Title="Header:1"/>
     <Place Parts_Folder_Menu="Header:2"/>
@@ -73,6 +75,7 @@
     <Place Parts_Common_Body="-"/>
     <Place Parts_Common_Body_Summary="-"/>
     <Place Parts_ContentItemPermission_Edit="-"></Place>
+    <Place Parts_Followers="-"></Place>
     <Place Parts_Folder_Title="Header:1"/>
     <Place Parts_Wiki_Title="Header:1"/>
     <Place Parts_Project_Menu="-"/>
@@ -117,6 +120,7 @@
     <Place Parts_Common_Container_Edit="-"/>
   </Match>
   <Match ContentType="DiscussionItem">
+    <Place Parts_Followers="-"></Place>
     <Place Parts_Project_Title="Header:1"/>
     <Place Parts_Project_Menu="Header:2"/>
     <Place Parts_Common_Body="Content:2"/>
@@ -211,6 +215,14 @@
       <Place Parts_Project_LastChange="Content:1"/>
       <Place Parts_LatestActiveUsers="Footer:1"/>
     </Match>
+    <Match  DisplayType="TitleOnly">
+      <Place Parts_FilesList="-"/>
+      <Place Parts_Common_Metadata="-"/>
+      <Place Parts_Common_Metadata_Summary="-"/>
+      <Place Parts_Project_TitleOnly="Content:1"/>
+      <Place Parts_Project_LastChange="-"/>
+      <Place Parts_LatestActiveUsers="-"/>
+    </Match>
   </Match>
   <Match ContentType="ProjectDetail">
     <Place Parts_Common_Metadata="-"/>
@@ -258,6 +270,7 @@
   </Match>
   <Match ContentType="Ticket">
     <Place Parts_Follow_Link="Menu:1"></Place>
+    <Place Parts_Followers="-"></Place>
     <Match  DisplayType="Detail">
       <Place Parts_AttachMilestone="FieldsAndProperties:2"></Place>
     </Match>

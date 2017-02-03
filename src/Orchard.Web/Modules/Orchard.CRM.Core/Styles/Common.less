@@ -134,7 +134,7 @@
     height: 30px;
 }
 
-    .ticket-input-field .inner:hover {
+    .ticket-input-field:hover .inner {
         border: 1px solid gray;
     }
 
@@ -579,14 +579,21 @@
         color: white;
     }
 
-#shareDialog .buttons {
-    font-size: @label-font-size;
-}
+#shareDialog {
+    .buttons {
+        font-size: @label-font-size;
+    }
 
-#shareDialog .error {
-    font-family: Arial;
-    font-size: 10pt;
-    color: red;
+    .error {
+        font-family: Arial;
+        font-size: 10pt;
+        color: red;
+    }
+
+    .checkbox-list span {
+        display: inline-block;
+        margin-left: 5px;
+    }
 }
 
 .admin-cancel span {
@@ -631,7 +638,7 @@
 
 .ui-dialog-titlebar-close {
     border-width: 1px !important;
-    border-style:solid !important;
+    border-style: solid !important;
 }
 
 

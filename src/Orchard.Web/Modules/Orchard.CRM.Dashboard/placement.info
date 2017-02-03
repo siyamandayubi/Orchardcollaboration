@@ -1,0 +1,96 @@
+﻿<Placement>
+  <Place Parts_GenericDashboard_Detail="Content:1"></Place>
+  <Place Parts_IMapEmailPortlet_Summary="Content:1"></Place>
+  <Place Parts_SmtpEmailPortlet_Summary="Content:1"></Place>
+  <Place Parts_BasicDataPortletPart_Summary="Content:1"></Place>
+  <Place Parts_NavigationPortletPart_Summary="Content:1"></Place>
+  <Place Parts_WorkflowPortletPart_Summary="Content:1"></Place>
+  <Place Parts_ContentManagementPortletPart_Summary="Content:1"></Place>
+  <Place Parts_QueriesPortletPart_Summary="Content:1"></Place>
+  <Place Parts_DashboardManagement_Summary="Content:1"></Place>
+  <Place Parts_CoverWidget="Content:1"></Place>
+  <Place Parts_CoverWidget_EditLink="HeaderLinks:1"></Place>
+  <Place Parts_GenericDashboard_Header="Title:1"></Place>
+  <Match ContentType="GenericDashboardWidget">
+    <Place Parts_Container_Contained="-"></Place>
+    <Place Parts_Contents_Publish="-"></Place>
+  </Match>
+  <Match ContentType="GenericDashboard">
+    <Place Parts_Container_Contained="-"></Place>
+    <Place Parts_Common_Metadata="-"/>
+    <Place Parts_Common_Metadata_Summary="-"/>
+    <Place Parts_Common_Owner_Edit="-"/>
+    <Place Parts_Common_Container_Edit="-"/>
+    <Match DisplayType="Detail">
+      <Place Parts_Title="Title:1"/>
+    </Match>
+  </Match>
+  <Match ContentType="SidebarProjectionPortlet">
+    <Place Parts_Container_Contained="-"></Place>
+    <Place Parts_Common_Metadata="-"/>
+    <Place Parts_Common_Metadata_Summary="-"/>
+    <Place Parts_Common_Owner_Edit="-"/>
+    <Place Parts_Common_Container_Edit="-"/>
+  </Match>
+  <Match ContentType="SidebarDashboard">
+    <Place Parts_Container_Contained="-"></Place>
+    <Place Parts_Contents_Publish="-"></Place>
+    <Place Parts_Container_Contained="-"></Place>
+    <Place Parts_Common_Metadata="-"/>
+    <Place Parts_Common_Metadata_Summary="-"/>
+    <Place Parts_Container_Edit="-"/>
+    <Place Parts_Common_Owner_Edit="-"/>
+    <Place Parts_Common_Container_Edit="-"/>
+    <Match DisplayType="Detail">
+      <Place Parts_Title="-"/>
+    </Match>
+  </Match>
+  <Match ContentType="GenericDashboard">
+    <Place Parts_Common_Metadata_Summary="-"/>
+    <Place Parts_Container_Edit="-"/>
+    <Place Parts_Common_Owner_Edit="-"/>
+    <Place Parts_Common_Container_Edit="-"/>
+  </Match>
+  <Place Parts_SidebarDashboard_Edit="Content:3"/>
+  <Place Parts_GenericDashboard_Edit="Content:3"/>
+  <Match ContentType="DashboardManagement">
+    <Place Parts_Common_Metadata="-"/>
+    <Place Parts_Common_Metadata_Summary="-"/>
+    <Place Parts_Common_Owner_Edit="-"/>
+  </Match>
+  <Match ContentType="IMAPPortletContent">
+    <Place Parts_Common_Metadata="-"/>
+    <Place Parts_Common_Metadata_Summary="-"/>
+    <Place Parts_Common_Owner_Edit="-"/>
+  </Match>
+  <Match ContentType="ContentManagementPortlet">
+    <Place Parts_Common_Metadata="-"/>
+    <Place Parts_Common_Metadata_Summary="-"/>
+    <Place Parts_Common_Owner_Edit="-"/>
+  </Match>
+  <Match ContentType="QueriesPortlet">
+    <Place Parts_Common_Metadata="-"/>
+    <Place Parts_Common_Metadata_Summary="-"/>
+    <Place Parts_Common_Owner_Edit="-"/>
+  </Match>
+  <Match ContentType="NavigationPortlet">
+    <Place Parts_Common_Metadata="-"/>
+    <Place Parts_Common_Metadata_Summary="-"/>
+    <Place Parts_Common_Owner_Edit="-"/>
+  </Match>
+  <Match ContentType="WorkflowPortlet">
+    <Place Parts_Common_Metadata="-"/>
+    <Place Parts_Common_Metadata_Summary="-"/>
+    <Place Parts_Common_Owner_Edit="-"/>
+  </Match>
+  <Match ContentType="BasicDataPortlet">
+    <Place Parts_Common_Metadata="-"/>
+    <Place Parts_Common_Metadata_Summary="-"/>
+    <Place Parts_Common_Owner_Edit="-"/>
+  </Match>
+  <Match ContentType="SmtpPortletContent">
+    <Place Parts_Common_Metadata="-"/>
+    <Place Parts_Common_Metadata_Summary="-"/>
+    <Place Parts_Common_Owner_Edit="-"/>
+  </Match>
+</Placement>

@@ -1,21 +1,3 @@
-﻿/// Orchard Collaboration is a series of plugins for Orchard CMS that provides an integrated ticketing system and collaboration framework on top of it.
-/// Copyright (C) 2014-2016  Siyamand Ayubi
-///
-/// This file is part of Orchard Collaboration.
-///
-///    Orchard Collaboration is free software: you can redistribute it and/or modify
-///    it under the terms of the GNU General Public License as published by
-///    the Free Software Foundation, either version 3 of the License, or
-///    (at your option) any later version.
-///
-///    Orchard Collaboration is distributed in the hope that it will be useful,
-///    but WITHOUT ANY WARRANTY; without even the implied warranty of
-///    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-///    GNU General Public License for more details.
-///
-///    You should have received a copy of the GNU General Public License
-///    along with Orchard Collaboration.  If not, see <http://www.gnu.org/licenses/>.
-
 using Orchard.CRM.Core.Models;
 using Orchard.CRM.Core.ViewModels;
 using System.Collections.Generic;
@@ -25,11 +7,36 @@ using System.Linq;
 using System.Globalization;
 using Orchard.ContentManagement;
 using Orchard.Core.Title.Models;
+using Orchard.Core.Common.Models;
+using Orchard.Security;
+using System;
 
 namespace Orchard.CRM.Core.Services
 {
     public static class Converter
     {
+        public static CommentsViewModel.CRMCommentViewModel Convert(IOrchardServices services, CRMCommentPartRecord record, IEnumerable<IUser> users)
+        {
+            var output = new CommentsViewModel.CRMCommentViewModel
+            {
+                IsEmail = record.IsEmail,
+                Subject = record.Subject,
+                BCC = record.BCC,
+                CC = record.CC,
+                CommentDateUtc = record.CommentDateUtc,
+                CommentText = record.CommentText,
+                IsHtml = record.IsHtml,
+                User = users.FirstOrDefault(c => c.Id == record.User.Id)
+            };
+
+            if (output.CommentDateUtc.HasValue && output.CommentDateUtc.Value.Kind == DateTimeKind.Utc)
+            {
+                output.CommentDateUtc = CRMHelper.SetSiteTimeZone(services, output.CommentDateUtc.Value);
+            }
+
+            return output;
+        }
+
         public static void Fill(Collection<SelectListItem> collection, int? selectedValue, IEnumerable<IBasicDataRecord> items)
         {
             foreach (var item in items)
@@ -56,7 +63,34 @@ namespace Orchard.CRM.Core.Services
             target.Insert(0, new SelectListItem());
         }
 
+        public static void FillByIdentity(Collection<SelectListItem> target, IEnumerable<ProjectPart> projects)
+        {
+            target.AddRange(projects.Select(c =>
+            {
+                var item = new SelectListItem
+                {
+                    Text = c.Record.Title,
+                    Value = c.Record.Id.ToString(CultureInfo.InvariantCulture)
+                };
+
+                var identity = c.As<IdentityPart>();
+                if (identity != null)
+                {
+                    item.Value = identity.Identifier;
+                }
+
+                return item;
+            }));
+
+            target.Insert(0, new SelectListItem());
+        }
+
         public static void Fill(Collection<SelectListItem> target, IEnumerable<ContentItem> contentItems)
+        {
+            Fill(target, contentItems, true);
+        }
+
+        public static void Fill(Collection<SelectListItem> target, IEnumerable<ContentItem> contentItems, bool addEmptyItem)
         {
             target.AddRange(contentItems.Select(c =>
                 new SelectListItem
@@ -65,8 +99,12 @@ namespace Orchard.CRM.Core.Services
                     Value = c.Record.Id.ToString(CultureInfo.InvariantCulture)
                 }));
 
-            target.Insert(0, new SelectListItem());
+            if (addEmptyItem)
+            {
+                target.Insert(0, new SelectListItem());
+            }
         }
+
         public static TargetContentItemPermissionViewModel DecodeGroupId(string groupId)
         {
             if (string.IsNullOrEmpty(groupId))

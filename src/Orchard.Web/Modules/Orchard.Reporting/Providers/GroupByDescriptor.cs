@@ -26,7 +26,7 @@ namespace Orchard.Reporting.Providers
         public string Type { get; set; }
         public LocalizedString Name { get; set; }
         public LocalizedString Description { get; set; }
-        public Func<IHqlQuery, AggregateMethods, IEnumerable<AggregationResult>> Run { get; set; }
+        public Func<IHqlQuery, AggregateMethods,string, IEnumerable<AggregationResult>> Run { get; set; }
         public Func<object, LocalizedString> FieldValueLabel { get; set; }
         public Func<FilterContext, LocalizedString> Display { get; set; }
     }

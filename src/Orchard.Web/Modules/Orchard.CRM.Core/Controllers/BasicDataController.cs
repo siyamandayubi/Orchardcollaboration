@@ -1,21 +1,3 @@
-﻿/// Orchard Collaboration is a series of plugins for Orchard CMS that provides an integrated ticketing system and collaboration framework on top of it.
-/// Copyright (C) 2014-2016  Siyamand Ayubi
-///
-/// This file is part of Orchard Collaboration.
-///
-///    Orchard Collaboration is free software: you can redistribute it and/or modify
-///    it under the terms of the GNU General Public License as published by
-///    the Free Software Foundation, either version 3 of the License, or
-///    (at your option) any later version.
-///
-///    Orchard Collaboration is distributed in the hope that it will be useful,
-///    but WITHOUT ANY WARRANTY; without even the implied warranty of
-///    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-///    GNU General Public License for more details.
-///
-///    You should have received a copy of the GNU General Public License
-///    along with Orchard Collaboration.  If not, see <http://www.gnu.org/licenses/>.
-
 namespace Orchard.CRM.Core.Controllers
 {
     using Orchard.CRM.Core.Models;
@@ -27,6 +9,7 @@ namespace Orchard.CRM.Core.Controllers
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
+    using Orchard.ContentManagement;
 
     [ValidateInput(false), Admin]
     public class BasicDataController : Controller
@@ -35,7 +18,6 @@ namespace Orchard.CRM.Core.Controllers
         private readonly ITransactionManager transactionManager;
         private readonly IRepository<TicketTypeRecord> ticketTypeRepository;
         private readonly IRepository<StatusRecord> statusRepository;
-        private readonly IRepository<ServiceRecord> serviceRepository;
         private readonly IOrchardServices services;
         private readonly IBasicDataService basicDataService;
         private readonly IValidationService validationService;
@@ -46,7 +28,6 @@ namespace Orchard.CRM.Core.Controllers
             IValidationService validationService,
             IRepository<StatusRecord> statusRepository,
             IRepository<PriorityRecord> priorityRepository,
-            IRepository<ServiceRecord> serviceRepository,
             IRepository<TicketTypeRecord> ticketTypeRepository,
             IBasicDataService basicDataService,
             ITransactionManager transactionManager,
@@ -58,7 +39,6 @@ namespace Orchard.CRM.Core.Controllers
             this.basicDataService = basicDataService;
             this.T = NullLocalizer.Instance;
             this.services = services;
-            this.serviceRepository = serviceRepository;
             this.ticketTypeRepository = ticketTypeRepository;
             this.priorityRepository = priorityRepository;
         }
@@ -91,13 +71,13 @@ namespace Orchard.CRM.Core.Controllers
 
         public ActionResult Services()
         {
-            var services = this.serviceRepository.Table.Where(c => c.Deleted == false).ToList();
+            var services = this.services.ContentManager.Query().ForPart<ServicePart>().List();
 
-            var model = services.OrderBy(c => c.Name).Select(c => new ServiceViewModel
+            var model = services.Select(c => new ServiceViewModel
             {
-                ServiceId = c.Id,
+                Description = c.Description,
                 Name = c.Name,
-                Description = c.Description
+                ServiceId = c.Id
             });
 
             return this.View(model);
@@ -203,7 +183,7 @@ namespace Orchard.CRM.Core.Controllers
                 return new HttpUnauthorizedResult();
             }
 
-            var service = this.serviceRepository.Table.FirstOrDefault(c => c.Id == id);
+            var service = this.services.ContentManager.Get<ServicePart>(id);
 
             var model = new ServiceViewModel
             {
@@ -333,17 +313,20 @@ namespace Orchard.CRM.Core.Controllers
                 return this.View("EditService", model);
             }
 
-            var service = this.serviceRepository.Table.FirstOrDefault(c => c.Id == model.ServiceId);
+            var service = this.services.ContentManager.Get(model.ServiceId);
 
             if (service == null)
             {
                 this.ModelState.AddModelError("Id", this.T("There is no service with the given Id").ToString());
-                return this.View("EditService", model);
+                return this.View(model);
             }
 
-            service.Name = model.Name;
-            service.Description = model.Description;
-            this.serviceRepository.Flush();
+            var servicePart = service.As<ServicePart>();
+
+            servicePart.Name = model.Name;
+            servicePart.Description = model.Description;
+            this.services.ContentManager.Publish(service);
+
             this.basicDataService.ClearCache();
 
             return RedirectToAction("Services");
@@ -448,24 +431,19 @@ namespace Orchard.CRM.Core.Controllers
                 return new HttpUnauthorizedResult();
             }
 
-            var service = this.serviceRepository.Table.FirstOrDefault(c => c.Id == id);
+            var contentItem = this.services.ContentManager.Get(id);
+            var servicePart = contentItem.As<ServicePart>();
 
-            if (service == null)
+            if (servicePart == null)
             {
-                this.ModelState.AddModelError("Id", this.T("There is no service with the given Id").ToString());
-                return this.View("Services", new ServiceViewModel
-                {
-                    ServiceId = service.Id,
-                    Name = service.Name,
-                    Description = service.Description
-                });
+                object model = this.T("There is no service with the given Id").ToString();
+                return this.View("Error", model);
             }
 
-            service.Deleted = true;
-            this.serviceRepository.Flush();
+            this.services.ContentManager.Remove(contentItem);
             this.basicDataService.ClearCache();
 
-            return RedirectToAction("Priorities");
+            return RedirectToAction("Services");
         }
 
         public ActionResult RemoveTicketType(int id)
@@ -573,12 +551,13 @@ namespace Orchard.CRM.Core.Controllers
                 return this.View("CreateService", model);
             }
 
-            ServiceRecord service = new ServiceRecord();
-            this.serviceRepository.Create(service);
+            var service = this.services.ContentManager.New("Service");
+            this.services.ContentManager.Create(service);
+            ServicePart part = service.As<ServicePart>();
 
-            service.Name = model.Name;
-            service.Description = model.Description;
-            this.serviceRepository.Flush();
+            part.Name = model.Name;
+            part.Description = model.Description;
+            this.services.ContentManager.Publish(service);
             this.basicDataService.ClearCache();
 
             return RedirectToAction("Services");

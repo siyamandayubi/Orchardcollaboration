@@ -1,0 +1,34 @@
+﻿@{
+    Style.Include("Notification.css");
+    Script.Require("JQueryUI");
+    Script.Require("CRMNotification");
+    Style.Include("jquery-ui.css");
+}
+<div id="notificationContainer"
+     data-userid="@Model.Model.UserId"
+     data-counturl="@Url.Action("QueryCount", "Visit", new { area = "Orchard.CRM.Notification" })"
+     data-listurl="@Url.Action("Display", "Item", new { area = "Orchard.CRM.Core", id = Model.Model.ListContentItemId})"
+     data-updateurl="@Url.Action("UpdateVisit", "Visit", new { area = "Orchard.CRM.Notification" })">
+    <span class="count-container" title="@T("Notifications")"></span>
+
+    @{
+    // Generate Anti forgery token. This token is used by AJAX requests.
+    }
+    @using (Html.BeginFormAntiForgeryPost())
+    {
+    }
+</div>
+<div style="display:none;">
+    <div id="notificationDialog" title="@T("Notifications")">
+        <div class="notification-content"></div>
+    </div>
+</div>
+<div id="loadingPage" style="display:none" class="loading-page">@T("Loading ...")</div>
+@using (Script.Foot())
+{
+    <script language="javascript" type="text/javascript">
+        $(document).ready(function () {
+            $("#notificationContainer").CRMNotification();
+        });
+    </script>
+}

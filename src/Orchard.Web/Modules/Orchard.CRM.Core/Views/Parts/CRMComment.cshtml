@@ -1,1 +1,22 @@
-﻿
+﻿@using Orchard.CRM.Core.Models;
+@using Orchard.CRM.Core.Services;
+@using Orchard.CRM.Core.ViewModels;
+@{
+    CommentsViewModel.CRMCommentViewModel item = Model.Model;
+    string imageDefaultSource = Url.Content("~/Modules/Orchard.CRM.Project/Styles/Images/user-icon-small.jpg");
+
+    string userProfileUrl = Url.Action("Display", "User", new { area = "Orchard.CRM.Project", userId = item.User.Id });
+    <li>
+        <div class="user">
+            @Display.UserThumbnail(userId: item.User.Id, width: 48, height: 48, source: imageDefaultSource, userProfileUrl: userProfileUrl)
+            <div>
+                <a class="user-link" href="@userProfileUrl">@CRMHelper.GetFullNameOfUser(item.User)</a>
+            </div>
+            <div class="published">@item.CommentDateUtc.Value.ToString("MMM dd") &nbsp; @item.CommentDateUtc.Value.ToString("hh:mm")</div>
+            <div class="user-context-menu">
+                @Display(New.SkypeTooltip(Model: item.User, Topic: item.CommentText))
+            </div>
+        </div>
+        <div class="item-comment">@item.CommentText</div>
+    </li>
+}

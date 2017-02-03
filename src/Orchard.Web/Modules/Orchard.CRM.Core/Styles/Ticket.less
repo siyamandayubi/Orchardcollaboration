@@ -121,6 +121,46 @@
     margin-top: 20px;
 }
 
+.ticket-main-content {
+    .detail {
+        width: 100%;
+        border: 1px solid lightgray;
+
+        .detail-list-header {
+            background-color: @tickets-tabele-header-background-color;
+            border-bottom: 1px solid lightgray;
+            min-height: 30px;
+            padding-left: 5px;
+            padding-top: 5px;
+
+            .header {
+                display: inline-block;
+                padding: 2px 5px 2px 5px;
+                cursor: pointer;
+            }
+
+            .selected-tab {
+                display: inline-block;
+                background-color: white;
+                cursor: default !important;
+                border-top: 1px solid lightgray;
+                border-left: 1px solid lightgray;
+                border-right: 1px solid lightgray;
+                border-bottom: none;
+            }
+        }
+
+        .detail-list {
+            padding: 10px !important;
+
+            .selected-tab {
+                display: block;
+                visibility: visible;
+            }
+        }
+    }
+}
+
 .ticket-item .ticket-details-sidebar {
     display: table-cell;
     min-width: 200px;
@@ -146,4 +186,14 @@
 .files-box {
     list-style-type: none;
     padding-left: 0px;
+}
+
+.modal-header .label-row {
+    margin-top: 10px;
+}
+
+.ticket-create {
+    input[type='text'], select, textarea {
+        width: 100% !important;
+    }
 }

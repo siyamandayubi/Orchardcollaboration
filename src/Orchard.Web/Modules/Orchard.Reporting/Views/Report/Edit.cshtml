@@ -59,6 +59,12 @@
                 @Html.ValidationMessageFor(c => c.CategoryAndType)
             }
         </fieldset>
+        <fieldset>
+            <label for="State">@T("State")</label>
+            <input id="State" name="State" multiple value="@Model.State" type="text" maxlength="500" class="text-medium" />
+            <div class="hint">@T("This field is used to set custom settings related to the selected aggregation.")</div>
+            @Html.ValidationMessageFor(c => c.State)
+        </fieldset>
         <fieldset class="save-button">
             <input type="hidden" value="@Model.ReportId" name="ReportId" id="ReportId" />
             <button class="primaryAction" type="submit" value="@T("Save")">@T("Save")</button>

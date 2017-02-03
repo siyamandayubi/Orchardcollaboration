@@ -1,88 +1,109 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using Newtonsoft.Json.Linq;
 using Orchard.Environment;
 using Orchard.Events;
-using Orchard.Logging;
 using Orchard.JobsQueue.Models;
-using Orchard.Services;
-using Orchard.TaskLease.Services;
+using Orchard.Logging;
+using Orchard.Tasks.Locking.Services;
+using Orchard.Data.Migration.Interpreters;
+using Orchard.Data.Migration.Schema;
+using Orchard.Environment.Configuration;
 
-namespace Orchard.JobsQueue.Services {
-    public class JobsQueueProcessor : IJobsQueueProcessor {
+namespace Orchard.JobsQueue.Services
+{
+    public class JobsQueueProcessor : IJobsQueueProcessor
+    {
         private readonly Work<IJobsQueueManager> _jobsQueueManager;
-        private readonly Work<IClock> _clock;
-        private readonly Work<ITaskLeaseService> _taskLeaseService;
-        private readonly IEventBus _eventBus;
-        private readonly ReaderWriterLockSlim _rwl = new ReaderWriterLockSlim();
+        private readonly Work<IEventBus> _eventBus;
+        private readonly Work<IDistributedLockService> _distributedLockService;
+        private readonly IDataMigrationInterpreter _dataMigrationInterpreter;
+        private readonly ShellSettings _shellSettings;
 
         public JobsQueueProcessor(
-            Work<IClock> clock,
+            ShellSettings shellSettings,
+            IDataMigrationInterpreter dataMigrationInterpreter,
             Work<IJobsQueueManager> jobsQueueManager,
-            Work<ITaskLeaseService> taskLeaseService,
-            IEventBus eventBus) {
-            _clock = clock;
+            Work<IEventBus> eventBus,
+            Work<IDistributedLockService> distributedLockService)
+        {
+
+            _shellSettings = shellSettings;
+            _dataMigrationInterpreter = dataMigrationInterpreter;
             _jobsQueueManager = jobsQueueManager;
-            _taskLeaseService = taskLeaseService;
             _eventBus = eventBus;
+            _distributedLockService = distributedLockService;
             Logger = NullLogger.Instance;
         }
 
         public ILogger Logger { get; set; }
-        public void ProcessQueue() {
-            // prevent two threads on the same machine to process the message queue
-            if (_rwl.TryEnterWriteLock(0)) {
-                try {
-                    _taskLeaseService.Value.Acquire("JobsQueueProcessor", _clock.Value.UtcNow.AddMinutes(5));
+
+        public void ProcessQueue()
+        {
+            var schemaBuilder = new SchemaBuilder(_dataMigrationInterpreter);
+            DistributedLockSchemaBuilder distributedLockSchemaBuilder = new DistributedLockSchemaBuilder(_shellSettings, schemaBuilder);
+            distributedLockSchemaBuilder.EnsureSchema();
+            IDistributedLock @lock;
+            if (_distributedLockService.Value.TryAcquireLock(GetType().FullName, TimeSpan.FromMinutes(5), out @lock))
+            {
+                using (@lock)
+                {
                     IEnumerable<QueuedJobRecord> messages;
 
-                    while ((messages = _jobsQueueManager.Value.GetJobs(0, 10).ToArray()).Any()) {
-                        foreach (var message in messages) {
+                    while ((messages = _jobsQueueManager.Value.GetJobs(0, 10).ToArray()).Any())
+                    {
+                        foreach (var message in messages)
+                        {
                             ProcessMessage(message);
                         }
                     }
                 }
-                finally {
-                    _rwl.ExitWriteLock();
-                }
             }
         }
 
-        private void ProcessMessage(QueuedJobRecord job) {
+        private void ProcessMessage(QueuedJobRecord job)
+        {
 
             Logger.Debug("Processing job {0}.", job.Id);
 
-            try {
+            try
+            {
                 var payload = JObject.Parse(job.Parameters);
                 var parameters = payload.ToDictionary();
 
-                _eventBus.Notify(job.Message, parameters);
+                _eventBus.Value.Notify(job.Message, parameters);
 
                 Logger.Debug("Processed job Id {0}.", job.Id);
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 Logger.Error(e, "An unexpected error while processing job {0}. Error message: {1}.", job.Id, e);
             }
-            finally {
+            finally
+            {
                 _jobsQueueManager.Value.Delete(job);
             }
         }
     }
 
-    public static class JObjectExtensions {
+    public static class JObjectExtensions
+    {
 
-        public static IDictionary<string, object> ToDictionary(this JObject jObject) {
+        public static IDictionary<string, object> ToDictionary(this JObject jObject)
+        {
             return (IDictionary<string, object>)Convert(jObject);
         }
 
-        private static object Convert(this JToken jToken) {
-            if (jToken == null) {
+        private static object Convert(this JToken jToken)
+        {
+            if (jToken == null)
+            {
                 throw new ArgumentNullException();
             }
 
-            switch (jToken.Type) {
+            switch (jToken.Type)
+            {
                 case JTokenType.Array:
                     var array = jToken as JArray;
                     return array.Values().Select(Convert).ToArray();

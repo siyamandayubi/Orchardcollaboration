@@ -1,0 +1,59 @@
+﻿@using System.Dynamic;
+@using Newtonsoft.Json;
+@using Orchard.ContentManagement;
+@{
+    Script.Require("DashboardComponents");
+
+    string closeButtonContent = "<<";
+    string openButtonContent = ">>";
+
+    ContentItem contentItem = Model.ContentItem;
+    string prefix = contentItem.ContentType.EndsWith("Widget", StringComparison.InvariantCultureIgnoreCase) ?
+        contentItem.ContentType.Substring(0, contentItem.ContentType.Length - "Widget".Length) :
+        contentItem.ContentType;
+
+    // convert to camel case
+    prefix = prefix[0].ToString().ToLower() + prefix.Substring(1);
+    string containerId = prefix.ToLower() + "Container";
+    string iconId = prefix + "-icon";
+    string widgetContentId = prefix + "-content-id";
+    dynamic model = Model.Model;
+}
+@Display(New.DashboardStylesheets)
+<div id="@containerId" data-dashboardurl="@Url.Action("Display", "Item", new { area = "Orchard.CRM.Core", id = model.Part.TargetContentItemId })">
+    <div id="@iconId" class="open-icon">
+        <span class="for-large-screen">@openButtonContent</span>
+        <span class="pivot for-small-screen">
+            <span class="icon"></span>
+            <span class="icon"></span>
+            <span class="icon"></span>
+        </span>
+    </div>
+    <div class="@widgetContentId hidden left-dashboard">
+        <div class="header">
+            <span class="loading-icon hidden">@T("Loading...")</span>
+            @if (model.IsAdmin)
+            {
+                <a class="edit-dashboard-button" href="@Url.Action("Edit", "Item", new { area = "Orchard.CRM.Core", id = model.Part.TargetContentItemId, returnUrl = Request.Url })"></a>
+            }
+            <button class="close-button">@closeButtonContent</button>
+        </div>
+        <div class="content">
+            @if (model.TargetContent != null)
+            {
+                @Display(model.TargetContent);
+            }
+        </div>
+    </div>
+</div>
+@if (model.TargetContent == null)
+{
+    using (Script.Foot())
+    {
+        <script language="javascript" type="text/javascript">
+            $(document).ready(function () {
+                $("#@containerId").Leftbar();
+            });
+        </script>
+    }
+}

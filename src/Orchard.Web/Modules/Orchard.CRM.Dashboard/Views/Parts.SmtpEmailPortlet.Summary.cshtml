@@ -1,0 +1,33 @@
+﻿<article class="portlet panel panel-default">
+    <header><a href="@Url.Action("Index", "AdminSettings", new { area = "Orchard.CRM.Dashboard", groupInfoId = "Email" })" target="_blank">@T("SMTP Email Client Settings")</a></header>
+    <div class="body">
+        @{ 
+            bool isConfigured = Model.Model.IsConfigured;
+        }
+        @if (isConfigured)
+        {
+            <div class="config-props">
+                <div class="body">
+                    <div class="configured-properly"><a href="@Url.Action("Index", "AdminSettings", new { area = "Orchard.CRM.Dashboard", groupInfoId = "Email" })" target="_blank">@T("SMTP Email Client is configured properly.")</a></div>
+                    <div>
+                        <label>@T("Host")</label>
+                        <a href="@Url.Action("Index", "AdminSettings", new { area = "Orchard.CRM.Dashboard", groupInfoId = "Email" })" target="_blank" class="setting-value">@Model.Model.Host</a>
+                    </div>
+                    <div>
+                        <label>@T("Last Successful Connection:")</label>
+                        <span class="setting-value">@Model.Model.LastSuccessfulConnection</span>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="config-props">
+                <div><a class="not-configured" href="@Url.Action("Index", "AdminSettings", new { area = "Orchard.CRM.Dashboard", groupInfoId = "Email" })" target="_blank">@T("Not configured.")</a></div>
+                <div class="body">
+                    <div class="description">@T("By settings SMTP Email Client, Orchard collaboration can send emails to the users in case of any activity")</div>
+                </div>
+            </div>
+        }
+    </div>
+</article>

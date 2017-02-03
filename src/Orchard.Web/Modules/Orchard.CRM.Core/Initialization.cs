@@ -1,24 +1,10 @@
-﻿/// Orchard Collaboration is a series of plugins for Orchard CMS that provides an integrated ticketing system and collaboration framework on top of it.
-/// Copyright (C) 2014-2016  Siyamand Ayubi
-///
-/// This file is part of Orchard Collaboration.
-///
-///    Orchard Collaboration is free software: you can redistribute it and/or modify
-///    it under the terms of the GNU General Public License as published by
-///    the Free Software Foundation, either version 3 of the License, or
-///    (at your option) any later version.
-///
-///    Orchard Collaboration is distributed in the hope that it will be useful,
-///    but WITHOUT ANY WARRANTY; without even the implied warranty of
-///    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-///    GNU General Public License for more details.
-///
-///    You should have received a copy of the GNU General Public License
-///    along with Orchard Collaboration.  If not, see <http://www.gnu.org/licenses/>.
-
 using Newtonsoft.Json;
+using Orchard.Core.Common.Models;
+using Orchard.Core.Title.Models;
+using Orchard.CRM.Core.Models;
 using Orchard.CRM.Core.Providers.Serialization;
 using Orchard.Environment;
+using Orchard.Projections.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,10 +26,19 @@ namespace Orchard.CRM.Core
             defaultSetting.Converters.Add(new ContentPartConverter());
             defaultSetting.Converters.Add(new TitlePartConverter());
             defaultSetting.Converters.Add(new TicketPartConverter());
+            defaultSetting.Converters.Add(new ProjectionConverter());
             defaultSetting.Converters.Add(new ShapeConverter());
             defaultSetting.Converters.Add(new ProjectPartConverter());
             defaultSetting.Converters.Add(new ContentTypePartDefinitionConverter());
             defaultSetting.Converters.Add(new ExpandoObjectConverter());
+            defaultSetting.Converters.Add(new LayoutRecordConverter());
+            defaultSetting.Converters.Add(new ShapeMetadataConverter());
+
+            JsonConvertersTypes.TypesHavingJsonConverters.Add(typeof(TitlePart));
+            JsonConvertersTypes.TypesHavingJsonConverters.Add(typeof(CommonPart));
+            JsonConvertersTypes.TypesHavingJsonConverters.Add(typeof(TicketPart));
+            JsonConvertersTypes.TypesHavingJsonConverters.Add(typeof(ProjectPart));
+            JsonConvertersTypes.TypesHavingJsonConverters.Add(typeof(ProjectionPart));
 
             JsonConvert.DefaultSettings = () => defaultSetting;
         }

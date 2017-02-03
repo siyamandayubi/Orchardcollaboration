@@ -8,6 +8,7 @@ namespace Orchard.Reporting.ViewModels
 {
     public class DataReportViewerViewModel
     {
+        public int ChartType { get; set; }
         public int TotalCount { get; set; }
         public string JsonData { get; set; }
         public string ReportTitle { get; set; }

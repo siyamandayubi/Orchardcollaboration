@@ -1,0 +1,16 @@
+﻿@using Orchard.CRM.Core.Models;
+@using Orchard.CRM.Core.ViewModels;
+@{
+    CommentsViewModel model = (CommentsViewModel)Model.Model;
+    string id = model.ContentItemId.ToString();
+    string commentsCountString = model.CommentsCount.ToString();
+
+    string classes = Model.Classes != null ? string.Join(" ", Model.Classes) : string.Empty;
+}
+<span class="@classes crm-comments header">
+    @if (model.CommentsCount > 0)
+    {
+        <span>@commentsCountString</span>
+    }
+    <span>@T(" Comments")</span>
+</span>

@@ -1,0 +1,9 @@
+﻿Name: Orchard.CRM.Notification
+AntiForgery: enabled
+Author: The Orchard Team
+Website: http://orchardproject.net
+Version: 1.0
+OrchardVersion: 1.9.2
+Dependencies: Orchard.CRM.Core, Orchard.Projections, Orchard.Users, Orchard.CRM.Project
+Description: The module provides real-time notification to the users about the changes done by the others on the items users have access to them
+FeatureDescription: The module provides real-time notification to the users about the changes done by the others on the items users have access to them

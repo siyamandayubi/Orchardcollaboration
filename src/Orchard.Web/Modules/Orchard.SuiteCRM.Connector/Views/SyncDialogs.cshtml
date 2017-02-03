@@ -1,5 +1,5 @@
 ﻿<div style="display:none;visibility:hidden">
-    <div id="syncProjectDialog" title="@T(" Sync With SuiteCRM")">
+    <div id="syncProjectDialog" title="@T(" Sync With Sugar CRM")">
         <div>
             <div>
                 <input type="checkbox" name='syncTickets' checked value='true' />
@@ -19,7 +19,7 @@
             <button class="copy-to-suitecrm crm-button" data-url="@Url.Action("CopyOrchardProjectsToSuite", "Sync", new { area = "Orchard.SuiteCRM.Connector" })">@T("Export")</button>
         </div>
     </div>
-    <div id="syncTaskDialog" title="@T(" Sync With SuiteCRM")">
+    <div id="syncTaskDialog" title="@T(" Sync With Sugar CRM")">
         <div>
             <div>
                 <input type="checkbox" name='doNotOverrideNewerValues' checked value='true' />
@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="buttons">
-            <button class="copy-to-suitecrm crm-button" data-url="@Url.Action("CopySuiteToOrchardProjects", "Sync", new { area = "Orchard.SuiteCRM.Connector" })" title="@T("Send to SuiteCRM")">@T("Send to")</button>
+            <button class="copy-to-suitecrm crm-button" data-url="@Url.Action("CopySuiteToOrchardProjects", "Sync", new { area = "Orchard.SuiteCRM.Connector" })" title="@T("Send to Sugar CRM")">@T("Send to")</button>
             <button class="suitecrm-cancel-sync crm-button" data-url="@Url.Action("CopyOrchardProjectsToSuite", "Sync", new { area = "Orchard.SuiteCRM.Connector" })">@T("Cancel")</button>
         </div>
     </div>

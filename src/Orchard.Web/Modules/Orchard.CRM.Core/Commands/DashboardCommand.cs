@@ -75,11 +75,14 @@ namespace Orchard.CRM.Core.Commands
         public string WidgetPosition { get; set; }
 
         [OrchardSwitch]
+        public string MenuPosition { get; set; }
+
+        [OrchardSwitch]
         public bool RenderTitle { get; set; }
 
         [CommandName("ticket-dashboard create")]
-        [CommandHelp("ticket-dashboard create [/Slug:<slug>] /Title:<title> [/Owner:<username>] [/MenuName:<name>] [/MenuText:<menu text>] [/Homepage:true|false] " + "Creates Tickets dashboard")]
-        [OrchardSwitches("Slug,Title,Owner,MenuText,MenuName,Homepage")]
+        [CommandHelp("ticket-dashboard create [/Slug:<slug>] /Title:<title> [/Owner:<username>] [/MenuName:<name>] [/MenuText:<menu text>] /MenuPosition:<position> [/Homepage:true|false] " + "Creates Tickets dashboard")]
+        [OrchardSwitches("Slug,Title,Owner,MenuText,MenuName,MenuPosition,Homepage")]
         public void Create()
         {
             if (String.IsNullOrEmpty(Owner))
@@ -102,7 +105,7 @@ namespace Orchard.CRM.Core.Commands
                 {
                     var menuItem = _contentManager.Create<ContentMenuItemPart>("ContentMenuItem");
                     menuItem.Content = dashboard;
-                    menuItem.As<MenuPart>().MenuPosition = Position.GetNext(_navigationManager.BuildMenu(menu));
+                    menuItem.As<MenuPart>().MenuPosition = MenuPosition;
                     menuItem.As<MenuPart>().MenuText = MenuText;
                     menuItem.As<MenuPart>().Menu = menu;
                 }

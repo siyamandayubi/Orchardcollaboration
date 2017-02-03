@@ -5,7 +5,7 @@
     string title = Model.Title;
 }
 <div class="space"></div>
-<div class="panel panel-default main-search-container">
+<div class="panel panel-default main-search-container user-list">
     <div class="panel-heading">
         <div class="navbar customer-navbar">
             <div class="container">
@@ -19,18 +19,20 @@
                     @using (Html.BeginFormAntiForgeryPost(Url.Action(actionName), FormMethod.Get, new { role = "search", @class = "navbar-form navbar-right", enctype = "multipart/form-data" }))
                     {
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search" name="Search" value="@Model.Model.Search">
+                            <input type="text" class="form-control" placeholder="@T("Search").Text" name="Search" value="@Model.Model.Search">
                         </div>
                         <button type="submit" class="btn btn-default">@T("Submit")</button>
                     }
-                    <ul class="nav navbar-nav pull-right">
-                        <li><a href="@Url.Action("Create", "AdminUser", new { area = "Orchard.CRM.Project" })">@T("Create")</a></li>
-                    </ul>
-                </div>
+                 </div>
             </div>
         </div>
     </div>
     <div class="panel-body">
+        <div class="pull-left">
+            <a class="btn btn-default" href="@Url.Action("Create", "AdminUser", new { area = "Orchard.CRM.Project", defaultRole = Model.DefaultRole })">@T("Create")</a>
+        </div>
+        <div class="clear"></div>
+        <hr />
         @if (Model.Model.Users.Count == 0)
         {
             <div>@T("There is no result")</div>

@@ -1,21 +1,3 @@
-﻿/// Orchard Collaboration is a series of plugins for Orchard CMS that provides an integrated ticketing system and collaboration framework on top of it.
-/// Copyright (C) 2014-2016  Siyamand Ayubi
-///
-/// This file is part of Orchard Collaboration.
-///
-///    Orchard Collaboration is free software: you can redistribute it and/or modify
-///    it under the terms of the GNU General Public License as published by
-///    the Free Software Foundation, either version 3 of the License, or
-///    (at your option) any later version.
-///
-///    Orchard Collaboration is distributed in the hope that it will be useful,
-///    but WITHOUT ANY WARRANTY; without even the implied warranty of
-///    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-///    GNU General Public License for more details.
-///
-///    You should have received a copy of the GNU General Public License
-///    along with Orchard Collaboration.  If not, see <http://www.gnu.org/licenses/>.
-
 window.crm = window.crm || {};
 
 (function () {
@@ -126,6 +108,7 @@ window.crm = window.crm || {};
             var besideContentListContainer = $("." + _self.options.besideContentListContainerClass);
             var folderList = besideContentListContainer.find("." + _self.options.folderListClass);
 
+            besideContentListContainer.height(besideContentListContainer.parent().height());
             folderList.on("loaded.jstree", function (event, data) {
 
                 /** 
@@ -173,20 +156,20 @@ window.crm = window.crm || {};
 
             //if (deviceWidth >= 500) {
             expandButton.on("click touchstart", function () {
-                    besideContentListContainer
-                        .removeClass(_self.options.besideContentListContainerCollapsedClass)
-                        .addClass(_self.options.besideContentListContainerClass);
+                besideContentListContainer
+                    .removeClass(_self.options.besideContentListContainerCollapsedClass)
+                    .addClass(_self.options.besideContentListContainerClass);
 
-                    $("#" + _self.options.expandButtonId).addClass("hidden");
-                });
+                $("#" + _self.options.expandButtonId).addClass("hidden");
+            });
 
             collapsedButton.on("click touchstart", function () {
-                    besideContentListContainer
-                        .removeClass(_self.options.besideContentListContainerClass)
-                        .addClass(_self.options.besideContentListContainerCollapsedClass);
+                besideContentListContainer
+                    .removeClass(_self.options.besideContentListContainerClass)
+                    .addClass(_self.options.besideContentListContainerCollapsedClass);
 
-                    $("#" + _self.options.expandButtonId).removeClass("hidden");
-                });
+                $("#" + _self.options.expandButtonId).removeClass("hidden");
+            });
             //}
             //else {
             //    // mobile devices
@@ -530,11 +513,13 @@ window.crm = window.crm || {};
                         if (isFollowed == "true") {
                             link.href = $link.data("followlink");
                             $link.text($link.data("followtitle"));
+                            $link.addClass(model.options.unFollowClass).removeClass(model.options.followClass);
                             $link.data("follow", "false");
                         }
                         else {
                             $link.data("follow", "true");
                             link.href = $link.data("unfollowlink");
+                            $link.addClass(model.options.followClass).removeClass(model.options.unFollowClass);
                             $link.text($link.data("unfollowtitle"));
                         }
                     }
@@ -549,11 +534,13 @@ window.crm = window.crm || {};
         var _self = this;
 
         this.options = {
-            followerLinkClass: "follow-link"
+            followerLinkSelectorClass: "follow-link",
+            unFollowClass: "unfollow",
+            followClass: "follow"
         };
 
         this.getFollowerLink = function () {
-            return widget.element.parent().find("." + _self.options.followerLinkClass);
+            return widget.element.parent().find("." + _self.options.followerLinkSelectorClass);
         }
     }
 
@@ -1846,7 +1833,7 @@ window.crm = window.crm || {};
                 Title: ticket.title,
                 TypeId: ticket.ticketTypeId,
                 PriorityId: ticket.priorityId,
-                Description: $('<div/>').html(ticket.description).text(),
+                Description: $('<div/>').html(ticket.description).html(),
                 UpdateDescription: true,
                 UpdatePriority: true,
                 UpdateTypeId: true,
@@ -2080,12 +2067,7 @@ window.crm = window.crm || {};
                 item.StatusId = targetStateId;
 
                 // update TicketPart
-                for (var i = 0; i < item.ContentItem.Parts.length; i++) {
-                    if (item.ContentItem.Parts[i].PartDefinition.Name == "TicketPart") {
-                        ticketPart = item.ContentItem.Parts[i];
-                        break;
-                    }
-                }
+                ticketPart = _self.getPart(item, "TicketPart");
 
                 ticketPart.Record.Status = { Id: targetStateId };
 

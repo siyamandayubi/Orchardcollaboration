@@ -2,7 +2,7 @@
 @using Orchard.CRM.Project;
 @{
     ProjectDetailViewModel model = Model.Model;
-    string wikiLink = Url.Action("DisplayProjectRelatedItem", "Project", new { contentType = ContentTypes.WikiContentType, projectId = model.ProjectPart.Record.Id, area = "Orchard.CRM.Project" });
+    string wikiLink = Url.Action("DisplayProjectRelatedItem", "Project", new { contentType = ContentTypes.ProjectWikiContentType, projectId = model.ProjectPart.Record.Id, area = "Orchard.CRM.Project" });
     string activityStreamLink = Url.Action("DisplayProjectRelatedItem", "Project", new { contentType = ContentTypes.ProjectActivityStreamType, projectId = model.ProjectPart.Record.Id, area = "Orchard.CRM.Project" });
     string ticketsLink = Url.Action("DisplayProjectRelatedItem", "Project", new { contentType = ContentTypes.ProjectTicketsContentType, projectId = model.ProjectPart.Record.Id, area = "Orchard.CRM.Project" });
     string discussionsLink = Url.Action("DisplayProjectRelatedItem", "Project", new { contentType = ContentTypes.ProjectDiscussionsContentType, projectId = model.ProjectPart.Record.Id, area = "Orchard.CRM.Project" });

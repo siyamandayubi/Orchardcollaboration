@@ -1,21 +1,3 @@
-/// Orchard Collaboration is a series of plugins for Orchard CMS that provides an integrated ticketing system and collaboration framework on top of it.
-/// Copyright (C) 2014-2016  Siyamand Ayubi
-///
-/// This file is part of Orchard Collaboration.
-///
-///    Orchard Collaboration is free software: you can redistribute it and/or modify
-///    it under the terms of the GNU General Public License as published by
-///    the Free Software Foundation, either version 3 of the License, or
-///    (at your option) any later version.
-///
-///    Orchard Collaboration is distributed in the hope that it will be useful,
-///    but WITHOUT ANY WARRANTY; without even the implied warranty of
-///    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-///    GNU General Public License for more details.
-///
-///    You should have received a copy of the GNU General Public License
-///    along with Orchard Collaboration.  If not, see <http://www.gnu.org/licenses/>.
-
 window.crm = window.crm || {};
 
 (function () {
@@ -135,7 +117,7 @@ window.crm = window.crm || {};
                         });
                     }
                 },
-                onSubmit: function (id, fileName) {}
+                onSubmit: function (id, fileName) { }
             });
         };
     };
@@ -144,6 +126,7 @@ window.crm = window.crm || {};
         var _self = this;
 
         var op = {
+            createButtonId: "createbutton",
             dueDateId: "DueDate",
             checkAllId: "checkAll",
             itemsTableId: "items",
@@ -172,7 +155,6 @@ window.crm = window.crm || {};
         this.initialize = function () {
             $("#" + _self.options.checkAllId).click(checkAllClickHandler);
             $("#" + _self.options.dueDateId).datepicker({ dateFormat: 'yy/mm/dd' });
-
             var itemsTable = $("#" + _self.options.itemsTableId);
 
             itemsTable.find("tr").find("td:first input[type='checkbox']").click(checkBoxClickHandler);
@@ -209,6 +191,15 @@ window.crm = window.crm || {};
             shareDialog.find("input[name='AccessType']").click(accessTypeClickHandler);
             accessTypeClickHandler();
 
+            var groupsOptions = shareDialog.find(".groups select option");
+            var usersOptions = shareDialog.find(".users select option");
+
+            //$("#" + _self.options.createButtonId).TicketDialog({
+            //    Users: usersOptions,
+            //    BusinesUnits: groupsOptions,
+            //    ticketCreated: ticketCreatedHandler
+            //});
+
             shareDialog.find(".groups select").addClass("chosen-select").chosen({ width: "95%", max_selected_options: 3 });
 
             shareDialog.find(".users select").addClass("chosen-select").chosen({ width: "95%", max_selected_options: 3 });
@@ -226,6 +217,18 @@ window.crm = window.crm || {};
             var businessUnits = advanceSearchBar.find(".groups-container").find("select");
             businessUnits.addClass("chosen-select");
             businessUnits.chosen({ width: "95%", max_selected_options: 5 });
+        };
+
+        var ticketCreatedHandler = function (data) {
+            var url = "/OrchardLocal/OrchardCollaboration/Ticket/Display/{id}?displayType=TableRow";
+            url = url.replace("{id}", data.Id);
+            $.ajax({
+                method: "GET",
+                url: url,
+                success: function (response) {
+                    alert("jejr");
+                }
+            });
         };
 
         var accessTypeClickHandler = function () {
@@ -436,12 +439,12 @@ window.crm = window.crm || {};
             toolbar.addClass("active-toolbar");
             var buttons = toolbar.find(".btn");
             buttons.removeClass("disable").addClass("active-buttons");
-            for (var i = 0; i < buttons.length; i++) {
-                var button = $(buttons[i]);
+            buttons.each(function () {
+                var button = $(this);
                 var specificActiveClass = button.data("activeclass");
                 var specificInActiveClass = button.data("inactiveclass");
-                button.addClass(specificActiveClass).removeClass("specificInActiveClass");
-            }
+                button.addClass(specificActiveClass).removeClass(specificInActiveClass);
+            });
         };
 
         var disableButtons = function () {
@@ -816,7 +819,8 @@ window.crm = window.crm || {};
     $.widget("CRM.TicketsForContentItemsWidget", {
         options: {},
         _create: function () {
-            this.ticketsForContentItemsWidget = new crm.TicketsForContentItemsWidget(this);
+            this.ticketsForContentItemsWidget =
+                crm.TicketsForContentItemsWidget(this);
             $.extend(this.ticketsForContentItemsWidget.options, this.options);
             this.ticketsForContentItemsWidget.initialize();
         }
@@ -900,6 +904,205 @@ window.crm = window.crm || {};
             this.fileUpload = new crm.FileUpload(this);
             $.extend(this.fileUpload.options, this.options);
             this.fileUpload.initialize();
+        }
+    });
+    $.widget("CRM.TicketDialog", {
+        options: {
+            fullTicketCreateButton: "fullTicket",
+            spin: "spinId",
+            createUrl: "/OrchardLocal/OrchardCollaboration/Ticket/CreatePOST",
+            dialogId: "ticketDialog",
+            saveButtonLabel: "Save",
+            cancelButtonLabel: "Cancel",
+            errorCommentClass: "error",
+            titleName: "TicketPart.Title",
+            description: "TicketPart.Text",
+            UserFieldName: "ContentItemPermissionPart.UserId",
+            BusinessunitFieldName: "ContentItemPermissionPart.GroupId",
+            Users: [],
+            BusinesUnits: [],
+            ticketCreated: function (data) { }
+        },
+        _create: function () {
+            var _self = this;
+            var dialog = $("#" + this.options.dialogId);
+            //_self.options.createUrl = _self.element.attr("href");
+            var buttons = {};
+
+            var BusinessunitSelect = dialog.find("select[name='" + _self.options.BusinessunitFieldName + "']");
+
+            var UserSelect = dialog.find("select[name='" + _self.options.UserFieldName + "']");
+            UserSelect.on("change", function () {
+                BusinessunitSelect.val("");
+            });
+
+            BusinessunitSelect.on("change", function () {
+                UserSelect.val("");
+            });
+
+            $.each(_self.options.BusinesUnits, function (i, item) {
+                BusinessunitSelect.append($('<option>', {
+                    value: item.value,
+                    text: item.text
+                }));
+            });
+            $.each(_self.options.Users, function (i, item) {
+                UserSelect.append($('<option>', {
+                    value: item.value,
+                    text: item.text
+                }));
+            });
+            var errorComment = function (text) {
+                var dialog = $("#" + _self.options.dialogId);
+                dialog.find("." + errorCommentClass).text(text);
+            };
+
+
+            var checkLength = function (min, max, t, n) {
+                if (t.val().length > max || t.val().length < min) {
+                    errorComment("please write the length between" + min + "and" + max);
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            };
+
+
+            var save = function () {
+                var valid = true;
+                var description = dialog.find("textarea[name='" + _self.options.description + "']");
+                var title = dialog.find("input[name='" + _self.options.titleName + "']");
+                var users = dialog.find("select[name='" + _self.options.UserFieldName + "']");
+                var businessunit = dialog.find("select[name='" + _self.options.BusinessunitFieldName + "']");
+                valid = valid && checkLength(1, 100, title, "Title");
+                if (valid) {
+                    var editBaseWidget = new crm.EditBaseWidget();
+                    var token = editBaseWidget.getRequestVerificationToken();
+                    var data = {};
+                    data[_self.options.description] = description.text();
+                    data[_self.options.titleName] = title.val();
+                    data[_self.options.UserFieldName] = users.val();
+                    data[_self.options.BusinessunitFieldName] = 'BusinessUnit:' + businessunit.val();
+                    data['id'] = 'Ticket';
+                    $.extend(data, token);
+
+                    var target = document.getElementById(_self.options.spin)
+                    var spinner = new Spinner().spin(target)
+                    $.ajax({
+                        type: "post",
+                        url: _self.options.createUrl,
+                        data: data,
+                        success: function (response) {
+                            //why it is closed,when it becomes answer?it must close ,when we click an save button
+                            dialog.dialog("close");
+                            spinner.stop();
+                            _self.options.ticketCreated(response);
+                        },
+                        error: function () { }
+                    });
+                }
+
+            };
+
+            buttons[this.options.saveButtonLabel] = save;
+            buttons[this.options.cancelButtonLabel] = function () {
+                dialog.dialog("close");
+            };
+
+            buttons[this.options.fullTicketCreateButton] = function () {
+                window.location.assign(_self.element.attr("href"));
+            };
+
+            dialog.dialog({
+                modal: true,
+                autoOpen: false,
+                fluid: true,
+                width: $(window).width() > 800 ? 500 : 250,
+                height: $(window).height() > 800 ? 1000 : 400,
+                maxWidth: 600,
+                buttons: buttons,
+                open: function () {
+                    dialog.find("input[name='" + _self.options.titleName + "']").val("");
+                    dialog.find("textarea[name='" + _self.options.description + "']").text("");
+                    dialog.find("select[name='" + _self.options.Businessunit + "']").val("");
+                    dialog.find("select[name='" + _self.options.User + "']").val("");
+                }
+
+            });
+
+            $(window).resize(function () {
+                var dialog = $("#" + _self.options.dialogId);
+                dialog.dialog("option", "position", "center");
+                dialog.dialog({ width: $(window).width() > 800 ? 500 : 250, });
+                dialog.dialog({ height: $(window).height() > 800 ? 1000 : 400 });
+            });
+
+            this.element.click(function (e) {
+                var dialog = $("#" + _self.options.dialogId);
+                e.preventDefault();
+                dialog.dialog("open");
+            });
+
+        },
+        open: function () {
+            $("#" + this.options.dialogId).dialog("open");
+        }
+
+
+    });
+    $.widget("CRM.CrmCommentForm", {
+        options: {
+            displayUrl: "/OrchardLocal/OrchardCollaboration/Item/Display/{id}",
+        },
+        _create: function () {
+            var _self = this;
+            _self.element.find("input[type='submit']").click(function (e) {
+                e.preventDefault();
+                var data = {};
+                var inputValue = _self.element.find("input");
+                var textarea = _self.element.find("textarea");
+                $.each(inputValue, function (i, l) {
+                    data[l.name] = l.value;
+                });
+                data[textarea.attr("name")] = textarea.text();
+                $.ajax({
+                    url: _self.element.attr("action"),
+                    data: data,
+                    type: "post",
+                    success: function (response) {
+                        var responseData = JSON.parse(response.Data);
+                        var url = _self.options.displayUrl.replace("{id}", responseData.Id);
+                        $.get(url, null, function (htmlReponse) {
+
+                        });
+                    }
+                });
+            });
+        }
+    });
+    $.widget("CRM.TicketDetailTablControl", {
+        options: {
+            tabControlClass: "detail",
+            tabControlHeaderClass: "detail-list-header",
+            tabControlHeaderItemClass: "header",
+            tabControlDetailPaneClass: "detail-list",
+            selectedClass: "selected-tab"
+        },
+
+        _create: function () {
+            var _self = this;
+            var tabControl = $("." + _self.options.tabControlClass);
+            var tabHeaderControl = tabControl.find("." + _self.options.tabControlHeaderClass);
+            var detailList = tabControl.find("." + _self.options.tabControlDetailPaneClass);
+            var headers = tabHeaderControl.find("." + _self.options.tabControlHeaderItemClass);
+            headers.click(function () {
+                var index = $(this).parent().children().index(this);
+                detailList.children().addClass("hidden");
+                $(detailList.children().get(index)).removeClass("hidden").addClass(_self.options.selectedClass);
+                headers.removeClass(_self.options.selectedClass);
+                $(this).addClass(_self.options.selectedClass);
+            });
         }
     });
 })();

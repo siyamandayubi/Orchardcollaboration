@@ -59,6 +59,11 @@
                 @Html.ValidationMessageFor(c => c.CategoryAndType)
             }
         </fieldset>
+        <fieldset>
+            <label for="State">@T("State")</label>
+            <input id="State" name="State" multiple value="@Model.State" type="text" maxlength="500" class="text-medium" />
+            @Html.ValidationMessageFor(c => c.State)
+        </fieldset>
         <fieldset class="save-button">
             <button class="primaryAction" type="submit" value="@T("Save")">@T("Save")</button>
         </fieldset>

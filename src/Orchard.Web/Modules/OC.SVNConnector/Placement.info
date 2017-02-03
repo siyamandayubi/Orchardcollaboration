@@ -1,0 +1,8 @@
+﻿<Placement>
+  <Place Parts_SVNLog="Content:20"/>
+  <Place Parts_SVNLog_Edit="Content:1"></Place>
+  <Match ContentType="SVNLog">
+    <Place Parts_Common_Metadata_Summary="-"/>
+    <Place Parts_Common_Metadata="-"/>
+  </Match>
+</Placement>

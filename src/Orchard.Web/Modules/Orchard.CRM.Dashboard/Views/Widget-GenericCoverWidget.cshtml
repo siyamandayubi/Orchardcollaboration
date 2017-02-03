@@ -1,0 +1,18 @@
+﻿@using Orchard.ContentManagement;
+@using Orchard.Widgets.Models;
+@{
+    Script.Require("DashboardComponents");
+    Script.Require("JQueryUI");
+    var widgetPart = ((IContent)Model.ContentItem).As<WidgetPart>();
+    Model.Metadata.Wrappers.Remove("Widget_Wrapper");
+}
+<div class="cover-widget widget">
+    @if (Model.Content != null)
+            {
+        @Display(Model.Content)
+    }
+    @if (Model.Footer != null)
+            {
+        @Display(Model.Footer)
+    }
+</div>

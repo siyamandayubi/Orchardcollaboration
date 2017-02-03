@@ -1,21 +1,3 @@
-﻿/// Orchard Collaboration is a series of plugins for Orchard CMS that provides an integrated ticketing system and collaboration framework on top of it.
-/// Copyright (C) 2014-2016  Siyamand Ayubi
-///
-/// This file is part of Orchard Collaboration.
-///
-///    Orchard Collaboration is free software: you can redistribute it and/or modify
-///    it under the terms of the GNU General Public License as published by
-///    the Free Software Foundation, either version 3 of the License, or
-///    (at your option) any later version.
-///
-///    Orchard Collaboration is distributed in the hope that it will be useful,
-///    but WITHOUT ANY WARRANTY; without even the implied warranty of
-///    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-///    GNU General Public License for more details.
-///
-///    You should have received a copy of the GNU General Public License
-///    along with Orchard Collaboration.  If not, see <http://www.gnu.org/licenses/>.
-
 using Orchard.CRM.Core.Models;
 using Orchard.CRM.Core.Services;
 using Orchard.CRM.Core.ViewModels;
@@ -51,7 +33,7 @@ namespace Orchard.CRM.Core.Providers
             ITokenizer tokenizer)
         {
             this.crmContentOwnershipService = crmContentOwnershipService;
-            this.basicDataService= basicDataService;
+            this.basicDataService = basicDataService;
             this.tokenizer = tokenizer;
             this.tagBuilderFactory = tagBuilderFactory;
             this.T = NullLocalizer.Instance;
@@ -93,7 +75,7 @@ namespace Orchard.CRM.Core.Providers
         [Shape]
         public void TicketServicesOptions(dynamic Shape, dynamic Display, TextWriter Output, UrlHelper Url, int contentItemId)
         {
-            var items = this.basicDataService.GetServices().OrderBy(c => c.Name).ToList();
+            var items = this.basicDataService.GetServices().OrderBy(c => c.Name).Select(c => c.Record).ToList();
             this.RenderDropDownMenuList(Shape, Display, Output, Url, items, "ServiceId", "UpdateServiceId", contentItemId);
         }
 
@@ -163,7 +145,7 @@ namespace Orchard.CRM.Core.Providers
             Output.WriteLine(li.ToString(TagRenderMode.EndTag));
         }
 
-        private void RenderDropDownMenuList(dynamic Shape, dynamic Display, TextWriter Output, UrlHelper Url, IEnumerable<SelectListItem> items, string fieldName, string updateFieldName, int contentItemId, Action<dynamic,SelectListItem> customizeTag)
+        private void RenderDropDownMenuList(dynamic Shape, dynamic Display, TextWriter Output, UrlHelper Url, IEnumerable<SelectListItem> items, string fieldName, string updateFieldName, int contentItemId, Action<dynamic, SelectListItem> customizeTag)
         {
             var ul = this.tagBuilderFactory.Create(Shape, "ul");
 
@@ -207,13 +189,13 @@ namespace Orchard.CRM.Core.Providers
         private void RenderDropDownMenuList(dynamic Shape, dynamic Display, TextWriter Output, UrlHelper Url, IEnumerable<IBasicDataRecord> items, string fieldName, string updateFieldName, int contentItemId)
         {
             this.RenderDropDownMenuList(
-                Shape, 
-                Display, 
-                Output, 
-                Url, 
-                items.Select(c => new SelectListItem { Value = c.Id.ToString(CultureInfo.InvariantCulture), Text = c.Name }), 
-                fieldName, 
-                updateFieldName, 
+                Shape,
+                Display,
+                Output,
+                Url,
+                items.Select(c => new SelectListItem { Value = c.Id.ToString(CultureInfo.InvariantCulture), Text = c.Name }),
+                fieldName,
+                updateFieldName,
                 contentItemId,
                 null);
         }

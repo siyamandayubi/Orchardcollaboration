@@ -1,3 +1,3 @@
 ﻿@using Orchard.CRM.Project.ViewModels;
 @Display(New.Stylesheet())
-@Display(New.User_UserList(Model:Model, Title:"Customers", ActionName:"Customers"))
+@Display(New.User_UserList(Model:Model, Title:T("Customers").Text, ActionName:"Customers", DefaultRole: "Customer"))

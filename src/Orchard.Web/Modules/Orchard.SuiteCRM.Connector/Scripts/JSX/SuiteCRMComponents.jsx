@@ -1,21 +1,3 @@
-﻿/// Orchard Collaboration is a series of plugins for Orchard CMS that provides an integrated ticketing system and collaboration framework on top of it.
-/// Copyright (C) 2014-2016  Siyamand Ayubi
-///
-/// This file is part of Orchard Collaboration.
-///
-///    Orchard Collaboration is free software: you can redistribute it and/or modify
-///    it under the terms of the GNU General Public License as published by
-///    the Free Software Foundation, either version 3 of the License, or
-///    (at your option) any later version.
-///
-///    Orchard Collaboration is distributed in the hope that it will be useful,
-///    but WITHOUT ANY WARRANTY; without even the implied warranty of
-///    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-///    GNU General Public License for more details.
-///
-///    You should have received a copy of the GNU General Public License
-///    along with Orchard Collaboration.  If not, see <http://www.gnu.org/licenses/>.
-
 
 var orchardcollaboration = orchardcollaboration || {};
 orchardcollaboration.react = orchardcollaboration.react || {};
@@ -217,7 +199,7 @@ orchardcollaboration.react.allComponents  = orchardcollaboration.react.allCompon
 				return (
 						<article className="panel panel-default modal-container">
 							<div className="panel-heading">
-								<h2>{root.T("SuiteCRMIntegration", "Suite CRM Integration")}</h2>
+								<h2>{root.T("SuiteCRMIntegration", "Sugar CRM Integration")}</h2>
 								<div className="suitecrm-top-linkbar">
 									<a onClick={root.actions.showProjects}>{root.T("Projects", "Projects")}</a>
 									<span>{root.T("Users", "Users")}</span>
@@ -231,7 +213,7 @@ orchardcollaboration.react.allComponents  = orchardcollaboration.react.allCompon
 											<h4 className='current-list'>{root.T("OrchardCollaborationUsers", "OrchardCollaboration Users")}</h4>
 										</div>
 										<div className="suitecrm-project-container">
-											<h4 className='current-list'>{root.T("SuiteCRMUsers", "Suite CRM Users")}</h4>
+											<h4 className='current-list'>{root.T("SuiteCRMUsers", "Sugar CRM Users")}</h4>
 											{syncAllLink}
 										</div>
 									</div>
@@ -439,7 +421,7 @@ orchardcollaboration.react.allComponents  = orchardcollaboration.react.allCompon
 					orchardCollaborationPager = _self.getPager(_self.props.model.OrchardCollaborationPage, _self.props.model.OrchardCollaborationProjectsCount);
 					suiteCRMPager = <div>{_self.props.model.SuiteCRMProjectsCount} {root.T("Projects")}</div>
 					orchardCollaborationListHeader = (<h4 className='current-list'>{root.T("OrchardCollaborationProjects", "OrchardCollaboration Projects")}</h4>);
-					suiteCRMListHeader = (<h4><a href="#" onClick={root.actions.switchProjectList}>{root.T("SuiteCRMProjects", "Suite CRM Projects")}</a></h4>);
+					suiteCRMListHeader = (<h4><a href="#" onClick={root.actions.switchProjectList}>{root.T("SuiteCRMProjects", "Sugar CRM Projects")}</a></h4>);
 				}
 				else{
 					orchardCollaborationPager = <div>{_self.props.model.OrchardCollaborationProjectsCount} {root.T("Projects")}</div>
@@ -448,14 +430,14 @@ orchardcollaboration.react.allComponents  = orchardcollaboration.react.allCompon
 														<a href="#" onClick={root.actions.switchProjectList}>{root.T("OrchardCollaborationProjects", "OrchardCollaboration Projects")}
 														</a>
 													 </h4>);
-					suiteCRMListHeader = (<h4 className='current-list'>{root.T("SuiteCRMProjects", "Suite CRM Projects")}</h4>);
+					suiteCRMListHeader = (<h4 className='current-list'>{root.T("SuiteCRMProjects", "Sugar CRM Projects")}</h4>);
 				}
 				
 
 				return (
 						<article className="panel panel-default modal-container">
 							<div className="panel-heading">
-								<h2>{root.T("SuiteCRMIntegration", "Suite CRM Integration")}</h2>
+								<h2>{root.T("SuiteCRMIntegration", "Sugar CRM Integration")}</h2>
 								<div className="suitecrm-top-linkbar">
 									<span>{root.T("Projects", "Projects")}</span>
 									<a onClick={root.actions.showUsers}>{root.T("Users", "Users")}</a>

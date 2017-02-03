@@ -1,21 +1,3 @@
-﻿/// Orchard Collaboration is a series of plugins for Orchard CMS that provides an integrated ticketing system and collaboration framework on top of it.
-/// Copyright (C) 2014-2016  Siyamand Ayubi
-///
-/// This file is part of Orchard Collaboration.
-///
-///    Orchard Collaboration is free software: you can redistribute it and/or modify
-///    it under the terms of the GNU General Public License as published by
-///    the Free Software Foundation, either version 3 of the License, or
-///    (at your option) any later version.
-///
-///    Orchard Collaboration is distributed in the hope that it will be useful,
-///    but WITHOUT ANY WARRANTY; without even the implied warranty of
-///    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-///    GNU General Public License for more details.
-///
-///    You should have received a copy of the GNU General Public License
-///    along with Orchard Collaboration.  If not, see <http://www.gnu.org/licenses/>.
-
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Orchard.ContentManagement;
@@ -83,7 +65,7 @@ namespace Orchard.CRM.Project.Drivers
             EditMilestoneViewModel model = this.Convert(part);
             shapes.Add(ContentShape("Parts_Milestone_Data", () => shapeHelper.Parts_Milestone_Data(Model: model)));
 
-            var memberShapes = this.GetMilestoneMembers(part.Id, "TableRow").ToList();
+            var memberShapes = this.GetMilestoneMembers(part.Id, "TableRow", part.Record.IsBacklog).ToList();
 
             // in the planner, we don't need the child tickets. Only root items or the ones whose
             // parents are not part of the milestone
@@ -122,7 +104,7 @@ namespace Orchard.CRM.Project.Drivers
                     throw new OrchardException(T("Project doesn't have any Backlog"));
                 }
 
-                var backlogShapes = this.GetMilestoneMembers(backlog.Id, "TableRow").ToList();
+                var backlogShapes = this.GetMilestoneMembers(backlog.Id, "TableRow", true).ToList();
                 membersModel.BacklogMembers = backlogShapes;
                 membersModel.BacklogId = backlog.Id;
             }
@@ -139,7 +121,7 @@ namespace Orchard.CRM.Project.Drivers
             EditMilestoneViewModel model = this.Convert(part);
             shapes.Add(ContentShape("Parts_Milestone_Data", () => shapeHelper.Parts_Milestone_Data(Model: model)));
 
-            var memberShapes = this.GetMilestoneMembers(part.Id, "Pinboard").ToList();
+            var memberShapes = this.GetMilestoneMembers(part.Id, "Pinboard", false).ToList();
 
             memberShapes.ForEach(c =>
             {
@@ -156,7 +138,8 @@ namespace Orchard.CRM.Project.Drivers
             var statusRecords = this.basicDataService.GetStatusRecords().ToList();
             ticketsModel.StatusRecords = statusRecords;
 
-            shapes.Add(ContentShape("Parts_Milestone_Tickets", () => shapeHelper.Parts_Milestone_Tickets(Model: JsonConvert.SerializeObject(ticketsModel))));
+            string data = JsonConvert.SerializeObject(ticketsModel);
+            shapes.Add(ContentShape("Parts_Milestone_Tickets", () => shapeHelper.Parts_Milestone_Tickets(Model: data)));
 
             return this.Combined(shapes.ToArray());
         }
@@ -168,7 +151,7 @@ namespace Orchard.CRM.Project.Drivers
             EditMilestoneViewModel model = this.Convert(part);
             shapes.Add(ContentShape("Parts_Milestone_Data", () => shapeHelper.Parts_Milestone_Data(Model: model)));
 
-            var memberShapes = this.GetMilestoneMembers(part.Id, "GanttChart").ToList();
+            var memberShapes = this.GetMilestoneMembers(part.Id, "GanttChart", false).ToList();
 
             memberShapes.ForEach(c =>
             {
@@ -223,14 +206,15 @@ namespace Orchard.CRM.Project.Drivers
             statusRecords.Insert(0, new StatusRecord { Id = 0, OrderId = 0, Name = T("No Status").Text });
             ticketsModel.StatusRecords = statusRecords;
 
-            shapes.Add(ContentShape("Parts_Milestone_GanttChart", () => shapeHelper.Parts_Milestone_GanttChart(Model: JsonConvert.SerializeObject(ticketsModel))));
+            string data = JsonConvert.SerializeObject(ticketsModel);
+            shapes.Add(ContentShape("Parts_Milestone_GanttChart", () => shapeHelper.Parts_Milestone_GanttChart(Model: data)));
 
             return this.Combined(shapes.ToArray());
         }
 
-        protected IEnumerable<dynamic> GetMilestoneMembers(int milestoneId, string displayType)
+        protected IEnumerable<dynamic> GetMilestoneMembers(int milestoneId, string displayType, bool onlyNotCompletedTickets)
         {
-            var members = this.milestoneService.GetMilestoneItems(milestoneId);
+            var members = this.milestoneService.GetMilestoneItems(milestoneId, onlyNotCompletedTickets);
 
             // sort items based on order
             members = members.OrderBy(c => c.As<AttachToMilestonePart>().Record.OrderId).ThenByDescending(c => c.Id).ToList();

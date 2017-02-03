@@ -1,0 +1,38 @@
+﻿@using Orchard.ContentManagement;
+@using Orchard.Widgets.Models;
+@{
+    Script.Require("DashboardComponents");
+    Script.Require("JQueryUI");
+    var widgetPart = ((IContent)Model.ContentItem).As<WidgetPart>();
+    Model.Metadata.Wrappers.Remove("Widget_Wrapper");
+    string expand = ">";
+    string collapse = "<";
+}
+<article class="panel panel-default widget-generic-dashboard-widget">
+    <div class="panel-heading generic-widget-panel">
+        <h3>@widgetPart.Title</h3>
+        <span class="expand-icon">@expand</span>
+        <span class="collapse-icon hidden">@collapse</span>
+    </div>
+    <div class="panel-body hidden">
+        <div class="widget widget-GenericDashboardWidget">
+
+            @if (Model.Content != null)
+            {
+                @Display(Model.Content)
+            }
+            @if (Model.Footer != null)
+            {
+                @Display(Model.Footer)
+            }
+        </div>
+    </div>
+</article>
+@using (Script.Foot())
+{
+    <script language="javascript" type="text/javascript">
+        $(document).ready(function () {
+            $(".widget-generic-dashboard-widget").Dashboard();
+        });
+    </script>
+}

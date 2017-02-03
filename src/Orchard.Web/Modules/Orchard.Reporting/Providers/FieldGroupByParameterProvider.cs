@@ -83,7 +83,7 @@ namespace Orchard.Reporting.Providers
                     type: typeValue,
                     name: name,
                     description: T("group the result by {0} values {1}", localField.DisplayName, interval.Item2),
-                    run: (query, method) => { return this.fieldAggregateQueryService.RunNumericAggregation(query, method, localField.Name, localPart.Name, interval.Item3); },
+                    run: (query, method, state) => { return this.fieldAggregateQueryService.RunNumericAggregation(query, method, localField.Name, localPart.Name, interval.Item3); },
                     aggregateMethods: methods,
                     display: context => fieldTypeEditor.DisplayFilter(localPart.Name.CamelFriendly() + "." + localField.DisplayName, storageName, context.State));
             }
@@ -138,7 +138,7 @@ namespace Orchard.Reporting.Providers
                                        type: localPart.Name + "." + localField.Name + "." + storageName,
                                        name: T(localField.DisplayName),
                                        description: T("group the result by {0} values", localField.DisplayName),
-                                       run: (query, method) => this.fieldAggregateQueryService.RunEnumerationAggregation(query,method,localField.Name,localPart.Name),
+                                       run: (query, method, state) => this.fieldAggregateQueryService.RunEnumerationAggregation(query,method,localField.Name,localPart.Name),
                                        aggregateMethods: methods,
                                        display: context => fieldTypeEditor.DisplayFilter(localPart.Name.CamelFriendly() + "." + localField.DisplayName, storageName, context.State));
                                }

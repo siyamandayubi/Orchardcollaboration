@@ -30,7 +30,7 @@
             </label>
             @Html.DropDownListFor(c => c.StatusTypeId, statusTypeRecords, new { @class = "text medium" })
             @Html.ValidationMessageFor(c => c.StatusTypeId)
-            <p>@T("OrchardCollaboration needs four basic status items. ('New', 'Open', 'Solved' and 'Closed'). You can change items, add new items, or remove items. But the four basic status items must remain in the system. This field allows you to announce the system whether the current item is one of the four basic ones and which one or not.")</p>
+            <p>@T("OrchardCollaboration needs four basic status items. ('New', 'Open', 'Solved' and 'Closed'). This field lets you to specify them.")</p>
         </fieldset>
         <fieldset>
             <label for="Order">

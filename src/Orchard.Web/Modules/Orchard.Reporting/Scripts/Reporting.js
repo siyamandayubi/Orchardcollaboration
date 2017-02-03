@@ -1,5 +1,5 @@
 ﻿/*
-Project: OrcharCRM
+Project: OrchardCollaboration
 Developer: Siyamand Ayubi
 2015
 */
@@ -51,11 +51,18 @@ Developer: Siyamand Ayubi
 
     crm.Reporting = function (widget) {
 
+        var chartTypes = {
+            piechart: 1,
+            barChart: 3,
+            dateAxis: 4
+        };
+
         var _self = this;
         var mainPlot;
         var subPlots = [];
 
         this.options = {
+            chartType: null,
             groupHiddenFieldId: "reportData",
             firstLevelChartContainerId: "firstLevelChartContainer",
             firstLevelChartId: "firstLevelChart",
@@ -73,7 +80,7 @@ Developer: Siyamand Ayubi
             var reportDataJson = widget.element.find("input[name='reportData']").val();
             var groupData = jQuery.parseJSON(reportDataJson);
 
-            if (groupData.length > 0) {
+            if (groupData.Data.length > 0) {
                 var chart = widget.element.find(".chart");
                 chart.removeClass("hidden");
 
@@ -82,29 +89,98 @@ Developer: Siyamand Ayubi
         };
 
         var createPlot = function (groupData, id) {
-            var data = [];
-            for (var i = 0; i < groupData.length; i++) {
-                data.push([groupData[i].Label, groupData[i].Value]);
+            var twoDimensionalArray = [];
+            var labels = [];
+            var values = [];
+            for (var i = 0; i < groupData.Data.length; i++) {
+                labels.push(groupData.Data[i].Label);
+                values.push(groupData.Data[i].Value);
+                twoDimensionalArray.push([groupData.Data[i].Label, groupData.Data[i].Value]);
             }
 
-            return jQuery.jqplot(id, [data], {
-                seriesDefaults: {
-                    // Make this a pie chart.
-                    renderer: jQuery.jqplot.PieRenderer,
-                    rendererOptions: {
-                        // Put data labels on the pie slices.
-                        // By default, labels show the percentage of the slice.
-                        showDataLabels: true
-                    }
-                },
-                legend: { show: true, location: 'e' }
+            var maxValue = Math.max.apply(this, values);
+            maxValue = maxValue ? Math.ceil(maxValue * 3 / 2) : 0;
+            var minValue = Math.min.apply(this, values);
+            minValue = minValue < 0 ? minValue : 0;
+
+            var chartType = _self.options.chartType || chartTypes.piechart;
+
+            switch (chartType) {
+                case chartTypes.piechart:
+                    return jQuery.jqplot(id, [twoDimensionalArray], {
+                        title: groupData.Title,
+                        seriesDefaults: {
+                            // Make this a pie chart.
+                            renderer: jQuery.jqplot.PieRenderer,
+                            rendererOptions: {
+                                // Put data labels on the pie slices.
+                                // By default, labels show the percentage of the slice.
+                                showDataLabels: true
+                            }
+                        },
+                        legend: { show: true, location: 'e' }
+                    });
+                case chartTypes.barChart:
+                    return jQuery.jqplot(id, [values], {
+                        animate: !$.jqplot.use_excanvas,
+                        title: groupData.Title,
+                        seriesDefaults: {
+                            // Make this a bar chart.
+                            renderer: jQuery.jqplot.BarRenderer,
+                            pointLabels: { show: true },
+                            rendererOptions: {
+                                barDirection: 'horizontal',
+                                barWidth: 20,
+                            }
+                        },
+                        axes: {
+                            yaxis: {
+                                renderer: $.jqplot.CategoryAxisRenderer,
+                                ticks: labels
+                            },
+                            xaxis: {
+                                numberTicks: 1,
+                                min: minValue,
+                                max: maxValue
+                            }
+                        },
+                        highlighter: { show: false }
+                    });
+                case chartTypes.dateAxis:
+                    return jQuery.jqplot(id, [twoDimensionalArray], {
+                        title: groupData.Title,
+                        seriesDefaults: {
+                            // Make this a dateAxis renderer.
+                            //renderer: jQuery.jqplot.DateAxisRenderer,
+                            rendererOptions: {
+                                // Put data labels on the bars
+                                // By default, labels show the percentage of the slice.
+                                showDataLabels: true
+                            }
+                        },
+                        series: [{ label: groupData.SeriesName }],
+                        axes: {
+                            xaxis: {
+                                renderer: $.jqplot.DateAxisRenderer,
+                                min: groupData.MinDate,
+                                max: groupData.MaxDate
+                            },
+                            yaxis: {
+                                numberTicks: 1,
+                                min: minValue,
+                                max: maxValue
+                            }
+                        },
+                        legend: { show: true, location: 'e' }
+                    });
             }
-             );
         };
     };
 
     $.widget("CRM.Reporting", {
-        options: {},
+        options: {
+            chartType: null
+        },
 
         _create: function () {
             this.reportingWidget = new crm.Reporting(this);

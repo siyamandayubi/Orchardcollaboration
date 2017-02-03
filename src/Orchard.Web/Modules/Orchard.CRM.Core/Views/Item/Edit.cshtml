@@ -10,7 +10,7 @@
     Layout.Title = pageTitle;
 }
 
-@using (Html.BeginFormAntiForgeryPost(Url.Action("EditPOST"), FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginFormAntiForgeryPost(Url.Action("EditPOST", new { returnUrl = Request.QueryString["returnUrl"] }), FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.ValidationSummary()
     <input type="hidden" name="id" value="@Model.ContentItem.Id" />

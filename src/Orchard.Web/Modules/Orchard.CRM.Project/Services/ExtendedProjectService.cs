@@ -1,21 +1,3 @@
-﻿/// Orchard Collaboration is a series of plugins for Orchard CMS that provides an integrated ticketing system and collaboration framework on top of it.
-/// Copyright (C) 2014-2016  Siyamand Ayubi
-///
-/// This file is part of Orchard Collaboration.
-///
-///    Orchard Collaboration is free software: you can redistribute it and/or modify
-///    it under the terms of the GNU General Public License as published by
-///    the Free Software Foundation, either version 3 of the License, or
-///    (at your option) any later version.
-///
-///    Orchard Collaboration is distributed in the hope that it will be useful,
-///    but WITHOUT ANY WARRANTY; without even the implied warranty of
-///    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-///    GNU General Public License for more details.
-///
-///    You should have received a copy of the GNU General Public License
-///    along with Orchard Collaboration.  If not, see <http://www.gnu.org/licenses/>.
-
 using Orchard.ContentManagement;
 using Orchard.ContentManagement.FieldStorage.InfosetStorage;
 using Orchard.ContentManagement.MetaData;
@@ -80,8 +62,8 @@ namespace Orchard.CRM.Project.Services
             return this.services
                 .ContentManager
                 .Query()
-                .ForType(new[] { 
-                    ContentTypes.ProjectDashboardProjectionPortletTemplateContentType, 
+                .ForType(new[] {
+                    ContentTypes.ProjectDashboardProjectionPortletTemplateContentType,
                     ContentTypes.ProjectDashboardReportViewerPortletTemplateContentType,
                     ContentTypes.ProjectLastActivityStreamTemplateContentType})
                 .List();
@@ -99,7 +81,7 @@ namespace Orchard.CRM.Project.Services
         {
             var contentManager = this.services.ContentManager;
             Action<IAliasFactory> alias = x => x.ContentPartRecord<AttachToProjectPartRecord>();
-            var query = contentManager.HqlQuery().ForVersion(VersionOptions.Published).ForType(ContentTypes.WikiContentType).Where(alias, c => c.Eq("Project.Id", projectId));
+            var query = contentManager.HqlQuery().ForVersion(VersionOptions.Published).ForType(ContentTypes.ProjectWikiContentType).Where(alias, c => c.Eq("Project.Id", projectId));
             var result = query.Slice(0, 1);
 
             return result.FirstOrDefault();
@@ -181,6 +163,14 @@ namespace Orchard.CRM.Project.Services
 
         public ContentItem CreateProjectMenu(ProjectPart project)
         {
+            var editUrl = this.urlHelper.Action("Edit", "Project", new { id = project.Id, area = "Orchard.CRM.Project" });
+
+            // if editUrl is null, it means the routes are not existed yet, so all menu items will br crap, then the creation of the menu must be postponed to the first load of the project
+            if (string.IsNullOrEmpty(editUrl))
+            {
+                return null;
+            }
+
             // create menu
             var menu = this.menuService.Create(string.Format("Project-{0} --'{1}'", project.Id.ToString(CultureInfo.InvariantCulture), project.Record.Title));
             project.MenuId = menu.Id;
@@ -220,9 +210,9 @@ namespace Orchard.CRM.Project.Services
 
             var targetContentItems = contentManger.HqlQuery().ForType(new[]
             {
-                ContentTypes.WikiContentType, 
-                ContentTypes.ProjectTicketsContentType, 
-                ContentTypes.ProjectDiscussionsContentType, 
+                ContentTypes.ProjectWikiContentType,
+                ContentTypes.ProjectTicketsContentType,
+                ContentTypes.ProjectDiscussionsContentType,
                 ContentTypes.ProjectActivityStreamType,
                 ContentTypes.ProjectProjectionContentType
             }).Where(c => c.ContentPartRecord<AttachToProjectPartRecord>(), d => d.Eq("Project.Id", project.Id)).List();
@@ -230,7 +220,7 @@ namespace Orchard.CRM.Project.Services
             foreach (var contentItem in targetContentItems)
             {
                 string title = string.Empty;
-                if (contentItem.ContentType == ContentTypes.WikiContentType)
+                if (contentItem.ContentType == ContentTypes.ProjectWikiContentType)
                 {
                     title = "Wiki";
                 }
@@ -280,7 +270,7 @@ namespace Orchard.CRM.Project.Services
 
 
             // edit project
-            var editUrl = this.urlHelper.Action("Edit", "Project", new { id = project.Id, area = "Orchard.CRM.Project" });
+            editUrl = this.urlHelper.Action("Edit", "Project", new { id = project.Id, area = "Orchard.CRM.Project" });
             createMenu(editUrl, T("Edit"));
 
             // Project People
@@ -305,14 +295,14 @@ namespace Orchard.CRM.Project.Services
                 newPortlet = this.services.ContentManager.Create(ContentTypes.ProjectDashboardProjectionPortletContentType);
                 ProjectionWithDynamicSortPart destinationProjectionPart = newPortlet.As<ProjectionWithDynamicSortPart>();
                 ProjectionWithDynamicSortPart sourceProjectionPart = portletTemplate.As<ProjectionWithDynamicSortPart>();
-                this.Copy(sourceProjectionPart.Record, destinationProjectionPart.Record);
+                CRMHelper.Copy(layoutRepository, sourceProjectionPart.Record, destinationProjectionPart.Record);
             }
             else if (portletTemplate.ContentType == ContentTypes.ProjectDashboardReportViewerPortletTemplateContentType)
             {
                 newPortlet = this.services.ContentManager.Create(ContentTypes.ProjectDashboardReportViewerPortletContentType);
                 DataReportViewerPart destinationReportViewerPart = newPortlet.As<DataReportViewerPart>();
                 DataReportViewerPart sourceReportViewerPart = portletTemplate.As<DataReportViewerPart>();
-                this.Copy(sourceReportViewerPart.Record, destinationReportViewerPart.Record);
+                CRMHelper.Copy(sourceReportViewerPart.Record, destinationReportViewerPart.Record);
             }
             else if (portletTemplate.ContentType == ContentTypes.ProjectLastActivityStreamTemplateContentType)
             {
@@ -346,17 +336,28 @@ namespace Orchard.CRM.Project.Services
         public void CreateMilestoneAndBacklogForProject(ProjectPart project)
         {
             var contentManager = this.services.ContentManager;
-            
+
             // create project milestones
             this.CreateProjectionForProjectAttachableItems(project, ContentTypes.ProjectProjectionContentType, QueryNames.ProjectMilestonesQueryName, "Milestones", ContentTypes.MilestoneContentType);
 
-            // create project back-log
-            var backLogContentItem = this.CreateAttachableItemToProject(project, ContentTypes.MilestoneContentType);
-            MilestonePart milestone = backLogContentItem.As<MilestonePart>();
-            milestone.IsBacklog = true;
-            TitlePart milestoneTitlePart = backLogContentItem.As<TitlePart>();
-            milestoneTitlePart.Title = T("Backlog").Text;
-            contentManager.Publish(backLogContentItem);
+
+            var backLogItem = contentManager
+               .HqlQuery()
+               .ForType(ContentTypes.MilestoneContentType)
+               .Where(c => c.ContentPartRecord<AttachToProjectPartRecord>(), d => d.Eq("Project.Id", project.Id))
+               .List()
+               .FirstOrDefault(c => c.As<MilestonePart>().IsBacklog);
+
+            if (backLogItem == null)
+            {
+                // create project back-log
+                var backLogContentItem = this.CreateAttachableItemToProject(project, ContentTypes.MilestoneContentType);
+                MilestonePart milestone = backLogContentItem.As<MilestonePart>();
+                milestone.IsBacklog = true;
+                TitlePart milestoneTitlePart = backLogContentItem.As<TitlePart>();
+                milestoneTitlePart.Title = T("Backlog").Text;
+                contentManager.Publish(backLogContentItem);
+            }
         }
 
         public void CreateProjectDependencies(ProjectPart project)
@@ -370,7 +371,7 @@ namespace Orchard.CRM.Project.Services
             this.CreateProjectionForProjectAttachableItems(project, ContentTypes.ProjectProjectionContentType, QueryNames.ProjectDiscussionsQueryName, "Discussions", ContentTypes.DiscussionContentType);
 
             // Create wiki 
-            var wiki = this.CreateAttachableItemToProject(project, ContentTypes.WikiContentType);
+            var wiki = this.CreateAttachableItemToProject(project, ContentTypes.ProjectWikiContentType);
             var wikiActivityStreamPart = wiki.As<ActivityStreamPart>();
             var wikiActivityStreamQuery = this.GetQuery(QueryNames.WikiActivityStreamQueryName);
             if (wikiActivityStreamQuery != null)
@@ -470,47 +471,6 @@ namespace Orchard.CRM.Project.Services
             }
 
             return null;
-        }
-
-        private void Copy(ProjectionPartRecord source, ProjectionPartRecord destination)
-        {
-            destination.Items = source.Items;
-            destination.ItemsPerPage = source.ItemsPerPage;
-            destination.MaxItems = source.MaxItems;
-            destination.PagerSuffix = source.PagerSuffix;
-            destination.QueryPartRecord = source.QueryPartRecord;
-            destination.Skip = source.Skip;
-            destination.DisplayPager = source.DisplayPager;
-
-            if (source.LayoutRecord != null)
-            {
-                var layout = source.LayoutRecord;
-                destination.LayoutRecord = new LayoutRecord
-                {
-                    Category = layout.Category,
-                    State = layout.State,
-                    Description = layout.Description,
-                    Display = layout.Display,
-                    DisplayType = layout.DisplayType,
-                    Type = layout.Type,
-                    QueryPartRecord = layout.QueryPartRecord,
-                    GroupProperty = layout.GroupProperty,
-                };
-
-                foreach (var item in layout.Properties)
-                {
-                    destination.LayoutRecord.Properties.Add(item);
-                }
-
-                this.layoutRepository.Create(destination.LayoutRecord);
-            }
-        }
-
-        private void Copy(DataReportViewerPartRecord source, DataReportViewerPartRecord destination)
-        {
-            destination.ChartTagCssClass = source.ChartTagCssClass;
-            destination.ContainerTagCssClass = source.ContainerTagCssClass;
-            destination.Report = source.Report;
         }
 
         private QueryPart GetQuery(string title)

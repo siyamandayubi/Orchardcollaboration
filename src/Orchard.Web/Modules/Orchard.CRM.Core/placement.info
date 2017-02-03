@@ -1,4 +1,12 @@
 ﻿<Placement>
+  <!--CRMComments-->
+  <Match DisplayType="Detail">
+    <Place Parts_CRMComments="Content:20"/>
+  </Match>
+  <Match DisplayType="TableRow">
+    <Place Parts_CRMComments_TableRow="CommentsCount:10"/>
+  </Match>
+  
   <Place Parts_AttachToProject_Edit="Content:3"/>
   <Place Parts_Team_Edit="Content:3"/>
   <Place Parts_BusinessUnit_Edit="Content:3"/>
@@ -26,13 +34,7 @@
             Parts_Common_Body="-"
             Parts_Common_Metadata="-"/>
   </Match>
-  <!--CRMComments-->
-  <Match DisplayType="Detail">
-    <Place Parts_CRMComments="Content:20"/>
-  </Match>
-  <Match DisplayType="TableRow">
-    <Place Parts_CRMComments_TableRow="CommentsCount:10"/>
-  </Match>
+
   <!--Ticket-->
   <Place Parts_TicketsForContentItem="Footer:10"/>
   <Place Parts_Ticket="Content:3"/>
@@ -70,9 +72,12 @@
       <Place Parts_ContentItemPermission_Summary="People:1"/>
       <Place Parts_Common_Metadata="Dates:1"/>
       <Place Parts_Common_Metadata_Summary="-"/>
-      <Place Parts_CRMCommentsPart="Content:3"/>
       <Place Fields_Common_Text="FieldsAndProperties:3.5;Alternate=Ticket_Fields_Common_Text"/>
       <Place Fields_Boolean="FieldsAndProperties:3.5"/>
+      <Place Parts_CRMComments_Header="DetailListHeader:1"></Place>
+      <Place Parts_FilesList_Header="DetailListHeader:2"></Place>
+      <Place Parts_FilesList="DetailList:2"></Place>
+      <Place Parts_CRMComments="DetailList:1"/>
     </Match>
     <Match DisplayType="Summary">
       <Place Parts_Common_Metadata="-"/>
@@ -95,7 +100,7 @@
     </Match>
     <Place Parts_Ticket_Properties_Edit="FieldsAndProperties:1"/>
     <Place Parts_FileUploadHidden_Edit="FieldsAndProperties:4" />
-    <Place Parts_FileUpload_Edit="FieldsAndProperties:4" />    
+    <Place Parts_FileUpload_Edit="FieldsAndProperties:4" />
     <Place Parts_AttachToProject_Edit="FieldsAndProperties:3"/>
     <Place Parts_Ticket_Dates_Edit="Dates:2"/>
     <Place Parts_Ticket_People_Edit="People:1"/>

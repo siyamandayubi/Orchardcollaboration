@@ -1,21 +1,3 @@
-﻿/// Orchard Collaboration is a series of plugins for Orchard CMS that provides an integrated ticketing system and collaboration framework on top of it.
-/// Copyright (C) 2014-2016  Siyamand Ayubi
-///
-/// This file is part of Orchard Collaboration.
-///
-///    Orchard Collaboration is free software: you can redistribute it and/or modify
-///    it under the terms of the GNU General Public License as published by
-///    the Free Software Foundation, either version 3 of the License, or
-///    (at your option) any later version.
-///
-///    Orchard Collaboration is distributed in the hope that it will be useful,
-///    but WITHOUT ANY WARRANTY; without even the implied warranty of
-///    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-///    GNU General Public License for more details.
-///
-///    You should have received a copy of the GNU General Public License
-///    along with Orchard Collaboration.  If not, see <http://www.gnu.org/licenses/>.
-
 using Newtonsoft.Json.Linq;
 using Orchard.ContentManagement;
 using Orchard.ContentManagement.Drivers;
@@ -36,6 +18,7 @@ using System.Dynamic;
 using System.Globalization;
 using System.Linq;
 using System.Web;
+using Orchard.ContentManagement.Handlers;
 
 namespace Orchard.CRM.Project.Drivers
 {
@@ -78,6 +61,10 @@ namespace Orchard.CRM.Project.Drivers
 
             switch (displayType)
             {
+                case "TitleOnly":
+                    shapes.Add(ContentShape("Parts_Project_TitleOnly", () => shapeHelper.Parts_Project_TitleOnly(Model: part)));
+                    return Combined(shapes.ToArray());
+
                 case "Summary":
                     shapes.Add(ContentShape("Parts_Project_Title", () => shapeHelper.Parts_Project_Title(Model: part)));
                     shapes.Add(this.LatestActiveUsers(part, shapeHelper, 8));
@@ -212,6 +199,28 @@ namespace Orchard.CRM.Project.Drivers
                       TemplateName: "Parts/Project",
                       Model: part,
                       Prefix: Prefix));
+        }
+
+        protected override void Exporting(ProjectPart part, ExportContentContext context)
+        {
+            var projectElement = context.Element(part.PartDefinition.Name);
+
+            projectElement.SetAttributeValue("Title", part.Title);
+            projectElement.SetAttributeValue("Description", part.Description);
+        }
+
+        protected override void Importing(ProjectPart part, ImportContentContext context)
+        {
+            // Don't do anything if the tag is not specified.
+            if (context.Data.Element(part.PartDefinition.Name) == null)
+            {
+                return;
+            }
+
+            context.ImportAttribute(part.PartDefinition.Name, "Title", title => part.Title = title);
+
+            context.ImportAttribute(part.PartDefinition.Name, "Description", description =>
+            part.Description = description);
         }
 
         private DateTime SetSiteTimeZone(DateTime dateTime)

@@ -1,0 +1,9 @@
+﻿@using Orchard.Utility.Extensions;
+
+@{
+    int followers = Model.Count;
+}
+<div class="followers">
+    <span>@followers &nbsp;</span>
+    <span>@T(" Followers")</span>
+</div>

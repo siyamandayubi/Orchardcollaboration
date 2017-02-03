@@ -1,0 +1,43 @@
+﻿@using Orchard.ContentManagement;
+@using Orchard.CRM.Core.Models;
+@using Orchard.CRM.Dashboard;
+@{
+    Func<IEnumerable<dynamic>> shapeBuilder = Model.BuildShapes;
+    var shapes = shapeBuilder();
+}
+<div class="dashboard-list">
+    <a className="btn-edit-link" href="@Url.Action("Create", "Item", new { area = "Orchard.CRM.Core", id = Consts.GenericDashboardContentType })" target="_blank">@T("Create new Dashboard")</a>
+    @if (shapes == null || shapes.Count() == 0)
+    {
+        <div class="well">@T("There is no item")</div>
+    }
+    else
+    {
+        foreach (var shape in shapes)
+        {
+            dynamic contentItem = shape.ContentItem;
+
+            if (contentItem.TitlePart != null)
+            {
+                string title = contentItem.TitlePart.Title;
+                <div class="item">
+                    <div class="title"><a href="@Url.Action("Display", "Item", new { area = "Orchard.CRM.Core", id = contentItem.Id})">@title</a></div>
+                    <div class="actions">
+                        <a href="@Url.Action("Edit", "Item", new { area = "Orchard.CRM.Core", id = contentItem.Id})">@T("Edit")</a>
+                        <a href="@Url.Action("Remove", "Item", new { area = "Orchard.CRM.Core", id = contentItem.Id})">@T("Remove")</a>
+                    </div>
+                </div>
+            }
+            else
+            {
+            <div class="item">
+                @Display(shape)
+                <div class="actions">
+                    <a href="@Url.Action("Edit", "Item", new { area = "Orchard.CRM.Core", id = contentItem.Id})">@T("Edit")</a>
+                    <a href="@Url.Action("Remove", "Item", new { area = "Orchard.CRM.Core", id = contentItem.Id})">@T("Remove")</a>
+                </div>
+            </div>
+            }
+        }
+    }
+</div>

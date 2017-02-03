@@ -1,0 +1,14 @@
+﻿﻿@using Orchard.ContentManagement
+@{
+    Layout.Title = T("Settings").ToString();
+}
+
+<div class="admin-settings">
+@using (Html.BeginFormAntiForgeryPost()) {
+    @Html.ValidationSummary()
+    @Display(Model.Content)
+    <fieldset>
+        <button class="btn btn-primary primaryAction" type="submit">@T("Save")</button>
+    </fieldset>
+}   
+</div>

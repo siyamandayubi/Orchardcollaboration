@@ -1,0 +1,8 @@
+﻿Name: Orchard.CRM.Dashboard
+AntiForgery: enabled
+Author: Siyamand Ayubi
+Website: http://OrchardCollaboration.com
+Version: 2.0
+Dependencies: Orchard.Tokens, Orchard.Projections, Orchard.Reporting
+FeatureDescription: The module allows users to view the data of Orchard queries in Several new charts
+Category: Reportings

@@ -1,21 +1,3 @@
-﻿/// Orchard Collaboration is a series of plugins for Orchard CMS that provides an integrated ticketing system and collaboration framework on top of it.
-/// Copyright (C) 2014-2016  Siyamand Ayubi
-///
-/// This file is part of Orchard Collaboration.
-///
-///    Orchard Collaboration is free software: you can redistribute it and/or modify
-///    it under the terms of the GNU General Public License as published by
-///    the Free Software Foundation, either version 3 of the License, or
-///    (at your option) any later version.
-///
-///    Orchard Collaboration is distributed in the hope that it will be useful,
-///    but WITHOUT ANY WARRANTY; without even the implied warranty of
-///    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-///    GNU General Public License for more details.
-///
-///    You should have received a copy of the GNU General Public License
-///    along with Orchard Collaboration.  If not, see <http://www.gnu.org/licenses/>.
-
 namespace Orchard.CRM.Core.Providers
 {
     using Newtonsoft.Json;
@@ -185,9 +167,9 @@ namespace Orchard.CRM.Core.Providers
 
                     var userContentItem = contentManager.Get(part.Id);
 
-                    // Sometimes the passed UserRecord is not persisted in the database or it is a faked object,
-                    // so we have to check for nullability
-                    if (userContentItem != null)
+                        // Sometimes the passed UserRecord is not persisted in the database or it is a faked object,
+                        // so we have to check for nullability
+                        if (userContentItem != null)
                     {
                         return CRMHelper.GetFullNameOfUser(userContentItem.As<UserPart>());
                     }
@@ -228,7 +210,23 @@ namespace Orchard.CRM.Core.Providers
         private TPart GetPart<TPart>(EvaluateContext context)
             where TPart : ContentPart
         {
-            ContentItem contentItem = (ContentItem)context.Data["Content"];
+            if (!(context.Data is IContent))
+            {
+                return null;
+
+            }
+
+            ContentItem contentItem = null;
+            if (context.Data is ContentPart)
+            {
+                ContentPart part = (ContentPart)context.Data["Content"];
+                contentItem = part.ContentItem;
+            }
+            else if (context.Data is IContent)
+            {
+                contentItem = (ContentItem)context.Data["Content"];
+            }
+
             if (contentItem == null)
             {
                 return null;
@@ -315,7 +313,7 @@ namespace Orchard.CRM.Core.Providers
                         return string.Empty;
                     }
 
-                    var records = this.basicDataService.GetServices().ToList();
+                    var records = this.basicDataService.GetServices().Select(d => d.Record).ToList();
                     return this.GetBasicDataRecordName(c.Record.Service.Id, records);
 
                 })

@@ -1,0 +1,85 @@
+﻿@using Orchard.CRM.Project.Services;
+@using Orchard.Security;
+@{
+    var model = Model.Model;
+}
+
+<div class="activity-stream notification-stream">
+    @if (model.Days.Count == 0)
+    {
+        <div>@T("There is no activity so far")</div>
+    }
+    else
+    {
+        foreach (var day in model.Days)
+        {
+            <div class="activity-stream-day">
+                <h6 class="activity-stream-label day-label">@day.Title</h6>
+                @foreach (var item in day.Items)
+                {
+                    var itemDictionary = (IDictionary<String, object>)item;
+                    IUser user = itemDictionary.ContainsKey("User") ? item.User : null;
+                    int? userId = itemDictionary.ContainsKey("UserId")? item.UserId : null;
+                    string userThumbnail = user != null ? ProjectHelper.GetThumbnailImageOfUser(user) : string.Empty;
+                    string imageSource = string.IsNullOrEmpty(userThumbnail) ? Url.Content("~/Modules/Orchard.CRM.Project/Styles/Images/user-icon-small.jpg") : userThumbnail;
+                    var route = item.Route ?? null;
+                    string userLink = userId.HasValue ? Url.Action("Display", "User", new { userId = userId, area = "Orchard.CRM.Project" }) : string.Empty;
+                    <div class="activity-stream-item" data-activitystreamid="@item.ActivityStreamId">
+                        <div>
+                            <a class="user-link" href="@userLink">
+                                <img src="@imageSource" width="48" height="48" src="@imageSource" title="@item.UserFullName" />
+                                <span class="user activity-stream-label">
+                                    @item.UserFullName
+                                </span>
+                            </a>
+                             @if (user != null)
+                             { 
+                                 <div class="user-context-menu">
+                                  @Display(New.SkypeTooltip(Model: user, Topic: item.ContentDescription))
+                                 </div>
+                              }
+                            <span class="date-time">@item.DateTime.ToLongTimeString()</span>
+                            <span class="content activity-stream-label">
+                                @if (route != null)
+                                {
+                                    <a href="@Url.RouteUrl(route)">@item.ContentDescription</a>
+                                }
+                                else
+                                {
+                                    <a>@item.ContentDescription</a>
+                                }
+                            </span>
+                            @if (item.Changes.Count > 0)
+                            {
+                                string detailId = "detail" + @item.ActivityStreamId;
+                            }
+                        </div>
+                        @if (item.Changes.Count > 0)
+                        {
+                            string detailId = "detail" + @item.ActivityStreamId;
+                         <ul id="@detailId" class="detail">
+                                @foreach (var change in item.Changes)
+                                {
+                                    <li>
+                                        @change
+                                    </li>
+                                }
+                            </ul>
+                            }
+                    </div>
+                }
+            </div>
+        }
+    }
+</div>
+@using (Script.Foot())
+{
+    Script.Require("JQueryUI");
+    Script.Require("ProjectWidgets");
+    <script language="javascript" type="text/javascript">
+        $(document).ready(function () {
+            $(".activity-stream").ActivityStreamViewer();
+            $(".activity-stream").Skype();
+        });
+    </script>
+}
