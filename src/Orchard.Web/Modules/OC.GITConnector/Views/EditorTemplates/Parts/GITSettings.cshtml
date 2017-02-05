@@ -10,7 +10,7 @@
     </div>
     <div>
         <label for="@Html.FieldIdFor(m => m.Branches)">@T("Branches")</label>
-        @Html.TextBoxFor(m => m.Server, new { placeholder = "branches", @class = "text medium" })
+        @Html.TextBoxFor(m => m.Branches, new { placeholder = "branches", @class = "text medium" })
         @Html.ValidationMessage("Branches", "*")
         <span class="hint">@T("Comma Separated list of the Git branches that you want track their changes")</span>
     </div>
