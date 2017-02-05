@@ -102,6 +102,7 @@
     <Content Include="Recipes\orchardcollaboration.recipe.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Recipes\orchardcollaboration-git-svn.recipe.xml" />
     <Content Include="Web.config" />
     <Content Include="Properties\AssemblyInfo.cs" />
     <Content Include="Module.txt" />

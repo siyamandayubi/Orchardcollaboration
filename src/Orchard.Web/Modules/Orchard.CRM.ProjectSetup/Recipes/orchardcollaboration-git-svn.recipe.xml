@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0"?>
 <Orchard>
   <Recipe>
-    <Name>OrchardCollaboration</Name>
-    <Description>The default recipe for an OrchardCollaboration site that includes ticketing system, project management and collaboration framework</Description>
+    <Name>OrchardCollaboration with SVN and GIT Connectors</Name>
+    <Description>In addition to the default features of OrchardCollaboration such as ticketing system, project management and collaboration framework, the recipe contains integration modules with GIT and SVN source controls. Please note that GIT and SVN connectors need enabling "32-Bit Application" in IIS. In order to enable that, in IIS, right click on Application Pool -> Advance Settings -> set the value of "Enable 32-Bit Applications" to true. Close the window by clicking on OK button and then restart the Application Pool. </Description>
     <Author>Siyamand Ayubi</Author>
     <WebSite>http://orchardcollaboration.com</WebSite>
     <Category>Orchard Collaboration</Category>
@@ -16,7 +16,7 @@
                    Orchard.jQuery,Orchard.Widgets,Orchard.ContentTypes,Orchard.Indexing,Orchard.JobsQueue,
                    Orchard.Scripting,Orchard.Scripting.Lightweight,PackagingServices,Orchard.Packaging,
                    Orchard.Projections,Orchard.Fields,Orchard.OutputCache,Orchard.Taxonomies,Orchard.Workflows,Orchard.Workflows.Timer,
-                   S22.IMAP, Orchard.Email, Orchard.Search, Lucene, Orchard.Tokens, Orchard.CRM.Core,Orchard.CRM.Dashboard,
+                   S22.IMAP, Orchard.Email, Orchard.Search, Lucene, Orchard.Tokens, Orchard.CRM.Core,Orchard.CRM.Dashboard,OC.SVNConnector,OC.GITConnector,OC.GITConnector.Tickets,OC.SVNConnector.Tickets,
                    Orchard.Taxonomies, Orchard.Reporting, Orchard.Lists, Orchard.CRM.Project,Orchard.CRM.Notification, Orchard.Recipes,Orchard.CustomForms,Orchard.Layouts,Orchard.Layouts.Tokens,
                    Bootstrap" />
   <Metadata>
@@ -41,6 +41,32 @@
     </Parts>
   </Metadata>
   <Workflows>
+    <Workflow Name="Connect Git Commit to ticket" Enabled="true">
+      <Activities>
+        <Activity Id="16" Name="ContentPublished" Start="true" X="405" Y="53">
+          <State>{"ContentTypes":"GITCommit"}</State>
+        </Activity>
+        <Activity Id="17" Name="ConnectGITCommitToTicket" Start="false" X="312" Y="263">
+          <State>{}</State>
+        </Activity>
+      </Activities>
+      <Transitions>
+        <Transition SourceActivityId="16" SourceEndpoint="Done" DestinationActivityId="17" DestinationEndpoint="" />
+      </Transitions>
+    </Workflow>
+    <Workflow Name="Connect SVN Commit to tickets" Enabled="true">
+      <Activities>
+        <Activity Id="20" Name="ContentPublished" Start="true" X="429" Y="48">
+          <State>{"ContentTypes":"SVNLog"}</State>
+        </Activity>
+        <Activity Id="21" Name="ConnectSVNLogToTicket" Start="false" X="232" Y="232">
+          <State>{}</State>
+        </Activity>
+      </Activities>
+      <Transitions>
+        <Transition SourceActivityId="20" SourceEndpoint="Done" DestinationActivityId="21" DestinationEndpoint="" />
+      </Transitions>
+    </Workflow>
   </Workflows>
   <Settings />
 
