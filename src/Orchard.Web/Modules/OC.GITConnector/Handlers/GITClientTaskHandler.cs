@@ -91,7 +91,7 @@ namespace OC.GITConnector.Handlers
                 try
                 {
                     this.transactionManager.Demand();
-                    var gitPath = this.appDataFolder.Combine(shellSettings.Name, "GIT");
+                    var gitPath = this.appDataFolder.Combine("Sites", shellSettings.Name, "GIT");
                     if (!this.appDataFolder.DirectoryExists(gitPath))
                     {
                         this.appDataFolder.CreateDirectory(gitPath);
@@ -128,6 +128,7 @@ namespace OC.GITConnector.Handlers
 
                     repo = repo ?? new Repository(mappedPath);
                     var branches = !string.IsNullOrEmpty(settings.Branches) ? settings.Branches.Split(',') : new[] { "master" };
+                    branches = branches.Select(c => c.Trim()).Where(c => !string.IsNullOrEmpty(c)).ToArray();
 
                     if (string.IsNullOrEmpty(settings.Password) || string.IsNullOrEmpty(settings.Username))
                     {
@@ -170,7 +171,7 @@ namespace OC.GITConnector.Handlers
                             if (commit != null)
                             {
                                 int index = commits.IndexOf(commit);
-                                commits = commits.Skip(index).ToList();
+                                commits = commits.Skip(index + 1).ToList();
                             }
                         }
 
@@ -180,9 +181,12 @@ namespace OC.GITConnector.Handlers
                         }
                     }
 
-                    settings.LastSuccessfullConnectionTime = DateTime.UtcNow;
-                    settings.LatestError = null;
-                    settings.LatestErrorTime = null;
+                    var settingContentItem = this.orchardServices.ContentManager.Get(settings.Id);
+                    var gitSettingPart = settingContentItem.As<GITSettingsPart>();
+                    gitSettingPart.LastSuccessfullConnectionTime = DateTime.UtcNow;
+                    gitSettingPart.LatestError = null;
+                    gitSettingPart.LatestErrorTime = null;
+                    this.transactionManager.Demand();
                 }
                 catch (Exception e)
                 {
@@ -195,9 +199,9 @@ namespace OC.GITConnector.Handlers
                     settings.LatestError = e.Message;
                     settings.LatestErrorTime = DateTime.UtcNow;
                     var settingContentItem = this.orchardServices.ContentManager.Get(settings.Id);
-                    var svnSettingPart = settingContentItem.As<GITSettingsPart>();
-                    svnSettingPart.LatestError = e.Message;
-                    svnSettingPart.LatestErrorTime = settings.LatestErrorTime;
+                    var gitSettingPart = settingContentItem.As<GITSettingsPart>();
+                    gitSettingPart.LatestError = e.Message;
+                    gitSettingPart.LatestErrorTime = settings.LatestErrorTime;
                     this.transactionManager.Demand();
                 }
                 finally
