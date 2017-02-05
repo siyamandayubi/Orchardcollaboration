@@ -74,33 +74,40 @@ namespace OC.SVNConnector.Handlers
                 this.transactionManager.Demand();
                 try
                 {
-                    var client = new SvnClient();
-                    client.Authentication.DefaultCredentials = new NetworkCredential(settings.Username, settings.Password);
-                    var serverRecord = this.svnServerRepository.Table.FirstOrDefault(c => c.Server == settings.Server);
 
-                    if (serverRecord == null)
+                    if (!string.IsNullOrEmpty(settings.Server))
                     {
-                        serverRecord = new SVNServerRecord { Server = settings.Server, LastRevision = settings.LastRevision, FromDate = DateTime.UtcNow };
-                        this.svnServerRepository.Create(serverRecord);
-                        this.svnServerRepository.Flush();
-                    }
+                        var client = new SvnClient();
+                        client.Authentication.DefaultCredentials = new NetworkCredential(settings.Username, settings.Password);
+                        var serverRecord = this.svnServerRepository.Table.FirstOrDefault(c => c.Server == settings.Server);
 
-                    Uri svnrepo = new Uri(settings.Server);
-                    SvnInfoEventArgs info;
-                    client.GetInfo(svnrepo, out info);
-                    long lastRev = info.LastChangeRevision;
-                    long rangeStart = serverRecord.LastRevision;
-                    Collection<SvnLogEventArgs> logs = new Collection<SvnLogEventArgs>();
-                    client.GetLog(svnrepo, new SvnLogArgs(new SvnRevisionRange(rangeStart, lastRev)), out logs);
-                    
-                    foreach (var svnLog in logs)
-                    {                       
-                        RaiseWorkflow(serverRecord, svnLog);
-                    }
+                        if (serverRecord == null)
+                        {
+                            serverRecord = new SVNServerRecord { Server = settings.Server, LastRevision = settings.LastRevision, FromDate = DateTime.UtcNow };
+                            this.svnServerRepository.Create(serverRecord);
+                            this.svnServerRepository.Flush();
+                        }
 
-                    settings.LastSuccessfullConnectionTime = DateTime.UtcNow;
-                    settings.LatestError = null;
-                    settings.LatestErrorTime = null;
+                        Uri svnrepo = new Uri(settings.Server);
+                        SvnInfoEventArgs info;
+                        client.GetInfo(svnrepo, out info);
+                        long lastRev = info.LastChangeRevision;
+                        long rangeStart = serverRecord.LastRevision;
+                        Collection<SvnLogEventArgs> logs = new Collection<SvnLogEventArgs>();
+                        client.GetLog(svnrepo, new SvnLogArgs(new SvnRevisionRange(rangeStart, lastRev)), out logs);
+
+                        foreach (var svnLog in logs)
+                        {
+                            RaiseWorkflow(serverRecord, svnLog);
+                        }
+
+                        var settingContentItem = this.orchardServices.ContentManager.Get(settings.Id);
+                        var svnSettingPart = settingContentItem.As<SVNSettingsPart>();
+                        svnSettingPart.LastSuccessfullConnectionTime = DateTime.UtcNow;
+                        svnSettingPart.LatestError = null;
+                        svnSettingPart.LatestErrorTime = null;
+                        this.transactionManager.Demand();
+                    }
                 }
                 catch (Exception e)
                 {
@@ -131,7 +138,7 @@ namespace OC.SVNConnector.Handlers
             var contentManager = this.orchardServices.ContentManager;
             var svnLogContentItem = contentManager.New(SVNLogPart.ContentItemTypeName);
             var svnLogPart = svnLogContentItem.As<SVNLogPart>();
-            
+
 
             svnLogPart.LogMessage = log.LogMessage;
             svnLogPart.Author = log.Author;
@@ -157,7 +164,7 @@ namespace OC.SVNConnector.Handlers
             {
                 this.transactionManager.RequireNew();
                 var tasks = this._taskManager.GetTasks(TaskType);
-                if (tasks == null || tasks.Count(c=>c.ScheduledUtc.HasValue && c.ScheduledUtc.Value > DateTime.UtcNow) == 0)
+                if (tasks == null || tasks.Count(c => c.ScheduledUtc.HasValue && c.ScheduledUtc.Value > DateTime.UtcNow) == 0)
                     this._taskManager.CreateTask(TaskType, date, null);
             }
         }
