@@ -26,7 +26,7 @@ namespace OC.GITConnector.Drivers
 
         public Localizer T { get; set; }
 
-        protected override string Prefix { get { return "GITSettings"; } }
+        protected override string Prefix { get { return "GITSettingsPart"; } }
 
         protected override DriverResult Editor(GITSettingsPart part, dynamic shapeHelper)
         {
