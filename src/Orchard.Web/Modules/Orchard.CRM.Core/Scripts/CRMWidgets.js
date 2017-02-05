@@ -567,7 +567,20 @@ window.crm = window.crm || {};
             $("#" + _self.options.publishLink).removeClass("hidden").click(_self.changeLinkToBehaveAsPostRequest);
             $("#" + _self.options.unPublishLinkId).removeClass("hidden").click(_self.changeLinkToBehaveAsPostRequest);
 
-            $("#" + _self.options.dueDateId).datepicker();
+            // use alternate date format to prevent problems regarding localization
+            var dueDate = $("#" + _self.options.dueDateId);
+            var dueDateName = dueDate.attr("name");
+            dueDate.attr("name", "old" + dueDateName).attr("id", "old" + _self.options.dueDateId);
+            var hiddenInput = "<input type='hidden' name='{name}' id='{id}' value='{value}'/>";
+            hiddenInput = hiddenInput.replace("{name}", dueDateName);
+            hiddenInput = hiddenInput.replace("{id}", _self.options.dueDateId);
+            hiddenInput = hiddenInput.replace("{value}", dueDate.val());
+            dueDate.parent().append(hiddenInput);
+            dueDate.datepicker({
+                altField: "#" + _self.options.dueDateId,
+                altFormat: "yy-M-dd"
+            });
+
             //$("#" + _self.options.dueDateId).calendarsPicker({
             //    showAnim: "",
             //    renderer: $.extend({}, $.calendarsPicker.themeRollerRenderer, {
