@@ -9,14 +9,14 @@
         <span class="hint">@T("The address of the SVN server, e.g. <i>https://blalblabla.com/repository</i>.")</span>
     </div>
     <div>
-        <label for="@Html.FieldIdFor(m => m.LastRevision)">@T("Last Revision number")</label>
-        @Html.TextBoxFor(m => m.LastRevision, new { placeholder = "The Id of the last revision<i>993</i>", @class = "text small" })
+        <label for="@Html.FieldIdFor(m => m.LastRevision)">@T("Last scanned Revision")</label>
+        @Html.TextBoxFor(m => m.LastRevision, new { placeholder = "Last scanned Revision", @class = "text small" })
         @Html.ValidationMessage("LastRevision", "*")
-        <span class="hint">@T("The Id of the last revision 993.")</span>
+        <span class="hint">@T("Please enter an older Revision Id, that you want to scan from it. Leave the field empty in case you want to scan all revisions from beginning until now!")</span>
     </div>
      <div>
         <label for="@Html.FieldIdFor(m => m.Username)">@T("User name")</label>
-        @Html.TextBoxFor(m => m.Username, new { @class = "text" })
+        @Html.TextBoxFor(m => m.Username, new { @class = "text medium" })
         @Html.ValidationMessage("Username", "*")
         <span class="hint">@T("The username for authentication.")</span>
     </div>
