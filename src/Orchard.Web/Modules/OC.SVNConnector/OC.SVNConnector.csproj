@@ -49,12 +49,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="SharpSvn, Version=1.9004.3913.141, Culture=neutral, PublicKeyToken=d729672594885a28, processorArchitecture=AMD64">
-      <HintPath>..\..\..\packages\SharpSvn.1.9-x64.1.9004.3913.141\lib\net40\SharpSvn.dll</HintPath>
+    <Reference Include="SharpSvn, Version=1.9005.3934.164, Culture=neutral, PublicKeyToken=d729672594885a28, processorArchitecture=x86">
+      <HintPath>..\..\..\packages\sharpsvn.1.9-x86.1.9005.3934.164\lib\net40\SharpSvn.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SharpSvn.UI, Version=1.9004.3913.141, Culture=neutral, PublicKeyToken=33789aa53ca44aa9, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\SharpSvn.1.9-x64.1.9004.3913.141\lib\net40\SharpSvn.UI.dll</HintPath>
+    <Reference Include="SharpSvn.UI, Version=1.9005.3934.164, Culture=neutral, PublicKeyToken=33789aa53ca44aa9, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\sharpsvn.1.9-x86.1.9005.3934.164\lib\net40\SharpSvn.UI.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -135,7 +135,9 @@
     <Content Include="Views\EditorTemplates\Parts\SVNLog.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
