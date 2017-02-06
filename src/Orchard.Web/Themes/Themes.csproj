@@ -141,14 +141,24 @@
     <Content Include="Bootstrap\Scripts\jquery.prettyPhoto.js" />
     <Content Include="Bootstrap\Scripts\respond.min.js" />
     <Content Include="Bootstrap\Styles\amelia.min.css" />
+    <Content Include="Bootstrap\Styles\bootstrap.css" />
     <Content Include="Bootstrap\Styles\bootstrap.min.css" />
     <Content Include="Bootstrap\Styles\bootswatch.min.css" />
     <Content Include="Bootstrap\Styles\cerulean.min.css" />
     <Content Include="Bootstrap\Styles\cosmo.min.css" />
+    <Content Include="Bootstrap\Styles\crm-dashboard.css" />
     <Content Include="Bootstrap\Styles\cyborg.min.css" />
     <Content Include="Bootstrap\Styles\flatly.min.css" />
     <Content Include="Bootstrap\Styles\font-awesome-ie7.min.css" />
     <Content Include="Bootstrap\Styles\font-awesome.min.css" />
+    <Content Include="Bootstrap\Styles\Images\edit-icon-white.png" />
+    <Content Include="Bootstrap\Styles\Images\edit-icon.png" />
+    <Content Include="Bootstrap\Styles\Images\edit-only-pen-icon.png" />
+    <Content Include="Bootstrap\Styles\Images\expand-left-64-gray.png" />
+    <Content Include="Bootstrap\Styles\Images\expand-left-64.png" />
+    <Content Include="Bootstrap\Styles\Images\expand-right-64-gray.png" />
+    <Content Include="Bootstrap\Styles\Images\expand-right-64.png" />
+    <Content Include="Bootstrap\Styles\Images\original-edit.png" />
     <Content Include="Bootstrap\Styles\journal.min.css" />
     <Content Include="Bootstrap\Styles\orchardcollaboration.css" />
     <Content Include="Bootstrap\Styles\overwrite.css" />
@@ -357,9 +367,16 @@
     <Content Include="Bootstrap\Views\TicketFields.Input.Edit.cshtml" />
     <Content Include="Bootstrap\Views\TicketFields.Numeric.Edit.cshtml" />
     <Content Include="Bootstrap\Views\User.cshtml" />
-    <Content Include="Bootstrap\Views\Web.config" />
     <Content Include="Bootstrap\Views\Widget.Wrapper.cshtml" />
-    <Content Include="Bootstrap\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Bootstrap\Styles\crm-dashboard.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Bootstrap\Views\DashboardStylesheets.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Bootstrap\Views\Banners.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

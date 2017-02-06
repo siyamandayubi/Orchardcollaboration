@@ -1,4 +1,4 @@
-﻿@media all and (max-width:840px) {
+@media all and (max-width:840px) {
     .dashboardContainer {
         .portlet {
             .basic-data {
@@ -9,12 +9,21 @@
     }
 }
 
+.dashboard-content {
+    .tickets-dashboard-summary {
+        .overdu-items {
+            color: #221f1f;
+        }
+    }
+}
+
 .generic-dashboard {
     margin-bottom: 20px;
     margin-top: 10px;
 
     h3 {
         margin-top: 5px;
+        font-size: 20px !important;
     }
 
     .dashboard-panel-header {
@@ -28,10 +37,10 @@
 
     .panel-heading {
         position: relative;
-
+        // https://css-tricks.com/snippets/css/css-triangle/
         .expand-icon, .collapse-icon {
             position: absolute;
-            top: 10px;
+            top: 15px;
             right: 10px;
             border: 1px solid gray;
             width: 0px;
@@ -44,30 +53,30 @@
         }
 
         .expand-icon {
-            border-left: 20px solid transparent;
-            border-right: 20px solid transparent;
-            border-top: 20px solid gray;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-top: 15px solid gray;
             border-bottom: none;
         }
 
         .collapse-icon {
-            border-left: 20px solid transparent;
-            border-right: 20px solid transparent;
-            border-bottom: 20px solid gray;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-bottom: 15px solid gray;
             border-top: none;
         }
 
         .expand-icon:hover {
-            border-left: 20px solid transparent;
-            border-right: 20px solid transparent;
-            border-top: 20px solid #aaa;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-top: 15px solid #aaa;
             border-bottom: none;
         }
 
         .collapse-icon:hover {
-            border-left: 20px solid transparent;
-            border-right: 20px solid transparent;
-            border-bottom: 20px solid #aaa;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-bottom: 15px solid #aaa;
             border-top: none;
         }
 
@@ -100,41 +109,42 @@
 .dashboardContainer {
     .portlet {
         min-height: 150px;
-        height: 180px;
+        height: 210px;
 
         .btn-edit-link {
             background-color: none !important;
             color: #428bca !important;
             text-align: left;
             background-image: url('Images/edit-only-pen-icon.png');
-            background-position: left center;
+            background-position: left 5px;
             background-repeat: no-repeat;
             display: inline-block;
-            padding-left: 35px;
+            padding-left: 35px !important;
             background-size: 24px 24px;
             border: none !important;
         }
 
-        .basic-data {
+        ul {
+            padding-left: 0px;
+            list-style: none;
+            padding-top: 10px;
 
-            ul {
-                padding-left: 0px;
-                list-style: none;
-                padding-top: 10px;
-
-                li {
-                    display: inline-block;
-                    margin-right: 20px;
-                    margin-bottom: 20px;
-                }
-
-                a {
-                    display: inline-block;
-                    padding: 3px;
-                    border-radius: 3px;
-                    width: 140px;
-                }
+            li {
+                display: inline-block;
+                margin-right: 20px;
+                margin-bottom: 20px;
+                vertical-align: top;
             }
+
+            a {
+                display: inline-block;
+                padding: 3px;
+                border-radius: 3px;
+                width: 140px;
+            }
+        }
+
+        .basic-data {
         }
 
         header {
@@ -251,7 +261,7 @@
 @media all and (min-width:1200px) {
     #sidebarContainer {
         .open-icon {
-            top: 70px;
+            top: 52px;
 
             .for-small-screen {
                 display: none;
@@ -263,7 +273,7 @@
         }
 
         .sidebar-content {
-            top: 61px;
+            top: 51px;
         }
     }
 }
@@ -275,21 +285,21 @@
         background-size: 32px 32px;
         font-size: 22px;
         position: fixed;
-        left: 5px;
+        left: 2px;
         z-index: 1000;
         line-height: 1.3em;
-        background-color: #f8f8f8;
-        font-weight: bold;
-        color: gray;
+        background-color: #222;
+        font-weight: normal;
+        color: white;
         text-align: center;
         border: 1px solid #ddd;
     }
 
     .open-icon:hover {
         border: 1px solid black;
-        color: #aaa;
+        color: #eee;
         border: 1px solid #aaa;
-        background-color: #fdfdfd;
+        background-color: #333;
         cursor: pointer;
     }
 
@@ -297,11 +307,16 @@
         position: fixed;
         left: 0px;
         bottom: 2px;
-        background-color: #eee;
+        background-color: #111;
         border: 1px solid #ddd;
+        color: white;
         z-index: 1000;
         animation-name: sidebarContent;
         animation-duration: 0.5s;
+
+        a {
+            color: white;
+        }
 
         .header {
             height: 33px;
@@ -320,10 +335,10 @@
                 background-size: 24px 24px;
                 background-position: center center;
                 background-repeat: no-repeat;
-                background-color: #f8f8f8;
+                background-color: #222;
                 right: 34px;
                 top: -1px;
-                background-image: url('Images/edit-icon.png');
+                background-image: url('Images/edit-icon-white.png');
             }
 
             .edit-dashboard-button:hover {
@@ -331,8 +346,8 @@
             }
 
             .close-button {
-                color: gray;
-                background-color: #f8f8f8;
+                color: white;
+                background-color: #222;
                 position: absolute;
                 padding-left: 3px;
                 padding-right: 3px;
@@ -349,9 +364,9 @@
 
             .close-button:hover {
                 border: 1px solid black;
-                color: #aaa;
+                color: #eee;
                 border: 1px solid #aaa;
-                background-color: #fdfdfd;
+                background-color: #333;
                 cursor: pointer;
             }
 
@@ -362,10 +377,34 @@
             }
         }
 
+        .content::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+        }
+
+        .content::-webkit-scrollbar-thumb {
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.8);
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+        }
+
+        .content::-webkit-scrollbar {
+            width: 12px;
+        }
+
         .content {
             margin-top: 0px;
             height: 100%;
             overflow-y: auto;
+            scrollbar-face-color: gray;
+            scrollbar-shadow-color: #FFFFFF;
+            scrollbar-highlight-color: #FFFFFF;
+            scrollbar-3dlight-color: #FFFFFF;
+            scrollbar-darkshadow-color: #FFFFFF;
+            scrollbar-track-color: black;
+            scrollbar-arrow-color: #FFFFFF;
 
             header .page-header h1 {
                 margin: 0px !important;
@@ -395,7 +434,7 @@
 
             .sidebar-tickets {
                 font-size: 12px;
-                background-color: #f5f5f5;
+                background-color: #222;
                 border: none;
                 min-height: 100px;
                 padding: 5px 5px 5px 0px;
@@ -413,21 +452,31 @@
                 }
 
                 .ticket-list-name {
-                    float: left;
                     border-bottom: none !important;
                     margin-bottom: 5px;
                     white-space: nowrap;
                     overflow: hidden;
-                    width: 80%;
+                    float: left;
+                    display:inline-block;
                 }
 
                 .ticket-list-id {
-                    float: left;
-                    width: 15%;
+                    color: yellow;
+                    font-weight: bold;
                     display: inline-block;
-                    margin-right: 10px;
+                    margin-right: 5px;
                     border-bottom: none !important;
                     margin-bottom: 5px;
+                    width: auto !important;
+                    float: left !important;
+
+                    a {
+                        color: yellow;
+                    }
+                }
+
+                .ticket-list-id:after {
+                    content: '-';
                 }
 
                 .well {
@@ -435,6 +484,7 @@
                     border: none !important;
                     padding: 0px 0px 0px 10px !important;
                     box-shadow: none;
+                    background-color: #222;
                 }
             }
         }
