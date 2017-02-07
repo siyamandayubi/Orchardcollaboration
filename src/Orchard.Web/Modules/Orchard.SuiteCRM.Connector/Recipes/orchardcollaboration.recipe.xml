@@ -99,7 +99,7 @@
     dashboard-create-queries
 
     menu create /MenuName:"Main AdvancedOperator Menu"
-    widget-generic-dashboard create /Portlets:"SugarCRMSettingStatusPortlet,SmtpPortletContent,IMAPPortletContent,BasicDataPortlet,NavigationPortlet,WorkflowPortlet,QueriesPortlet,ContentManagementPortlet" /Title:"Admin Quick Links" /Layer:"AuthenticatedAdvancedOperatorHomePage" /Zone:"Content" /RenderTitle:true
+    widget-generic-dashboard create /Portlets:"SugarCRMSettingStatusPortlet,DashboardManagementTemplate,SmtpPortletContentTemplate,IMAPPortletContentTemplate,BasicDataPortletTemplate,NavigationPortletTemplate,WorkflowPortletTemplate,QueriesPortletTemplate,ContentManagementPortletTemplate" /Title:"Admin Quick Links" /Layer:"AuthenticatedAdvancedOperatorHomePage" /Zone:"Content" /RenderTitle:true
     ticket-dashboard-widget create /Title:"Dashboard" /LayerName:"AuthenticatedAdvancedOperatorHomePage" /Zone:"Content" /RenderTitle:false
     widget-sidebar create /Portlets:"My Open Tickets,Reported By me tickets,Unassigned Tickets,My Projects"  /Layer:"AuthenticatedOperator" /Zone:"BeforeMain" /RenderTitle:false  /Title:"Sidebar"
     widget-sidebar create /Portlets:"My Open Tickets,Reported By me tickets,Unassigned Tickets,My Projects"  /Layer:"AuthenticatedAdvancedOperator" /Zone:"BeforeMain" /RenderTitle:false  /Title:"Sidebar"
