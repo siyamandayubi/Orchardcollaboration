@@ -11,9 +11,11 @@ using Orchard.Recipes.Services;
 using Orchard.Themes;
 using Orchard.UI.Notify;
 
-namespace Orchard.Setup.Controllers {
+namespace Orchard.Setup.Controllers
+{
     [ValidateInput(false), Themed]
-    public class SetupController : Controller {
+    public class SetupController : Controller
+    {
         private readonly IViewsBackgroundCompilation _viewsBackgroundCompilation;
         private readonly ShellSettings _shellSettings;
         private readonly INotifier _notifier;
@@ -24,7 +26,8 @@ namespace Orchard.Setup.Controllers {
             INotifier notifier,
             ISetupService setupService,
             IViewsBackgroundCompilation viewsBackgroundCompilation,
-            ShellSettings shellSettings) {
+            ShellSettings shellSettings)
+        {
 
             _viewsBackgroundCompilation = viewsBackgroundCompilation;
             _shellSettings = shellSettings;
@@ -40,16 +43,19 @@ namespace Orchard.Setup.Controllers {
         public ILogger Logger { get; set; }
         public int RecipeExecutionTimeout { get; set; }
 
-        private ActionResult IndexViewResult(SetupViewModel model) {
+        private ActionResult IndexViewResult(SetupViewModel model)
+        {
             return View(model);
         }
 
-        public ActionResult Index() {
+        public ActionResult Index()
+        {
             var initialSettings = _setupService.Prime();
-            var recipes = _setupService.Recipes().ToList();
+            var recipes = _setupService.Recipes().OrderBy(c => c.Name).ToList();
             string recipeDescription = null;
 
-            if (recipes.Any()) {
+            if (recipes.Any())
+            {
                 recipeDescription = recipes[0].Description;
             }
 
@@ -58,11 +64,13 @@ namespace Orchard.Setup.Controllers {
             // We use this opportunity to start a background task to "pre-compile" all the known
             // views in the app folder, so that the application is more reponsive when the user
             // hits the homepage and admin screens for the first time).
-            if (StringComparer.OrdinalIgnoreCase.Equals(initialSettings.Name, ShellSettings.DefaultName)) {
+            if (StringComparer.OrdinalIgnoreCase.Equals(initialSettings.Name, ShellSettings.DefaultName))
+            {
                 _viewsBackgroundCompilation.Start();
             }
 
-            return IndexViewResult(new SetupViewModel {
+            return IndexViewResult(new SetupViewModel
+            {
                 AdminUsername = "admin",
                 DatabaseIsPreconfigured = !String.IsNullOrEmpty(initialSettings.DataProvider),
                 Recipes = recipes,
@@ -71,7 +79,8 @@ namespace Orchard.Setup.Controllers {
         }
 
         [HttpPost, ActionName("Index")]
-        public ActionResult IndexPOST(SetupViewModel model) {
+        public ActionResult IndexPOST(SetupViewModel model)
+        {
             // Sets the setup request timeout to a configurable amount of seconds to give enough time to execute custom recipes.
             HttpContext.Server.ScriptTimeout = RecipeExecutionTimeout;
 
@@ -81,31 +90,40 @@ namespace Orchard.Setup.Controllers {
             if (model.DatabaseProvider != SetupDatabaseType.Builtin && string.IsNullOrEmpty(model.DatabaseConnectionString))
                 ModelState.AddModelError("DatabaseConnectionString", T("A connection string is required.").Text);
 
-            if (!String.IsNullOrWhiteSpace(model.ConfirmPassword) && model.AdminPassword != model.ConfirmPassword) {
+            if (!String.IsNullOrWhiteSpace(model.ConfirmPassword) && model.AdminPassword != model.ConfirmPassword)
+            {
                 ModelState.AddModelError("ConfirmPassword", T("Password confirmation must match.").Text);
             }
 
-            if (model.DatabaseProvider != SetupDatabaseType.Builtin && !string.IsNullOrWhiteSpace(model.DatabaseTablePrefix)) {
+            if (model.DatabaseProvider != SetupDatabaseType.Builtin && !string.IsNullOrWhiteSpace(model.DatabaseTablePrefix))
+            {
                 model.DatabaseTablePrefix = model.DatabaseTablePrefix.Trim();
-                if (!Char.IsLetter(model.DatabaseTablePrefix[0])) {
+                if (!Char.IsLetter(model.DatabaseTablePrefix[0]))
+                {
                     ModelState.AddModelError("DatabaseTablePrefix", T("The table prefix must begin with a letter.").Text);
                 }
 
-                if (model.DatabaseTablePrefix.Any(x => !Char.IsLetterOrDigit(x))) {
+                if (model.DatabaseTablePrefix.Any(x => !Char.IsLetterOrDigit(x)))
+                {
                     ModelState.AddModelError("DatabaseTablePrefix", T("The table prefix must contain letters or digits.").Text);
                 }
             }
-            if (model.Recipe == null) {
-                if (!(recipes.Select(r => r.Name).Contains(DefaultRecipe))) {
+            if (model.Recipe == null)
+            {
+                if (!(recipes.Select(r => r.Name).Contains(DefaultRecipe)))
+                {
                     ModelState.AddModelError("Recipe", T("No recipes were found.").Text);
                 }
-                else {
+                else
+                {
                     model.Recipe = DefaultRecipe;
                 }
             }
-            if (!ModelState.IsValid) {
+            if (!ModelState.IsValid)
+            {
                 model.Recipes = recipes;
-                foreach (var recipe in recipes.Where(recipe => recipe.Name == model.Recipe)) {
+                foreach (var recipe in recipes.Where(recipe => recipe.Name == model.Recipe))
+                {
                     model.RecipeDescription = recipe.Description;
                 }
                 model.DatabaseIsPreconfigured = !String.IsNullOrEmpty(_setupService.Prime().DataProvider);
@@ -113,10 +131,12 @@ namespace Orchard.Setup.Controllers {
                 return IndexViewResult(model);
             }
 
-            try {
+            try
+            {
                 string providerName = null;
 
-                switch (model.DatabaseProvider) {
+                switch (model.DatabaseProvider)
+                {
                     case SetupDatabaseType.Builtin:
                         providerName = "SqlCe";
                         break;
@@ -138,7 +158,8 @@ namespace Orchard.Setup.Controllers {
                 }
 
                 var recipe = recipes.GetRecipeByName(model.Recipe);
-                var setupContext = new SetupContext {
+                var setupContext = new SetupContext
+                {
                     SiteName = model.SiteName,
                     AdminUsername = model.AdminUsername,
                     AdminPassword = model.AdminPassword,
@@ -159,12 +180,14 @@ namespace Orchard.Setup.Controllers {
                 // Redirect to the welcome page.
                 return Redirect("~/" + _shellSettings.RequestUrlPrefix);
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 Logger.Error(ex, "Setup failed");
                 _notifier.Error(T("Setup failed: {0}", ex.Message));
 
                 model.Recipes = recipes;
-                foreach (var recipe in recipes.Where(recipe => recipe.Name == model.Recipe)) {
+                foreach (var recipe in recipes.Where(recipe => recipe.Name == model.Recipe))
+                {
                     model.RecipeDescription = recipe.Description;
                 }
                 model.DatabaseIsPreconfigured = !String.IsNullOrEmpty(_setupService.Prime().DataProvider);
