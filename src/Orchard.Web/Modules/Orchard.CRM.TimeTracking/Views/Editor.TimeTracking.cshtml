@@ -1,0 +1,26 @@
+﻿<div style="display:none;">
+    <div id="timeTrackingDialog" title="@T("Time tracking")">
+        <div class="time-track-content">
+            @using (Html.BeginFormAntiForgeryPost(Url.Action("Add", "Item", new { area = "Orchard.CRM.TimeTracking" }), FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div>
+                    <label>@T("Time")</label>
+                    <input name="TrackedTime" data-rule-required="true" data-rule-pattern="" />
+                </div>
+                <div>
+                    <label>@T("Date")</label>
+                    <input name="TimeTrackDay" data-rule-required="true"/>
+                </div>
+                <div>
+                    <label>@T("Comment")</label>
+                    <textarea name="Comment" data-rule-required="true"></textarea>
+                </div>
+                <div class="buttons">
+                    <button class="save-button">@T("Save")</button>
+                    <button class="cancel-button">@T("Cancel")</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div id="loadingPage" style="display:none" class="loading-page">@T("Loading ...")</div>

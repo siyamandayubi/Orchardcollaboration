@@ -1,0 +1,9 @@
+﻿<Placement>
+  <Place Parts_TimeTrackingPart_Detail="Content:3"></Place>
+  <Match ContentType="Ticket">
+    <Match DisplayType="Detail">
+      <Place Parts_TimeTrackingPart_Header="DetailListHeader:3"></Place>
+      <Place Parts_TimeTrackingPart_Detail="DetailList:3"></Place>
+    </Match>
+  </Match>
+</Placement>
