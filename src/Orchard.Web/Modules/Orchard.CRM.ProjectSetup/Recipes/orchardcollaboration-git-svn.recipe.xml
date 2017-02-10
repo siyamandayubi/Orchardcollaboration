@@ -15,7 +15,7 @@
                    TinyMce,Orchard.MediaLibrary,Orchard.ContentPicker,Orchard.PublishLater,
                    Orchard.jQuery,Orchard.Widgets,Orchard.ContentTypes,Orchard.Indexing,Orchard.JobsQueue,
                    Orchard.Scripting,Orchard.Scripting.Lightweight,PackagingServices,Orchard.Packaging,
-                   Orchard.Projections,Orchard.Fields,Orchard.OutputCache,Orchard.Taxonomies,Orchard.Workflows,Orchard.Workflows.Timer,
+                   Orchard.Projections,Orchard.Fields,Orchard.OutputCache,Orchard.Taxonomies,Orchard.Workflows,Orchard.Workflows.Timer,Orchard.CRM.TimeTracking,
                    S22.IMAP, Orchard.Email, Orchard.Search, Lucene, Orchard.Tokens, Orchard.CRM.Core,Orchard.CRM.Dashboard,OC.SVNConnector,OC.GITConnector,OC.GITConnector.Tickets,OC.SVNConnector.Tickets,
                    Orchard.Taxonomies, Orchard.Reporting, Orchard.Lists, Orchard.CRM.Project,Orchard.CRM.Notification, Orchard.Recipes,Orchard.CustomForms,Orchard.Layouts,Orchard.Layouts.Tokens,
                    Bootstrap" />
