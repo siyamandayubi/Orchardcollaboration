@@ -1,12 +1,12 @@
 window.crm = window.crm || {};
 
 (function () {
-    crm.notification = crm.notification || {};
+    crm.timeTracking = crm.timeTracking || {};
 
     // helper class
     // TODO: This logic is repreated across Orchard.CRM.Notification, Orchard.CRM.TimeTracking, Orchard.CRM.Project/Scripts/ProjectWidgets/EditBaseWidget, Orchard.CRM.Core/Scripts/CRMWidgets/EditBaseWidget 
     // and Orchard.SuiteCRM.Connector/Scripts/SyncCRM/Helper. It must move to a common js library
-    crm.notification.Helper = function (widget) {
+    crm.timeTracking.Helper = function (widget) {
         var _self = this;
 
         this.options = {
@@ -20,13 +20,13 @@ window.crm = window.crm || {};
         };
     };
 
-    crm.notification.notificationWidget = function (widget) {
+    crm.timeTracking.timeTrackingWidget = function (widget) {
         var _self = this;
         var latestCount = 0;
         this.options = {
             loadingPageId: "loadingPage",
-            addTimeTrackingButtonId: "notificationContainer",
-            dialogId: "notificationDialog",
+            addTimeTrackingButtonId: "addLogWork",
+            dialogId: "timeTrackingDialog",
             dialogContentClass: "timetracking-content",
             dialogContainerClass: "timetracking-dialog",
             saveButtonClass: "time-tracking-save",
@@ -82,7 +82,7 @@ window.crm = window.crm || {};
                 activityStreamId: max
             };
 
-            var helper = new crm.notification.Helper();
+            var helper = new crm.timeTracking.Helper();
             var verificationToken = helper.getRequestVerificationToken();
 
             $.extend(toSubmitData, verificationToken);
@@ -94,4 +94,13 @@ window.crm = window.crm || {};
             dialogContainer.dialog("close");
         };
     };
+
+    $.widget("CRM.TimeTracking", {
+        options: {},
+        _create: function () {
+            this.editFolder = new crm.timeTracking.timeTrackingWidget(this);
+            $.extend(this.editFolder.options, this.options);
+            this.editFolder.initialize();
+        }
+    });
 })();
