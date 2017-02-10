@@ -34,6 +34,7 @@
         private readonly IEnumerable<IActivityStreamWriter> activityStreamWriters;
         private readonly IWorkflowManager workflowManager;
         private readonly ITransactionManager transactionManager;
+        private readonly IMembershipService _memebershipService;
 
         public Localizer T { get; set; }
 
@@ -45,7 +46,8 @@
             IProjectionManagerWithDynamicSort projectionManagerWithDynamicSort,
             IOrchardServices services,
             IEnumerable<IActivityStreamWriter> activityStreamWriters,
-            Lazy<ISessionLocator> sessionLocator)
+            Lazy<ISessionLocator> sessionLocator,
+            IMembershipService memebershipService)
             : base(services, projectionManagerWithDynamicSort)
         {
             this.transactionManager = transactionManager;
@@ -54,6 +56,9 @@
             this.sessionLocator = sessionLocator;
             this.repository = repository;
             this.basicDataService = basicDataService;
+
+            _memebershipService = memebershipService;
+
             this.T = NullLocalizer.Instance;
         }
 
@@ -370,7 +375,10 @@
             }
             else
             {
-                itemModel.UserId = 0;
+
+                var user = _memebershipService.GetUser(services.WorkContext.CurrentSite.SuperUser);
+                itemModel.User = user;
+                itemModel.UserId = user.Id;
                 itemModel.UserFullName = T("System").Text;
             }
 
