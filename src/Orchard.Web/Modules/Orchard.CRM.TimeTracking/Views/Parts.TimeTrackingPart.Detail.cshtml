@@ -1,10 +1,27 @@
-﻿@{ 
+﻿@{
+    Style.Include("TimeTracking.css");
     string classes = Model.Classes != null ? string.Join(" ", Model.Classes) : string.Empty;
 }
-<div class="@classes">
-    <ul>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-    </ul>
+<div class="log-works @classes">
+    <div class="add-item">
+        <button id="addLogWork" class="btn btn-primary">@T("Log Work")</button>
+    </div>
+    @if (Model.Model.Items.Count > 0)
+    {
+        <ul></ul>
+    }
+    else
+    {
+        <div>@T("No work has yet been logged on this issue.")</div>
+    }
 </div>
+@using (Script.Foot())
+{
+    Script.Require("JQueryUI");
+    Script.Require("TimeTrackingWidgets");
+    <script language="javascript" type="text/javascript">
+        $(document).ready(function () {
+            $(".log-works").TimeTracking();
+        });
+    </script>
+}
