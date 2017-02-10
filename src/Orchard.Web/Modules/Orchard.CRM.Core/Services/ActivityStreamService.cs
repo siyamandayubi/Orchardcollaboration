@@ -1,22 +1,4 @@
-﻿/// Orchard Collaboration is a series of plugins for Orchard CMS that provides an integrated ticketing system and collaboration framework on top of it.
-/// Copyright (C) 2014-2016  Siyamand Ayubi
-///
-/// This file is part of Orchard Collaboration.
-///
-///    Orchard Collaboration is free software: you can redistribute it and/or modify
-///    it under the terms of the GNU General Public License as published by
-///    the Free Software Foundation, either version 3 of the License, or
-///    (at your option) any later version.
-///
-///    Orchard Collaboration is distributed in the hope that it will be useful,
-///    but WITHOUT ANY WARRANTY; without even the implied warranty of
-///    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-///    GNU General Public License for more details.
-///
-///    You should have received a copy of the GNU General Public License
-///    along with Orchard Collaboration.  If not, see <http://www.gnu.org/licenses/>.
-
-namespace Orchard.CRM.Core.Services
+﻿namespace Orchard.CRM.Core.Services
 {
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
@@ -42,6 +24,7 @@ namespace Orchard.CRM.Core.Services
     using Orchard.UI.Navigation;
     using Orchard.Workflows.Services;
     using Orchard.CRM.Core.Activities;
+    using Orchard.Core.Common.Models;
 
     public class ActivityStreamService : BaseService, IActivityStreamService
     {
@@ -301,17 +284,16 @@ namespace Orchard.CRM.Core.Services
 
         public dynamic CreateModel(List<ActivityStreamRecord> items, int count, int page, int pageSize)
         {
-            var session = this.transactionManager.GetSession(); 
+            var session = this.transactionManager.GetSession();
 
             // set time zone
             items.ForEach(c =>
             {
                 session.Evict(c);
-                c.CreationDateTime = CRMHelper.SetSiteTimeZone(this.services.WorkContext, c.CreationDateTime);
             });
 
             dynamic model = new ExpandoObject();
-            DateTime today = CRMHelper.SetSiteTimeZone(this.services.WorkContext, DateTime.UtcNow);
+            DateTime today = DateTime.UtcNow;
 
             // create pager
             var currentSite = this.services.WorkContext.CurrentSite;
@@ -328,7 +310,7 @@ namespace Orchard.CRM.Core.Services
                 dynamic dayModel = new ExpandoObject();
                 dayModels.Add(dayModel);
                 dayModel.Date = group.Key;
-                dayModel.Title = group.Key.Date == today.Date ? T("Today").Text : group.Key.ToLongDateString();
+                dayModel.Title = group.Key.Date == today.Date ? T("Today").Text : group.Key.ToString("dddd, MMMM, dd, yyyy", services.WorkContext.CurrentCultureInfo());
 
                 List<dynamic> itemModels = new List<dynamic>();
                 dayModel.Items = itemModels;
@@ -388,6 +370,7 @@ namespace Orchard.CRM.Core.Services
             }
             else
             {
+                itemModel.UserId = 0;
                 itemModel.UserFullName = T("System").Text;
             }
 
@@ -405,6 +388,12 @@ namespace Orchard.CRM.Core.Services
             foreach (var contentQuery in contentQueries)
             {
                 DefaultHqlQuery defaultQuery = contentQuery as DefaultHqlQuery;
+
+                // This is for filling _form proprty of the DefaultHqlQuery, otherwise ToHql will not work
+                var aliasFactory = new DefaultAliasFactory(defaultQuery);
+                aliasFactory.ContentItem();
+
+                // This condition is only for
                 queries.Add(defaultQuery.ToHql(true));
             }
 
@@ -436,6 +425,10 @@ namespace Orchard.CRM.Core.Services
             foreach (var contentQuery in contentQueries)
             {
                 DefaultHqlQuery defaultQuery = contentQuery as DefaultHqlQuery;
+
+                // This is for filling _form proprty of the DefaultHqlQuery, otherwise ToHql will not work
+                var aliasFactory = new DefaultAliasFactory(defaultQuery);
+                aliasFactory.ContentItem();
                 queries.Add(defaultQuery.ToHql(true));
             }
 
