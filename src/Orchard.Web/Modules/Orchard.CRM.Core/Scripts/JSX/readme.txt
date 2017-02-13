@@ -1,7 +1,7 @@
-﻿The js files have been generated from JSX files. The steps to prepare the environment is as follows
+﻿The js files have been generated from JSX files. The steps to prepare the environment are as follows:
 
 1) Download andd install Nodejs. The address of the website is: https://nodejs.org/en/download/
-2) Make sure that the installer installss npm too.
+2) Make sure that the installer installs npm too.
 3) Follow the steps recommended in: https://facebook.github.io/react/docs/tooling-integration.html
    In summary:
    a) Run the following commands in the command prompt in Admin mode.
