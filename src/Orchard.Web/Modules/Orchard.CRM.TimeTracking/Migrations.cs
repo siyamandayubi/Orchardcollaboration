@@ -16,6 +16,7 @@ namespace Orchard.CRM.TimeTracking
                 .Column<int>("Id", c => c.Identity().PrimaryKey())
                 .Column<int>("User_Id", c => c.NotNull())
                 .Column<int>("TimeTrackingPartRecord_Id", c => c.NotNull())
+                .Column<string>("OriginalTimeTrackingString", c => c.NotNull().WithLength(100))
                 .Column<int>("TimeInMinute", c => c.NotNull())
                 .Column<string>("Comment", c => c.NotNull().WithLength(500))
                 .Column<DateTime>("TrackingDate", c => c.NotNull())

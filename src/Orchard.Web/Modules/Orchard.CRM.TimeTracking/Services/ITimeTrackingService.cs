@@ -7,10 +7,10 @@ namespace Orchard.CRM.TimeTracking.Services
 {
     public interface ITimeTrackingService : IDependency
     {
-        IEnumerable<TimeTrackingItemRecord> GetTimeTrackingItems(int contnentItemId);
-        TimeTrackingItemRecord GetTimeTrackingItem(int id);
-        TimeTrackingItemRecord Add(TimeTrackingViewModel model);
+        IEnumerable<TimeTrackingViewModel> GetTimeTrackingItems(int contnentItemId);
+        TimeTrackingViewModel GetTimeTrackingItem(int id);
+        void Add(TimeTrackingViewModel model);
         void Delete(int id);
-        TimeTrackingItemRecord Edit(TimeTrackingViewModel model);
+        void Edit(TimeTrackingViewModel model);
     }
 }

@@ -16,7 +16,9 @@ namespace Orchard.CRM.TimeTracking.ViewModels
         public int UserId { get; set; }
 
         [Required]
-        public string TrackedTime { get; set; }
+        public string TrackedTimeInString { get; set; }
+
+        public int TimeInMinutes { get; set; }
 
         [Required]
         public DateTime TimeTrackDay { get; set; }

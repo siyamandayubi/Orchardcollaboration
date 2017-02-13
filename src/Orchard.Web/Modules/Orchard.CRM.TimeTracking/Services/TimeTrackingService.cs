@@ -16,34 +16,79 @@ namespace Orchard.CRM.TimeTracking.Services
             this.timeTrackingItemRepository = timeTrackingItemRepository;
         }
 
-        public TimeTrackingItemRecord Add(TimeTrackingViewModel model)
+        public void Add(TimeTrackingViewModel model)
         {
-            throw new NotImplementedException();
+            TimeTrackingItemRecord record = new TimeTrackingItemRecord
+            {
+                Comment = model.Comment,
+                OriginalTimeTrackingString = model.TrackedTimeInString,
+                TimeInMinute = model.TimeInMinutes,
+                TimeTrackingPartRecord = new TimeTrackingPartRecord { Id = model.ContentItemId },
+                TrackingDate = model.TimeTrackDay,
+                User = new Users.Models.UserPartRecord { Id = model.UserId }
+            };
+
+            this.timeTrackingItemRepository.Create(record);
+            this.timeTrackingItemRepository.Flush();
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var record = this.timeTrackingItemRepository.Table.FirstOrDefault(c => c.Id == id);
+            if (record != null)
+            {
+                this.timeTrackingItemRepository.Delete(record);
+            }
+            this.timeTrackingItemRepository.Flush();
         }
 
-        public TimeTrackingItemRecord Edit(TimeTrackingViewModel model)
+        public void Edit(TimeTrackingViewModel model)
         {
-            throw new NotImplementedException();
+            var record = this.timeTrackingItemRepository.Table.FirstOrDefault(c => c.Id == model.TrackingItemId);
+            if (record != null)
+            {
+                record.Comment = model.Comment;
+                record.TimeInMinute = model.TimeInMinutes;
+                record.OriginalTimeTrackingString = model.TrackedTimeInString;
+                record.TrackingDate = model.TimeTrackDay;
+
+                if (record.User != null)
+                {
+                    record.User.Id = model.UserId;
+                }
+                else
+                {
+                    record.User = new Users.Models.UserPartRecord { Id = model.UserId };
+                }
+            }
+            this.timeTrackingItemRepository.Flush();
         }
 
-        public TimeTrackingItemRecord GetTimeTrackingItem(int id)
+        public TimeTrackingViewModel GetTimeTrackingItem(int id)
         {
-            throw new NotImplementedException();
+            var record = this.timeTrackingItemRepository.Table.FirstOrDefault(c => c.Id == id);
+            return record != null ? Convert(record) : null;
         }
 
-        public IEnumerable<TimeTrackingItemRecord> GetTimeTrackingItems(int contnentItemId)
+        public IEnumerable<TimeTrackingViewModel> GetTimeTrackingItems(int contnentItemId)
         {
-            return this.timeTrackingItemRepository.Table.Where(c => c.TimeTrackingPartRecord.ContentItemRecord.Id == contnentItemId).ToList();
+            var records = this.timeTrackingItemRepository.Table.Where(c => c.TimeTrackingPartRecord.ContentItemRecord.Id == contnentItemId).ToList();
+
+            return records.ConvertAll(Convert);
         }
 
-        public TimeTrackingItemRecord LogTime(int userId, string time, DateTime dateTime, string comment)
+        private TimeTrackingViewModel Convert(TimeTrackingItemRecord c)
         {
-            return null;
+            return new TimeTrackingViewModel
+            {
+                ContentItemId = c.TimeTrackingPartRecord.ContentItemRecord.Id,
+                Comment = c.Comment,
+                TimeTrackDay = c.TrackingDate,
+                UserId = c.User.Id,
+                TrackingItemId = c.Id,
+                TrackedTimeInString = c.OriginalTimeTrackingString,
+                TimeInMinutes = c.TimeInMinute
+            };
         }
     }
 }
