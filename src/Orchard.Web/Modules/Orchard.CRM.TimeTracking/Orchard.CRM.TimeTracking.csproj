@@ -116,6 +116,7 @@
     <Content Include="Assets.json" />
     <Content Include="Assets\Styles.less" />
     <Content Include="Scripts\TimeTracking.js" />
+    <Content Include="Scripts\TimeTrackingComponents.js" />
     <Content Include="Styles\TimeTracking.css" />
     <Content Include="Web.config" />
     <Content Include="Scripts\Web.config" />
@@ -161,6 +162,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Styles\TimeTracking.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\JSX\TimeTrackingComponents.jsx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
