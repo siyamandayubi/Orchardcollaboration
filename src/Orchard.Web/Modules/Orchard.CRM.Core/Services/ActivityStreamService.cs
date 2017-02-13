@@ -8,7 +8,7 @@ namespace Orchard.CRM.Core.Services
     using Orchard.CRM.Core.Models;
     using Orchard.CRM.Core.Providers.Filters;
     using Orchard.Data;
-    using Orchard.Localization;
+    using Orchard.Localization;f
     using Orchard.Users.Models;
     using System;
     using System.Collections;
@@ -34,6 +34,7 @@ namespace Orchard.CRM.Core.Services
         private readonly IEnumerable<IActivityStreamWriter> activityStreamWriters;
         private readonly IWorkflowManager workflowManager;
         private readonly ITransactionManager transactionManager;
+        private readonly IMembershipService _memebershipService;
 
         public Localizer T { get; set; }
 
@@ -45,7 +46,8 @@ namespace Orchard.CRM.Core.Services
             IProjectionManagerWithDynamicSort projectionManagerWithDynamicSort,
             IOrchardServices services,
             IEnumerable<IActivityStreamWriter> activityStreamWriters,
-            Lazy<ISessionLocator> sessionLocator)
+            Lazy<ISessionLocator> sessionLocator,
+            IMembershipService memebershipService)
             : base(services, projectionManagerWithDynamicSort)
         {
             this.transactionManager = transactionManager;
@@ -54,6 +56,9 @@ namespace Orchard.CRM.Core.Services
             this.sessionLocator = sessionLocator;
             this.repository = repository;
             this.basicDataService = basicDataService;
+
+            _memebershipService = memebershipService;
+
             this.T = NullLocalizer.Instance;
         }
 
@@ -370,6 +375,10 @@ namespace Orchard.CRM.Core.Services
             }
             else
             {
+
+                var user = _memebershipService.GetUser(services.WorkContext.CurrentSite.SuperUser);
+                itemModel.User = user;
+                itemModel.UserId = user.Id;
                 itemModel.UserFullName = T("System").Text;
             }
 
