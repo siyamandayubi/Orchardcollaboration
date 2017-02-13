@@ -10,12 +10,94 @@
         padding-left: 20px;
     }
 
-    .navbar-fixed-top, .navbar-fixed-bottom, .navbar-static-top {
-        margin-right: -20px;
-        margin-left: -20px;
-    }
-
     .logreg {
         width: auto !important;
     }
+
+    section#content {
+        margin-top: 60px !important;
+    }
+}
+
+@media all and (max-width:1200px) and (min-width:767px) {
+    section#content {
+        margin-top: 120px !important;
+        padding-bottom: 60px;
+    }
+
+    #footer {
+        position: fixed;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        background-color: white;
+        border-top: 2px solid #ddd;
+        height: 50px;
+        padding-top: 5px;
+    }
+}
+
+@media all and (min-width:1200px) {
+    section#content {
+        margin-top: 60px !important;
+        padding-bottom: 60px;
+    }
+
+    #footer {
+        position: fixed;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        height: 50px;
+        border-top: 2px solid #ddd;
+        background-color: white;
+        padding-top: 5px;
+    }
+}
+
+.ticket-item .ticket-main-content {
+    vertical-align: top;
+}
+
+.ticket-item .label {
+    color: black !important;
+}
+
+.widget-tickets-dashboard-widget .page-header {
+    margin-top: 0px;
+    margin-bottom: 0px !important;
+    padding-bottom: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+.project-main-panel .project-new-dropdown, .project-content-item .project-new-dropdown {
+    padding-left: 0px !important;
+}
+
+.project-main-panel .dropdown-toggle, .project-content-item .dropdown-toggle {
+    display: inline-block;
+    padding-left: 5px !important;
+}
+.admin-settings fieldset {
+  margin-bottom: 10px;
+}
+.admin-settings fieldset > div {
+  margin-bottom: 5px;
+}
+.admin-settings .hint {
+  color: #aaa;
+}
+.admin-settings label {
+  display: block;
+  font-weight: normal;
+}
+.admin-settings input[type='text'],
+.admin-settings input[type='password'] {
+  width: 300px;
+}
+.admin-settings input.small {
+  width: 50px !important;
+}
+.admin-settings input + label {
+  display: inline-block !important;
 }

@@ -12,7 +12,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Orchard.CRM.Core</RootNamespace>
     <AssemblyName>Orchard.CRM.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -24,6 +24,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -52,9 +53,13 @@
       <HintPath>..\..\..\..\lib\autofac\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\newtonsoft.json\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="NHibernate, Version=3.3.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -69,18 +74,33 @@
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\aspnetmvc\System.Web.Mvc.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.Routing" />
-    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\aspnetmvc\System.Web.WebPages.dll</HintPath>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -114,6 +134,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
     <Compile Include="Drivers\AttachToProjectDriver.cs" />
+    <Compile Include="Drivers\ServiceDriver.cs" />
     <Compile Include="Drivers\ContentItemPermissionDriver.cs" />
     <Compile Include="Drivers\CRMCommentDriver.cs" />
     <Compile Include="Drivers\CRMCommentsDriver.cs" />
@@ -126,6 +147,7 @@
     <Compile Include="Drivers\TicketsForContentItemDriver.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Handlers\AttachToProjectHandler.cs" />
+    <Compile Include="Handlers\ServiceHandler.cs" />
     <Compile Include="Handlers\ContentItemPermissionHandler.cs" />
     <Compile Include="Handlers\CRMCommentHandler.cs" />
     <Compile Include="Handlers\CRMCommentsHandler.cs" />
@@ -152,6 +174,7 @@
     <Compile Include="Models\FileUpoadViewModel.cs" />
     <Compile Include="Models\ProjectPart.cs" />
     <Compile Include="Models\ProjectPartRecord.cs" />
+    <Compile Include="Models\ServicePartRecord.cs" />
     <Compile Include="Models\TicketMenuItemPart.cs" />
     <Compile Include="Models\TicketMenuItemPartRecord.cs" />
     <Compile Include="Models\TicketSettingPart.cs" />
@@ -186,15 +209,20 @@
     <Compile Include="Providers\Serialization\ContentPartConverter.cs" />
     <Compile Include="Providers\Serialization\ContentTypePartDefinitionConverter.cs" />
     <Compile Include="Providers\Serialization\ExpandoObjectConverter.cs" />
+    <Compile Include="Providers\Serialization\LayoutRecordConverter.cs" />
+    <Compile Include="Providers\Serialization\ShapeMetadataConverter.cs" />
     <Compile Include="Providers\Serialization\ShapeConverter.cs" />
     <Compile Include="Providers\Serialization\ProjectPartConverter.cs" />
     <Compile Include="Providers\Serialization\TicketPartConverter.cs" />
+    <Compile Include="Providers\Serialization\ProjectionConverter.cs" />
     <Compile Include="Providers\Serialization\TitlePartConverter.cs" />
+    <Compile Include="Providers\Serialization\JsonConvertersTypes.cs" />
     <Compile Include="Providers\Serialization\Utility.cs" />
     <Compile Include="Providers\TicketGroupByParameterProvider.cs" />
     <Compile Include="Providers\UserServiceUserForm.cs" />
     <Compile Include="Providers\UpdateTicketActivityForm.cs" />
     <Compile Include="Providers\EmailTemplateActivityForm.cs" />
+    <Compile Include="Providers\UserTokenProvider.cs" />
     <Compile Include="ResourceManifest.cs" />
     <Compile Include="Services\ActivityStreamService.cs" />
     <Compile Include="Services\BaseService.cs" />
@@ -261,6 +289,7 @@
     <Content Include="Scripts\react-bootstrap.js" />
     <Content Include="Scripts\react-dom-0.14.3.js" />
     <Content Include="Scripts\react-dom-0.14.3.min.js" />
+    <Content Include="Scripts\spin.js" />
     <Content Include="Scripts\tinymce\orchard-tinymce.js" />
     <Content Include="Styles\Images\sprite-file-icons_64.png" />
     <Content Include="Styles\Images\ui-icons_222222_256x240.png" />
@@ -285,11 +314,14 @@
     <Content Include="Styles\Images\deleteHover.png" />
     <Content Include="Styles\Images\shareHover.png" />
     <Content Include="Styles\Images\sprite-file-icons.png" />
-    <Content Include="packages.config" />
     <Compile Include="Activities\CreateTicketActivity.cs" />
     <Content Include="Content\Web.config" />
     <Content Include="Scripts\CRMWidgets.js" />
     <Content Include="Scripts\fileuploader.js" />
+    <Content Include="packages.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="App_Data\Localization\de-DE\orchard.module.po" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-filetype.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -358,6 +390,15 @@
     <Content Include="Scripts\JSX\BaseComponents.jsx" />
     <Content Include="Scripts\react-bootstrap.min.js" />
     <Content Include="Styles\SuiteCRM.less" />
+    <Content Include="Views\Parts.CRMComments.Header.cshtml" />
+    <Content Include="Views\Parts.FilesList.Header.cshtml" />
+    <Content Include="Views\Parts.Title-Dashboard.cshtml" />
+    <Content Include="Views\Content-Ticket.TitleOnly.cshtml" />
+    <Content Include="Views\Parts\Service.cshtml" />
+    <Content Include="Views\EditorTemplates\Parts\CustomerTicket.cshtml" />
+    <Content Include="Views\BasicData\Error.cshtml" />
+    <Content Include="Views\DefinitionTemplates\TicketsForContentItemPartSettings.cshtml" />
+    <Content Include="Views\DisplayAjax.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Orchard\Orchard.Framework.csproj">

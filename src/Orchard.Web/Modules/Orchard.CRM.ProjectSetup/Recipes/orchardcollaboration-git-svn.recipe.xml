@@ -1,0 +1,139 @@
+﻿<?xml version="1.0"?>
+<Orchard>
+  <Recipe>
+    <Name>OrchardCollaboration with SVN and GIT Connectors</Name>
+    <Description>In addition to the default features of OrchardCollaboration such as ticketing system, project management and collaboration framework, the recipe contains connectors for GIT and SVN source controls. Please note that GIT and SVN connectors need enabling "32-Bit Application" in IIS. In order to enable that, in IIS manager, right click on Application Pool -> Advance Settings -> set the value of "Enable 32-Bit Applications" to true. Then you need to restart the Application Pool. </Description>
+    <Author>Siyamand Ayubi</Author>
+    <WebSite>http://orchardcollaboration.com</WebSite>
+    <Category>Orchard Collaboration</Category>
+    <Tags></Tags>
+    <Version>1.0</Version>
+    <IsSetupRecipe>true</IsSetupRecipe>
+  </Recipe>
+
+  <Feature enable="Orchard.Blogs,Orchard.Comments,Orchard.Tags,Orchard.Alias,Orchard.Autoroute,
+                   TinyMce,Orchard.MediaLibrary,Orchard.ContentPicker,Orchard.PublishLater,
+                   Orchard.jQuery,Orchard.Widgets,Orchard.ContentTypes,Orchard.Indexing,Orchard.JobsQueue,
+                   Orchard.Scripting,Orchard.Scripting.Lightweight,PackagingServices,Orchard.Packaging,
+                   Orchard.Projections,Orchard.Fields,Orchard.OutputCache,Orchard.Taxonomies,Orchard.Workflows,Orchard.Workflows.Timer,
+                   S22.IMAP, Orchard.Email, Orchard.Search, Lucene, Orchard.Tokens, Orchard.CRM.Core,Orchard.CRM.Dashboard,OC.SVNConnector,OC.GITConnector,OC.GITConnector.Tickets,OC.SVNConnector.Tickets,
+                   Orchard.Taxonomies, Orchard.Reporting, Orchard.Lists, Orchard.CRM.Project,Orchard.CRM.Notification, Orchard.Recipes,Orchard.CustomForms,Orchard.Layouts,Orchard.Layouts.Tokens,
+                   Bootstrap" />
+  <Metadata>
+    <Types>
+      <Page ContentTypeSettings.Draftable="True" TypeIndexing.Indexes="Search">
+        <TagsPart />
+        <LocalizationPart />
+        <TitlePart/>
+        <AutoroutePart />
+        <MenuPart />
+      </Page>
+      <BlogPost ContentTypeSettings.Draftable="True" TypeIndexing.Indexes="Search">
+        <CommentsPart />
+        <TagsPart />
+        <LocalizationPart />
+        <TitlePart/>
+        <AutoroutePart />
+      </BlogPost>
+    </Types>
+    <Parts>
+      <BodyPart BodyPartSettings.FlavorDefault="html" />
+    </Parts>
+  </Metadata>
+  <Workflows>
+    <Workflow Name="Connect Git Commit to ticket" Enabled="true">
+      <Activities>
+        <Activity Id="16" Name="ContentPublished" Start="true" X="405" Y="53">
+          <State>{"ContentTypes":"GITCommit"}</State>
+        </Activity>
+        <Activity Id="17" Name="ConnectGITCommitToTicket" Start="false" X="312" Y="263">
+          <State>{}</State>
+        </Activity>
+      </Activities>
+      <Transitions>
+        <Transition SourceActivityId="16" SourceEndpoint="Done" DestinationActivityId="17" DestinationEndpoint="" />
+      </Transitions>
+    </Workflow>
+    <Workflow Name="Connect SVN Commit to tickets" Enabled="true">
+      <Activities>
+        <Activity Id="20" Name="ContentPublished" Start="true" X="429" Y="48">
+          <State>{"ContentTypes":"SVNLog"}</State>
+        </Activity>
+        <Activity Id="21" Name="ConnectSVNLogToTicket" Start="false" X="232" Y="232">
+          <State>{}</State>
+        </Activity>
+      </Activities>
+      <Transitions>
+        <Transition SourceActivityId="20" SourceEndpoint="Done" DestinationActivityId="21" DestinationEndpoint="" />
+      </Transitions>
+    </Workflow>
+  </Workflows>
+  <Settings />
+
+  <Migration features="*" />
+
+  <Command>
+
+
+
+    layer create Default /LayerRule:"true" /Description:"The widgets in this layer are displayed on all pages"
+
+    layer create Authenticated /LayerRule:"authenticated" /Description:"The widgets in this layer are displayed when the user is authenticated"
+    layer create AuthenticatedOperator /LayerRule:"authenticated and (permission('OperatorPermission') and not permission('AdvancedOperatorPermission'))" /Description:"The widgets in this layer are displayed to operator and advanced-operator users"
+    layer create AuthenticatedOperatorHomePage /LayerRule:"url('~/') and authenticated and (permission('OperatorPermission') and not permission('AdvancedOperatorPermission'))" /Description:"The widgets in this layer are displayed to operator and advanced-operator users"
+
+    layer create AuthenticatedAdvancedOperator /LayerRule:"authenticated and permission('AdvancedOperatorPermission')" /Description:"The widgets in this layer are displayed to advanced-operator users"
+    layer create AuthenticatedAdvancedOperatorHomePage /LayerRule:"url('~/') and authenticated and  permission('AdvancedOperatorPermission')" /Description:"The widgets in this layer are displayed to operator and advanced-operator users"
+
+    layer create AuthenticatedCustomer /LayerRule:"authenticated and permission('CustomerPermission') and not (permission('OperatorPermission') or permission('AdvancedOperatorPermission'))" /Description:"The widgets in this layer are displayed to customer users"
+    layer create AuthenticatedCustomerHomePage /LayerRule:"url('~/') and authenticated and permission('CustomerPermission') and not (permission('OperatorPermission') or permission('AdvancedOperatorPermission'))" /Description:"The widgets in this layer are displayed to customer users"
+    layer create Anonymous /LayerRule:"not authenticated" /Description:"The widgets in this layer are displayed when the user is anonymous"
+    layer create AnonymousHomePage /LayerRule:"not authenticated and url('~/')" /Description:"The widgets in this layer are displayed in the homepage for anonymous users"
+    layer create AuthenticatedOperatorNotAjax /LayerRule:"!ajax and authenticated and (permission('OperatorPermission') and not permission('AdvancedOperatorPermission'))" /Description:"The widgets in this layer are displayed to operator users in case the request is not an ajax request for a partial view"
+    layer create AuthenticatedAdvancedOperatorNotAjax /LayerRule:"!ajax and authenticated and permission('AdvancedOperatorPermission')" /Description:"The widgets in this layer are displayed to advanced-operator users in case the request is not an ajax request for a partial view"
+
+    layer create Disabled /LayerRule:"false" /Description:"The widgets in this layer are never displayed"
+    layer create TheHomepage /LayerRule:"url '~/'" /Description:"The widgets in this layer are displayed on the home page"
+    site setting set baseurl
+
+    dashboard-create-queries
+
+    menu create /MenuName:"Main AdvancedOperator Menu"
+    widget-generic-dashboard create /Portlets:"DashboardManagementTemplate,SmtpPortletContentTemplate,IMAPPortletContentTemplate,BasicDataPortletTemplate,NavigationPortletTemplate,WorkflowPortletTemplate,QueriesPortletTemplate,ContentManagementPortletTemplate" /Title:"Admin Quick Links" /Layer:"AuthenticatedAdvancedOperatorHomePage" /Zone:"Content" /RenderTitle:true
+    ticket-dashboard-widget create /Title:"Dashboard" /LayerName:"AuthenticatedAdvancedOperatorHomePage" /Zone:"Content" /RenderTitle:false
+    widget-sidebar create /Portlets:"My Open Tickets,Reported By me tickets,Unassigned Tickets,My Projects"  /Layer:"AuthenticatedOperator" /Zone:"BeforeMain" /RenderTitle:false  /Title:"Sidebar"
+    widget-sidebar create /Portlets:"My Open Tickets,Reported By me tickets,Unassigned Tickets,My Projects"  /Layer:"AuthenticatedAdvancedOperator" /Zone:"BeforeMain" /RenderTitle:false  /Title:"Sidebar"
+    tickets-menu create /MenuName:"Main AdvancedOperator Menu" /MenuText:"Tickets"
+    projectlist-create /MenuName:"Main AdvancedOperator Menu" /MenuText:"Projects"
+    menuitem create /MenuPosition:"0" /MenuText:"Home" /Url:"~/" /MenuName:"Main AdvancedOperator Menu"
+    menuitem create /MenuPosition:"3" /MenuText:"Customers" /Url:"~/OrchardCollaboration.Project/User/Customers" /MenuName:"Main AdvancedOperator Menu"
+    menuitem create /MenuPosition:"3" /MenuText:"Operators" /Url:"~/OrchardCollaboration.Project/User/Operators" /MenuName:"Main AdvancedOperator Menu"
+
+    menu create /MenuName:"Main Operator Menu"
+    ticket-dashboard-widget create /Title:"Dashboard" /LayerName:"AuthenticatedOperatorHomePage" /Zone:"Content" /RenderTitle:false
+    projectlist-create /MenuName:"Main Operator Menu" /MenuText:"Projects"
+    menuitem create /MenuPosition:"0" /MenuText:"Home" /Url:"~/" /MenuName:"Main Operator Menu"
+    menuitem create /MenuPosition:"3" /MenuText:"Customers" /Url:"~/OrchardCollaboration.Project/User/Customers" /MenuName:"Main Operator Menu"
+    menuitem create /MenuPosition:"3" /MenuText:"Operators" /Url:"~/OrchardCollaboration.Project/User/Operators" /MenuName:"Main Operator Menu"
+    tickets-menu create /MenuName:"Main Operator Menu" /MenuText:"Tickets"
+    widget create MenuWidget /Title:"Main Operator Menu" /RenderTitle:false /Zone:"Navigation" /Position:"1" /Layer:"AuthenticatedOperator" /Identity:"MenuWidget1" /MenuName:"Main Operator Menu"
+    widget create MenuWidget /Title:"Main AdvancedOperator Menu" /RenderTitle:false /Zone:"Navigation" /Position:"1" /Layer:"AuthenticatedAdvancedOperator" /Identity:"MenuWidget1" /MenuName:"Main AdvancedOperator Menu"
+    widget create CRMNotificationWidget /Title:"Online Notifications" /RenderTitle:false /Zone:"Header" /Position:"2" /Layer:"AuthenticatedOperatorNotAjax" /Identity:"OnlineNotifications"
+    widget create CRMNotificationWidget /Title:"Online Notifications" /RenderTitle:false /Zone:"Header" /Position:"2" /Layer:"AuthenticatedAdvancedOperatorNotAjax" /Identity:"OnlineNotifications"
+
+    menu create /MenuName:"Main Customer Menu"
+    ticket-dashboard-widget create /Title:"Dashboard" /LayerName:"AuthenticatedCustomerHomePage" /Zone:"Content" /RenderTitle:false
+    tickets-menu create /MenuName:"Main Customer Menu" /MenuText:"Tickets"
+    projectlist-create /MenuName:"Main Customer Menu" /MenuText:"Projects"
+    menuitem create /MenuPosition:"0" /MenuText:"Home" /Url:"~/" /MenuName:"Main Customer Menu"
+    widget create MenuWidget /Title:"Main Customer Menu" /RenderTitle:false /Zone:"Navigation" /Position:"1" /Layer:"AuthenticatedCustomer" /Identity:"MenuWidget2" /MenuName:"Main Customer Menu"
+
+    menu create /MenuName:"Anonymous Menu"
+    menuitem create /MenuPosition:"0" /MenuText:"Home" /Url:"~/" /MenuName:"Anonymous Menu"
+    widget create MenuWidget /Title:"Anonymous Menu" /RenderTitle:false /Zone:"Navigation" /Position:"1" /Layer:"Anonymous" /Identity:"MenuWidget3" /MenuName:"Anonymous Menu"
+
+    orchardcollaboration homepage create /Title:"Welcome to Orchard Collaboration!" /RenderTitle:true /Zone:"Content" /Position:"1" /Layer:"AnonymousHomePage" /Identity:"PageWidget1"
+    empty-item create /Slug:"welcome-to-orchard-collaboration" /Title:"Welcome to Orchard Collaboration!" /Path:"welcome-to-orchard-collaboration" /Homepage:true
+    theme activate "Bootstrap"
+  </Command>
+</Orchard>

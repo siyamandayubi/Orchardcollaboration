@@ -1,0 +1,59 @@
+﻿@using System.Configuration
+@model OC.GITConnector.Models.GITSettingsPart
+<fieldset>
+    <legend>@T("GIT Client Setting")</legend>
+    <div>
+        <label for="@Html.FieldIdFor(m => m.Server)">@T("Server Address")</label>
+        @Html.TextBoxFor(m => m.Server, new { placeholder = "The address of the GIT server", @class = "text medium" })
+        @Html.ValidationMessage("Server", "*")
+        <span class="hint">@T("The address of the GIT server, e.g. <i>https://blalblabla.com/repository</i>.")</span>
+    </div>
+    <div>
+        <label for="@Html.FieldIdFor(m => m.Branches)">@T("Branches")</label>
+        @Html.TextBoxFor(m => m.Branches, new { placeholder = "branches", @class = "text medium" })
+        @Html.ValidationMessage("Branches", "*")
+        <span class="hint">@T("Comma Separated list of the Git branches that you want track their changes")</span>
+    </div>
+    <div>
+        <label for="@Html.FieldIdFor(m => m.LocalFolder)">@T("Local Folder")</label>
+        @Html.TextBoxFor(m => m.LocalFolder, new { placeholder = "branches", @class = "text medium" })
+        @Html.ValidationMessage("LocalFolder", "*")
+        <span class="hint">@T("Local folder to create a git clone")</span>
+    </div>
+     <div>
+        <label for="@Html.FieldIdFor(m => m.Username)">@T("User name")</label>
+        @Html.TextBoxFor(m => m.Username, new { @class = "text medium" })
+        @Html.ValidationMessage("Username", "*")
+        <span class="hint">@T("The username for authentication.")</span>
+    </div>
+    <div>
+        <label for="@Html.FieldIdFor(m => m.Password)">@T("Password")</label>
+        @Html.TextBoxFor(m => m.Password, new { type = "password", @class = "text medium" })
+        @Html.ValidationMessage("Password", "*")
+        <span class="hint">@T("The password for authentication.")</span>
+    </div>
+    @if (Model.IsValid())
+    {
+        if (!string.IsNullOrEmpty(Model.LatestError))
+        {
+            <div style="color:red">
+                <div><h3>@T("Error in connecting to the GIT server")</h3></div>
+                <div style="color:red">@Model.LatestError</div>
+
+                <div></div>
+                <div style="color:red"><span>@T("Error Time:")</span>&nbsp;@Model.LatestErrorTime</div>
+            </div>
+        }
+        else if (Model.LastSuccessfullConnectionTime.HasValue)
+        {
+            <div style="color:green">
+                <div>@T("Last successfull connection was at:")<span>@Model.LastSuccessfullConnectionTime.Value.ToLongDateString()&nbsp;@Model.LastSuccessfullConnectionTime.Value.ToLongTimeString()</span></div>
+            </div>
+        }
+        else
+        {
+            <div style="color:green">@T("No connection is made so far. The next try to connect will be in less than 2 minutes.")</div>
+        }
+    }
+    <input type="hidden" name="GITSettings.IsRendered" value="true" id="IsRendered" />
+</fieldset>

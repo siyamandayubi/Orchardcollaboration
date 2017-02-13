@@ -1,0 +1,16 @@
+﻿@using System.Dynamic;
+@using Newtonsoft.Json;
+@{
+    Script.Require("DashboardComponents");
+}
+@Display(New.DashboardStylesheets())
+    <div class="dashboardContainer">
+        <div class="row ">
+            @foreach (var item in Model.List)
+            {
+                <div class="col-lg-4">
+                    @Display(item)
+                </div>
+            }
+        </div>
+    </div>

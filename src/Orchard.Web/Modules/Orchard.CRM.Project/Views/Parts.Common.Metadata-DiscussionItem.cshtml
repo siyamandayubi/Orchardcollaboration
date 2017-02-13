@@ -7,7 +7,7 @@
 <div class="user">
     @Display.UserThumbnail(userId: userId, width: 48, height: 48, source: imageDefaultSource, userProfileUrl: userProfileUrl)
     <a class="user-link" href="@userProfileUrl">@CRMHelper.GetFullNameOfUser(Model.ContentPart.Owner)</a>
-    <div class="published">@Model.ContentPart.CreatedUtc.ToString("MMM dd") &nbsp; @Model.ContentPart.CreatedUtc.ToString("hh:mm")</div>
+    <div class="published">@Display.DateTime(DateTimeUtc: Model.ContentPart.CreatedUtc, CustomFormat: T("MMM dd")) &nbsp; @Display.DateTime(DateTimeUtc: Model.ContentPart.CreatedUtc, CustomFormat: T("hh:mm"))</div>
     <div class="user-context-menu">
         @Display(New.SkypeTooltip(Model: Model.ContentPart.Owner))
     </div>

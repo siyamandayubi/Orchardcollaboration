@@ -1,21 +1,3 @@
-﻿/// Orchard Collaboration is a series of plugins for Orchard CMS that provides an integrated ticketing system and collaboration framework on top of it.
-/// Copyright (C) 2014-2016  Siyamand Ayubi
-///
-/// This file is part of Orchard Collaboration.
-///
-///    Orchard Collaboration is free software: you can redistribute it and/or modify
-///    it under the terms of the GNU General Public License as published by
-///    the Free Software Foundation, either version 3 of the License, or
-///    (at your option) any later version.
-///
-///    Orchard Collaboration is distributed in the hope that it will be useful,
-///    but WITHOUT ANY WARRANTY; without even the implied warranty of
-///    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-///    GNU General Public License for more details.
-///
-///    You should have received a copy of the GNU General Public License
-///    along with Orchard Collaboration.  If not, see <http://www.gnu.org/licenses/>.
-
 namespace Orchard.CRM.Core.Drivers
 {
     using Orchard.Alias;
@@ -61,7 +43,9 @@ namespace Orchard.CRM.Core.Drivers
             {
                 case "Detail":
                     var result = new List<DriverResult>();
-                    result.Add(FilesList(part, shapeHelper));
+                    int fileCount = 0;
+                    result.Add(FilesList(part, shapeHelper, out fileCount));
+                    result.Add(ContentShape("Parts_FilesList_Header", () => shapeHelper.Parts_FilesList_Header(Count: fileCount)));
 
                     if (settings.DisplayFileUploadInDisplayMode)
                     {
@@ -131,6 +115,13 @@ namespace Orchard.CRM.Core.Drivers
 
         private DriverResult FilesList(FileUploadPart part, dynamic shapeHelper)
         {
+            int count;
+            return FilesList(part, shapeHelper, out count);
+        }
+
+        private DriverResult FilesList(FileUploadPart part, dynamic shapeHelper, out int count)
+        {
+            count = 0;
             if (part.Guid == Guid.Empty) return null;
 
             var settings = part.TypePartDefinition.GetFileUploadPartSettings();
@@ -159,6 +150,8 @@ namespace Orchard.CRM.Core.Drivers
                     routeValues.Add("area", "Orchard.CRM.Core");
                     return new FileDisplayViewModel { Name = file.Name, RouteValues = routeValues, Uploaded = file.LastUpdated };
                 }).ToList();
+
+                count = files.Count;
             }
 
             return ContentShape("Parts_FilesList", () => shapeHelper.Parts_FilesList(Files: files, CurrentUserHasEditAccess: currentUserHasEditAccess));

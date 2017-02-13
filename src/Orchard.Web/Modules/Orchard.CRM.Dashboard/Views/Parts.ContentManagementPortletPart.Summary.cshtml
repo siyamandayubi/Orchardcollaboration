@@ -1,0 +1,10 @@
+﻿<article class="portlet panel panel-default">
+    <header><a href="@Url.Action("Index", "Admin", new { area = "Contents" })">@T("Contnent Management")</a></header>
+    <div class="body">
+        <div className="description">@T("You can manage the Content here.")</div>
+        <ul>
+            <li><a class="btn-edit-link" href="@Url.Action("Create", "Admin", new { area = "Contents", id = "Page" })" target="_blank">@T("New Page")</a></li>
+            <li><a class="btn-edit-link" href="@Url.Action("List", "Admin", new { area = "Contents" })" target="_blank">@T("Content List")</a></li>
+        </ul>
+    </div>
+</article>

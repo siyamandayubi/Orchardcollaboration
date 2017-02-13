@@ -1,0 +1,81 @@
+﻿@using Orchard.ContentManagement
+@using Orchard.Utility.Extensions;
+<div class="space"></div>
+@Display(New.Stylesheet())
+@{
+    ContentItem contentItem = Model.ContentItem;
+    string editOrNewMode = Model.ContentItem.Id == default(int) ? T("New").Text : T("Edit").Text;
+    var pageTitle = T("{0} {1}", editOrNewMode, " dashboard");
+
+    Layout.Title = (string)pageTitle.Text;
+
+    Script.Require("JQueryUI");
+    Script.Require("CRMWidgets");
+    Style.Include("jquery-ui.css");
+    Style.Include("chosen/chosen.css");
+    Script.Require("Chosen");
+
+    Model.Classes.Add("content-item");
+    Model.Classes.Add("edit-SidebarDashboard");
+    Model.Classes.Add("panel panel-default");
+
+    var contentTypeClassName = contentItem.ContentType.HtmlClassify();
+    Model.Classes.Add(contentTypeClassName);
+
+    var tag = Tag(Model, "article");
+}
+@tag.StartElement
+<header class="panel-heading">
+    <h3>@pageTitle</h3>
+    @if(Model.Header != null)
+    {
+        @Display(Model.Header)
+    }
+</header>
+<div class="panel-body">
+    @if (Model.BeforeContent != null)
+    {
+        <div>@Display(Model.BeforeContent)</div>
+    }
+    @if (Model.BesideContent != null)
+    {
+        <div class="row">
+            <div class="beside-content-list-container">@Display(Model.BesideContent)</div>
+            <div class="wiki-main-container">
+                <div>
+                    @Display(Model.Content)
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div>
+            @Display(Model.Content)
+        </div>
+    }
+</div>
+<footer>
+    @if (Model.Footer != null)
+    {
+        @Display(Model.Footer)
+    }
+    @if (Model.Sidebar != null)
+    {
+        <div class="edit-item-sidebar group">
+            @Display(Model.Sidebar)
+        </div>
+    }
+    @if (Model.Actions != null)
+    {
+        <div class="edit-item-actions">
+            @Display(Model.Actions)
+        </div>
+    }
+</footer>
+@tag.EndElement
+
+@if (!String.IsNullOrWhiteSpace(Request.QueryString["returnUrl"]))
+{
+    @Html.Hidden("returnUrl", Request.QueryString["returnUrl"])
+}

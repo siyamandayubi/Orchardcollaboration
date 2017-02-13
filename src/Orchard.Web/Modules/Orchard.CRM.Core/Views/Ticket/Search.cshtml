@@ -8,6 +8,8 @@
     Style.Include("jquery-ui.css");
     Style.Include("chosen/chosen.css");
     Script.Require("Chosen");
+    Script.Require("TinyMce");
+    Script.Require("spin");
 }
 @Display(New.ThemeAwareStylesheet())
 
@@ -39,7 +41,7 @@
                         <div class="ticket-part">
                             <div class="title">@T("Due Date")</div>
                             @{
-            string dueDateValue = Model.DueDate.HasValue ? Model.DueDate.Value.ToString("yyyy/MM/dd") : string.Empty;
+                                string dueDateValue = Model.DueDate.HasValue ? Model.DueDate.Value.ToString("yyyy/MM/dd") : string.Empty;
                             }
                             <div><input type="text" id="DueDate" name="DueDate" value="@dueDateValue" /></div>
                         </div>
@@ -89,9 +91,9 @@
                     <div class="search-bar-row">
                         @if (!Model.IsCustomerUser)
                         {
-                        <div class="ticket-part">
-                            <div><span class="checkbox-container">@Html.CheckBoxFor(c => c.Unassigned)</span><span class="ticket-toolbar-title">@T("Unassigned tickets")</span></div>
-                        </div>
+                            <div class="ticket-part">
+                                <div><span class="checkbox-container">@Html.CheckBoxFor(c => c.Unassigned)</span><span class="ticket-toolbar-title">@T("Unassigned tickets")</span></div>
+                            </div>
                         }
                         <input type="hidden" name="PagerParameters.SortField" id="PagerParameters.SortField" value="@Model.PagerParameters.SortField" />
                         <input type="hidden" name="PagerParameters.Descending" id="PagerParameters.Descending" value="@Model.PagerParameters.Descending" />
@@ -102,7 +104,7 @@
                             <div class="ticket-part">
                                 <div class="title">@T("Projects")</div>
                                 <div class="ticket-search-combo-container">
-                                    @Html.DropDownListFor(c=>c.ProjectId, Model.Projects)
+                                    @Html.DropDownListFor(c => c.ProjectId, Model.Projects)
                                 </div>
                             </div>
                         </div>
@@ -116,28 +118,28 @@
                 <input type="text" name="Term" value="@Model.Term">
                 <button type="submit"></button>
             </div>
-            if (!string.IsNullOrEmpty(Model.SearchDescription))
-            {
-                <div class="search-description">
-                    <span class="descriptons-selected">
-                        <span>@Html.Raw(Model.SearchDescription)</span>
-                        <a href="@Url.Action("Search", "Ticket", new { area = "Orchard.CRM.Core" })">X</a>
-                    </span>
-                </div>
-            }
-        }
+                                if (!string.IsNullOrEmpty(Model.SearchDescription))
+                                {
+                                    <div class="search-description">
+                                        <span class="descriptons-selected">
+                                            <span>@Html.Raw(Model.SearchDescription)</span>
+                                            <a href="@Url.Action("Search", "Ticket", new { area = "Orchard.CRM.Core" })">X</a>
+                                        </span>
+                                    </div>
+                                    }
+                                }
     </div>
     <div class="clear"></div>
     <div class="search-result">
         @helper ColumnSortDirectionAttribute(string columnName)
+        {
+bool descending = false;
+if (columnName == Model.PagerParameters.SortField)
 {
-    bool descending = false;
-    if (columnName == Model.PagerParameters.SortField)
-    {
-        descending = !Model.PagerParameters.Descending;
-    }
+    descending = !Model.PagerParameters.Descending;
+}
 
-    string returnValue = "data-descending=" + descending;// string.Format(CultureInfo.InvariantCulture, "data-descending=\"{0}\"", descending);
+string returnValue = "data-descending=" + descending;// string.Format(CultureInfo.InvariantCulture, "data-descending=\"{0}\"", descending);
 
     @returnValue
 }
@@ -175,14 +177,14 @@
                 <thead>
                     <tr>
                         @if (!Model.IsCustomerUser)
-                        {                                           
+                        {
                             <th class="col checkboxColumn"><input id="checkAll" type="checkbox" /></th>
                         }
                         <th class="col idColumn">
                             <a data-sortfield="@TicketPart.IdentityFieldName" @ColumnSortDirectionAttribute(TicketPart.IdentityFieldName)>@T("Id")</a>
                             @{
-                        ViewDataDictionary dic = new ViewDataDictionary();
-                        dic["ColumnName"] = TicketPart.IdentityFieldName;
+                                ViewDataDictionary dic = new ViewDataDictionary();
+                                dic["ColumnName"] = TicketPart.IdentityFieldName;
                             }
                             @Html.Partial("SortDirectionPartial", Model, dic)
                         </th>
@@ -190,28 +192,28 @@
                         <th class="col titleColumn">
                             <a data-sortfield="@TicketPart.TitleFieldName" @ColumnSortDirectionAttribute(TicketPart.TitleFieldName)>@T("Title")</a>
                             @{
-                dic["ColumnName"] = TicketPart.TitleFieldName;
+                                dic["ColumnName"] = TicketPart.TitleFieldName;
                             }
                             @Html.Partial("SortDirectionPartial", Model, dic)
                         </th>
                         <th class="col timeColumn">
                             <a class="columnHeader" data-sortfield="@TicketPart.DueDateFieldName" @ColumnSortDirectionAttribute(TicketPart.DueDateFieldName)>@T("Time")</a>
                             @{
-                dic["ColumnName"] = TicketPart.DueDateFieldName;
+                                dic["ColumnName"] = TicketPart.DueDateFieldName;
                             }
                             @Html.Partial("SortDirectionPartial", Model, dic)
                         </th>
                         <th class="col priorityColumn">
                             <a class="columnHeader" data-sortfield="@TicketPart.PriorityFieldName" @ColumnSortDirectionAttribute(TicketPart.PriorityFieldName)>@T("Priority")</a>
                             @{
-                dic["ColumnName"] = TicketPart.PriorityFieldName;
+                                dic["ColumnName"] = TicketPart.PriorityFieldName;
                             }
                             @Html.Partial("SortDirectionPartial", Model, dic)
                         </th>
                         <th class="col statusColumn">
                             <a data-sortfield="@TicketPart.StatusFieldName" @ColumnSortDirectionAttribute(TicketPart.StatusFieldName)>@T("Status")</a>
                             @{
-                dic["ColumnName"] = TicketPart.StatusFieldName;
+                                dic["ColumnName"] = TicketPart.StatusFieldName;
                             }
                             @Html.Partial("SortDirectionPartial", Model, dic)
                         </th>
@@ -222,45 +224,45 @@
                             <th class="linksColumn">@T("Links")</th>
                         }
                     </tr>
-                    </thead>
-                    <tbody class="body">
-                        @{
-                    bool alternative = false;
-                    foreach (var shape in Model.Items)
-                    {
-                        if (shape.Model != null)
+                </thead>
+                <tbody class="body">
+                    @{
+                        bool alternative = false;
+                        foreach (var shape in Model.Items)
                         {
-                            shape.Model.ReturnUrl = Request.Url;
-                        }
+                            if (shape.Model != null)
+                            {
+                                shape.Model.ReturnUrl = Request.Url;
+                            }
 
-                        alternative = !alternative;
-                        string alternativeClass = alternative ? "alt" : string.Empty;
-                        ContentItem contentItem = (ContentItem)shape.ContentItem;
-                        <tr data-id="@shape.Id" class="ticketRow r @alternativeClass">
-                            @if (!Model.IsCustomerUser)
-                            {
-                                <td class="c checkboxColumn">
-                                    <input value="@contentItem.Id" type="checkbox" />
-                                </td>
-                            }
-                            @Display(shape)
-                            @if (!Model.IsCustomerUser && shape.IsEditable)
-                            {
-                                <td class="edit-link-container">
-                                    <a class="edit-link" title="@T("Edit")" href="@Url.Action("Edit", "Ticket" , new { area="Orchard.CRM.Core" , id=contentItem.Id, returnurl=shape.Model.ReturnUrl })"></a>
-                                </td>
-                            }
-                        </tr>
-                    }
+                            alternative = !alternative;
+                            string alternativeClass = alternative ? "alt" : string.Empty;
+                            ContentItem contentItem = (ContentItem)shape.ContentItem;
+                            <tr data-id="@shape.Id" class="ticketRow r @alternativeClass">
+                                @if (!Model.IsCustomerUser)
+                                {
+                                    <td class="c checkboxColumn">
+                                        <input value="@contentItem.Id" type="checkbox" />
+                                    </td>
+                                }
+                                @Display(shape)
+                                @if (!Model.IsCustomerUser && shape.IsEditable)
+                                {
+                                    <td class="edit-link-container">
+                                        <a class="edit-link" title="@T("Edit")" href="@Url.Action("Edit", "Ticket" , new { area="Orchard.CRM.Core" , id=contentItem.Id, returnurl=shape.Model.ReturnUrl })"></a>
+                                    </td>
+                                }
+                            </tr>
                         }
-                    </tbody>
-                </table>
-        }
-        else
-        {
-            <hr />
-            <h6>@T("There is no ticket matched with the given filter.")</h6>
-        }
+                    }
+                </tbody>
+            </table>
+                        }
+                        else
+                        {
+                            <hr />
+                            <h6>@T("There is no ticket matched with the given filter.")</h6>
+                        }
         @if (Model.Pager.TotalItemCount > Model.Pager.PageSize)
         {
             <!--<div class="ticket-pager">-->
@@ -284,9 +286,9 @@
             <div class="error hidden" data-validationselecttarget="@T(" please select a group or a user")" data-validationselectoneowner="@T("tickets can not have multiple assignee")"></div>
             <div class="search-ticket-header">@T("Permission type")</div>
             <ul class="checkbox-list">
-                <li><input type="radio" checked="checked" name="AccessType" value="@ContentItemPermissionAccessTypes.Assignee" />@T("Assignee")</li>
-                <li><input type="radio" name="AccessType" value="@ContentItemPermissionAccessTypes.SharedForEdit" />@T("Edit")</li>
-                <li><input type="radio" name="AccessType" value="@ContentItemPermissionAccessTypes.SharedForView" />@T("Readonly")</li>
+                <li><input type="radio" checked="checked" name="AccessType" value="@ContentItemPermissionAccessTypes.Assignee" /><span>@T("Assignee")</span></li>
+                <li><input type="radio" name="AccessType" value="@ContentItemPermissionAccessTypes.SharedForEdit" /><span>@T("Edit")</span></li>
+                <li><input type="radio" name="AccessType" value="@ContentItemPermissionAccessTypes.SharedForView" /><span>@T("Readonly")</span></li>
             </ul>
             <div class="clear"></div>
             <div class="share-dialog-main-part">
@@ -326,6 +328,36 @@
             <a class="crm-button" id="shareDialogShareButton" data-url="@Url.Action("EditPost", "ContentOwnership" , new { area="Orchard.CRM.Core" })">@T("Share")</a>
             <a class="crm-button" id="shareDialogCancelButton">@T("Cancel")</a>
         </div>
+    </div>
+    <div id="ticketDialog" class="ticket-create" title="@T("Create Ticket")">
+        <div>
+            <div>
+                <div class="label-row">@T("Title")</div>
+                <div>
+                    <input type="text" name="TicketPart.Title" />
+                </div>
+            </div>
+            <div>
+                <div class="label-row">@T("Discription")</div>
+                <div><textarea name="TicketPart.Text"></textarea></div>
+            </div>
+            <div>
+                <div class="label-row">@T("User")</div>
+                <div>
+                    <select name="ContentItemPermissionPart.UserId">
+                        <option></option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <div class="label-row">@T("Businessunit")</div>
+                <select name="ContentItemPermissionPart.GroupId">
+                    <option></option>
+                </select>
+            </div>
+            <span class="error"></span>
+        </div>
+        <div class="spinner" id="spinId"></div>
     </div>
 </div>
 @using (Script.Foot())

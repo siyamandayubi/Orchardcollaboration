@@ -14,6 +14,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using Orchard.ContentManagement.Handlers;
+using System.Dynamic;
+using Newtonsoft.Json;
 
 namespace Orchard.Reporting.Drivers
 {
@@ -45,6 +48,13 @@ namespace Orchard.Reporting.Drivers
 
             if (displayType == "Detail")
             {
+
+                if (part.Record.Report.ChartType != (int)ChartTypes.PieChart &&
+                   part.Record.Report.ChartType != (int)ChartTypes.SimpleList)
+                {
+                    return null;
+                }
+
                 var report = this.reportRepository.Table.FirstOrDefault(c => c.Id == part.Record.Report.Id);
 
                 if (report == null)
@@ -56,12 +66,16 @@ namespace Orchard.Reporting.Drivers
                 int count = this.reportManger.GetCount(report, part.ContentItem);
 
                 JavaScriptSerializer serializer = new JavaScriptSerializer();
+                dynamic jsonData = new ExpandoObject();
+                jsonData.Data = reportData.Items.Select(c => new { Label = c.Label, Value = c.AggregationValue }).ToArray();
+                jsonData.Title = part.Record.Report.Title;
                 var model = new DataReportViewerViewModel
                 {
                     TotalCount = count,
+                    ChartType = part.Record.Report.ChartType,
                     ReportTitle = part.Record.Report.Title,
-                    JsonData = serializer.Serialize(reportData.Select(c=> new {Label = c.Label, Value = c.AggregationValue}).ToArray()),
-                    Data = reportData.ToList(),
+                    JsonData = JsonConvert.SerializeObject(jsonData),
+                    Data = reportData.Items.ToList(),
                     ChartCssClass = part.Record.ChartTagCssClass,
                     ContainerCssClass = part.Record.ContainerTagCssClass
                 };
@@ -82,7 +96,7 @@ namespace Orchard.Reporting.Drivers
                 }
                 else
                 {
-                    return ContentShape("Parts_DataReportViewer",
+                    return ContentShape("Parts_DataReportViewer_Summary",
                           () => shapeHelper.Parts_DataReportViewer_Summary(
                               Model: new DataReportViewerViewModel { ReportTitle = part.Record.Report.Title }
                               ));
@@ -90,9 +104,9 @@ namespace Orchard.Reporting.Drivers
             }
             else
             {
-                return ContentShape("Parts_DataReportViewer",
+                return ContentShape("Parts_DataReportViewer_Summary",
                      () => shapeHelper.Parts_DataReportViewer_Summary(
-                         Model: new DataReportViewerViewModel { ReportTitle = part.Record.Report.Title}
+                         Model: new DataReportViewerViewModel { ReportTitle = part.Record.Report.Title }
                          ));
             }
         }
@@ -153,6 +167,47 @@ namespace Orchard.Reporting.Drivers
                         TemplateName: "Parts/DataReportViewer",
                         Model: model,
                         Prefix: Prefix));
+        }
+
+        protected override void Importing(DataReportViewerPart part, ImportContentContext context)
+        {
+            // Don't do anything if the tag is not specified.
+            if (context.Data.Element(part.PartDefinition.Name) == null)
+            {
+                return;
+            }
+
+            string guid = string.Empty;
+            context.ImportAttribute(part.PartDefinition.Name, "ReportGuid", g => guid = g);
+
+            var reportRecord = this.reportRepository.Table.FirstOrDefault(c => c.Guid == guid);
+
+            part.Record.Report = reportRecord;
+
+            // ChartTagCssClass
+            context.ImportAttribute(part.PartDefinition.Name, "ChartTagCssClass", chartTagCssClass => part.Record.ChartTagCssClass = chartTagCssClass);
+
+            // ContainerTagCssClass
+            context.ImportAttribute(part.PartDefinition.Name, "ContainerTagCssClass", containerTagCssClass => part.Record.ContainerTagCssClass = containerTagCssClass);
+        }
+
+        protected override void Exporting(DataReportViewerPart part, ExportContentContext context)
+        {
+            var partElement = context.Element(part.PartDefinition.Name);
+
+            if (part.Record.Report != null)
+            {
+                var reportRecord = this.reportRepository.Table.FirstOrDefault(c => c.Id == part.Record.Report.Id);
+
+                // Guid
+                partElement.SetAttributeValue("ReportGuid", reportRecord.Guid);
+            }
+
+            // ChartTagCssClass
+            partElement.SetAttributeValue("ChartTagCssClass", part.Record.ChartTagCssClass);
+
+            // ContainerTagCssClass
+            partElement.SetAttributeValue("ContainerTagCssClass", part.Record.ContainerTagCssClass);
         }
     }
 }

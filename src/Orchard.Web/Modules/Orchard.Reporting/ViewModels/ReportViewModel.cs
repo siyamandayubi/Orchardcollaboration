@@ -59,6 +59,10 @@ namespace Orchard.Reporting.ViewModels
         [Required]
         public string Title { get; set; }
 
+        [MaxLength(500)]
+        [Required]
+        public string State { get; set; }
+
         [MaxLength(202)]
         [Required]
         public string CategoryAndType { get; set; }

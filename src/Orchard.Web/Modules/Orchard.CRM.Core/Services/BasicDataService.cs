@@ -1,21 +1,3 @@
-﻿/// Orchard Collaboration is a series of plugins for Orchard CMS that provides an integrated ticketing system and collaboration framework on top of it.
-/// Copyright (C) 2014-2016  Siyamand Ayubi
-///
-/// This file is part of Orchard Collaboration.
-///
-///    Orchard Collaboration is free software: you can redistribute it and/or modify
-///    it under the terms of the GNU General Public License as published by
-///    the Free Software Foundation, either version 3 of the License, or
-///    (at your option) any later version.
-///
-///    Orchard Collaboration is distributed in the hope that it will be useful,
-///    but WITHOUT ANY WARRANTY; without even the implied warranty of
-///    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-///    GNU General Public License for more details.
-///
-///    You should have received a copy of the GNU General Public License
-///    along with Orchard Collaboration.  If not, see <http://www.gnu.org/licenses/>.
-
 namespace Orchard.CRM.Core.Services
 {
     using Orchard.Caching;
@@ -36,7 +18,6 @@ namespace Orchard.CRM.Core.Services
     {
         private readonly static Object ourLock = new Object();
 
-        private readonly IRepository<ServiceRecord> servicePartRecordRepository;
         private readonly IRepository<TicketTypeRecord> ticketTypeRecordRepository;
         private readonly IRepository<RolesPermissionsRecord> rolesPermissionsRepository;
         private readonly ICacheManager chacheManager;
@@ -75,8 +56,7 @@ namespace Orchard.CRM.Core.Services
             IRepository<TicketTypeRecord> ticketTypeRecordRepository,
             IRepository<TeamMemberPartRecord> teamMemberRepository,
             IRepository<UserRolesPartRecord> userRolesRepository,
-            IRepository<RolesPermissionsRecord> rolesPermissionsRepository,
-            IRepository<ServiceRecord> servicePartRecordRepository)
+            IRepository<RolesPermissionsRecord> rolesPermissionsRepository)
         {
             this.fieldRepository = fieldRepository;
             this.userRepository = userRepository;
@@ -88,7 +68,6 @@ namespace Orchard.CRM.Core.Services
             this.chacheManager = chacheManager;
             this.priorityRecordRepository = priorityRecordRepository;
             this.ticketTypeRecordRepository = ticketTypeRecordRepository;
-            this.servicePartRecordRepository = servicePartRecordRepository;
             this.businessUnitMemberRepository = businessUnitMemberRepository;
             this.contentManager = contentManager;
         }
@@ -423,12 +402,12 @@ namespace Orchard.CRM.Core.Services
             });
         }
 
-        public IEnumerable<ServiceRecord> GetServices()
+        public IEnumerable<ServicePart> GetServices()
         {
             return this.chacheManager.Get("TicketServices", context =>
             {
                 context.Monitor(new SimpleBooleanToken(() => !RefreshServices));
-                var returnValue = this.servicePartRecordRepository.Table.Where(c => c.Deleted == false).ToList();
+                var returnValue = this.contentManager.HqlQuery<ServicePart>().List();
 
                 lock (ourLock)
                 {

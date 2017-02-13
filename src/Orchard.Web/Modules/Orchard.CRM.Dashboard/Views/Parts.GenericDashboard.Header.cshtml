@@ -1,0 +1,5 @@
+﻿@if (Model.ToConfigureItemsCount != null && Model.ToConfigureItemsCount > 0)
+{
+    int toConfigureItemsCount = Model.ToConfigureItemsCount;
+    <span class="to-configure-label">@T("{0} Items need configuration", Model.ToConfigureItemsCount)</span>
+}

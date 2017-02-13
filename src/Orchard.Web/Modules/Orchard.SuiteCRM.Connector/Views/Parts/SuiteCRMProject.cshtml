@@ -5,12 +5,12 @@
     string lastSyncTimeString = lastSyncTime == default(DateTime) ? string.Empty : lastSyncTime.ToString("dd/MM/yyyy hh:mm tt");
     string suiteCRMAddress = Model.Model.SuiteCRMAddress;
 
-    string syncText = string.IsNullOrEmpty(suiteCRMAddress) ? T("Sync SuiteCRM").Text : T("Sync").Text;
+    string syncText = string.IsNullOrEmpty(suiteCRMAddress) ? T("Sync Sugar CRM").Text : T("Sync").Text;
 }
 <div class="project-sync-info">
     @if (!string.IsNullOrEmpty(suiteCRMAddress))
     {
-        <a href="@Model.Model.SuiteCRMAddress" target="_blank">@T("View in SuiteCRM")</a>
+        <a href="@Model.Model.SuiteCRMAddress" target="_blank">@T("View in Sugar CRM")</a>
     }
     <a class="sync-hyperlink" 
         data-projectid="@projectId " 

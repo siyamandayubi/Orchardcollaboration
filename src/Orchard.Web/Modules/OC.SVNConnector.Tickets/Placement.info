@@ -1,0 +1,6 @@
+﻿<Placement>
+  <Match ContentType="Ticket">
+    <Place Parts_SVNLogsTicket="DetailList:20"/>
+    <Place Parts_SVNLogsTicket_Header="DetailListHeader:3"/>
+  </Match>
+</Placement>

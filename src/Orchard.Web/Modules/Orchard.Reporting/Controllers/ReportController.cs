@@ -120,7 +120,9 @@ namespace Orchard.Reporting.Controllers
             ReportRecord newReport = new ReportRecord
             {
                 Title = model.Title,
+                State = model.State,
                 Name = model.Name,
+                Guid = Guid.NewGuid().ToString(),
                 Query = new QueryPartRecord { Id = model.QueryId.Value },
                 ChartType = model.ChartTypeId,
                 GroupByCategory = groupByDescriptor.Category,
@@ -130,6 +132,10 @@ namespace Orchard.Reporting.Controllers
 
             this.reportRepository.Create(newReport);
             this.reportRepository.Flush();
+
+            var aggregateReportContent = services.ContentManager.Create(ContentTypes.AggregateReportType);
+            aggregateReportContent.As<ReportPart>().ReportId = newReport.Id;
+            services.ContentManager.Publish(aggregateReportContent);
 
             return this.RedirectToAction("Index");
         }
@@ -160,6 +166,14 @@ namespace Orchard.Reporting.Controllers
 
             this.reportRepository.Delete(report);
             this.reportRepository.Flush();
+
+            // delete associated contentType
+            var aggregateReport = services.ContentManager.Query<ReportPart>().List().FirstOrDefault(c => c.ReportId == report.Id);
+            if(aggregateReport != null)
+            {
+                services.ContentManager.Remove(aggregateReport.ContentItem);
+            }
+
             return this.RedirectToAction("Index");
         }
 
@@ -205,6 +219,7 @@ namespace Orchard.Reporting.Controllers
                 return this.View("Edit", model);
             }
 
+            report.State = model.State;
             report.Title = model.Title;
             report.Name = model.Name;
             report.Query = model.QueryId.HasValue ? new QueryPartRecord { Id = model.QueryId.Value } : null;
@@ -233,6 +248,7 @@ namespace Orchard.Reporting.Controllers
 
             var model = new ReportViewModel
             {
+                State = report.State,
                 ReportId = report.Id,
                 CategoryAndType = this.EncodeGroupByCategoryAndGroupByType(report.GroupByCategory, report.GroupByType),
                 Title = report.Title,
@@ -284,6 +300,8 @@ namespace Orchard.Reporting.Controllers
             // Fill charts
             model.ChartTypes.Add(new SelectListItem { Text = T("Pie Chart").Text, Value = ((byte)ChartTypes.PieChart).ToString(CultureInfo.InvariantCulture) });
             model.ChartTypes.Add(new SelectListItem { Text = T("Simple List").Text, Value = ((byte)ChartTypes.SimpleList).ToString(CultureInfo.InvariantCulture) });
+            model.ChartTypes.Add(new SelectListItem { Text = T("Bar Chart").Text, Value = ((byte)ChartTypes.BarChart).ToString(CultureInfo.InvariantCulture) });
+            model.ChartTypes.Add(new SelectListItem { Text = T("Date Axis").Text, Value = ((byte)ChartTypes.DateAxis).ToString(CultureInfo.InvariantCulture) });
 
             // Fill Aggregations
             model.Aggregations.Add(new SelectListItem { Text = T("Count").Text, Value = ((byte)AggregateMethods.Count).ToString(CultureInfo.InvariantCulture) });
@@ -296,6 +314,11 @@ namespace Orchard.Reporting.Controllers
             var typeDescriptors = this.reportManager.DescribeGroupByFields();
             foreach (var typeDescriptor in typeDescriptors)
             {
+                if (typeDescriptor.Descriptors.Count() == 0)
+                {
+                    continue;
+                }
+
                 ReportGroupByFieldCollectionViewModel groupByCollection = new ReportGroupByFieldCollectionViewModel
                 {
                     Name = typeDescriptor.Name,

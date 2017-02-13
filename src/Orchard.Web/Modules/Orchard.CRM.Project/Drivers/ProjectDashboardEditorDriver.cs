@@ -1,21 +1,3 @@
-﻿/// Orchard Collaboration is a series of plugins for Orchard CMS that provides an integrated ticketing system and collaboration framework on top of it.
-/// Copyright (C) 2014-2016  Siyamand Ayubi
-///
-/// This file is part of Orchard Collaboration.
-///
-///    Orchard Collaboration is free software: you can redistribute it and/or modify
-///    it under the terms of the GNU General Public License as published by
-///    the Free Software Foundation, either version 3 of the License, or
-///    (at your option) any later version.
-///
-///    Orchard Collaboration is distributed in the hope that it will be useful,
-///    but WITHOUT ANY WARRANTY; without even the implied warranty of
-///    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-///    GNU General Public License for more details.
-///
-///    You should have received a copy of the GNU General Public License
-///    along with Orchard Collaboration.  If not, see <http://www.gnu.org/licenses/>.
-
 using Orchard.ContentManagement.Drivers;
 using Orchard.CRM.Project.Models;
 using System;
@@ -28,6 +10,10 @@ using System.Dynamic;
 using Orchard.CRM.Project.ViewModels;
 using Orchard.ContentManagement.FieldStorage.InfosetStorage;
 using Orchard.CRM.Project.Services;
+using Orchard.ContentManagement.Handlers;
+using System.Globalization;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 namespace Orchard.CRM.Project.Drivers
 {
@@ -54,7 +40,7 @@ namespace Orchard.CRM.Project.Drivers
 
             updater.TryUpdateModel(model, "Portlets", null, null);
 
-            var selectedPortlets = model.Where(c => c.IsChecked).OrderByDescending(c => c.Order).ToList();
+            var selectedPortlets = model.Where(c => c.IsChecked).OrderBy(c => c.Order).ToList();
             part.PortletList = selectedPortlets.Select(c => c.PortletId).ToArray();
 
             return null;
@@ -94,6 +80,61 @@ namespace Orchard.CRM.Project.Drivers
                        TemplateName: "Parts/ProjectDashboardEditor",
                        Model: model,
                        Prefix: Prefix));
+        }
+
+        protected override void Importing(ProjectDashboardEditorPart part, ImportContentContext context)
+        {
+            context.ImportAttribute(part.PartDefinition.Name, "PortletList", portletList =>
+            {
+                if (string.IsNullOrEmpty(portletList))
+                {
+                    return;
+                }
+
+                JArray importedData = (JArray)JsonConvert.DeserializeObject(portletList);
+                List<int> portletTemplates = new List<int>();
+
+                foreach (var item in importedData)
+                {
+                    var template = this.services
+                    .ContentManager
+                    .HqlQuery()
+                    .ForType(item["ContentType"].ToString())
+                    .Where(c => c.ContentPartRecord<TitlePartRecord>(), c => c.Eq("Title", item["Title"].ToString()))
+                    .Slice(0, 1)
+                    .FirstOrDefault();
+
+                    if (template != null)
+                    {
+                        portletTemplates.Add(template.Id);
+                    }
+                }
+
+                part.PortletList = portletTemplates.ToArray();
+            });
+        }
+
+        protected override void Exporting(ProjectDashboardEditorPart part, ExportContentContext context)
+        {
+            string portletList = string.Empty;
+
+            dynamic outputObject = new JArray();
+            if (part.PortletList != null)
+            {
+                foreach (var id in part.PortletList)
+                {
+                    var portletTemplate = services.ContentManager.Get(id);
+                    if (portletTemplate != null)
+                    {
+                        dynamic item = new JObject();
+                        item.Title = portletTemplate.As<TitlePart>().Title;
+                        item.ContentType = portletTemplate.ContentType;
+                        outputObject.Add(item);
+                    }
+                }
+            }
+
+            context.Element(part.PartDefinition.Name).SetAttributeValue("PortletList", JsonConvert.SerializeObject(outputObject));
         }
     }
 }

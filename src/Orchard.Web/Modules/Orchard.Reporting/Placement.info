@@ -1,5 +1,12 @@
 ﻿<Placement>
-  <Place Parts_DataReportViewer_Edit="Content:3"/>
-  <Place Parts_DataReportViewer_PieChart="Content:3"/>
+  <Place Parts_DataReportViewer_BarChart="Content:3"/>
+  <Place Parts_DataReportViewer_DateAxis="Content:3"/>
+  <Place Parts_DataReportViewer_Summary="Content:3"/>
   <Place Parts_DataReportViewer_SimpleList="Content:3"/>
+  <Match ContentType="DataReportViewer">
+    <Match DisplayType="Detail">
+      <Place Parts_Title="-"/>
+      <Place Parts_Title_Summary="-"/>
+    </Match>
+  </Match>
 </Placement>

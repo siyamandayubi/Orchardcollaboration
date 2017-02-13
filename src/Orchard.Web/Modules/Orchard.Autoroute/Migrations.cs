@@ -1,28 +1,25 @@
-﻿using Orchard.ContentManagement;
-using Orchard.ContentManagement.MetaData;
+﻿using Orchard.ContentManagement.MetaData;
 using Orchard.Core.Contents.Extensions;
 using Orchard.Data.Migration;
 
-namespace Orchard.Autoroute {
-    public class Migrations : DataMigrationImpl {
+namespace Orchard.Autoroute
+{
+	public class Migrations : DataMigrationImpl {
 
         public int Create() {
             SchemaBuilder.CreateTable("AutoroutePartRecord",
                 table => table
                     .ContentPartVersionRecord()
                             .Column<string>("CustomPattern", c => c.WithLength(2048))
-                            .Column<bool>("UseCustomPattern", c=> c.WithDefault(false))
+                            .Column<bool>("UseCustomPattern", c => c.WithDefault(false))
+                            .Column<bool>("UseCulturePattern", c => c.WithDefault(false))
                             .Column<string>("DisplayAlias", c => c.WithLength(2048)));
 
             ContentDefinitionManager.AlterPartDefinition("AutoroutePart", part => part
                 .Attachable()
                 .WithDescription("Adds advanced url configuration options to your content type to completely customize the url pattern for a content item."));
 
-            //SchemaBuilder.AlterTable("AutoroutePartRecord", table => table
-            //    .CreateIndex("IDX_AutoroutePartRecord_DisplayAlias", "DisplayAlias")
-            //);
-
-            return 3;
+            return 4;
         }
 
         public int UpdateFrom1() {
@@ -33,11 +30,16 @@ namespace Orchard.Autoroute {
 
         public int UpdateFrom2() {
 
-            //SchemaBuilder.AlterTable("AutoroutePartRecord", table => table
-            //    .CreateIndex("IDX_AutoroutePartRecord_DisplayAlias", "DisplayAlias")
-            //);
-
             return 3;
+        }
+
+        public int UpdateFrom3() {
+
+            SchemaBuilder.AlterTable("AutoroutePartRecord", table => table
+                .AddColumn<bool>("UseCulturePattern", c => c.WithDefault(false))
+            );
+
+            return 4;
         }
     }
 }

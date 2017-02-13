@@ -1,21 +1,3 @@
-﻿/// Orchard Collaboration is a series of plugins for Orchard CMS that provides an integrated ticketing system and collaboration framework on top of it.
-/// Copyright (C) 2014-2016  Siyamand Ayubi
-///
-/// This file is part of Orchard Collaboration.
-///
-///    Orchard Collaboration is free software: you can redistribute it and/or modify
-///    it under the terms of the GNU General Public License as published by
-///    the Free Software Foundation, either version 3 of the License, or
-///    (at your option) any later version.
-///
-///    Orchard Collaboration is distributed in the hope that it will be useful,
-///    but WITHOUT ANY WARRANTY; without even the implied warranty of
-///    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-///    GNU General Public License for more details.
-///
-///    You should have received a copy of the GNU General Public License
-///    along with Orchard Collaboration.  If not, see <http://www.gnu.org/licenses/>.
-
 namespace Orchard.CRM.Core.Drivers
 {
     using Orchard.ContentManagement;
@@ -71,7 +53,7 @@ namespace Orchard.CRM.Core.Drivers
                 .Select(c => new StatusRecordViewModel { Id = c.Id, Name = c.Name, OrderId = c.OrderId, StatusTypeId = c.StatusTypeId })
                 .Cast<BasicDataRecordViewModel>()
                 .ToList();
-            var serviceRecords = this.basicDataService.GetServices().ToList();
+            var serviceRecords = this.basicDataService.GetServices().ToList().Select(c => c.Record).ToList();
             var ticketTypes = this.basicDataService.GetTicketTypes().ToList();
 
             TicketViewModel model = this.Convert(part.Record, serviceRecords, priorities, statusRecords, ticketTypes);
@@ -175,8 +157,8 @@ namespace Orchard.CRM.Core.Drivers
 
         protected void FillStatusTimes(TicketViewModel model, TicketPart part, IEnumerable<StatusRecordViewModel> statusRecords)
         {
-            CommonPart commonPart =part.As<CommonPart>();
-            List<KeyValuePair<int, DateTime>> output = new List<KeyValuePair<int,DateTime>>();
+            CommonPart commonPart = part.As<CommonPart>();
+            List<KeyValuePair<int, DateTime>> output = new List<KeyValuePair<int, DateTime>>();
 
             // creation time
             if (commonPart != null && commonPart.CreatedUtc.HasValue)
@@ -193,15 +175,15 @@ namespace Orchard.CRM.Core.Drivers
                     continue;
                 }
 
-                int? statusTypeId = statusRecord.StatusTypeId.HasValue? 
-                    statusRecord.StatusTypeId.Value:
+                int? statusTypeId = statusRecord.StatusTypeId.HasValue ?
+                    statusRecord.StatusTypeId.Value :
                     statusRecords
-                    .Where(c=>c.OrderId <= statusRecord.OrderId && c.StatusTypeId.HasValue)
-                    .Select(c=>c.StatusTypeId)
-                    .OrderByDescending(c=> c)
+                    .Where(c => c.OrderId <= statusRecord.OrderId && c.StatusTypeId.HasValue)
+                    .Select(c => c.StatusTypeId)
+                    .OrderByDescending(c => c)
                     .FirstOrDefault();
 
-                statusTypeId = statusTypeId?? StatusRecord.NewStatus;
+                statusTypeId = statusTypeId ?? StatusRecord.NewStatus;
                 output.Add(new KeyValuePair<int, DateTime>(statusTypeId.Value, CRMHelper.SetSiteTimeZone(this.orchardServices.WorkContext, item.Value)));
             }
 
@@ -236,7 +218,7 @@ namespace Orchard.CRM.Core.Drivers
                 part.Record.TicketType = model.TypeId.HasValue ? new TicketTypeRecord { Id = model.TypeId.Value } : null;
 
                 // Service
-                part.Record.Service = model.ServiceId.HasValue ? new ServiceRecord { Id = model.ServiceId.Value } : null;
+                part.Record.Service = model.ServiceId.HasValue ? new ServicePartRecord { Id = model.ServiceId.Value } : null;
 
                 // DueDate
                 part.Record.DueDate = model.DueDate;
@@ -278,7 +260,7 @@ namespace Orchard.CRM.Core.Drivers
         protected override DriverResult Editor(TicketPart part, dynamic shapeHelper)
         {
             var priorities = this.basicDataService.GetPriorities().ToList();
-            var serviceRecords = this.basicDataService.GetServices().ToList();
+            var serviceRecords = this.basicDataService.GetServices().Select(c => c.Record).ToList();
             var ticketTypes = this.basicDataService.GetTicketTypes().ToList();
             var statusRecords = this.basicDataService.GetStatusRecords().ToList().Select(c => new BasicDataRecordViewModel { Id = c.Id, Name = c.Name }).ToList();
 
@@ -395,7 +377,7 @@ namespace Orchard.CRM.Core.Drivers
 
             // service
             var serviceId = context.Attribute(part.PartDefinition.Name, TicketPart.ServiceFieldName);
-            part.Record.Service = string.IsNullOrEmpty(serviceId) ? null : new ServiceRecord { Id = int.Parse(serviceId) };
+            part.Record.Service = string.IsNullOrEmpty(serviceId) ? null : new ServicePartRecord { Id = int.Parse(serviceId) };
 
             // priority
             var priorityId = context.Attribute(part.PartDefinition.Name, TicketPart.PriorityFieldName);
@@ -413,25 +395,25 @@ namespace Orchard.CRM.Core.Drivers
             part.Record.Description = mainElement.El(TicketPart.DescriptionFieldName);
         }
 
-        private TicketViewModel Convert(TicketPartRecord record, List<ServiceRecord> serviceRecords, List<PriorityRecord> priorities, List<BasicDataRecordViewModel> statusRecords, List<TicketTypeRecord> ticketTypes)
+        private TicketViewModel Convert(TicketPartRecord record, List<ServicePartRecord> serviceRecords, List<PriorityRecord> priorities, List<BasicDataRecordViewModel> statusRecords, List<TicketTypeRecord> ticketTypes)
         {
             TicketViewModel model = new TicketViewModel
-              {
-                  TicketId = record.Id,
-                  StatusId = record.StatusRecord != null ? (int?)record.StatusRecord.Id : null,
-                  PriorityId = record.PriorityRecord != null ? (int?)record.PriorityRecord.Id : null,
-                  ServiceId = record.Service != null ? (int?)record.Service.Id : null,
-                  TypeId = record.TicketType != null ? (int?)record.TicketType.Id : null,
-                  ParentTicketId = record.Parent != null ? (int?)record.Parent.Id : null,
-                  ParentTicketTitle = record.Parent != null ? record.Parent.Title : string.Empty,
-                  RelatedContentItemId = record.RelatedContentItem != null ? (int?)record.RelatedContentItem.Id : null,
-                  Text = record.Description,
-                  TicketNumber = record.Identity != null ? (int)record.Identity.Id : default(int),
-                  Title = record.Title,
-                  DueDate = record.DueDate,
-                  SourceId = record.SourceId,
-                  SourceData = record.SourceData
-              };
+            {
+                TicketId = record.Id,
+                StatusId = record.StatusRecord != null ? (int?)record.StatusRecord.Id : null,
+                PriorityId = record.PriorityRecord != null ? (int?)record.PriorityRecord.Id : null,
+                ServiceId = record.Service != null ? (int?)record.Service.Id : null,
+                TypeId = record.TicketType != null ? (int?)record.TicketType.Id : null,
+                ParentTicketId = record.Parent != null ? (int?)record.Parent.Id : null,
+                ParentTicketTitle = record.Parent != null ? record.Parent.Title : string.Empty,
+                RelatedContentItemId = record.RelatedContentItem != null ? (int?)record.RelatedContentItem.Id : null,
+                Text = record.Description,
+                TicketNumber = record.Identity != null ? (int)record.Identity.Id : default(int),
+                Title = record.Title,
+                DueDate = record.DueDate,
+                SourceId = record.SourceId,
+                SourceData = record.SourceData
+            };
 
             if (record.ContentItemRecord != null)
             {

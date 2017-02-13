@@ -16,11 +16,12 @@ namespace Orchard.Reporting.Models
 
         [Aggregate]
         public virtual QueryPartRecord Query { get; set; }
-        public virtual int ChartType { get; set; }
+        public virtual int ChartType { get; set; }  
         public virtual string State { get; set; }
         public virtual string GroupByCategory { get; set; }
         public virtual string GroupByType { get; set; }
         public virtual int AggregateMethod { get; set; }
 
+        public virtual string Guid { get; set; }
     }
 }

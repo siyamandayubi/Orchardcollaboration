@@ -1,0 +1,13 @@
+﻿@using Orchard.CRM.Core.Models;
+@using Orchard.CRM.Core.ViewModels;
+@{
+    int count = Model.Model.Count;
+    string classes = Model.Classes != null ? string.Join(" ", Model.Classes) : string.Empty;
+}
+<span class="@classes git-logs header">
+    @if (count > 0)
+    {
+        <span>@count</span>
+    }
+    <span>@T(" GIT Commits")</span>
+</span>

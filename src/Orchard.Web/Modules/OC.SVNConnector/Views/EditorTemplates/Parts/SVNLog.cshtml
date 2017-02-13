@@ -1,0 +1,25 @@
+﻿@model OC.SVNConnector.Models.SVNLogPart
+<fieldset>
+    <div>
+        <div class="label-container">
+            <div class="col1 label">@("Log Message:")</div>
+            <div class="col2">@Html.TextBoxFor(m => m.LogMessage)</div>
+        </div>
+        <div>
+            <div class="col1 label">@T("Author:")</div>
+            <div class="col5">@Html.TextBoxFor(m => m.Author)</div>
+        </div>
+        <div>
+            <div class="col1 label">@T("LogOrigin:")</div>
+            <div class="col5">@Html.TextBoxFor(m => m.LogOrigin)</div>
+        </div>
+        <div>
+            <div class="col1 label">@T("Revision:")</div>
+            <div class="col5">@Html.TextBoxFor(m => m.Revision)</div>
+        </div>
+        <div>
+            <div class="col1 label">@T("Time:")</div>
+            <div class="col5">@Html.TextBoxFor(m => m.Time)</div>
+        </div>
+    </div>
+</fieldset>

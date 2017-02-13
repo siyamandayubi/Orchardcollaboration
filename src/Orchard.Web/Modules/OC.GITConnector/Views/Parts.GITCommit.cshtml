@@ -1,0 +1,21 @@
+﻿@{
+    string author = Model.Model.Author;
+    string logMessage = Model.Model.LogMessage;
+    string logOrigin = Model.Model.LogOrigin;
+    DateTime time = Model.Model.Time;
+}
+<div class="svn-log">
+    <div class="header">
+        <div class="author">
+            <label>@T("Author")</label>
+            <span class="value">@author</span>
+        </div>
+        <div class="time">
+            <label>@T("Date:")</label>
+            <span class="value">@time.ToShortDateString() - @time.ToLongTimeString()</span>
+        </div>
+    </div>
+    <div class="body">
+        <a href="@logOrigin">@logMessage</a>
+    </div>
+</div>

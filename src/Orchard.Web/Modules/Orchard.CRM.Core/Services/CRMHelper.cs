@@ -1,23 +1,6 @@
-﻿/// Orchard Collaboration is a series of plugins for Orchard CMS that provides an integrated ticketing system and collaboration framework on top of it.
-/// Copyright (C) 2014-2016  Siyamand Ayubi
-///
-/// This file is part of Orchard Collaboration.
-///
-///    Orchard Collaboration is free software: you can redistribute it and/or modify
-///    it under the terms of the GNU General Public License as published by
-///    the Free Software Foundation, either version 3 of the License, or
-///    (at your option) any later version.
-///
-///    Orchard Collaboration is distributed in the hope that it will be useful,
-///    but WITHOUT ANY WARRANTY; without even the implied warranty of
-///    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-///    GNU General Public License for more details.
-///
-///    You should have received a copy of the GNU General Public License
-///    along with Orchard Collaboration.  If not, see <http://www.gnu.org/licenses/>.
-
 namespace Orchard.CRM.Core.Services
 {
+    using Data;
     using Newtonsoft.Json.Linq;
     using Orchard.ContentManagement;
     using Orchard.ContentManagement.FieldStorage.InfosetStorage;
@@ -26,19 +9,34 @@ namespace Orchard.CRM.Core.Services
     using Orchard.Localization;
     using Orchard.Security;
     using Orchard.Users.Models;
+    using Projections.Models;
+    using Reporting.Models;
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Web.Mvc;
-
+    using ViewModels;
     public static class CRMHelper
     {
         public static readonly string OrchardCollaborationEmailMessageType = "OrchardCollaboration.Email";
         public static readonly string OrcharCollaborationDefinitiveEmailMessageType = "DefinitiveOrchardCollaboration.Email";
-        
+
+        public static void AddModelStateErrors(ModelStateDictionary modelState, AjaxMessageViewModel ajaxMessageModel)
+        {
+            foreach (var errorGroup in modelState.Where(c => c.Value.Errors.Count > 0))
+            {
+                foreach (var error in errorGroup.Value.Errors)
+                {
+                    string errorMessage = error.Exception != null ? "An exception happens in server" : error.ErrorMessage;
+                    ajaxMessageModel.Errors.Add(new KeyValuePair<string, string>(errorGroup.Key, error.ErrorMessage));
+                }
+            }
+        }
+
         public static void AddStatusGroupRecordsToModel(IEnumerable<StatusRecord> statusRecords, Collection<KeyValuePair<int?, int>> groups, Collection<dynamic> model)
         {
             foreach (var statusRecord in statusRecords)
@@ -95,6 +93,71 @@ namespace Orchard.CRM.Core.Services
             }
 
             return GetFullNameOfUser(user.As<UserPart>());
+        }
+
+        public static IList<KeyValuePair<int?, double>> RunGroupByQuery(ITransactionManager transactionManager, IHqlQuery query, AggregateMethods aggregation, string propertyPath, string state, string propertyAlias)
+        {
+            DefaultHqlQuery defaultQuery = query as DefaultHqlQuery;
+            var queryHql = defaultQuery.ToHql(true);
+
+            string aggregateMethod = string.Empty;
+            switch (aggregation)
+            {
+                case AggregateMethods.Average:
+                    aggregateMethod = "AVE";
+                    break;
+                case AggregateMethods.Sum:
+                    aggregateMethod = "SUM";
+                    break;
+                case AggregateMethods.Minimum:
+                    aggregateMethod = "MIN";
+                    break;
+                case AggregateMethods.Maximum:
+                    aggregateMethod = "MAX";
+                    break;
+                case AggregateMethods.Count:
+                default:
+                    aggregateMethod = "COUNT";
+                    break;
+            };
+
+            string aggregateField = "*";
+            if (!string.IsNullOrEmpty(state))
+            {
+                dynamic stateObj = JObject.Parse(System.Web.HttpUtility.UrlDecode(state));
+                aggregateField = "ki." + stateObj.AggregationField;
+            }
+
+            var hql = @"select {4}.Id as GroupKey, {2}({3}) as GroupValue
+                        from Orchard.ContentManagement.Records.ContentItemVersionRecord as kiv
+                        join kiv.ContentItemRecord as ki
+                        join ki.{0} as {4}
+                        where (kiv.Published = True) AND kiv.Id in ({1})
+                        group by {4}.Id";
+
+            hql = string.Format(CultureInfo.InvariantCulture, hql, propertyPath, queryHql, aggregateMethod, aggregateField, propertyAlias);
+
+            var session = transactionManager.GetSession();
+            var result = session.CreateQuery(hql)
+                   .SetCacheable(false)
+                   .SetResultTransformer(NHibernate.Transform.Transformers.AliasToEntityMap)
+                   .List<IDictionary>();
+
+            List<KeyValuePair<int?, double>> returnValue = new List<KeyValuePair<int?, double>>();
+
+            foreach (var group in result)
+            {
+                double value = group["GroupValue"] != null && !string.IsNullOrEmpty(group["GroupValue"].ToString()) ?
+                    double.Parse(group["GroupValue"].ToString()) :
+                    0;
+
+                int? key = group["GroupKey"] != null ? (int?)int.Parse(group["GroupKey"].ToString()) : null;
+
+                returnValue.Add(new KeyValuePair<int?, double>(key, value));
+            }
+
+            return returnValue;
+
         }
 
         public static DateTime SetSiteTimeZone(WorkContext workContext, DateTime dateTime)
@@ -191,5 +254,47 @@ namespace Orchard.CRM.Core.Services
 
             return dueDates;
         }
+
+        public static void Copy(IRepository<LayoutRecord> layoutRepository, ProjectionPartRecord source, ProjectionPartRecord destination)
+        {
+            destination.Items = source.Items;
+            destination.ItemsPerPage = source.ItemsPerPage;
+            destination.MaxItems = source.MaxItems;
+            destination.PagerSuffix = source.PagerSuffix;
+            destination.QueryPartRecord = source.QueryPartRecord;
+            destination.Skip = source.Skip;
+            destination.DisplayPager = source.DisplayPager;
+
+            if (source.LayoutRecord != null)
+            {
+                var layout = source.LayoutRecord;
+                destination.LayoutRecord = new LayoutRecord
+                {
+                    Category = layout.Category,
+                    State = layout.State,
+                    Description = layout.Description,
+                    Display = layout.Display,
+                    DisplayType = layout.DisplayType,
+                    Type = layout.Type,
+                    QueryPartRecord = layout.QueryPartRecord,
+                    GroupProperty = layout.GroupProperty,
+                };
+
+                foreach (var item in layout.Properties)
+                {
+                    destination.LayoutRecord.Properties.Add(item);
+                }
+
+                layoutRepository.Create(destination.LayoutRecord);
+            }
+        }
+
+        public static void Copy(DataReportViewerPartRecord source, DataReportViewerPartRecord destination)
+        {
+            destination.ChartTagCssClass = source.ChartTagCssClass;
+            destination.ContainerTagCssClass = source.ContainerTagCssClass;
+            destination.Report = source.Report;
+        }
+
     }
 }

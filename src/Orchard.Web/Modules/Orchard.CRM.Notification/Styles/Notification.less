@@ -1,0 +1,101 @@
+﻿.widget-Notification, .widget-c-r-m-notification-widget {
+    float: left;
+
+    #notificationContainer {
+        width: 54px;
+        margin-top: 10px;
+        height: 32px;
+        background-image: url("Images/messageIcon.png");
+        background-position: left;
+        background-repeat: no-repeat;
+        background-size: 24px 24px;
+    }
+
+    .count-container {
+        display: inline-block;
+        margin: 5px 5px 5px 30px;
+        color: red;
+        font-weight: bold;
+    }
+
+    .active-notification {
+        background-image: url("Images/messageIconActive.png") !important;
+    }
+
+        .active-notification:hover {
+            cursor: pointer;
+            background-image: url("Images/messageIcon.png") !important;
+            /*background-image: url("Images/messageIconHover.png") !important;*/
+            .count-container {
+                color: gray;
+            }
+        }
+}
+
+.notification-dialog {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    padding-top: 0px !important;
+
+    .ui-dialog-titlebar {
+        border-left: none !important;
+        border-right: none !important;
+        border-top: none !important;
+        border-bottom-left-radius: 0px !important;
+        border-bottom-right-radius: 0px !important;
+    }
+
+    .ui-widget-header {
+        background-color: #f5f5f5 !important;
+        color: black !important;
+    }
+
+    .ui-dialog-titlebar-close {
+        border-width: 1px !important;
+        border-style: solid !important;
+    }
+
+    .detail li {
+        font-size: 9px;
+    }
+}
+
+#notificationDialog {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    padding-top: 2px !important;
+
+    .activity-stream-day {
+        border-bottom: none !important;
+        padding-left: 5px;
+        margin-bottom: 5px;
+    }
+}
+
+.notification-dialog {
+    z-index: 1001 !important;
+}
+
+@media (max-width:400px) {
+    .notification-dialog img {
+        display: none !important;
+    }
+}
+
+.loading-page {
+    border: 1px solid gray;
+    background-color: white;
+    position: fixed;
+    width: 300px;
+    height: 100px;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -150px;
+    padding: 15px;
+
+    .close-link {
+        display: inline-block;
+        padding-left: 15px;
+    }
+}

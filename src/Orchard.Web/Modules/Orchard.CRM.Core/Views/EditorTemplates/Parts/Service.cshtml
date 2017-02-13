@@ -1,9 +1,13 @@
-﻿@model Orchard.CRM.Core.ViewModels.ServiceViewModel
+﻿@model Orchard.CRM.Core.Models.ServicePart
 <fieldset>
     <div>
-        <div>
-            <div>@T("Description")</div>
+        <div class="label-container">
+            <div class="col1 label">@("Name:")</div>
+            <div class="col2">@Html.TextBoxFor(m => m.Name)</div>
         </div>
-        <textarea id="ServicePart_Description" name="ServicePart.Description">@Model.Description</textarea>
+        <div>
+            <div class="col1 label">@T("Description:")</div>
+            <div class="col5">@Html.TextAreaFor(m => m.Description)</div>
+        </div>
     </div>
 </fieldset>

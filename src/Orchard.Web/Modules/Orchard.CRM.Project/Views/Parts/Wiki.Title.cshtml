@@ -1,5 +1,5 @@
 ﻿@using Orchard.CRM.Project;
 <div class="pull-left project-title">
     <a href="@Url.Action("Display", "Project", new { area = "Orchard.CRM.Project", id = Model.Model.ContentItem.Id })"><span class="panel-title">@Model.Model.Record.Title</span></a>
-    <a href="@Url.Action("DisplayProjectRelatedItem", "Project", new { area = "Orchard.CRM.Project", projectId = Model.Model.ContentItem.Id, contentType = ContentTypes.WikiContentType})">@T(" - Wiki")</a>
+    <a href="@Url.Action("DisplayProjectRelatedItem", "Project", new { area = "Orchard.CRM.Project", projectId = Model.Model.ContentItem.Id, contentType = ContentTypes.ProjectWikiContentType})">@T(" - Wiki")</a>
 </div>

@@ -1,0 +1,11 @@
+﻿@using System.Dynamic;
+@using Newtonsoft.Json;
+@using Orchard.ContentManagement;
+@{
+    Script.Require("DashboardComponents");
+}
+@Display(New.DashboardStylesheets())
+@if (Model.Model.TargetContent != null)
+{
+    @Display(Model.Model.TargetContent);
+}

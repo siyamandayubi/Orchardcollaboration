@@ -1,0 +1,38 @@
+﻿@using System.Dynamic;
+@using Newtonsoft.Json;
+@{
+    Script.Require("DashboardComponents");
+    Style.Include("Style.css");
+
+    string closeButtonContent = "<<";
+    string openButtonContent = ">>";
+}
+<div id="sidebarContainer" data-sidebardashboardurl="@Url.Action("Display", "Item", new { area = "Orchard.CRM.Core", id = Model.Model.Part.TargetContentItemId })">
+    <div id="sidebar-icon" class="open-icon">
+        <span class="for-large-screen">@openButtonContent</span>
+        <span class="pivot for-small-screen">
+            <span class="icon"></span>
+            <span class="icon"></span>
+            <span class="icon"></span>
+        </span>
+    </div>
+    <div class="sidebar-content-id hidden">
+        <div class="header">
+            <span class="loading-icon hidden">@T("Loading...")</span>
+            @if (Model.Model.IsAdmin)
+            {
+                <a class="edit-dashboard-button" href="@Url.Action("Edit", "Item", new { area = "Orchard.CRM.Core", id = Model.Model.Part.TargetContentItemId, returnUrl = Request.Url })"></a>
+            }
+            <button class="close-button">@closeButtonContent</button>
+        </div>
+        <div class="content"></div>
+    </div>
+</div>
+@using (Script.Foot())
+{
+    <script language="javascript" type="text/javascript">
+        $(document).ready(function () {
+            $("#sidebarContainer").Leftbar();
+        });
+    </script>
+}

@@ -1,0 +1,35 @@
+﻿<style type="text/css">
+    #footer {
+        border-top: 2px solid gray !important;
+        background-color: #054781 !important;
+        height: 65px !important;
+        padding-top: 0px !important;
+    }
+</style>
+@{
+    string affiliateId = "1100";
+    string url = string.Format("{0}?aff={1}", "https://manage.accuwebhosting.com/aff.php", affiliateId);
+    var homeUrl = Href("~/");
+
+    var index = (DateTime.UtcNow.Millisecond * DateTime.UtcNow.Second) % 10;
+
+    /*if (index <= 3)
+    {
+        <div>
+            <a class="accu-ad" href="@url"><img width="485" height="60" src="https://www.accuwebhosting.com/images/banners/WindowsVPS728x90.jpeg" /></a>
+            <a class="accu-ad" href="@url"><img width="485" height="60" src="https://www.accuwebhosting.com/images/banners/asp-dot-net-4.5-hosting468x60.jpg" /></a>
+        </div>
+    }
+    else*/ if (index <= 5)
+    {
+        <span class="banner-w-description">@T("Try your own Orchard Collaboration hosting on ")</span>
+        <a class="accuwebhosting" href="@url"></a>
+    }
+    else
+    {
+        <div class="banner-contact-container">
+            <span class="banner-contact-description">@T("Do you want a customized version of Orchard Collaboration on your host/web site? Contact with us via:")</span>
+            <span class="banner-email">@T("sales@orchardcollaboration.com")</span>
+        </div>
+    }
+}

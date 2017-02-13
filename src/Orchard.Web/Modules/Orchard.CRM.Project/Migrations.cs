@@ -1,21 +1,3 @@
-﻿/// Orchard Collaboration is a series of plugins for Orchard CMS that provides an integrated ticketing system and collaboration framework on top of it.
-/// Copyright (C) 2014-2016  Siyamand Ayubi
-///
-/// This file is part of Orchard Collaboration.
-///
-///    Orchard Collaboration is free software: you can redistribute it and/or modify
-///    it under the terms of the GNU General Public License as published by
-///    the Free Software Foundation, either version 3 of the License, or
-///    (at your option) any later version.
-///
-///    Orchard Collaboration is distributed in the hope that it will be useful,
-///    but WITHOUT ANY WARRANTY; without even the implied warranty of
-///    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-///    GNU General Public License for more details.
-///
-///    You should have received a copy of the GNU General Public License
-///    along with Orchard Collaboration.  If not, see <http://www.gnu.org/licenses/>.
-
 using Orchard.ContentManagement.MetaData;
 using Orchard.Core.Contents.Extensions;
 using Orchard.CRM.Core.Controllers;
@@ -115,7 +97,10 @@ namespace Orchard.CRM.Project
                  cfg => cfg
                  .WithPart("CommonPart")
                  .WithPart("TitlePart")
-                 .WithPart("AutoroutePart")
+                 .WithPart("AutoroutePart", builder => builder
+                    .WithSetting("AutorouteSettings.AllowCustomPattern", "True")
+                    .WithSetting("AutorouteSettings.AutomaticAdjustmentOnEdit", "False")
+                    .WithSetting("AutorouteSettings.PatternDefinitions", "[{\"Name\":\"Title\",\"Pattern\":\"{Content.Slug}\",\"Description\":\"my-page\"}]"))
                  .DisplayedAs(ContentTypes.EmptyContentType)
                  .Creatable(false));
 
@@ -156,6 +141,7 @@ namespace Orchard.CRM.Project
                    c.WithSetting("AttachToProjectPartSettings.HiddenInEditMode", "true")
                    .WithSetting("AttachToProjectPartSettings.HiddenInDisplayModel", "true"))
                .WithPart("ContainerPart")
+               .WithPart("IdentityPart")
                .DisplayedAs("Project Detail")
                .Creatable(false));
 
@@ -181,7 +167,7 @@ namespace Orchard.CRM.Project
                 .DisplayedAs("Project List")
                 .Creatable(true));
 
-            ContentDefinitionManager.AlterTypeDefinition(ContentTypes.WikiContentType,
+            ContentDefinitionManager.AlterTypeDefinition(ContentTypes.ProjectWikiContentType,
                 cfg => cfg
                 .WithPart("CommonPart")
                 .WithPart("AttachToProjectPart")
@@ -204,6 +190,7 @@ namespace Orchard.CRM.Project
             ContentDefinitionManager.AlterTypeDefinition(ContentTypes.ProjectContentType,
                 cfg => cfg
                 .WithPart("CommonPart")
+                .WithPart("IdentityPart")
                 .WithPart("ProjectPart")
                 .WithPart("ContentItemPermissionPart")
                 .DisplayedAs("Project"));
@@ -251,7 +238,7 @@ namespace Orchard.CRM.Project
                     .WithField(FieldNames.UserTelField, c => c.WithDisplayName("Tel").OfType("InputField"))
                     .WithField(FieldNames.UserTags, c => c.WithDisplayName("Tags").OfType("InputField").WithSetting("InputFieldSettings.Hint", "Comma Seperated Tags"))
                     .WithField(FieldNames.UserSkypeIdField, c => c.WithDisplayName("Skype Id").OfType("InputField"))
-                    .WithField(FieldNames.UserMobileField, c => c.WithDisplayName("Mobile:").OfType("InputField"))
+                    .WithField(FieldNames.UserMobileField, c => c.WithDisplayName("Mobile").OfType("InputField"))
                 );
 
             // FolderPartRecord index
@@ -270,7 +257,7 @@ namespace Orchard.CRM.Project
 
             this.UpdateFrom1();
             this.CreateMilestoneAndProjectMenuTypes();
-            return 4;
+            return 6;
         }
 
         public int UpdateFrom1()
@@ -289,9 +276,10 @@ namespace Orchard.CRM.Project
                  .WithPart("TitlePart")
                  .WithPart("ProjectionWithDynamicSortPart")
                  .WithPart("ContainablePart")
+                 .WithPart("IdentityPart")
                  .DisplayedAs("Project-Dashboard Projection Protlet Template")
-                 .Creatable(true)
-                 .Listable(true));
+                 .Creatable(false)
+                 .Listable(false));
 
             ContentDefinitionManager.AlterTypeDefinition(ContentTypes.ProjectDashboardReportViewerPortletContentType,
                cfg => cfg
@@ -306,11 +294,12 @@ namespace Orchard.CRM.Project
                 cfg => cfg
                .WithPart("CommonPart")
                .WithPart("TitlePart")
+               .WithPart("IdentityPart")
                .WithPart("DataReportViewerPart")
                .WithPart("ContainablePart")
                .DisplayedAs("Project-Dashboard Summary Portlet Template")
-               .Creatable(true)
-               .Listable(true));
+               .Creatable(false)
+               .Listable(false));
 
             ContentDefinitionManager.AlterPartDefinition("ProjectDashboardEditorPart", builder => builder.Attachable());
 
@@ -349,6 +338,57 @@ namespace Orchard.CRM.Project
             return 5;
         }
 
+        public int UpdateFrom5()
+        {
+            ContentDefinitionManager.AlterTypeDefinition(ContentTypes.EmptyContentType,
+                 cfg => cfg
+                 .WithPart("CommonPart")
+                 .WithPart("TitlePart")
+                 .WithPart("AutoroutePart", builder => builder
+                    .WithSetting("AutorouteSettings.AllowCustomPattern", "True")
+                    .WithSetting("AutorouteSettings.AutomaticAdjustmentOnEdit", "False")
+                    .WithSetting("AutorouteSettings.PatternDefinitions", "[{\"Name\":\"Title\",\"Pattern\":\"{Content.Slug}\",\"Description\":\"my-page\"}]"))
+                 .DisplayedAs(ContentTypes.EmptyContentType)
+                 .Creatable(false));
+
+            return 6;
+        }
+
+        public int UpdateFrom6()
+        {
+            ContentDefinitionManager.AlterTypeDefinition(ContentTypes.ProjectDetailContentType,
+              cfg => cfg.WithPart("IdentityPart"));
+
+            ContentDefinitionManager.AlterTypeDefinition(ContentTypes.ProjectContentType,
+                cfg => cfg.WithPart("IdentityPart"));
+
+            ContentDefinitionManager.AlterTypeDefinition(ContentTypes.ProjectDashboardProjectionPortletTemplateContentType,
+                 cfg => cfg
+                 .WithPart("IdentityPart"));
+
+            ContentDefinitionManager.AlterTypeDefinition(ContentTypes.ProjectDashboardReportViewerPortletTemplateContentType,
+                cfg => cfg
+               .WithPart("IdentityPart"));
+
+            return 7;
+        }
+
+        public int UpdateFrom7()
+        {
+            ContentDefinitionManager.AlterTypeDefinition(ContentTypes.ProjectDashboardProjectionPortletTemplateContentType,
+                  cfg => cfg
+                  .Creatable(false)
+                  .Listable(false));
+
+
+            ContentDefinitionManager.AlterTypeDefinition(ContentTypes.ProjectDashboardReportViewerPortletTemplateContentType,
+                 cfg => cfg
+                .Creatable(false)
+                .Listable(false));
+
+            return 8;
+        }
+
         private void CreateMilestoneAndProjectMenuTypes()
         {
             // MilestonePartRecord
@@ -374,7 +414,7 @@ namespace Orchard.CRM.Project
 
             // MilestonePart
             ContentDefinitionManager.AlterPartDefinition("MilestonePart", builder => builder.Attachable());
-            
+
             // AttachToMilestonePart
             ContentDefinitionManager.AlterPartDefinition("AttachToMilestonePart", builder => builder.Attachable());
 
@@ -382,7 +422,7 @@ namespace Orchard.CRM.Project
             ContentDefinitionManager.AlterTypeDefinition(ContentTypes.TicketContentType, cfg => cfg.WithPart("AttachToMilestonePart"));
 
             // Milestone
-            ContentDefinitionManager.AlterTypeDefinition(ContentTypes.MilestoneContentType,                
+            ContentDefinitionManager.AlterTypeDefinition(ContentTypes.MilestoneContentType,
                 cfg => cfg
                 .WithPart("CommonPart")
                 .WithPart("TitlePart")
@@ -406,10 +446,10 @@ namespace Orchard.CRM.Project
             // Specify the type of the items so that in the view we build a url for creation new items
             ContentDefinitionManager.AlterPartDefinition(ContentTypes.ProjectProjectionContentType,
                 cfg => cfg.WithField(
-                    FieldNames.ProjectProjectionItemTypeFieldName, 
+                    FieldNames.ProjectProjectionItemTypeFieldName,
                     c => c.WithDisplayName("Item Type").OfType("InputField"))
                     .WithField(
-                    FieldNames.ProjectProjectionItemTypeDisplayFieldName, 
+                    FieldNames.ProjectProjectionItemTypeDisplayFieldName,
                     c => c.WithDisplayName("Item Type Display Name").OfType("InputField")));
 
             ContentDefinitionManager.AlterTypeDefinition(ContentTypes.ProjectProjectionContentType,
@@ -421,7 +461,7 @@ namespace Orchard.CRM.Project
                .WithPart("AttachToProjectPart")
                .WithPart("ProjectionWithDynamicSortPart")
                .DisplayedAs(ContentTypes.ProjectProjectionContentType)
-               .Creatable(false));
+               .Creatable(true).Listable(true));
 
             ContentDefinitionManager.AlterTypeDefinition(ContentTypes.ProjectActivityStreamType,
              cfg => cfg.WithPart("TitlePart"));

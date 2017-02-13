@@ -1,6 +1,7 @@
 ﻿@using Orchard.CRM.Project.Services;
 @using Orchard.Security;
 @{
+    Style.Include("project.css");
     var model = Model.Model;
 }
 
@@ -12,15 +13,17 @@
     }
     else
     {
-        foreach (var day in model.Days)
+        for (int i = 0; i < model.Days.Count; i++)
         {
-            <div class="activity-stream-day">
+            var day = model.Days[i];
+            string lastClass = i == model.Days.Count - 1 ? "last-item" : string.Empty;
+            <div class="activity-stream-day @lastClass">
                 <h6 class="activity-stream-label day-label">@day.Title</h6>
                 @foreach (var item in day.Items)
                 {
                     var itemDictionary = (IDictionary<String, object>)item;
                     IUser user = itemDictionary.ContainsKey("User") ? item.User : null;
-                    int? userId = itemDictionary.ContainsKey("UserId")? item.UserId : null;
+                    int? userId = itemDictionary.ContainsKey("UserId") ? item.UserId : null;
                     string userThumbnail = user != null ? ProjectHelper.GetThumbnailImageOfUser(user) : string.Empty;
                     string imageSource = string.IsNullOrEmpty(userThumbnail) ? Url.Content("~/Modules/Orchard.CRM.Project/Styles/Images/user-icon-small.jpg") : userThumbnail;
                     var route = item.Route ?? null;
@@ -33,12 +36,12 @@
                                     @item.UserFullName
                                 </span>
                             </a>
-                             @if (user != null)
-                             { 
-                                 <div class="user-context-menu">
-                                  @Display(New.SkypeTooltip(Model: user, Topic: item.ContentDescription))
-                                 </div>
-                              }
+                            @if (user != null)
+                            {
+                                <div class="user-context-menu">
+                                    @Display(New.SkypeTooltip(Model: user, Topic: item.ContentDescription))
+                                </div>
+                            }
                             <span class="date-time">@item.DateTime.ToLongTimeString()</span>
                             <span class="content activity-stream-label">
                                 @if (route != null)
@@ -59,7 +62,7 @@
                         @if (item.Changes.Count > 0)
                         {
                             string detailId = "detail" + @item.ActivityStreamId;
-                         <ul id="@detailId" class="detail hidden">
+                            <ul id="@detailId" class="detail hidden">
                                 @foreach (var change in item.Changes)
                                 {
                                     <li class="activity-stream-label">
@@ -67,7 +70,7 @@
                                     </li>
                                 }
                             </ul>
-                            }
+                        }
                     </div>
                 }
             </div>

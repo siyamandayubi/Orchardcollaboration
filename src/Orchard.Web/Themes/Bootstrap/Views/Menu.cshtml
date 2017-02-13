@@ -1,8 +1,7 @@
-﻿@using Bootstrap;
-@{
+﻿@{
     // Model is Model.Menu from the layout (Layout.Menu)
-    bool useFixedNav = WorkContext.SettingsEval(Constants.UseFixedNav);
-    
+    bool useFixedNav = true;
+
     if (useFixedNav) {
         Model.Classes.Add("nav navbar-nav");
     }
@@ -17,7 +16,7 @@
     if (items.Any()) {
         items[0].Classes.Add("first");
         items[items.Count - 1].Classes.Add("last");
-    }    
+    }
 }
 
 @tag.StartElement

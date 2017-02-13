@@ -1,0 +1,53 @@
+﻿@using System.Configuration
+@model OC.SVNConnector.Models.SVNSettingsPart
+<fieldset>
+    <legend>@T("SVN Client Setting")</legend>
+    <div>
+        <label for="@Html.FieldIdFor(m => m.Server)">@T("Server Address")</label>
+        @Html.TextBoxFor(m => m.Server, new { placeholder = "The address of the SVN server", @class = "text medium" })
+        @Html.ValidationMessage("Server", "*")
+        <span class="hint">@T("The address of the SVN server, e.g. <i>https://blalblabla.com/repository</i>.")</span>
+    </div>
+    <div>
+        <label for="@Html.FieldIdFor(m => m.LastRevision)">@T("Last scanned Revision")</label>
+        @Html.TextBoxFor(m => m.LastRevision, new { placeholder = "Last scanned Revision", @class = "text small" })
+        @Html.ValidationMessage("LastRevision", "*")
+        <span class="hint">@T("Please enter an older Revision Id, that you want to scan from it. Leave the field empty in case you want to scan all revisions from beginning until now!")</span>
+    </div>
+     <div>
+        <label for="@Html.FieldIdFor(m => m.Username)">@T("User name")</label>
+        @Html.TextBoxFor(m => m.Username, new { @class = "text medium" })
+        @Html.ValidationMessage("Username", "*")
+        <span class="hint">@T("The username for authentication.")</span>
+    </div>
+    <div>
+        <label for="@Html.FieldIdFor(m => m.Password)">@T("Password")</label>
+        @Html.TextBoxFor(m => m.Password, new { type = "password", @class = "text medium" })
+        @Html.ValidationMessage("Password", "*")
+        <span class="hint">@T("The password for authentication.")</span>
+    </div>
+    @if (Model.IsValid())
+    {
+        if (!string.IsNullOrEmpty(Model.LatestError))
+        {
+            <div style="color:red">
+                <div><h3>@T("Error in connecting to the SVN server")</h3></div>
+                <div style="color:red">@Model.LatestError</div>
+
+                <div></div>
+                <div style="color:red"><span>@T("Error Time:")</span>&nbsp;@Model.LatestErrorTime</div>
+            </div>
+        }
+        else if (Model.LastSuccessfullConnectionTime.HasValue)
+        {
+            <div style="color:green">
+                <div>@T("Last successfull connection was at:")<span>@Model.LastSuccessfullConnectionTime.Value.ToLongDateString()&nbsp;@Model.LastSuccessfullConnectionTime.Value.ToLongTimeString()</span></div>
+            </div>
+        }
+        else
+        {
+            <div style="color:green">@T("No connection is made so far. The next try to connect will be in less than 2 minutes.")</div>
+        }
+    }
+    <input type="hidden" name="SVNSettings.IsRendered" value="true" id="IsRendered" />
+</fieldset>

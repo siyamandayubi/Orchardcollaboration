@@ -125,6 +125,11 @@ textarea {
   margin-bottom: 10px !important;
   z-index: 999;
 }
+@media all and (max-width: 1000px) {
+  .user-detail .user-info-sec {
+    margin-top: 15px !important;
+  }
+}
 /********************************************/
 /*88888888888888888888888888888888888888888888888*/
 .widget-tickets-dashboard-widget {
@@ -600,6 +605,21 @@ div.mce-fullscreen {
 .edit-user label {
   font-weight: normal;
   width: 150px;
+}
+.edit-user .panel-heading h3 {
+  margin-top: 0px !important;
+  margin-bottom: 0px !important;
+}
+.edit-user .project-file-field input[type='file'] {
+  display: inline-block !important;
+}
+@media (min-width: 500px) {
+  .edit-user .user-roles {
+    margin-top: 20px;
+  }
+  .edit-user .user-role {
+    margin-left: 155px;
+  }
 }
 .jstree-default .jstree-node {
   min-width: 140px !important;
@@ -1596,6 +1616,11 @@ tr:hover .milestone-item-menu-container {
 }
 .ticket-edit-modal .label-row {
   margin-top: 10px;
+}
+.backlog-description {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 8pt;
 }
 .project-sync-info {
   margin-bottom: 10px;

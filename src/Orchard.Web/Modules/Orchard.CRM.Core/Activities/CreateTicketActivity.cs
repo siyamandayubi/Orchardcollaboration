@@ -1,21 +1,3 @@
-﻿/// Orchard Collaboration is a series of plugins for Orchard CMS that provides an integrated ticketing system and collaboration framework on top of it.
-/// Copyright (C) 2014-2016  Siyamand Ayubi
-///
-/// This file is part of Orchard Collaboration.
-///
-///    Orchard Collaboration is free software: you can redistribute it and/or modify
-///    it under the terms of the GNU General Public License as published by
-///    the Free Software Foundation, either version 3 of the License, or
-///    (at your option) any later version.
-///
-///    Orchard Collaboration is distributed in the hope that it will be useful,
-///    but WITHOUT ANY WARRANTY; without even the implied warranty of
-///    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-///    GNU General Public License for more details.
-///
-///    You should have received a copy of the GNU General Public License
-///    along with Orchard Collaboration.  If not, see <http://www.gnu.org/licenses/>.
-
 namespace Orchard.CRM.Core.Activities
 {
     using Newtonsoft.Json;
@@ -147,7 +129,7 @@ namespace Orchard.CRM.Core.Activities
             int? serviceId = GetValueFromActivityContext(activityContext, CreateTicketActivityForm.ServiceId);
             if (serviceId.HasValue)
             {
-                ticketPart.Record.Service = new ServiceRecord { Id = serviceId.Value };
+                ticketPart.Record.Service = new ServicePartRecord { Id = serviceId.Value };
             }
 
             // status
@@ -161,10 +143,22 @@ namespace Orchard.CRM.Core.Activities
             AttachToProjectPart attachToProjectPart = ticket.As<AttachToProjectPart>();
             if (attachToProjectPart != null)
             {
-                int? projectId = GetValueFromActivityContext(activityContext, CreateTicketActivityForm.ProjectId);
-                if (projectId.HasValue)
+                string valueString = activityContext.GetState<string>(CreateTicketActivityForm.ProjectId);
+
+                // check wether the value is id or identity                
+                int projectId;
+
+                if (!int.TryParse(valueString, out projectId))
                 {
-                    attachToProjectPart.Record.Project = new ProjectPartRecord { Id = projectId.Value };
+                    var project = this.contentManager.Query<IdentityPart>().Where<IdentityPartRecord>(c => c.Identifier == valueString).Slice(0, 1).FirstOrDefault();
+                    if (project != null)
+                    {
+                        projectId = project.ContentItem.Id;
+                    }
+                }
+                if (projectId != default(int))
+                {
+                    attachToProjectPart.Record.Project = new ProjectPartRecord { Id = projectId };
                 }
             }
 

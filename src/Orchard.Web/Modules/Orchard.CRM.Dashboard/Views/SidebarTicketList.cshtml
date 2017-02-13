@@ -1,0 +1,32 @@
+﻿@Display(New.Stylesheet())
+@using Orchard.ContentManagement;
+@using Orchard.Core.Title.Models;
+@using Orchard.CRM.Project;
+@using Orchard.CRM.Core.Models;
+@{
+    dynamic contentItem = Model.ContentItem;
+    TitlePart titlePart = contentItem.TitlePart;
+}
+<div class="sidebar-list-header">
+    <h3>@T( titlePart.Title)</h3>
+</div>
+@{
+    Func<IEnumerable<dynamic>> shapeBuilder = Model.BuildShapes;
+    var shapes = shapeBuilder();
+}
+<div>
+    @if (shapes == null || shapes.Count() == 0)
+    {
+        <div class="well">@T("There is no item")</div>
+    }
+    else
+    {
+        foreach (var shape in shapes)
+        {
+            <div>
+                @Display(shape)
+            </div>
+            <hr />
+        }
+    }
+</div>

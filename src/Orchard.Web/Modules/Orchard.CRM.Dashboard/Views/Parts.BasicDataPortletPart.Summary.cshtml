@@ -1,0 +1,19 @@
+﻿@{
+    var businessUnitsUrl = Url.Action("BusinessUnits", "Organization", new { area = "Orchard.CRM.Core" });
+    var prioritiesUrl = Url.Action("Priorities", "BasicData", new { area = "Orchard.CRM.Core" });
+    var ticketTypesUrl = Url.Action("TicketTypes", "BasicData", new { area = "Orchard.CRM.Core" });
+    var servicesUrl = Url.Action("Services", "BasicData", new { area = "Orchard.CRM.Core" });
+    var ticketStatusListUrl = Url.Action("TicketStatusList", "BasicData", new { area = "Orchard.CRM.Core" });
+}
+<article class="portlet panel panel-default">
+    <header><a>@T("Basic data Settings")</a></header>
+    <div class="body basic-data">
+        <ul>
+            <li><a class="btn-edit-link" href="@businessUnitsUrl" target="_blank">@T("Business Units")</a></li>
+            <li><a class="btn-edit-link" href="@prioritiesUrl" target="_blank">@T("Priorities")</a></li>
+            <li><a class="btn-edit-link" href="@ticketStatusListUrl" target="_blank">@T("Ticket Status")</a></li>
+            <li><a class="btn-edit-link" href="@ticketTypesUrl" target="_blank">@T("Ticket Types")</a></li>
+            <li><a class="btn-edit-link" href="@servicesUrl" target="_blank">@T("Services")</a></li>
+        </ul>
+    </div>
+</article>

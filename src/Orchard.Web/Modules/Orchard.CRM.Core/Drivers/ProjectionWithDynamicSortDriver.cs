@@ -1,21 +1,3 @@
-﻿/// Orchard Collaboration is a series of plugins for Orchard CMS that provides an integrated ticketing system and collaboration framework on top of it.
-/// Copyright (C) 2014-2016  Siyamand Ayubi
-///
-/// This file is part of Orchard Collaboration.
-///
-///    Orchard Collaboration is free software: you can redistribute it and/or modify
-///    it under the terms of the GNU General Public License as published by
-///    the Free Software Foundation, either version 3 of the License, or
-///    (at your option) any later version.
-///
-///    Orchard Collaboration is distributed in the hope that it will be useful,
-///    but WITHOUT ANY WARRANTY; without even the implied warranty of
-///    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-///    GNU General Public License for more details.
-///
-///    You should have received a copy of the GNU General Public License
-///    along with Orchard Collaboration.  If not, see <http://www.gnu.org/licenses/>.
-
 using Orchard.ContentManagement;
 using Orchard.ContentManagement.Drivers;
 using Orchard.ContentManagement.Handlers;
@@ -108,10 +90,10 @@ namespace Orchard.CRM.Core.Drivers
             // if pageSize is provided on the query string, ensure it is compatible with allowed limits
             var pageSizeKey = "pageSize" + part.Record.PagerSuffix;
 
+            pageSize = part.Record.MaxItems != default(int)? part.Record.MaxItems: pageSize;
             if (queryString.AllKeys.Contains(pageSizeKey))
             {
                 int qsPageSize;
-
                 if (Int32.TryParse(queryString[pageSizeKey], out qsPageSize))
                 {
                     if (part.Record.MaxItems == 0 || qsPageSize <= part.Record.MaxItems)
@@ -352,17 +334,23 @@ namespace Orchard.CRM.Core.Drivers
 
         protected override void Importing(ProjectionWithDynamicSortPart part, ImportContentContext context)
         {
-            IfNotNull(context.Attribute(part.PartDefinition.Name, "Items"), x => part.Record.Items = Int32.Parse(x));
-            IfNotNull(context.Attribute(part.PartDefinition.Name, "ItemsPerPage"), x => part.Record.ItemsPerPage = Int32.Parse(x));
-            IfNotNull(context.Attribute(part.PartDefinition.Name, "Offset"), x => part.Record.Skip = Int32.Parse(x));
-            IfNotNull(context.Attribute(part.PartDefinition.Name, "PagerSuffix"), x => part.Record.PagerSuffix = x);
-            IfNotNull(context.Attribute(part.PartDefinition.Name, "MaxItems"), x => part.Record.MaxItems = Int32.Parse(x));
-            IfNotNull(context.Attribute(part.PartDefinition.Name, "DisplayPager"), x => part.Record.DisplayPager = Boolean.Parse(x));
+            // Don't do anything if the tag is not specified.
+            if (context.Data.Element(part.PartDefinition.Name) == null)
+            {
+                return;
+            }
+
+            context.ImportAttribute(part.PartDefinition.Name, "Items", x => part.Record.Items = Int32.Parse(x));
+            context.ImportAttribute(part.PartDefinition.Name, "ItemsPerPage", x => part.Record.ItemsPerPage = Int32.Parse(x));
+            context.ImportAttribute(part.PartDefinition.Name, "Offset", x => part.Record.Skip = Int32.Parse(x));
+            context.ImportAttribute(part.PartDefinition.Name, "PagerSuffix", x => part.Record.PagerSuffix = x);
+            context.ImportAttribute(part.PartDefinition.Name, "MaxItems", x => part.Record.MaxItems = Int32.Parse(x));
+            context.ImportAttribute(part.PartDefinition.Name, "DisplayPager", x => part.Record.DisplayPager = Boolean.Parse(x));
         }
 
-        protected override void Imported(ProjectionWithDynamicSortPart part, ImportContentContext context)
+        protected override void ImportCompleted(ProjectionWithDynamicSortPart part, ImportContentContext context)
         {
-            // assign the query only when everythin is imported
+            // Assign the query only when everything is imported.
             var query = context.Attribute(part.PartDefinition.Name, "Query");
             if (query != null)
             {
@@ -376,14 +364,6 @@ namespace Orchard.CRM.Core.Drivers
                 {
                     part.Record.LayoutRecord = part.Record.QueryPartRecord.Layouts[Int32.Parse(layoutIndex)];
                 }
-            }
-        }
-
-        private static void IfNotNull<T>(T value, Action<T> then)
-        {
-            if (value != null)
-            {
-                then(value);
             }
         }
 
@@ -405,6 +385,14 @@ namespace Orchard.CRM.Core.Drivers
                     context.Element(part.PartDefinition.Name).SetAttributeValue("Query", queryIdentity.ToString());
                     context.Element(part.PartDefinition.Name).SetAttributeValue("LayoutIndex", part.Record.QueryPartRecord.Layouts.IndexOf(part.Record.LayoutRecord));
                 }
+            }
+        }
+
+        private static void IfNotNull<T>(T value, Action<T> then)
+        {
+            if (value != null)
+            {
+                then(value);
             }
         }
 

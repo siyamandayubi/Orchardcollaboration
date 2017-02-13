@@ -13,11 +13,11 @@
 
   <Feature enable="Orchard.Blogs,Orchard.Comments,Orchard.Tags,Orchard.Alias,Orchard.Autoroute,
                    TinyMce,Orchard.MediaLibrary,Orchard.ContentPicker,Orchard.PublishLater,
-                   Orchard.jQuery,Orchard.Widgets,Orchard.ContentTypes,
+                   Orchard.jQuery,Orchard.Widgets,Orchard.ContentTypes,Orchard.Indexing,Orchard.JobsQueue,
                    Orchard.Scripting,Orchard.Scripting.Lightweight,PackagingServices,Orchard.Packaging,
                    Orchard.Projections,Orchard.Fields,Orchard.OutputCache,Orchard.Taxonomies,Orchard.Workflows,Orchard.Workflows.Timer,
-                   S22.IMAP, Orchard.Email, Orchard.Search, Lucene, Orchard.Tokens, Orchard.CRM.Core, 
-                   Orchard.Taxonomies, Orchard.Reporting, Orchard.Lists, Orchard.CRM.Project, Orchard.Recipes,Orchard.CustomForms,Orchard.Layouts,Orchard.Layouts.Tokens,
+                   S22.IMAP, Orchard.Email, Orchard.Search, Lucene, Orchard.Tokens, Orchard.CRM.Core,Orchard.CRM.Dashboard,
+                   Orchard.Taxonomies, Orchard.Reporting, Orchard.Lists, Orchard.CRM.Project,Orchard.CRM.Notification, Orchard.Recipes,Orchard.CustomForms,Orchard.Layouts,Orchard.Layouts.Tokens,
                    Bootstrap" />
   <Metadata>
     <Types>
@@ -40,34 +40,60 @@
       <BodyPart BodyPartSettings.FlavorDefault="html" />
     </Parts>
   </Metadata>
-
+  <Workflows>
+  </Workflows>
   <Settings />
 
   <Migration features="*" />
 
   <Command>
+
+
+
     layer create Default /LayerRule:"true" /Description:"The widgets in this layer are displayed on all pages"
 
     layer create Authenticated /LayerRule:"authenticated" /Description:"The widgets in this layer are displayed when the user is authenticated"
-    layer create AuthenticatedOperator /LayerRule:"authenticated and (permission('OperatorPermission') or permission('AdvancedOperatorPermission'))" /Description:"The widgets in this layer are displayed to operator and advanced-operator users"
-    layer create AuthenticatedOperatorHomePage /LayerRule:"url('~/') and authenticated and (permission('OperatorPermission') or permission('AdvancedOperatorPermission'))" /Description:"The widgets in this layer are displayed to operator and advanced-operator users"
+    layer create AuthenticatedOperator /LayerRule:"authenticated and (permission('OperatorPermission') and not permission('AdvancedOperatorPermission'))" /Description:"The widgets in this layer are displayed to operator and advanced-operator users"
+    layer create AuthenticatedOperatorHomePage /LayerRule:"url('~/') and authenticated and (permission('OperatorPermission') and not permission('AdvancedOperatorPermission'))" /Description:"The widgets in this layer are displayed to operator and advanced-operator users"
+
+    layer create AuthenticatedAdvancedOperator /LayerRule:"authenticated and permission('AdvancedOperatorPermission')" /Description:"The widgets in this layer are displayed to advanced-operator users"
+    layer create AuthenticatedAdvancedOperatorHomePage /LayerRule:"url('~/') and authenticated and  permission('AdvancedOperatorPermission')" /Description:"The widgets in this layer are displayed to operator and advanced-operator users"
+
     layer create AuthenticatedCustomer /LayerRule:"authenticated and permission('CustomerPermission') and not (permission('OperatorPermission') or permission('AdvancedOperatorPermission'))" /Description:"The widgets in this layer are displayed to customer users"
     layer create AuthenticatedCustomerHomePage /LayerRule:"url('~/') and authenticated and permission('CustomerPermission') and not (permission('OperatorPermission') or permission('AdvancedOperatorPermission'))" /Description:"The widgets in this layer are displayed to customer users"
     layer create Anonymous /LayerRule:"not authenticated" /Description:"The widgets in this layer are displayed when the user is anonymous"
     layer create AnonymousHomePage /LayerRule:"not authenticated and url('~/')" /Description:"The widgets in this layer are displayed in the homepage for anonymous users"
+    layer create AuthenticatedOperatorNotAjax /LayerRule:"!ajax and authenticated and (permission('OperatorPermission') and not permission('AdvancedOperatorPermission'))" /Description:"The widgets in this layer are displayed to operator users in case the request is not an ajax request for a partial view"
+    layer create AuthenticatedAdvancedOperatorNotAjax /LayerRule:"!ajax and authenticated and permission('AdvancedOperatorPermission')" /Description:"The widgets in this layer are displayed to advanced-operator users in case the request is not an ajax request for a partial view"
 
     layer create Disabled /LayerRule:"false" /Description:"The widgets in this layer are never displayed"
     layer create TheHomepage /LayerRule:"url '~/'" /Description:"The widgets in this layer are displayed on the home page"
     site setting set baseurl
 
+    dashboard-create-queries
+
+    menu create /MenuName:"Main AdvancedOperator Menu"
+    widget-generic-dashboard create /Portlets:"DashboardManagementTemplate,SmtpPortletContentTemplate,IMAPPortletContentTemplate,BasicDataPortletTemplate,NavigationPortletTemplate,WorkflowPortletTemplate,QueriesPortletTemplate,ContentManagementPortletTemplate" /Title:"Admin Quick Links" /Layer:"AuthenticatedAdvancedOperatorHomePage" /Zone:"Content" /RenderTitle:true
+    ticket-dashboard-widget create /Title:"Dashboard" /LayerName:"AuthenticatedAdvancedOperatorHomePage" /Zone:"Content" /RenderTitle:false
+    widget-sidebar create /Portlets:"My Open Tickets,Reported By me tickets,Unassigned Tickets,My Projects"  /Layer:"AuthenticatedOperator" /Zone:"BeforeMain" /RenderTitle:false  /Title:"Sidebar"
+    widget-sidebar create /Portlets:"My Open Tickets,Reported By me tickets,Unassigned Tickets,My Projects"  /Layer:"AuthenticatedAdvancedOperator" /Zone:"BeforeMain" /RenderTitle:false  /Title:"Sidebar"
+    tickets-menu create /MenuName:"Main AdvancedOperator Menu" /MenuText:"Tickets"
+    projectlist-create /MenuName:"Main AdvancedOperator Menu" /MenuText:"Projects"
+    menuitem create /MenuPosition:"0" /MenuText:"Home" /Url:"~/" /MenuName:"Main AdvancedOperator Menu"
+    menuitem create /MenuPosition:"3" /MenuText:"Customers" /Url:"~/OrchardCollaboration.Project/User/Customers" /MenuName:"Main AdvancedOperator Menu"
+    menuitem create /MenuPosition:"3" /MenuText:"Operators" /Url:"~/OrchardCollaboration.Project/User/Operators" /MenuName:"Main AdvancedOperator Menu"
+
     menu create /MenuName:"Main Operator Menu"
     ticket-dashboard-widget create /Title:"Dashboard" /LayerName:"AuthenticatedOperatorHomePage" /Zone:"Content" /RenderTitle:false
-    tickets-menu create /MenuName:"Main Operator Menu" /MenuText:"Tickets"
     projectlist-create /MenuName:"Main Operator Menu" /MenuText:"Projects"
     menuitem create /MenuPosition:"0" /MenuText:"Home" /Url:"~/" /MenuName:"Main Operator Menu"
     menuitem create /MenuPosition:"3" /MenuText:"Customers" /Url:"~/OrchardCollaboration.Project/User/Customers" /MenuName:"Main Operator Menu"
     menuitem create /MenuPosition:"3" /MenuText:"Operators" /Url:"~/OrchardCollaboration.Project/User/Operators" /MenuName:"Main Operator Menu"
+    tickets-menu create /MenuName:"Main Operator Menu" /MenuText:"Tickets"
     widget create MenuWidget /Title:"Main Operator Menu" /RenderTitle:false /Zone:"Navigation" /Position:"1" /Layer:"AuthenticatedOperator" /Identity:"MenuWidget1" /MenuName:"Main Operator Menu"
+    widget create MenuWidget /Title:"Main AdvancedOperator Menu" /RenderTitle:false /Zone:"Navigation" /Position:"1" /Layer:"AuthenticatedAdvancedOperator" /Identity:"MenuWidget1" /MenuName:"Main AdvancedOperator Menu"
+    widget create CRMNotificationWidget /Title:"Online Notifications" /RenderTitle:false /Zone:"Header" /Position:"2" /Layer:"AuthenticatedOperatorNotAjax" /Identity:"OnlineNotifications"
+    widget create CRMNotificationWidget /Title:"Online Notifications" /RenderTitle:false /Zone:"Header" /Position:"2" /Layer:"AuthenticatedAdvancedOperatorNotAjax" /Identity:"OnlineNotifications"
 
     menu create /MenuName:"Main Customer Menu"
     ticket-dashboard-widget create /Title:"Dashboard" /LayerName:"AuthenticatedCustomerHomePage" /Zone:"Content" /RenderTitle:false

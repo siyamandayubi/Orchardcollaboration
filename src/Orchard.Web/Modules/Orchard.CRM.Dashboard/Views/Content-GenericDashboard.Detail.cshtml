@@ -1,0 +1,53 @@
+﻿@using Orchard.ContentManagement;
+@using Orchard.Widgets.Models;
+@using Orchard.CRM.Dashboard.Models;
+@{
+    Script.Require("DashboardComponents");
+    Script.Require("JQueryUI");
+    string panelId = "panel" + Model.ContentItem.Id.ToString();
+    GenericDashboardPart genericPart = Model.ContentItem.GenericDashboardPart;
+
+    bool collapsiable = genericPart.Collapsiable;
+    string expandHiddenClass = genericPart.ShowCollapsedInInitializedState ? string.Empty : "hidden";
+    string collapseHiddenClass = genericPart.ShowCollapsedInInitializedState && collapsiable ? "hidden" : string.Empty;
+}
+<article id="@panelId" class="panel panel-default generic-dashboard">
+    <div class="panel-heading dashboard-panel-header">
+        @if (Model.Title != null)
+        {
+            @Display(Model.Title)
+        }
+
+        @if (collapsiable)
+        {
+            <span class="expand-icon  @expandHiddenClass"></span>
+            <span class="collapse-icon @collapseHiddenClass"></span>
+        }
+        @if (Model.HeaderLinks != null)
+        {
+            @Display(Model.HeaderLinks);
+        }
+    </div>
+    <div class="panel-body dashboard-body @collapseHiddenClass">
+        @if (Model.Header != null)
+            {
+            @Display(Model.Header)
+        }
+        @if (Model.Content != null)
+            {
+            @Display(Model.Content)
+        }
+        @if (Model.Footer != null)
+            {
+            @Display(Model.Footer)
+        }
+    </div>
+</article>
+@using (Script.Foot())
+{
+    <script language="javascript" type="text/javascript">
+        $(document).ready(function () {
+            $("#@panelId").Dashboard();
+        });
+    </script>
+}

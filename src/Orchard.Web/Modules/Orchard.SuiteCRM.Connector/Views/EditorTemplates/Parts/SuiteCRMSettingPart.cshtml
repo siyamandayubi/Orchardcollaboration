@@ -4,12 +4,12 @@
     
 }
 <fieldset>
-    <legend>@T("SuiteCRM Connection Setting")</legend>
+    <legend>@T("Sugar CRM Connection Setting")</legend>
     <div>
         <label for="@Html.FieldIdFor(m => m.WebAddress)">@T("Root Address of the web instance")</label>
         @Html.TextBoxFor(m => m.WebAddress, new { type = "text medium", @class = "text medium" })
         @Html.ValidationMessage("WebAddress", "*")
-        <span class="hint">@T("The web address of the SuiteCRM instance. Please note to enter the root address")</span>
+        <span class="hint">@T("The web address of the Sugar CRM instance. Please note to enter the root address")</span>
     </div>
     <div>
         <label >@T("Provider")</label>

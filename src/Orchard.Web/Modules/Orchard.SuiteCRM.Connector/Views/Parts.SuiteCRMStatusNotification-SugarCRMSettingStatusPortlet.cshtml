@@ -1,0 +1,10 @@
+﻿@{
+    Style.Include("SuiteCRM.css");
+}
+<article class="portlet panel panel-default">
+    <header><a href="@Url.Action("Settings", "Sync", new { area = "Orchard.SuiteCRM.Connector"})">@T("Sugar CRM Settings")</a></header>
+    <div class="suite-crm-no-connection-message">
+        <div class="message">@T("There is not a connection between Suger CRM and OrchardCollaboration.")</div>
+        <div><a href="@Url.Action("Settings", "Sync", new { area = "Orchard.SuiteCRM.Connector"})">@T("Configure Suger CRM connection")</a></div>
+    </div>
+</article>

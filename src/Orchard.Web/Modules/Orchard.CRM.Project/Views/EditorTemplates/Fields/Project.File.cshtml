@@ -2,29 +2,29 @@
 @using Orchard.Utility.Extensions;
 
 @{
-	Script.Require("jQuery").AtFoot();
+    Script.Require("jQuery").AtFoot();
     var name = Model.Field.Name;
 }
 
-<fieldset>
-	<label for="@Html.FieldIdFor(m => "FileField-" + name)">@name.CamelFriendly()</label>
-	@if (!String.IsNullOrEmpty(Model.Field.Path))
-    {
-	<a href="@Url.Content(Model.Field.Path)">@Model.Field.Text</a> <br/>
-    }
-</fieldset>
-<fieldset>
-    <input id="FileField-@name" name="FileField-@name" type="file" value="@T("Browse") size="64" />
-	<span class="hint">@Model.Settings.Hint</span>
-</fieldset>
+<div class="project-file-field">
+    <fieldset>
+        <label for="@Html.FieldIdFor(m => "FileField-" + name)">@name.CamelFriendly()</label>
+        @if (!String.IsNullOrEmpty(Model.Field.Path))
+        {
+            <a href="@Url.Content(Model.Field.Path)">@Model.Field.Text</a> <br />
+        }
+        <input id="FileField-@name" name="FileField-@name" type="file" value="@T("Browse") size=" 64" />
+        <span class="hint">@Model.Settings.Hint</span>
+    </fieldset>
+</div>
 
 @using (Script.Foot())
 {
-<script type="text/javascript">
-//<![CDATA[
-    $('form')
-		.attr('enctype', 'multipart/form-data')
-		.attr('encoding', 'multipart/form-data'); // ie issue
-//]]>
-</script>
+    <script type="text/javascript">
+        //<![CDATA[
+        $('form')
+            .attr('enctype', 'multipart/form-data')
+            .attr('encoding', 'multipart/form-data'); // ie issue
+        //]]>
+    </script>
 }

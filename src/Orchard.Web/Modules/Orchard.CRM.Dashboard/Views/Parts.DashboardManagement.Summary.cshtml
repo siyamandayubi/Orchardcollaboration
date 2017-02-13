@@ -1,0 +1,13 @@
+﻿@using Orchard.CRM.Dashboard;
+<article class="portlet panel panel-default">
+    <header><a href="@Url.Action("Display", "Item", new { area = "Orchard.CRM.Core", id = Model.Model.ListContentItemId })" target="_blank">@T("Dashboard List")</a></header>
+    <div class="body">
+        <div className="description">
+            @T("Dashboards allow you to create custom portal pages using available build-in portlets.")
+        </div>
+        <ul>
+            <li><a class="btn-edit-link" href="@Url.Action("Create", "Item", new { area = "Orchard.CRM.Core", id = Consts.GenericDashboardContentType })" target="_blank">@T("Create new Dashboard")</a></li>
+            <li><a class="btn-edit-link" href="@Url.Action("Display", "Item", new { area = "Orchard.CRM.Core", id = Model.Model.ListContentItemId })" target="_blank">@T("Dashboard List")</a></li>
+        </ul>
+  </div>
+</article>

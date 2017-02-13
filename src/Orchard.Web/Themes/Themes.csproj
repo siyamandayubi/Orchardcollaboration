@@ -12,7 +12,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Themes</RootNamespace>
     <AssemblyName>Themes</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
@@ -25,6 +25,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -48,6 +49,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web" />
@@ -55,39 +60,37 @@
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\lib\aspnetmvc\System.Web.Mvc.dll</HintPath>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.XML" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bootstrap\AdminMenu.cs" />
-    <Compile Include="Bootstrap\Constants.cs" />
-    <Compile Include="Bootstrap\Controllers\AdminController.cs" />
-    <Compile Include="Bootstrap\Filters\AlternateCssFilter.cs" />
-    <Compile Include="Bootstrap\Filters\LayoutFilter.cs" />
-    <Compile Include="Bootstrap\Gravatar.cs" />
-    <Compile Include="Bootstrap\Gremail.cs" />
-    <Compile Include="Bootstrap\Grofile.cs" />
-    <Compile Include="Bootstrap\GrofileInfo.cs" />
-    <Compile Include="Bootstrap\Html\HtmlHelperExtensions.cs" />
-    <Compile Include="Bootstrap\Html\UrlHelperExtensions.cs" />
-    <Compile Include="Bootstrap\Migrations.cs" />
-    <Compile Include="Bootstrap\Models\ThemeSettingsRecord.cs" />
-    <Compile Include="Bootstrap\Permissions.cs" />
-    <Compile Include="Bootstrap\ResourceManifest.cs" />
-    <Compile Include="Bootstrap\Routes.cs" />
-    <Compile Include="Bootstrap\Services\IThemeSettingsService.cs" />
-    <Compile Include="Bootstrap\Services\ThemeSettingsService.cs" />
-    <Compile Include="Bootstrap\ThemeHelper.cs" />
-    <Compile Include="Bootstrap\ViewModels\ThemeSettingsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Bootstrap\Bootstrap.csproj" />
     <Content Include="Bootstrap\Content\Admin\Swatches.png" />
     <Content Include="Bootstrap\Content\facebook.png" />
     <Content Include="Bootstrap\Content\fonts\font-awesome\fontawesome-webfont.svg" />
@@ -138,14 +141,24 @@
     <Content Include="Bootstrap\Scripts\jquery.prettyPhoto.js" />
     <Content Include="Bootstrap\Scripts\respond.min.js" />
     <Content Include="Bootstrap\Styles\amelia.min.css" />
+    <Content Include="Bootstrap\Styles\bootstrap.css" />
     <Content Include="Bootstrap\Styles\bootstrap.min.css" />
     <Content Include="Bootstrap\Styles\bootswatch.min.css" />
     <Content Include="Bootstrap\Styles\cerulean.min.css" />
     <Content Include="Bootstrap\Styles\cosmo.min.css" />
+    <Content Include="Bootstrap\Styles\crm-dashboard.css" />
     <Content Include="Bootstrap\Styles\cyborg.min.css" />
     <Content Include="Bootstrap\Styles\flatly.min.css" />
     <Content Include="Bootstrap\Styles\font-awesome-ie7.min.css" />
     <Content Include="Bootstrap\Styles\font-awesome.min.css" />
+    <Content Include="Bootstrap\Styles\Images\edit-icon-white.png" />
+    <Content Include="Bootstrap\Styles\Images\edit-icon.png" />
+    <Content Include="Bootstrap\Styles\Images\edit-only-pen-icon.png" />
+    <Content Include="Bootstrap\Styles\Images\expand-left-64-gray.png" />
+    <Content Include="Bootstrap\Styles\Images\expand-left-64.png" />
+    <Content Include="Bootstrap\Styles\Images\expand-right-64-gray.png" />
+    <Content Include="Bootstrap\Styles\Images\expand-right-64.png" />
+    <Content Include="Bootstrap\Styles\Images\original-edit.png" />
     <Content Include="Bootstrap\Styles\journal.min.css" />
     <Content Include="Bootstrap\Styles\orchardcollaboration.css" />
     <Content Include="Bootstrap\Styles\overwrite.css" />
@@ -171,14 +184,17 @@
     <Content Include="TheAdmin\Styles\images\icon-gallery.png" />
     <Content Include="TheAdmin\Styles\images\icon-settings.png" />
     <Content Include="TheAdmin\Styles\images\info.gif" />
+    <Content Include="TheAdmin\Styles\images\menu-closed.png" />
     <Content Include="TheAdmin\Styles\images\menu-default.png" />
     <Content Include="TheAdmin\Styles\images\menu-glyph.png" />
+    <Content Include="TheAdmin\Styles\images\menu-open.png" />
     <Content Include="TheAdmin\Styles\images\menuClosed.gif" />
     <Content Include="TheAdmin\Styles\images\menuClosedHover.gif" />
     <Content Include="TheAdmin\Styles\images\menuOpen.gif" />
     <Content Include="TheAdmin\Styles\images\menuOpenHover.gif" />
     <Content Include="TheAdmin\Styles\images\vinesBackgroundBottom.gif" />
     <Content Include="TheAdmin\Styles\images\menu-filter.png" />
+    <Content Include="TheThemeMachine\Styles\default-grid.css" />
     <Content Include="TheThemeMachine\Styles\Site.css" />
     <Content Include="TheThemeMachine\Theme.png" />
     <Content Include="TheThemeMachine\Theme.txt" />
@@ -252,7 +268,15 @@
     <ProjectReference Include="..\..\Orchard\Orchard.Framework.csproj">
       <Project>{2D1D92BB-4555-4CBE-8D0E-63563D6CE4C6}</Project>
       <Name>Orchard.Framework</Name>
-      <Private>True</Private>
+      <Private>False</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Tools\Orchard\Orchard.csproj">
+      <Project>{33b1bc8d-e292-4972-a363-22056b207156}</Project>
+      <Name>Orchard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Modules\Orchard.Layouts\Orchard.Layouts.csproj">
+      <Project>{6bd8b2fa-f2e3-4ac8-a4c3-2925a653889a}</Project>
+      <Name>Orchard.Layouts</Name>
     </ProjectReference>
     <ProjectReference Include="..\Modules\Orchard.Themes\Orchard.Themes.csproj">
       <Project>{cde24a24-01d3-403c-84b9-37722e18dfb7}</Project>
@@ -271,6 +295,9 @@
     <Content Include="TheAdmin\Views\AdminCultureSelector.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Bootstrap\Content\fonts\font-awesome\fontawesome-webfont.eot" />
     <Content Include="Bootstrap\Content\fonts\font-awesome\fontawesome-webfont.ttf" />
     <Content Include="Bootstrap\Content\fonts\font-awesome\fontawesome-webfont.woff" />
@@ -283,7 +310,6 @@
     <Content Include="Bootstrap\README.md" />
     <Content Include="Bootstrap\Scripts\Web.config" />
     <Content Include="Bootstrap\Styles\Web.config" />
-    <Content Include="Bootstrap\Views\Admin\Index.cshtml" />
     <Content Include="Bootstrap\Views\BadgeOfHonor.cshtml" />
     <Content Include="Bootstrap\Views\Branding.cshtml" />
     <Content Include="Bootstrap\Views\CommentAuthor.cshtml" />
@@ -341,9 +367,16 @@
     <Content Include="Bootstrap\Views\TicketFields.Input.Edit.cshtml" />
     <Content Include="Bootstrap\Views\TicketFields.Numeric.Edit.cshtml" />
     <Content Include="Bootstrap\Views\User.cshtml" />
-    <Content Include="Bootstrap\Views\Web.config" />
     <Content Include="Bootstrap\Views\Widget.Wrapper.cshtml" />
-    <Content Include="Bootstrap\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Bootstrap\Styles\crm-dashboard.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Bootstrap\Views\DashboardStylesheets.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Bootstrap\Views\Banners.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

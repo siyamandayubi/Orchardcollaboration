@@ -7,7 +7,7 @@
     FolderViewModel folderViewModel = Model.Model;
     Script.Require("ProjectWidgets");
     Script.Require("JsTree");
-    Style.Include("JsTree/style.css");
+    Style.Include("JsTree/jstree-style.css");
     string rootWikiLink = Url.Action("DisplayProjectRelatedItem", "Project", new { contentType = ContentTypes.RootWikiContentType, projectId = folderViewModel.ProjectId, area = "Orchard.CRM.Project" });
 }
 @helper RenderNode(FolderViewModel folder)

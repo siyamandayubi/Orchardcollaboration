@@ -1,21 +1,3 @@
-﻿/// Orchard Collaboration is a series of plugins for Orchard CMS that provides an integrated ticketing system and collaboration framework on top of it.
-/// Copyright (C) 2014-2016  Siyamand Ayubi
-///
-/// This file is part of Orchard Collaboration.
-///
-///    Orchard Collaboration is free software: you can redistribute it and/or modify
-///    it under the terms of the GNU General Public License as published by
-///    the Free Software Foundation, either version 3 of the License, or
-///    (at your option) any later version.
-///
-///    Orchard Collaboration is distributed in the hope that it will be useful,
-///    but WITHOUT ANY WARRANTY; without even the implied warranty of
-///    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-///    GNU General Public License for more details.
-///
-///    You should have received a copy of the GNU General Public License
-///    along with Orchard Collaboration.  If not, see <http://www.gnu.org/licenses/>.
-
 using Orchard.ContentManagement;
 using Orchard.ContentManagement.Records;
 using Orchard.CRM.Core.Models;
@@ -120,8 +102,15 @@ namespace Orchard.CRM.Core.Providers.Filters
                 return;
             }
 
+            Action<IHqlExpressionFactory> accessTypePredicate = null;
+            if (context.State.AccessType != null)
+            {
+                int? accessType = context.State.AccessType;
+                accessTypePredicate = x => x.Eq("AccessType", accessType);
+            }
+
             // there is no restriction for advanced users
-            if (this.contentOwnershipService.IsCurrentUserAdvanceOperator())
+            if (accessTypePredicate == null && this.contentOwnershipService.IsCurrentUserAdvanceOperator())
             {
                 return;
             }
@@ -153,7 +142,15 @@ namespace Orchard.CRM.Core.Providers.Filters
 
             Action<IHqlExpressionFactory> mainPredicate = x => x.Disjunction(userPredicate, teamsAndBusinessUnitPredictions.ToArray());
 
-            context.Query = context.Query.Where(mainAlias, mainPredicate);
+            if (accessTypePredicate != null)
+            {
+                Action<IHqlExpressionFactory> tempPredicate = x => x.And(mainPredicate, accessTypePredicate);
+                context.Query = context.Query.Where(mainAlias, tempPredicate);
+            }
+            else
+            {
+                context.Query = context.Query.Where(mainAlias, mainPredicate);
+            }
         }
 
         public void ApplyAnyUserOrTeamOrBusinessUnitsFilter(FilterContext context)

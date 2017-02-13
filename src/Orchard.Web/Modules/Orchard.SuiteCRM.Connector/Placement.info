@@ -15,4 +15,10 @@
       <Place Parts_SuiteCRMTaskContactLink="People:2"></Place>
     </Match>
   </Match>
+  <Match ContentType="SugarCRMSettingStatusPortlet">
+      <Place Parts_SyncProjectTitle_Summary="Content:2"/>
+      <Place Parts_Common_Metadata="-"/>
+      <Place Parts_Common_Metadata_Summary="-"/>
+      <Place Parts_Common_Owner_Edit="-"/>
+  </Match>
 </Placement>

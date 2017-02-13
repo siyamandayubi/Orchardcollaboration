@@ -1,0 +1,23 @@
+﻿@using Orchard.ContentManagement;
+@using Orchard.CRM.Core.Models;
+@{
+    ContentItem contentItem = Model.ContentItem;
+
+    Func<IEnumerable<dynamic>> shapeBuilder = Model.BuildShapes;
+    var shapes = shapeBuilder();
+}
+<div class="sidebar-tickets">
+    @if (shapes == null || shapes.Count() == 0)
+    {
+        <div class="well">@T("There is no item")</div>
+    }
+    else
+    {
+        foreach (var shape in shapes)
+        {
+            <div>
+                @Display(shape)
+            </div>
+        }
+    }
+</div>

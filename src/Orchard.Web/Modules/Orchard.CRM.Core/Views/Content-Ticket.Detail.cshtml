@@ -7,12 +7,12 @@
 <div class="space"></div>
 <div class="content-item ticket">
     <div class="ticket-display-header">
-         <div class="ticket-header">
-             @if (Model.Header != null) 
-             { 
-                 Model.Header.Items[0].Menu = Model.Menu;
+        <div class="ticket-header">
+            @if (Model.Header != null)
+            {
+                Model.Header.Items[0].Menu = Model.Menu;
                 @Display(Model.Header)
-             }
+            }
         </div>
         @if (Model.Meta != null)
         {
@@ -32,34 +32,60 @@
         }
         <div class="ticket-main-content">
             @Display(Model.Content)
+            <div class="detail">
+                <div class="detail-list-header">
+                    @if (Model.DetailListHeader != null)
+                    {
+                        if (Model.DetailListHeader.Items != null && Model.DetailListHeader.Items.Count > 0)
+                        {
+                            Model.DetailListHeader.Items[0].Classes.Add("selected-tab");
+                        }
+                        @Display(Model.DetailListHeader);
+                    }
+                </div>
+                <div class="detail-list">
+                    @if (Model.DetailList != null)
+                    {
+                        if (Model.DetailList.Items != null && Model.DetailList.Items.Count > 0)
+                        {
+                            foreach (var item in Model.DetailList.Items)
+                            {
+                                string className = Model.DetailList.Items.IndexOf(item) == 0 ? "selected-tab" : "hidden";
+                                item.Classes.Add(className);
+                            }
+                        }
+                        @Display(Model.DetailList);
+                    }
+                </div>
+            </div>
         </div>
         <div class="ticket-details-sidebar ">
             @if (Model.Dates != null)
             {
-                <div>
-                    <h4>@T("Dates")</h4>
-                    @Display(Model.Dates)
-                </div>
+            <div>
+                <h4>@T("Dates")</h4>
+                @Display(Model.Dates)
+            </div>
             }
             @if (Model.People != null)
             {
-                <div>
-                    <div class="properties-seperator"></div>
-                    <h4>@T("People")</h4>
-                    @Display(Model.People)
-                </div>
+            <div>
+                <div class="properties-seperator"></div>
+                <h4>@T("People")</h4>
+                @Display(Model.People)
+            </div>
             }
             @if (Model.FieldsAndProperties != null)
             {
-                <div>
-                    <div class="properties-seperator"></div>
-                    <h4>@T("Properties")</h4>
-                    @Display(Model.FieldsAndProperties)
-                </div>
+            <div>
+                <div class="properties-seperator"></div>
+                <h4>@T("Properties")</h4>
+                @Display(Model.FieldsAndProperties)
+            </div>
             }
         </div>
         <div class="clear"></div>
-   </div>
+    </div>
     @if (Model.AsideSecond != null)
     {
         <div>@Display(Model.AsideSecond)</div>
@@ -77,5 +103,6 @@
     Script.Require("CRMWidgets");
     <script language="javascript" type="text/javascript">
         $("body").DisplayTicket();
+        $("body").TicketDetailTablControl();
     </script>
 }

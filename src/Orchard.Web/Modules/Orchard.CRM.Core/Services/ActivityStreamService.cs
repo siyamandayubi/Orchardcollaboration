@@ -1,4 +1,4 @@
-﻿namespace Orchard.CRM.Core.Services
+namespace Orchard.CRM.Core.Services
 {
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
@@ -8,7 +8,7 @@
     using Orchard.CRM.Core.Models;
     using Orchard.CRM.Core.Providers.Filters;
     using Orchard.Data;
-    using Orchard.Localization;
+    using Orchard.Localization;f
     using Orchard.Users.Models;
     using System;
     using System.Collections;
