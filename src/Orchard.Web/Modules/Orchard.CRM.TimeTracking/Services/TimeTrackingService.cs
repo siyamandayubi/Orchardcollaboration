@@ -4,15 +4,20 @@ using System.Collections.Generic;
 using Orchard.CRM.TimeTracking.Models;
 using Orchard.CRM.TimeTracking.ViewModels;
 using Orchard.Data;
+using Orchard.Users.Models;
+using Orchard.ContentManagement;
+using Orchard.Security;
 
 namespace Orchard.CRM.TimeTracking.Services
 {
     public class TimeTrackingService : ITimeTrackingService
     {
         private readonly IRepository<TimeTrackingItemRecord> timeTrackingItemRepository;
+        private readonly IOrchardServices services;
 
-        public TimeTrackingService(IRepository<TimeTrackingItemRecord> timeTrackingItemRepository)
+        public TimeTrackingService(IRepository<TimeTrackingItemRecord> timeTrackingItemRepository, IOrchardServices services)
         {
+            this.services = services;
             this.timeTrackingItemRepository = timeTrackingItemRepository;
         }
 
@@ -74,7 +79,20 @@ namespace Orchard.CRM.TimeTracking.Services
         {
             var records = this.timeTrackingItemRepository.Table.Where(c => c.TimeTrackingPartRecord.ContentItemRecord.Id == contnentItemId).ToList();
 
-            return records.ConvertAll(Convert);
+            var entities = records.ConvertAll(Convert).ToList();
+
+            var userIds = records.Where(c => c.User != null).Select(c => c.User.Id).Distinct().ToArray();
+            var users = this.services.ContentManager.GetMany<IUser>(userIds, VersionOptions.Published, new QueryHints());
+            entities.ForEach(c =>
+            {
+                var user = users.FirstOrDefault(d => d.Id == c.UserId);
+                if (user != null)
+                {
+                    c.FullUsername = Orchard.CRM.Core.Services.CRMHelper.GetFullNameOfUser(user);
+                }
+            });
+
+            return entities;
         }
 
         private TimeTrackingViewModel Convert(TimeTrackingItemRecord c)
