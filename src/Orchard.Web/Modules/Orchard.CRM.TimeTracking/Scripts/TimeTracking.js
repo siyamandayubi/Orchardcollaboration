@@ -24,6 +24,7 @@ window.crm = window.crm || {};
         var _self = this;
 
         var data = JSON.parse($("#" + dataContainer).html());
+        data.showModal = false;
 
         this.translate = function (data, key, text) {
             if (!data.TranslateTable) {
@@ -43,25 +44,54 @@ window.crm = window.crm || {};
             return _self.translate(data, key, text);
         };
 
-        var timeTrackingMainComponent = React.createClass({
-            render: function () {
-                var model = {
-                    data: data,
-                    root: {
-                        T: T,
-                        Routes: data.Routes,
-                        Controller: _self,
-                        actions: {}
+        var closeModal = function () {
+            data.showModal = false;
+            _reactComponent.setState(data);
+        };
+
+        var saveItem = function (item) {
+            data.showModal = false;
+            _reactComponent.setState(data);
+        };
+
+        var addItem = function () {
+            data.selectedItem = { title: T("Work Log", "Work Log") };
+            data.showModal = true;
+            _reactComponent.setState(data);
+        };
+
+        var render = function () {
+            var model = {
+                data: data,
+                root: {
+                    T: T,
+                    Routes: data.Routes,
+                    Controller: _self,
+                    actions: {
+                        closeModal: closeModal,
+                        saveItem: saveItem,
+                        addItem: addItem
                     }
-                };
+                }
+            };
 
-                return React.createElement(
-                   "div",
-                   null,
-                   React.createElement(orchardcollaboration.react.allComponents.InfoPage, model),
-                   React.createElement(orchardcollaboration.react.allComponents.TimeTrackingList, model));
+            return React.createElement(
+               "div",
+               null,
+               React.createElement(orchardcollaboration.react.allComponents.InfoPage, model),
+               React.createElement(orchardcollaboration.react.allComponents.TimeTrackingList, model),
+               React.createElement(orchardcollaboration.react.allComponents.EditLogWorkModal, model));
 
-            }
+        };
+
+        var getInitialState = function () {
+            data.asyncState = "normal";
+            return data;
+        };
+
+        var timeTrackingMainComponent = React.createClass({
+            render: render,
+            getInitialState: getInitialState
         });
 
         var element = React.createElement(timeTrackingMainComponent);
