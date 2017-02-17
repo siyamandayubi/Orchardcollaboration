@@ -25,6 +25,7 @@ window.crm = window.crm || {};
 
         var data = JSON.parse($("#" + dataContainer).html());
         data.showModal = false;
+        data.asyncState = "normal";
 
         this.translate = function (data, key, text) {
             if (!data.TranslateTable) {
@@ -52,10 +53,60 @@ window.crm = window.crm || {};
         var saveItem = function (item) {
             data.showModal = false;
             _reactComponent.setState(data);
+
+            var postData = {
+                ContentItemId: data.Id,
+                Comment: item.comment,
+                TrackingDate: item.trackingDate,
+                TrackingItemId: item.trackingItemId
+            };
+
+            var isInAddMode = postData.TrackingItemId;
+            var url = isInAddMode? data.Routes.AddLogUrl:data.Routes.EditLogUrl;
+            
+            data.asyncState = "loading";
+            _reactComponent.setState(data);
+
+            $.ajax({
+                type: "POSt",
+                url: url,
+                data: toSubmitData,
+                error: function (e) {
+                    data.asyncState = "error";
+                    _reactComponent.setState(data);
+                }
+            }).done(function (response) {
+                if (response.Errors.length > 0) {
+                    data.asyncState = "error";
+                    _reactComponent.setState(data);
+                    return;
+                }
+
+                if (isInAddMode) {
+                    data.Items.push(response);
+                }
+                else {
+                    for (var i = 0; i < data.Items.length; i++) {
+                        if (data.Items[i].TrackingItemId == response.TrackingItemId) {
+                            data.Items[i] = response;
+                        }
+                    }
+                }
+
+                data.asyncState = "normal";
+                _reactComponent.setState(data);
+            });
         };
 
         var addItem = function () {
             data.selectedItem = { title: T("Work Log", "Work Log") };
+            data.showModal = true;
+            _reactComponent.setState(data);
+        };
+
+        var editItem = function (item) {
+            data.selectedItem = item;
+            data.selectedItem.title = T("Work Log", "Work Log");
             data.showModal = true;
             _reactComponent.setState(data);
         };
@@ -70,7 +121,8 @@ window.crm = window.crm || {};
                     actions: {
                         closeModal: closeModal,
                         saveItem: saveItem,
-                        addItem: addItem
+                        addItem: addItem,
+                        editItem: editItem
                     }
                 }
             };

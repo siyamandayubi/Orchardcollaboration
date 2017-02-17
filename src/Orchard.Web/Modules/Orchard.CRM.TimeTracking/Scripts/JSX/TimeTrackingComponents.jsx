@@ -10,9 +10,11 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
         showAddDialog: function () {
             this.props.root.actions.addItem();
         },
-        edit: function (item) {
 
+        edit: function (item) {
+            this.props.root.actions.editItem(item);
         },
+
         render: function () {
             var _self = this;
             var root = this.props.root;
@@ -45,11 +47,40 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
             this.props.root.actions.closeModal();
         },
 
+        getInitialState: function () {
+            return {
+                isValid: true,
+                dateValid: true,
+                dateErrorMessage: "",
+                timeSpendValid: true,
+                timeSpendErrorMessage: ""
+            }
+        },
+
+        checkValidation: function () {
+            var timeSpendExpression = /^(\d[d])?\s+(\d[h])?\s+(\d[m])?\s*$/;
+
+            var match = timeSpendExpression.exec(this.refs.timeSpend.value);
+            if (!match) {
+                this.state.isValid = false;
+                this.state.timeSpendValid = false;
+                this.state.timeSpendErrorMessage = this.props.root.T("TimespendFormatError", "The string format is not correct");
+            }
+        },
+
+
         save: function () {
+
+            this.checkValidation();
+
+            if (!this.state.isValid) {
+                return;
+            }
+
             var data = {
                 date: this.refs.date.value,
                 comment: this.refs.comment.value,
-                timeSpend: this.refs.timeSpend
+                timeSpend: this.refs.timeSpend.value
             };
 
             if (this.props.data.selectedItem) {
@@ -57,6 +88,10 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
             }
 
             this.props.root.actions.saveItem(data)
+        },
+        
+        componentDidUpdate: function () {
+            $(this.refs.trackingDate).datepicker();
         },
 
         render: function () {
@@ -72,6 +107,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                 title = selectedItem.title;
                 comment = selectedItem.comment;
                 timeSpend = selectedItem.timeSpend;
+                date = selectedItem.trackingDate;
             }
 
             return (
@@ -86,7 +122,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
 					<div>
 						<div>
 							<div className='label-row'>{root.T("Date", "Date")}</div>
-							<div><input ref="date" type='text' defaultValue={date } /></div>
+							<div><input ref="trackingDate" name="trackingDate" type='text' defaultValue={date } /></div>
 						</div>
 						<div>
 							<div className='label-row'>{root.T("Time spend", "Time spend")}</div>

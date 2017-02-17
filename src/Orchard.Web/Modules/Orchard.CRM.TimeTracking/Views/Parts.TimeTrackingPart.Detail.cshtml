@@ -6,7 +6,7 @@
 
     // route table. We must send the routes to the client, so that in the client we don't have to hard-code the routes
     dynamic routeTable = new ExpandoObject();
-    routeTable.AddLog = Url.Action("Add", "Item", new { area = "Orchard.CRM.TimeTracking" });
+    routeTable.AddLogUrl = Url.Action("Add", "Item", new { area = "Orchard.CRM.TimeTracking" });
     Model.Routes = routeTable;
 
     // Sending translate table to the client
