@@ -29,7 +29,7 @@ namespace Orchard.CRM.TimeTracking.Services
                 OriginalTimeTrackingString = model.TrackedTimeInString,
                 TimeInMinute = model.TimeInMinutes,
                 TimeTrackingPartRecord = new TimeTrackingPartRecord { Id = model.ContentItemId },
-                TrackingDate = model.TimeTrackDay,
+                TrackingDate = model.TrackingDate,
                 User = new Users.Models.UserPartRecord { Id = model.UserId }
             };
 
@@ -55,7 +55,7 @@ namespace Orchard.CRM.TimeTracking.Services
                 record.Comment = model.Comment;
                 record.TimeInMinute = model.TimeInMinutes;
                 record.OriginalTimeTrackingString = model.TrackedTimeInString;
-                record.TrackingDate = model.TimeTrackDay;
+                record.TrackingDate = model.TrackingDate;
 
                 if (record.User != null)
                 {
@@ -101,7 +101,7 @@ namespace Orchard.CRM.TimeTracking.Services
             {
                 ContentItemId = c.TimeTrackingPartRecord.ContentItemRecord.Id,
                 Comment = c.Comment,
-                TimeTrackDay = c.TrackingDate,
+                TrackingDate = c.TrackingDate,
                 UserId = c.User.Id,
                 TrackingItemId = c.Id,
                 TrackedTimeInString = c.OriginalTimeTrackingString,

@@ -23,6 +23,6 @@ namespace Orchard.CRM.TimeTracking.ViewModels
         public int TimeInMinutes { get; set; }
 
         [Required]
-        public DateTime TimeTrackDay { get; set; }
+        public DateTime TrackingDate { get; set; }
     }
 }
