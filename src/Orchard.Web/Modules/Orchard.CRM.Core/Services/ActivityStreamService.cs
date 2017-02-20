@@ -8,7 +8,7 @@ namespace Orchard.CRM.Core.Services
     using Orchard.CRM.Core.Models;
     using Orchard.CRM.Core.Providers.Filters;
     using Orchard.Data;
-    using Orchard.Localization;f
+    using Orchard.Localization;
     using Orchard.Users.Models;
     using System;
     using System.Collections;
