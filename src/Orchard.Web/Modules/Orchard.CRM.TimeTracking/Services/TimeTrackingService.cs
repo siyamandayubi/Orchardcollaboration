@@ -7,11 +7,14 @@ using Orchard.Data;
 using Orchard.Users.Models;
 using Orchard.ContentManagement;
 using Orchard.Security;
+using System.Text.RegularExpressions;
 
 namespace Orchard.CRM.TimeTracking.Services
 {
     public class TimeTrackingService : ITimeTrackingService
     {
+        public const string TimeFormat = "^(\\d[d])?(\\s+\\d[h])?(\\s+\\d[m])?\\s*$";
+
         private readonly IRepository<TimeTrackingItemRecord> timeTrackingItemRepository;
         private readonly IOrchardServices services;
 
@@ -23,6 +26,7 @@ namespace Orchard.CRM.TimeTracking.Services
 
         public void Add(TimeTrackingViewModel model)
         {
+            var matches = Regex.Matches(model.TrackedTimeInString, TimeFormat);
             TimeTrackingItemRecord record = new TimeTrackingItemRecord
             {
                 Comment = model.Comment,
