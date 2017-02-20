@@ -54,23 +54,28 @@ window.crm = window.crm || {};
             data.showModal = false;
             _reactComponent.setState(data);
 
-            var postData = {
-                ContentItemId: data.Id,
+            var toPostData = {
+                ContentItemId: data.ContentItem.Id,
                 Comment: item.comment,
+                TrackedTimeInString: item.timeSpend,
                 TrackingDate: item.trackingDate,
                 TrackingItemId: item.trackingItemId
             };
 
-            var isInAddMode = postData.TrackingItemId;
-            var url = isInAddMode? data.Routes.AddLogUrl:data.Routes.EditLogUrl;
-            
+            var isInAddMode = toPostData.TrackingItemId;
+            var url = isInAddMode ? data.Routes.EditLogUrl : data.Routes.AddLogUrl;
+
+            var helper = new crm.timeTracking.Helper();
+            var verificationToken = helper.getRequestVerificationToken();
+            $.extend(toPostData, verificationToken);
+
             data.asyncState = "loading";
             _reactComponent.setState(data);
 
             $.ajax({
                 type: "POSt",
                 url: url,
-                data: toSubmitData,
+                data: toPostData,
                 error: function (e) {
                     data.asyncState = "error";
                     _reactComponent.setState(data);

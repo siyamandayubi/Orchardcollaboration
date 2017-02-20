@@ -19,7 +19,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
             var _self = this;
             var root = this.props.root;
 
-            var items = this.props.data.Items.map(function (item) {
+            var items = this.props.data.Model.Items.map(function (item) {
                 return (<li>
                             <div>{item.FullUsername}</div>
                             <div>{item.TrackedTimeInString}</div>
@@ -58,7 +58,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
         },
 
         checkValidation: function () {
-            var timeSpendExpression = /^(\d[d])?\s+(\d[h])?\s+(\d[m])?\s*$/;
+            var timeSpendExpression = /^(\d[d])?(\s+\d[h])?(\s+\d[m])?\s*$/;
 
             var match = timeSpendExpression.exec(this.refs.timeSpend.value);
             if (!match) {
@@ -78,7 +78,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
             }
 
             var data = {
-                date: this.refs.date.value,
+                trackingDate: this.refs.trackingDate.value,
                 comment: this.refs.comment.value,
                 timeSpend: this.refs.timeSpend.value
             };
