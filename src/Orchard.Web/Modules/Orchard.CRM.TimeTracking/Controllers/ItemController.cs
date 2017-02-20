@@ -41,6 +41,7 @@ namespace Orchard.CRM.TimeTracking.Controllers
                 return this.Json(errorModel, JsonRequestBehavior.AllowGet);
             }
 
+            model.UserId = this.sercices.WorkContext.CurrentUser.Id;
             this.timeTrackingService.Add(model);
 
             AjaxMessageViewModel returnValue = new AjaxMessageViewModel { IsDone = true };
