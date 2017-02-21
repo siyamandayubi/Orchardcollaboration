@@ -29,7 +29,7 @@ namespace Orchard.CRM.TimeTracking.Controllers
         {
             var contentItem = this.sercices.ContentManager.Get(model.ContentItemId);
 
-            if (!this.contentOwnershipService.IsCurrentUserOperator() || !this.contentOwnershipService.CurrentUserCanViewContent(contentItem))
+            if (!this.contentOwnershipService.IsCurrentUserOperator() && !this.contentOwnershipService.CurrentUserCanViewContent(contentItem))
             {
                 throw new Security.OrchardSecurityException(T("You don't have permission to do this operation"));
             }
@@ -44,7 +44,7 @@ namespace Orchard.CRM.TimeTracking.Controllers
             model.UserId = this.sercices.WorkContext.CurrentUser.Id;
             this.timeTrackingService.Add(model);
 
-            AjaxMessageViewModel returnValue = new AjaxMessageViewModel { IsDone = true };
+            AjaxMessageViewModel returnValue = new AjaxMessageViewModel { Data = model, IsDone = true };
             return this.Json(returnValue, JsonRequestBehavior.AllowGet);
         }
 
@@ -53,9 +53,14 @@ namespace Orchard.CRM.TimeTracking.Controllers
         {
             var contentItem = this.sercices.ContentManager.Get(model.ContentItemId);
 
-            if (!this.contentOwnershipService.IsCurrentUserAdvanceOperator() || !this.contentOwnershipService.CurrentUserIsContentItemAssignee(contentItem))
+            if (!this.contentOwnershipService.IsCurrentUserAdvanceOperator() && !this.contentOwnershipService.CurrentUserIsContentItemAssignee(contentItem))
             {
                 throw new Security.OrchardSecurityException(T("You don't have permission to do this operation"));
+            }
+
+            if (model.UserId == default(int))
+            {
+                ModelState.AddModelError("UserId", T("UserId is not provided").Text);
             }
 
             if (!ModelState.IsValid)
@@ -67,7 +72,7 @@ namespace Orchard.CRM.TimeTracking.Controllers
 
             this.timeTrackingService.Edit(model);
 
-            AjaxMessageViewModel returnValue = new AjaxMessageViewModel { IsDone = true };
+            AjaxMessageViewModel returnValue = new AjaxMessageViewModel { Data = model, IsDone = true };
             return this.Json(returnValue, JsonRequestBehavior.AllowGet);
         }
 
