@@ -59,11 +59,12 @@ window.crm = window.crm || {};
                 Comment: item.comment,
                 TrackedTimeInString: item.timeSpend,
                 TrackingDate: item.trackingDate,
-                TrackingItemId: item.trackingItemId
+                TrackingItemId: item.trackingItemId,
+                UserId: item.userId
             };
 
-            var isInAddMode = toPostData.TrackingItemId;
-            var url = isInAddMode ? data.Routes.EditLogUrl : data.Routes.AddLogUrl;
+            var isInAddMode = toPostData.TrackingItemId ? false : true;
+            var url = isInAddMode ? data.Routes.AddLogUrl : data.Routes.EditLogUrl;
 
             var helper = new crm.timeTracking.Helper();
             var verificationToken = helper.getRequestVerificationToken();
@@ -87,13 +88,14 @@ window.crm = window.crm || {};
                     return;
                 }
 
+                var savedItem = typeof response.Data === "String" ? JSON.parse(response.Data) : response.Data;
                 if (isInAddMode) {
-                    data.Items.push(response);
+                    data.Model.Items.push(savedItem);
                 }
                 else {
-                    for (var i = 0; i < data.Items.length; i++) {
-                        if (data.Items[i].TrackingItemId == response.TrackingItemId) {
-                            data.Items[i] = response;
+                    for (var i = 0; i < data.Model.Items.length; i++) {
+                        if (data.Model.Items[i].TrackingItemId == savedItem.TrackingItemId) {
+                            data.Model.Items[i] = savedItem;
                         }
                     }
                 }

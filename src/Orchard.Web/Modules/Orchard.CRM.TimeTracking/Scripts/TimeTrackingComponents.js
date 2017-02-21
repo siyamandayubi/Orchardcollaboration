@@ -102,13 +102,29 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
         },
 
         checkValidation: function () {
-            var timeSpendExpression = /^(\d[d])?(\s+\d[h])?(\s+\d[m])?\s*$/;
+            var timeSpendExpression = /^(\d[d])?(\s*\d[h])?(\s*\d[m])?\s*$/;
 
-            var match = timeSpendExpression.exec(this.refs.timeSpend.value);
-            if (!match) {
+            this.state.isValid = true;
+            this.state.timeSpendValid = true;
+            this.state.dateValid = true;
+
+            if (!this.refs.timeSpend.value) {
                 this.state.isValid = false;
                 this.state.timeSpendValid = false;
-                this.state.timeSpendErrorMessage = this.props.root.T("TimespendFormatError", "The string format is not correct");
+                this.state.timeSpendErrorMessage = this.props.root.T("TimespendRequiredError", "Spent time is a required field");
+            } else {
+                var match = timeSpendExpression.exec(this.refs.timeSpend.value);
+                if (!match) {
+                    this.state.isValid = false;
+                    this.state.timeSpendValid = false;
+                    this.state.timeSpendErrorMessage = this.props.root.T("TimespendFormatError", "The string format is not correct");
+                }
+            }
+
+            if (!this.refs.trackingDate.value) {
+                this.state.dateErrorMessage = "Date is required";
+                this.state.isValid = false;
+                this.state.dateValid = false;
             }
         },
 
@@ -117,6 +133,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
             this.checkValidation();
 
             if (!this.state.isValid) {
+                this.setState(this.state);
                 return;
             }
 
@@ -127,7 +144,8 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
             };
 
             if (this.props.data.selectedItem) {
-                data.id = this.props.data.selectedItem.id;
+                data.trackingItemId = this.props.data.selectedItem.TrackingItemId;
+                data.userId = this.props.data.selectedItem.UserId;
             }
 
             this.props.root.actions.saveItem(data);
@@ -145,13 +163,26 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
             var title = "Log new item";
             var comment = "";
             var date = "";
+            var username = "";
             var timeSpend = "";
             if (selectedItem) {
+                userName = selectedItem.FullUsername;
                 title = selectedItem.title;
-                comment = selectedItem.comment;
-                timeSpend = selectedItem.timeSpend;
-                date = selectedItem.trackingDate;
+                comment = selectedItem.Comment;
+                timeSpend = selectedItem.TrackedTimeInString;
+                date = selectedItem.TrackingDate;
             }
+
+            var dateValidation = _self.state.dateValid ? "" : React.createElement(
+                "div",
+                { className: "error" },
+                _self.state.dateErrorMessage
+            );
+            var timeSpanValidation = _self.state.timeSpendValid ? "" : React.createElement(
+                "div",
+                { className: "error" },
+                _self.state.timeSpendErrorMessage
+            );
 
             return React.createElement(
                 ReactBootstrap.Modal,
@@ -185,7 +216,8 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                                 React.createElement(
                                     "div",
                                     null,
-                                    React.createElement("input", { ref: "trackingDate", name: "trackingDate", type: "text", defaultValue: date })
+                                    React.createElement("input", { ref: "trackingDate", name: "trackingDate", type: "text", defaultValue: date }),
+                                    dateValidation
                                 )
                             ),
                             React.createElement(
@@ -199,7 +231,8 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                                 React.createElement(
                                     "div",
                                     null,
-                                    React.createElement("input", { ref: "timeSpend", type: "text", defaultValue: timeSpend })
+                                    React.createElement("input", { ref: "timeSpend", type: "text", defaultValue: timeSpend }),
+                                    timeSpanValidation
                                 )
                             ),
                             React.createElement(
