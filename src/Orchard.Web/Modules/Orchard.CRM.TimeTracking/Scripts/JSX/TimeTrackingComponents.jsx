@@ -58,13 +58,30 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
         },
 
         checkValidation: function () {
-            var timeSpendExpression = /^(\d[d])?(\s+\d[h])?(\s+\d[m])?\s*$/;
+            var timeSpendExpression = /^(\d[d])?(\s*\d[h])?(\s*\d[m])?\s*$/;
 
-            var match = timeSpendExpression.exec(this.refs.timeSpend.value);
-            if (!match) {
+            this.state.isValid = true;
+            this.state.timeSpendValid = true;
+            this.state.dateValid = true;
+
+            if (!this.refs.timeSpend.value) {
                 this.state.isValid = false;
                 this.state.timeSpendValid = false;
-                this.state.timeSpendErrorMessage = this.props.root.T("TimespendFormatError", "The string format is not correct");
+                this.state.timeSpendErrorMessage = this.props.root.T("TimespendRequiredError", "Spent time is a required field");
+            }
+            else {
+                var match = timeSpendExpression.exec(this.refs.timeSpend.value);
+                if (!match) {
+                    this.state.isValid = false;
+                    this.state.timeSpendValid = false;
+                    this.state.timeSpendErrorMessage = this.props.root.T("TimespendFormatError", "The string format is not correct");
+                }
+            }
+
+            if (!this.refs.trackingDate.value) {
+                this.state.dateErrorMessage = "Date is required";
+                this.state.isValid = false;
+                this.state.dateValid = false;
             }
         },
 
@@ -74,17 +91,19 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
             this.checkValidation();
 
             if (!this.state.isValid) {
+                this.setState(this.state);
                 return;
             }
 
             var data = {
                 trackingDate: this.refs.trackingDate.value,
                 comment: this.refs.comment.value,
-                timeSpend: this.refs.timeSpend.value
+                timeSpend: this.refs.timeSpend.value                
             };
 
             if (this.props.data.selectedItem) {
-                data.id = this.props.data.selectedItem.id;
+                data.trackingItemId = this.props.data.selectedItem.TrackingItemId;
+                data.userId = this.props.data.selectedItem.UserId;
             }
 
             this.props.root.actions.saveItem(data)
@@ -102,13 +121,18 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
             var title = "Log new item";
             var comment = "";
             var date = "";
+            var username = "";
             var timeSpend = "";
             if (selectedItem) {
+                userName = selectedItem.FullUsername;
                 title = selectedItem.title;
-                comment = selectedItem.comment;
-                timeSpend = selectedItem.timeSpend;
-                date = selectedItem.trackingDate;
+                comment = selectedItem.Comment;
+                timeSpend = selectedItem.TrackedTimeInString;
+                date = selectedItem.TrackingDate;
             }
+
+            var dateValidation = _self.state.dateValid ? "" : (<div className='error'>{_self.state.dateErrorMessage}</div>);
+            var timeSpanValidation = _self.state.timeSpendValid ? "" : (<div className='error'>{_self.state.timeSpendErrorMessage}</div>);
 
             return (
         <ReactBootstrap.Modal className="edit-logwork-modal" show={_self.props.data.showModal} onHide={_self.closeSyncModel }>
@@ -122,11 +146,11 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
 					<div>
 						<div>
 							<div className='label-row'>{root.T("Date", "Date")}</div>
-							<div><input ref="trackingDate" name="trackingDate" type='text' defaultValue={date } /></div>
+							<div><input ref="trackingDate" name="trackingDate" type='text' defaultValue={date } />{dateValidation}</div>
 						</div>
 						<div>
 							<div className='label-row'>{root.T("Time spend", "Time spend")}</div>
-							<div><input ref="timeSpend" type='text' defaultValue={timeSpend } /></div>
+							<div><input ref="timeSpend" type='text' defaultValue={timeSpend } />{timeSpanValidation}</div>
 						</div>
 						<div>
 							<div className='label-row'>{root.T("Comment", "Comment")}</div>

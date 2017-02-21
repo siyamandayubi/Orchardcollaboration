@@ -13,7 +13,7 @@ namespace Orchard.CRM.TimeTracking.Services
 {
     public class TimeTrackingService : ITimeTrackingService
     {
-        public const string TimeFormat = "^(\\d[d])?(\\s+\\d[h])?(\\s+\\d[m])?\\s*$";
+        public const string TimeFormat = "^(\\d[d])?(\\s*\\d[h])?(\\s*\\d[m])?\\s*$";
 
         private readonly IRepository<TimeTrackingItemRecord> timeTrackingItemRepository;
         private readonly IOrchardServices services;
@@ -27,6 +27,13 @@ namespace Orchard.CRM.TimeTracking.Services
         public void Add(TimeTrackingViewModel model)
         {
             var matches = Regex.Matches(model.TrackedTimeInString, TimeFormat);
+
+            model.TimeInMinutes = 0;
+            if (matches.Count > 0)
+            {
+                model.TimeInMinutes = ConvertTimeSpanStringToMinutes(model.TrackedTimeInString);
+            }
+
             TimeTrackingItemRecord record = new TimeTrackingItemRecord
             {
                 Comment = model.Comment,
@@ -39,6 +46,7 @@ namespace Orchard.CRM.TimeTracking.Services
 
             this.timeTrackingItemRepository.Create(record);
             this.timeTrackingItemRepository.Flush();
+            model.TrackingItemId = record.Id;
         }
 
         public void Delete(int id)
@@ -56,6 +64,14 @@ namespace Orchard.CRM.TimeTracking.Services
             var record = this.timeTrackingItemRepository.Table.FirstOrDefault(c => c.Id == model.TrackingItemId);
             if (record != null)
             {
+                var matches = Regex.Matches(model.TrackedTimeInString, TimeFormat);
+
+                model.TimeInMinutes = 0;
+                if (matches.Count > 0)
+                {
+                    model.TimeInMinutes = ConvertTimeSpanStringToMinutes(model.TrackedTimeInString);
+                }
+
                 record.Comment = model.Comment;
                 record.TimeInMinute = model.TimeInMinutes;
                 record.OriginalTimeTrackingString = model.TrackedTimeInString;
@@ -111,6 +127,37 @@ namespace Orchard.CRM.TimeTracking.Services
                 TrackedTimeInString = c.OriginalTimeTrackingString,
                 TimeInMinutes = c.TimeInMinute
             };
+        }
+
+        private int ConvertTimeSpanStringToMinutes(string timeSpan)
+        {
+            var days = Regex.Match(timeSpan, "(\\d[d])");
+            var hours = Regex.Match(timeSpan, "(\\d[h])");
+            var minutes = Regex.Match(timeSpan, "(\\d[m])");
+
+            int total = 0;
+            if (days.Success)
+            {
+                string daysInStr = timeSpan.Substring(days.Index, days.Length);
+                daysInStr = daysInStr.Substring(0, daysInStr.Length - 1);
+                total += int.Parse(daysInStr) * 24 * 60;
+            }
+
+            if (hours.Success)
+            {
+                string hoursInStr = timeSpan.Substring(hours.Index, hours.Length);
+                hoursInStr = hoursInStr.Substring(0, hoursInStr.Length - 1);
+                total += int.Parse(hoursInStr) * 60;
+            }
+
+            if (minutes.Success)
+            {
+                string minutesInStr = timeSpan.Substring(minutes.Index, minutes.Length);
+                minutesInStr = minutesInStr.Substring(0, minutesInStr.Length - 1);
+                total += int.Parse(minutesInStr);
+            }
+
+            return total;
         }
     }
 }
