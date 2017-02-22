@@ -23,5 +23,7 @@ namespace Orchard.CRM.TimeTracking.ViewModels {
 
         [Required]
         public DateTime TrackingDate { get; set; }
+
+        public bool UserCanEdit { get; set; }
     }
 }

@@ -53,7 +53,13 @@ namespace Orchard.CRM.TimeTracking.Controllers
         {
             var contentItem = this.sercices.ContentManager.Get(model.ContentItemId);
 
-            if (!this.contentOwnershipService.IsCurrentUserAdvanceOperator() && !this.contentOwnershipService.CurrentUserIsContentItemAssignee(contentItem))
+            var currentUser = this.sercices.WorkContext.CurrentUser;
+            if (currentUser == null)
+            {
+                throw new Security.OrchardSecurityException(T("You don't have permission to do this operation"));
+            }
+
+            if (!this.contentOwnershipService.IsCurrentUserAdvanceOperator() && currentUser.Id != model.UserId)
             {
                 throw new Security.OrchardSecurityException(T("You don't have permission to do this operation"));
             }

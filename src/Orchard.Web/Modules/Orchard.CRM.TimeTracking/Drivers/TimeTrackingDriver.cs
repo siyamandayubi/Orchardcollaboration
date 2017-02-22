@@ -36,8 +36,11 @@ namespace Orchard.CRM.TimeTracking.Drivers
 
             var timeTrackingItems = this.timeTrackingService.GetTimeTrackingItems(part.Id);
             dynamic model = new ExpandoObject();
-            model.Items = this.timeTrackingService.GetTimeTrackingItems(part.Id);
+            var items = this.timeTrackingService.GetTimeTrackingItems(part.Id);
+            int currentUserId = this.services.WorkContext.CurrentUser.Id;
+            items.ToList().ForEach(c => c.UserCanEdit = this.contentOwnershipService.IsCurrentUserAdvanceOperator() || c.UserId == currentUserId);
             model.Part = part;
+            model.Items = items;
 
             List<ContentShapeResult> returnValue = new List<ContentShapeResult>();
 
