@@ -1,4 +1,3 @@
-﻿
 window.orchardcollaboration = window.orchardcollaboration || {};
 var orchardcollaboration = window.orchardcollaboration;
 orchardcollaboration.react = orchardcollaboration.react || {};
@@ -52,6 +51,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                             <div><button onClick={_self.deleteItem.bind(null, item) }>{root.T("Delete", "Delete")}</button></div>
                         </div>
                     ) : "";
+
                 var key = 'item' + item.TrackingItemId;
                 return (<li key={key}>
                             <div>{item.FullUsername}</div>
