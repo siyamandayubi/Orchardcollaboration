@@ -52,7 +52,8 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                             <div><button onClick={_self.deleteItem.bind(null, item) }>{root.T("Delete", "Delete")}</button></div>
                         </div>
                     ) : "";
-                return (<li>
+                var key = 'item' + item.TrackingItemId;
+                return (<li key={key}>
                             <div>{item.FullUsername}</div>
                             <div>{item.TrackedTimeInString}</div>
                             <div>{item.Comment}</div>
@@ -106,7 +107,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
         },
 
         checkValidation: function () {
-            var timeSpendExpression = /^(\d[d])?(\s*\d[h])?(\s*\d[m])?\s*$/;
+            var timeSpendExpression = /^(\d+[d])?(\s*\d+[h])?(\s*\d+[m])?\s*$/;
 
             this.state.isValid = true;
             this.state.timeSpendValid = true;
@@ -158,7 +159,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
         },
 
         componentDidUpdate: function () {
-            $(this.refs.trackingDate).datepicker();
+            $(this.refs.trackingDate).datepicker({ dateFormat: 'yy-mm-dd' });
         },
 
         render: function () {
@@ -168,7 +169,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
 
             var title = "Log new item";
             var comment = "";
-            var date = "";
+            var date = new Date();
             var username = "";
             var timeSpend = "";
             if (selectedItem) {
@@ -176,8 +177,10 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                 title = selectedItem.title;
                 comment = selectedItem.Comment;
                 timeSpend = selectedItem.TrackedTimeInString;
-                date = selectedItem.TrackingDate;
+                date = new Date(selectedItem.TrackingDate);
             }
+
+            var dateStr = date.getFullYear() + '-' + (date.getMonth() + 1).toString() + '-' + date.getDate();
 
             var dateValidation = _self.state.dateValid ? "" : (<div className='error'>{_self.state.dateErrorMessage}</div>);
             var timeSpanValidation = _self.state.timeSpendValid ? "" : (<div className='error'>{_self.state.timeSpendErrorMessage}</div>);
@@ -194,7 +197,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
 					<div>
 						<div>
 							<div className='label-row'>{root.T("Date", "Date")}</div>
-							<div><input ref="trackingDate" name="trackingDate" type='text' defaultValue={date } />{dateValidation}</div>
+							<div><input ref="trackingDate" name="trackingDate" type='text' defaultValue={dateStr} />{dateValidation}</div>
 						</div>
 						<div>
 							<div className='label-row'>{root.T("Time spend", "Time spend")}</div>
@@ -202,7 +205,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
 						</div>
 						<div>
 							<div className='label-row'>{root.T("Comment", "Comment")}</div>
-							<div><textarea ref="comment">{comment}</textarea></div>
+							<div><textarea ref="comment" defaultValue={comment}></textarea></div>
 						</div>
 					</div>
 					</div>

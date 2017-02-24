@@ -88,7 +88,7 @@ window.crm = window.crm || {};
                     return;
                 }
 
-                var savedItem = typeof response.Data === "String" ? JSON.parse(response.Data) : response.Data;
+                var savedItem = typeof response.Data === "string" ? JSON.parse(response.Data) : response.Data;
                 if (isInAddMode) {
                     data.Model.Items.push(savedItem);
                 }
@@ -109,8 +109,8 @@ window.crm = window.crm || {};
             _reactComponent.setState(data);
             var url = data.Routes.DeleteLogUrl;
 
-            var postData = {
-                timeTrackId: item.trackingItemId,
+            var toPostData = {
+                timeTrackId: item.TrackingItemId,
                 contentItemId: data.ContentItem.Id
             };
 
@@ -137,7 +137,7 @@ window.crm = window.crm || {};
                 }
 
                 for (var i = 0; i < data.Model.Items.length; i++) {
-                    if (data.Model.Items[i].TrackingItemId == savedItem.TrackingItemId) {
+                    if (data.Model.Items[i].TrackingItemId == item.TrackingItemId) {
                         data.Model.Items.splice(i, 1);
                         break;
                     }
