@@ -15,16 +15,48 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
             this.props.root.actions.editItem(item);
         },
 
+        getInitialState: function () {
+            return {
+                showDeleteConfirm: false,
+                selectedItem: null
+            }
+        },
+
+        deleteItem: function (item) {
+            this.state.selectedItem = item;
+            this.state.showDeleteConfirm = true;
+            this.setState(this.state);
+        },
+
+        yesDelete: function () {
+            this.state.showDeleteConfirm = false;
+            this.props.root.actions.deleteItem(this.state.selectedItem);
+            this.setState(this.state);
+        },
+
+        noDelete: function () {
+            this.state.showDeleteConfirm = false;
+            this.setState(this.state);
+        },
+
         render: function () {
             var _self = this;
             var root = this.props.root;
 
             var items = this.props.data.Model.Items.map(function (item) {
+
+                var buttons = item.UserCanEdit ?
+                    (
+                        <div>
+                            <div><button onClick={_self.edit.bind(null, item) }>{root.T("Edit", "Edit")}</button></div>
+                            <div><button onClick={_self.deleteItem.bind(null, item) }>{root.T("Delete", "Delete")}</button></div>
+                        </div>
+                    ) : "";
                 return (<li>
                             <div>{item.FullUsername}</div>
                             <div>{item.TrackedTimeInString}</div>
                             <div>{item.Comment}</div>
-                            <div><button onClick={_self.edit.bind(null, item)}>{root.T("Edit", "Edit")}</button></div>
+                    {buttons}
                 </li>);
             });
 
@@ -35,6 +67,22 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                             <ul>
                                 {items}
                             </ul>
+                            <ReactBootstrap.Modal className="confirm-modal" show={_self.state.showDeleteConfirm}>
+				                <ReactBootstrap.Modal.Header closeButton>
+					                <ReactBootstrap.Modal.Title>
+					                    {root.T("Confirm", "Confirm")}
+					                </ReactBootstrap.Modal.Title>
+				                </ReactBootstrap.Modal.Header>
+				                <ReactBootstrap.Modal.Body>
+            					    <div>
+            					        {root.T("DeleteItemConfirmMessage", "Are you sure you want to delete the selected item?")}
+            					    </div>
+				                </ReactBootstrap.Modal.Body>
+			    	            <ReactBootstrap.Modal.Footer>
+				    	            <ReactBootstrap.Button onClick={_self.yesDelete }>{root.T("Yes", "Yes")}</ReactBootstrap.Button>
+					                <ReactBootstrap.Button onClick={_self.noDelete }>{root.T("No", "No")}</ReactBootstrap.Button>
+			    	            </ReactBootstrap.Modal.Footer>
+                            </ReactBootstrap.Modal>
                         </div>
             </div>);
         }
@@ -98,7 +146,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
             var data = {
                 trackingDate: this.refs.trackingDate.value,
                 comment: this.refs.comment.value,
-                timeSpend: this.refs.timeSpend.value                
+                timeSpend: this.refs.timeSpend.value
             };
 
             if (this.props.data.selectedItem) {
@@ -108,7 +156,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
 
             this.props.root.actions.saveItem(data)
         },
-        
+
         componentDidUpdate: function () {
             $(this.refs.trackingDate).datepicker();
         },

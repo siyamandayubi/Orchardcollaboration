@@ -8,6 +8,7 @@
     dynamic routeTable = new ExpandoObject();
     routeTable.AddLogUrl = Url.Action("Add", "Item", new { area = "Orchard.CRM.TimeTracking" });
     routeTable.EditLogUrl = Url.Action("Edit", "Item", new { area = "Orchard.CRM.TimeTracking" });
+    routeTable.DeleteLogUrl = Url.Action("Delete", "Item", new { area = "Orchard.CRM.TimeTracking" });
     Model.Routes = routeTable;
 
     // Sending translate table to the client
