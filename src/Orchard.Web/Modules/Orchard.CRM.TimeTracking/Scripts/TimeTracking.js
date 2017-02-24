@@ -105,6 +105,49 @@ window.crm = window.crm || {};
             });
         };
 
+        var deleteItem = function (item) {
+            _reactComponent.setState(data);
+            var url = data.Routes.DeleteLogUrl;
+
+            var postData = {
+                timeTrackId: item.trackingItemId,
+                contentItemId: data.ContentItem.Id
+            };
+
+            var helper = new crm.timeTracking.Helper();
+            var verificationToken = helper.getRequestVerificationToken();
+            $.extend(toPostData, verificationToken);
+
+            data.asyncState = "loading";
+            _reactComponent.setState(data);
+
+            $.ajax({
+                type: "POSt",
+                url: url,
+                data: toPostData,
+                error: function (e) {
+                    data.asyncState = "error";
+                    _reactComponent.setState(data);
+                }
+            }).done(function (response) {
+                if (response.Errors.length > 0) {
+                    data.asyncState = "error";
+                    _reactComponent.setState(data);
+                    return;
+                }
+
+                for (var i = 0; i < data.Model.Items.length; i++) {
+                    if (data.Model.Items[i].TrackingItemId == savedItem.TrackingItemId) {
+                        data.Model.Items.splice(i, 1);
+                        break;
+                    }
+                }
+
+                data.asyncState = "normal";
+                _reactComponent.setState(data);
+            });
+        };
+
         var addItem = function () {
             data.selectedItem = { title: T("Work Log", "Work Log") };
             data.showModal = true;
@@ -129,7 +172,8 @@ window.crm = window.crm || {};
                         closeModal: closeModal,
                         saveItem: saveItem,
                         addItem: addItem,
-                        editItem: editItem
+                        editItem: editItem,
+                        deleteItem: deleteItem
                     }
                 }
             };

@@ -17,11 +17,58 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
             this.props.root.actions.editItem(item);
         },
 
+        getInitialState: function () {
+            return {
+                showDeleteConfirm: false,
+                selectedItem: null
+            };
+        },
+
+        deleteItem: function (item) {
+            this.state.selectedItem = item;
+            this.state.showDeleteConfirm = true;
+            this.setState(this.state);
+        },
+
+        yesDelete: function () {
+            this.state.showDeleteConfirm = false;
+            this.props.root.actions.deleteItem(this.state.selectedItem);
+            this.setState(this.state);
+        },
+
+        noDelete: function () {
+            this.state.showDeleteConfirm = false;
+            this.setState(this.state);
+        },
+
         render: function () {
             var _self = this;
             var root = this.props.root;
 
             var items = this.props.data.Model.Items.map(function (item) {
+
+                var buttons = item.UserCanEdit ? React.createElement(
+                    "div",
+                    null,
+                    React.createElement(
+                        "div",
+                        null,
+                        React.createElement(
+                            "button",
+                            { onClick: _self.edit.bind(null, item) },
+                            root.T("Edit", "Edit")
+                        )
+                    ),
+                    React.createElement(
+                        "div",
+                        null,
+                        React.createElement(
+                            "button",
+                            { onClick: _self.deleteItem.bind(null, item) },
+                            root.T("Delete", "Delete")
+                        )
+                    )
+                ) : "";
                 return React.createElement(
                     "li",
                     null,
@@ -40,15 +87,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                         null,
                         item.Comment
                     ),
-                    React.createElement(
-                        "div",
-                        null,
-                        React.createElement(
-                            "button",
-                            { onClick: _self.edit.bind(null, item) },
-                            root.T("Edit", "Edit")
-                        )
-                    )
+                    buttons
                 );
             });
 
@@ -76,6 +115,42 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                         "ul",
                         null,
                         items
+                    ),
+                    React.createElement(
+                        ReactBootstrap.Modal,
+                        { className: "confirm-modal", show: _self.state.showDeleteConfirm },
+                        React.createElement(
+                            ReactBootstrap.Modal.Header,
+                            { closeButton: true },
+                            React.createElement(
+                                ReactBootstrap.Modal.Title,
+                                null,
+                                root.T("Confirm", "Confirm")
+                            )
+                        ),
+                        React.createElement(
+                            ReactBootstrap.Modal.Body,
+                            null,
+                            React.createElement(
+                                "div",
+                                null,
+                                root.T("DeleteItemConfirmMessage", "Are you sure you want to delete the selected item?")
+                            )
+                        ),
+                        React.createElement(
+                            ReactBootstrap.Modal.Footer,
+                            null,
+                            React.createElement(
+                                ReactBootstrap.Button,
+                                { onClick: _self.yesDelete },
+                                root.T("Yes", "Yes")
+                            ),
+                            React.createElement(
+                                ReactBootstrap.Button,
+                                { onClick: _self.noDelete },
+                                root.T("No", "No")
+                            )
+                        )
                     )
                 )
             );
