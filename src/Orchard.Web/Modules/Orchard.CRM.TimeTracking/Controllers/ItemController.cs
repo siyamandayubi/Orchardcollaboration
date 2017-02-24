@@ -8,6 +8,8 @@ namespace Orchard.CRM.TimeTracking.Controllers
     using System.Web.Mvc;
     using System.Linq;
     using ViewModels;
+    using Newtonsoft.Json;
+
     public class ItemController : Controller
     {
         private readonly ITimeTrackingService timeTrackingService;
@@ -44,7 +46,9 @@ namespace Orchard.CRM.TimeTracking.Controllers
             model.UserId = this.sercices.WorkContext.CurrentUser.Id;
             this.timeTrackingService.Add(model);
 
-            AjaxMessageViewModel returnValue = new AjaxMessageViewModel { Data = model, IsDone = true };
+            model.UserCanEdit = true;
+
+            AjaxMessageViewModel returnValue = new AjaxMessageViewModel { Data = JsonConvert.SerializeObject(model), IsDone = true };
             return this.Json(returnValue, JsonRequestBehavior.AllowGet);
         }
 
@@ -76,9 +80,11 @@ namespace Orchard.CRM.TimeTracking.Controllers
                 return this.Json(errorModel, JsonRequestBehavior.AllowGet);
             }
 
+            model.UserCanEdit = this.contentOwnershipService.IsCurrentUserAdvanceOperator() || model.UserId == currentUser.Id;
+
             this.timeTrackingService.Edit(model);
 
-            AjaxMessageViewModel returnValue = new AjaxMessageViewModel { Data = model, IsDone = true };
+            AjaxMessageViewModel returnValue = new AjaxMessageViewModel { Data = JsonConvert.SerializeObject(model), IsDone = true };
             return this.Json(returnValue, JsonRequestBehavior.AllowGet);
         }
 
@@ -87,7 +93,20 @@ namespace Orchard.CRM.TimeTracking.Controllers
         {
             var contentItem = this.sercices.ContentManager.Get(contentItemId);
 
-            if (!this.contentOwnershipService.IsCurrentUserAdvanceOperator() || !this.contentOwnershipService.CurrentUserIsContentItemAssignee(contentItem))
+            var currentUser = this.sercices.WorkContext.CurrentUser;
+            if (currentUser == null)
+            {
+                throw new Security.OrchardSecurityException(T("You don't have permission to do this operation"));
+            }
+
+            var timeTrackingItem = this.timeTrackingService.GetTimeTrackingItem(timeTrackId);
+
+            if(timeTrackingItem == null)
+            {
+                throw new System.Data.RowNotInTableException();
+            }
+
+            if (!this.contentOwnershipService.IsCurrentUserAdvanceOperator() && currentUser.Id != timeTrackingItem.UserId)
             {
                 throw new Security.OrchardSecurityException(T("You don't have permission to do this operation"));
             }
