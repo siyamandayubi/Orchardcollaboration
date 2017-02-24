@@ -1,8 +1,12 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Orchard.CRM.TimeTracking.ViewModels {
-    public class TimeTrackingViewModel {
+namespace Orchard.CRM.TimeTracking.ViewModels
+{
+    public class TimeTrackingViewModel
+    {
+        public const string TimeTrackingRegularExpressionPattern = "^(\\d+[d])?(\\s+\\d+[h])?(\\s+\\d+[m])?\\s*$";
+
         [Required]
         public int ContentItemId { get; set; }
 
@@ -16,7 +20,7 @@ namespace Orchard.CRM.TimeTracking.ViewModels {
         public string FullUsername { get; set; }
 
         [Required]
-        [RegularExpression(pattern: "^(\\d[d])?(\\s+\\d[h])?(\\s+\\d[m])?\\s*$")]
+        [RegularExpression(pattern: TimeTrackingRegularExpressionPattern)]
         public string TrackedTimeInString { get; set; }
 
         public int TimeInMinutes { get; set; }
