@@ -13,7 +13,6 @@ namespace Orchard.CRM.TimeTracking.Services
 {
     public class TimeTrackingService : ITimeTrackingService
     {
-        public const string TimeFormat = "^(\\d[d])?(\\s*\\d[h])?(\\s*\\d[m])?\\s*$";
 
         private readonly IRepository<TimeTrackingItemRecord> timeTrackingItemRepository;
         private readonly IOrchardServices services;
@@ -26,7 +25,7 @@ namespace Orchard.CRM.TimeTracking.Services
 
         public void Add(TimeTrackingViewModel model)
         {
-            var matches = Regex.Matches(model.TrackedTimeInString, TimeFormat);
+            var matches = Regex.Matches(model.TrackedTimeInString, TimeTrackingViewModel.TimeTrackingRegularExpressionPattern);
 
             model.TimeInMinutes = 0;
             if (matches.Count > 0)
@@ -64,7 +63,7 @@ namespace Orchard.CRM.TimeTracking.Services
             var record = this.timeTrackingItemRepository.Table.FirstOrDefault(c => c.Id == model.TrackingItemId);
             if (record != null)
             {
-                var matches = Regex.Matches(model.TrackedTimeInString, TimeFormat);
+                var matches = Regex.Matches(model.TrackedTimeInString, TimeTrackingViewModel.TimeTrackingRegularExpressionPattern);
 
                 model.TimeInMinutes = 0;
                 if (matches.Count > 0)
@@ -131,9 +130,9 @@ namespace Orchard.CRM.TimeTracking.Services
 
         private int ConvertTimeSpanStringToMinutes(string timeSpan)
         {
-            var days = Regex.Match(timeSpan, "(\\d[d])");
-            var hours = Regex.Match(timeSpan, "(\\d[h])");
-            var minutes = Regex.Match(timeSpan, "(\\d[m])");
+            var days = Regex.Match(timeSpan, "(\\d+[d])");
+            var hours = Regex.Match(timeSpan, "(\\d+[h])");
+            var minutes = Regex.Match(timeSpan, "(\\d+[m])");
 
             int total = 0;
             if (days.Success)
