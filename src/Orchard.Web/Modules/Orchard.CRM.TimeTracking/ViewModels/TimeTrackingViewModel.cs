@@ -5,7 +5,7 @@ namespace Orchard.CRM.TimeTracking.ViewModels
 {
     public class TimeTrackingViewModel
     {
-        public const string TimeTrackingRegularExpressionPattern = "^(\\d+[d])?(\\s+\\d+[h])?(\\s+\\d+[m])?\\s*$";
+        public const string TimeTrackingRegularExpressionPattern = "^(\\d+[d])?(\\s*\\d+[h])?(\\s*\\d+[m])?\\s*$";
 
         [Required]
         public int ContentItemId { get; set; }

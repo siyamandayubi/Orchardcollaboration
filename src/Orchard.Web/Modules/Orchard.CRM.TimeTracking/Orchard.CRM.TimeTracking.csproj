@@ -102,6 +102,7 @@
     <Compile Include="ContentTypes.cs" />
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Drivers\TimeTrackingDriver.cs" />
+    <Compile Include="Drivers\TimeTrackingItemDriver.cs" />
     <Compile Include="Handlers\TimeTrackingHandler.cs" />
     <Compile Include="Handlers\TimeTrackingItemHandler.cs" />
     <Compile Include="Migrations.cs" />

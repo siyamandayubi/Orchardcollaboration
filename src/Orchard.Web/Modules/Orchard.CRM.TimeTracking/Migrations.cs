@@ -13,12 +13,12 @@ namespace Orchard.CRM.TimeTracking
         public int Create()
         {
             SchemaBuilder.CreateTable("TimeTrackingItemRecord", table => table.ContentPartRecord()
-                .Column<int>("User_Id", c => c.NotNull())
-                .Column<int>("TimeTrackingPartRecord_Id", c => c.NotNull())
-                .Column<string>("OriginalTimeTrackingString", c => c.NotNull().WithLength(100))
-                .Column<int>("TimeInMinute", c => c.NotNull())
-                .Column<string>("Comment", c => c.NotNull().WithLength(500))
-                .Column<DateTime>("TrackingDate", c => c.NotNull())
+                .Column<int>("User_Id", c => c.Nullable())
+                .Column<int>("TimeTrackingPartRecord_Id", c => c.Nullable())
+                .Column<string>("OriginalTimeTrackingString", c => c.Nullable().WithLength(100))
+                .Column<int>("TimeInMinute", c => c.Nullable())
+                .Column<string>("Comment", c => c.Nullable().WithLength(500))
+                .Column<DateTime>("TrackingDate", c => c.Nullable())
                 );
 
             // Create TimeTrackingPartRecord table
@@ -32,13 +32,13 @@ namespace Orchard.CRM.TimeTracking
             // Add TimeTracking to ticket
             ContentDefinitionManager.AlterTypeDefinition("Ticket", cfg => cfg.WithPart("TimeTrackingPart"));
 
-
             ContentDefinitionManager.AlterTypeDefinition(ContentTypes.TimeTrackingItemType,
                 cfg => cfg
                     .WithPart("TimeTrackingItemPart")
                     .WithPart("CommonPart")
                     .WithPart("IdentityPart")
-                );
+                    .DisplayedAs("Time Tracking Item")
+                    .Creatable(false));
 
             return 1;
         }

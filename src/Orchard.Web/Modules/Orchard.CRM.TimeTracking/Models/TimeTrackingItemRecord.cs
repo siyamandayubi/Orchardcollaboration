@@ -11,6 +11,6 @@ namespace Orchard.CRM.TimeTracking.Models
         public virtual int TimeInMinute { get; set; }
         public virtual string OriginalTimeTrackingString { get; set; }
         public virtual string Comment { get; set; }
-        public virtual DateTime TrackingDate { get; set; }
+        public virtual DateTime? TrackingDate { get; set; }
     }
 }

@@ -51,7 +51,12 @@ namespace Orchard.CRM.TimeTracking.Services
             var contentItem = this.services.ContentManager.Get(id);
             if (contentItem != null)
             {
+                var part = contentItem.As<TimeTrackingItemPart>();
                 this.services.ContentManager.Remove(contentItem);
+
+                // remove the record physically too
+                this.timeTrackingItemRepository.Delete(part.Record);
+                this.timeTrackingItemRepository.Flush();
             }
         }
 
@@ -122,7 +127,7 @@ namespace Orchard.CRM.TimeTracking.Services
             {
                 ContentItemId = c.TimeTrackingPartRecord.ContentItemRecord.Id,
                 Comment = c.Comment,
-                TrackingDate = c.TrackingDate,
+                TrackingDate = c.TrackingDate.Value,
                 UserId = c.User.Id,
                 TrackingItemId = c.Id,
                 TrackedTimeInString = c.OriginalTimeTrackingString,
