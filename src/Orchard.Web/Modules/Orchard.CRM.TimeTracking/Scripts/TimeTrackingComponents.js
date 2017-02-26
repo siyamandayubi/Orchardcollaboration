@@ -69,9 +69,10 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                         )
                     )
                 ) : "";
+                var key = 'item' + item.TrackingItemId;
                 return React.createElement(
                     "li",
-                    null,
+                    { key: key },
                     React.createElement(
                         "div",
                         null,
@@ -177,7 +178,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
         },
 
         checkValidation: function () {
-            var timeSpendExpression = /^(\d[d])?(\s*\d[h])?(\s*\d[m])?\s*$/;
+            var timeSpendExpression = /^(\d+[d])?(\s*\d+[h])?(\s*\d+[m])?\s*$/;
 
             this.state.isValid = true;
             this.state.timeSpendValid = true;
@@ -227,7 +228,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
         },
 
         componentDidUpdate: function () {
-            $(this.refs.trackingDate).datepicker();
+            $(this.refs.trackingDate).datepicker({ dateFormat: 'yy-mm-dd' });
         },
 
         render: function () {
@@ -237,7 +238,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
 
             var title = "Log new item";
             var comment = "";
-            var date = "";
+            var date = new Date();
             var username = "";
             var timeSpend = "";
             if (selectedItem) {
@@ -245,8 +246,10 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                 title = selectedItem.title;
                 comment = selectedItem.Comment;
                 timeSpend = selectedItem.TrackedTimeInString;
-                date = selectedItem.TrackingDate;
+                date = new Date(selectedItem.TrackingDate);
             }
+
+            var dateStr = date.getFullYear() + '-' + (date.getMonth() + 1).toString() + '-' + date.getDate();
 
             var dateValidation = _self.state.dateValid ? "" : React.createElement(
                 "div",
@@ -291,7 +294,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                                 React.createElement(
                                     "div",
                                     null,
-                                    React.createElement("input", { ref: "trackingDate", name: "trackingDate", type: "text", defaultValue: date }),
+                                    React.createElement("input", { ref: "trackingDate", name: "trackingDate", type: "text", defaultValue: dateStr }),
                                     dateValidation
                                 )
                             ),
@@ -321,11 +324,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                                 React.createElement(
                                     "div",
                                     null,
-                                    React.createElement(
-                                        "textarea",
-                                        { ref: "comment" },
-                                        comment
-                                    )
+                                    React.createElement("textarea", { ref: "comment", defaultValue: comment })
                                 )
                             )
                         )
