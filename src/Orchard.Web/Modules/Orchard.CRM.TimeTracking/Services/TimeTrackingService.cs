@@ -32,37 +32,40 @@ namespace Orchard.CRM.TimeTracking.Services
             {
                 model.TimeInMinutes = ConvertTimeSpanStringToMinutes(model.TrackedTimeInString);
             }
+            var contentItem = this.services.ContentManager.Create(ContentTypes.TimeTrackingItemType);
+            var part = contentItem.As<TimeTrackingItemPart>();
+            var record = part.Record;
+            record.Comment = model.Comment;
+            record.OriginalTimeTrackingString = model.TrackedTimeInString;
+            record.TimeInMinute = model.TimeInMinutes;
+            record.TimeTrackingPartRecord = new TimeTrackingPartRecord { Id = model.ContentItemId };
+            record.TrackingDate = model.TrackingDate;
+            record.User = new Users.Models.UserPartRecord { Id = model.UserId };
 
-            TimeTrackingItemRecord record = new TimeTrackingItemRecord
-            {
-                Comment = model.Comment,
-                OriginalTimeTrackingString = model.TrackedTimeInString,
-                TimeInMinute = model.TimeInMinutes,
-                TimeTrackingPartRecord = new TimeTrackingPartRecord { Id = model.ContentItemId },
-                TrackingDate = model.TrackingDate,
-                User = new Users.Models.UserPartRecord { Id = model.UserId }
-            };
-
-            this.timeTrackingItemRepository.Create(record);
-            this.timeTrackingItemRepository.Flush();
+            this.services.ContentManager.Publish(contentItem);
             model.TrackingItemId = record.Id;
         }
 
         public void Delete(int id)
         {
-            var record = this.timeTrackingItemRepository.Table.FirstOrDefault(c => c.Id == id);
-            if (record != null)
+            var contentItem = this.services.ContentManager.Get(id);
+            if (contentItem != null)
             {
-                this.timeTrackingItemRepository.Delete(record);
+                this.services.ContentManager.Remove(contentItem);
             }
-            this.timeTrackingItemRepository.Flush();
         }
 
         public void Edit(TimeTrackingViewModel model)
         {
-            var record = this.timeTrackingItemRepository.Table.FirstOrDefault(c => c.Id == model.TrackingItemId);
-            if (record != null)
+            var contentItem = this.services.ContentManager.Get(model.TrackingItemId.Value);
+
+            if (contentItem == null)
             {
+                throw new System.Data.RowNotInTableException();
+            }
+
+            var part = contentItem.As<TimeTrackingItemPart>();
+            var record = part.Record;
                 var matches = Regex.Matches(model.TrackedTimeInString, TimeTrackingViewModel.TimeTrackingRegularExpressionPattern);
 
                 model.TimeInMinutes = 0;
@@ -84,8 +87,7 @@ namespace Orchard.CRM.TimeTracking.Services
                 {
                     record.User = new Users.Models.UserPartRecord { Id = model.UserId };
                 }
-            }
-            this.timeTrackingItemRepository.Flush();
+            this.services.ContentManager.Publish(contentItem);
         }
 
         public TimeTrackingViewModel GetTimeTrackingItem(int id)

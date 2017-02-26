@@ -12,8 +12,7 @@ namespace Orchard.CRM.TimeTracking
     {
         public int Create()
         {
-            SchemaBuilder.CreateTable("TimeTrackingItemRecord", table => table
-                .Column<int>("Id", c => c.Identity().PrimaryKey())
+            SchemaBuilder.CreateTable("TimeTrackingItemRecord", table => table.ContentPartRecord()
                 .Column<int>("User_Id", c => c.NotNull())
                 .Column<int>("TimeTrackingPartRecord_Id", c => c.NotNull())
                 .Column<string>("OriginalTimeTrackingString", c => c.NotNull().WithLength(100))
@@ -26,11 +25,20 @@ namespace Orchard.CRM.TimeTracking
             SchemaBuilder.CreateTable("TimeTrackingPartRecord", table => table
                 .ContentPartRecord());
 
-            // TimeTrackingPart
+            // Parts
+            ContentDefinitionManager.AlterPartDefinition("TimeTrackingItemPart", c => c.Attachable());
             ContentDefinitionManager.AlterPartDefinition("TimeTrackingPart", c => c.Attachable());
 
             // Add TimeTracking to ticket
             ContentDefinitionManager.AlterTypeDefinition("Ticket", cfg => cfg.WithPart("TimeTrackingPart"));
+
+
+            ContentDefinitionManager.AlterTypeDefinition(ContentTypes.TimeTrackingItemType,
+                cfg => cfg
+                    .WithPart("TimeTrackingItemPart")
+                    .WithPart("CommonPart")
+                    .WithPart("IdentityPart")
+                );
 
             return 1;
         }

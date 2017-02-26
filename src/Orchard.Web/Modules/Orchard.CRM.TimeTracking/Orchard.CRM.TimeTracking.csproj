@@ -99,10 +99,13 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ContentTypes.cs" />
     <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Drivers\TimeTrackingDriver.cs" />
     <Compile Include="Handlers\TimeTrackingHandler.cs" />
+    <Compile Include="Handlers\TimeTrackingItemHandler.cs" />
     <Compile Include="Migrations.cs" />
+    <Compile Include="Models\TimeTrackingItemPart.cs" />
     <Compile Include="Models\TimeTrackingItemRecord.cs" />
     <Compile Include="Models\TimeTrackingPart.cs" />
     <Compile Include="Models\TimeTrackingPartRecord.cs" />
