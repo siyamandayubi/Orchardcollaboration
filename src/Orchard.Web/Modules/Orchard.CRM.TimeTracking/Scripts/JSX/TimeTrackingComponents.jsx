@@ -177,7 +177,10 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                 title = selectedItem.title;
                 comment = selectedItem.Comment;
                 timeSpend = selectedItem.TrackedTimeInString;
-                date = new Date(selectedItem.TrackingDate);
+
+                if (selectedItem.trackingDate) {
+                    date = new Date(selectedItem.TrackingDate);
+                }
             }
 
             var dateStr = date.getFullYear() + '-' + (date.getMonth() + 1).toString() + '-' + date.getDate();

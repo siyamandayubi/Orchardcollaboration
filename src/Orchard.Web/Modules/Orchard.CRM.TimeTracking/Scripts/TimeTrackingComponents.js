@@ -1,4 +1,3 @@
-
 window.orchardcollaboration = window.orchardcollaboration || {};
 var orchardcollaboration = window.orchardcollaboration;
 orchardcollaboration.react = orchardcollaboration.react || {};
@@ -69,6 +68,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                         )
                     )
                 ) : "";
+
                 var key = 'item' + item.TrackingItemId;
                 return React.createElement(
                     "li",
@@ -246,7 +246,10 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                 title = selectedItem.title;
                 comment = selectedItem.Comment;
                 timeSpend = selectedItem.TrackedTimeInString;
-                date = new Date(selectedItem.TrackingDate);
+
+                if (selectedItem.trackingDate) {
+                    date = new Date(selectedItem.TrackingDate);
+                }
             }
 
             var dateStr = date.getFullYear() + '-' + (date.getMonth() + 1).toString() + '-' + date.getDate();
