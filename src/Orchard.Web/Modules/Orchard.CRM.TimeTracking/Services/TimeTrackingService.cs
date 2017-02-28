@@ -146,7 +146,7 @@ namespace Orchard.CRM.TimeTracking.Services
             {
                 string daysInStr = timeSpan.Substring(days.Index, days.Length);
                 daysInStr = daysInStr.Substring(0, daysInStr.Length - 1);
-                total += int.Parse(daysInStr) * 24 * 60;
+                total += int.Parse(daysInStr) * 8 * 60;
             }
 
             if (hours.Success)
