@@ -53,17 +53,43 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                     ) : "";
 
                 var key = 'item' + item.TrackingItemId;
+                var date = new Date(item.TrackingDate);
+                var dateStr = date.getFullYear() + '-' + (date.getMonth() + 1).toString() + '-' + date.getDate();
                 return (<li key={key}>
-                            <div>{item.FullUsername}</div>
-                            <div>{item.TrackedTimeInString}</div>
-                            <div>{item.Comment}</div>
-                    {buttons}
+                            <div className='row'>
+                                <div className='col-lg-2'>
+                                    <span className='t-label hidden-lg-inline'>{root.T("TrackedTime:", "Tracked time:")}</span>
+                                    <span>{item.TrackedTimeInString}</span>
+                                </div>
+                                <div className='col-lg-2'>
+                                    <span className='t-label hidden-lg-inline'>{root.T("Date", "Date:")}</span>
+                                    <span>{dateStr}</span>
+                                </div>
+                                <div className='col-lg-2'>
+                                    <span className='t-label hidden-lg-inline'>{root.T("User", "User:")}</span>
+                                    <span>{item.FullUsername}</span>
+                                </div>
+                                <div className='col-lg-3'>
+                                    <span className='t-label hidden-lg-inline'>{root.T("Comment", "Comment:")}</span>
+                                    <span>{item.Comment}</span>
+                                </div>
+                                <div className='col-lg-3'>
+                                   {buttons}
+                                </div>
+                           </div>
                 </li>);
             });
 
-            return (<div>
-                        <div>{root.T("Log items", "Log Items")}</div>
-                        <div><button onClick={this.showAddDialog}>{root.T("Log new work", "Log new work")}</button></div>
+            if (this.props.data.Model.Items.length == 0) {
+                items = <div className='no-item'>{root.T("ThereIsNoItem","There is no item")}</div>
+            }
+
+            return (<div className="log-works">
+                        <div className='header'>
+                            <div className='title'>{root.T("Log items", "Log Items")}</div>
+                            <div className="add-item"><button className='btn btn-primary' onClick={this.showAddDialog}>{root.T("Log new work", "Log new work")}</button></div>
+                            <div className='clear'></div>
+                        </div>
                         <div>
                             <ul>
                                 {items}

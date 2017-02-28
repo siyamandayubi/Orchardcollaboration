@@ -1,6 +1,33 @@
-.log-works .add-item {
+.log-works .header {
+  border-bottom: 1px solid lightgray;
+}
+.log-works .header .add-item {
   margin-bottom: 10px;
   margin-top: 10px;
+  float: right;
+}
+.log-works .header .title {
+  float: left;
+  margin-top: 15px;
+  font-weight: bold;
+}
+.log-works .header .clear {
+  clear: both;
+}
+.log-works ul {
+  margin-left: 0px;
+  padding-left: 0px;
+  list-style: none;
+}
+.log-works .no-item {
+  margin-top: 10px;
+}
+.log-works .t-label {
+  display: inline-block;
+  min-width: 100px;
+  color: gray;
+  text-align: right;
+  margin-right: 5px;
 }
 .edit-logwork-modal input,
 .edit-logwork-modal textarea {

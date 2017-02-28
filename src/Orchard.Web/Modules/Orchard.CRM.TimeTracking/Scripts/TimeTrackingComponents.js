@@ -70,44 +70,108 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                 ) : "";
 
                 var key = 'item' + item.TrackingItemId;
+                var date = new Date(item.TrackingDate);
+                var dateStr = date.getFullYear() + '-' + (date.getMonth() + 1).toString() + '-' + date.getDate();
                 return React.createElement(
                     "li",
                     { key: key },
                     React.createElement(
                         "div",
-                        null,
-                        item.FullUsername
-                    ),
-                    React.createElement(
-                        "div",
-                        null,
-                        item.TrackedTimeInString
-                    ),
-                    React.createElement(
-                        "div",
-                        null,
-                        item.Comment
-                    ),
-                    buttons
+                        { className: "row" },
+                        React.createElement(
+                            "div",
+                            { className: "col-lg-2" },
+                            React.createElement(
+                                "span",
+                                { className: "t-label hidden-lg-inline" },
+                                root.T("TrackedTime:", "Tracked time:")
+                            ),
+                            React.createElement(
+                                "span",
+                                null,
+                                item.TrackedTimeInString
+                            )
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "col-lg-2" },
+                            React.createElement(
+                                "span",
+                                { className: "t-label hidden-lg-inline" },
+                                root.T("Date", "Date:")
+                            ),
+                            React.createElement(
+                                "span",
+                                null,
+                                dateStr
+                            )
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "col-lg-2" },
+                            React.createElement(
+                                "span",
+                                { className: "t-label hidden-lg-inline" },
+                                root.T("User", "User:")
+                            ),
+                            React.createElement(
+                                "span",
+                                null,
+                                item.FullUsername
+                            )
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "col-lg-3" },
+                            React.createElement(
+                                "span",
+                                { className: "t-label hidden-lg-inline" },
+                                root.T("Comment", "Comment:")
+                            ),
+                            React.createElement(
+                                "span",
+                                null,
+                                item.Comment
+                            )
+                        ),
+                        React.createElement(
+                            "div",
+                            { className: "col-lg-3" },
+                            buttons
+                        )
+                    )
                 );
             });
 
+            if (this.props.data.Model.Items.length == 0) {
+                items = React.createElement(
+                    "div",
+                    { className: "no-item" },
+                    root.T("ThereIsNoItem", "There is no item")
+                );
+            }
+
             return React.createElement(
                 "div",
-                null,
+                { className: "log-works" },
                 React.createElement(
                     "div",
-                    null,
-                    root.T("Log items", "Log Items")
-                ),
-                React.createElement(
-                    "div",
-                    null,
+                    { className: "header" },
                     React.createElement(
-                        "button",
-                        { onClick: this.showAddDialog },
-                        root.T("Log new work", "Log new work")
-                    )
+                        "div",
+                        { className: "title" },
+                        root.T("Log items", "Log Items")
+                    ),
+                    React.createElement(
+                        "div",
+                        { className: "add-item" },
+                        React.createElement(
+                            "button",
+                            { className: "btn btn-primary", onClick: this.showAddDialog },
+                            root.T("Log new work", "Log new work")
+                        )
+                    ),
+                    React.createElement("div", { className: "clear" })
                 ),
                 React.createElement(
                     "div",
