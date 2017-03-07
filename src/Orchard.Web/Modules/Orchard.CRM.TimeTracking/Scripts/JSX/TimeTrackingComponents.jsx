@@ -46,9 +46,9 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
 
                 var buttons = item.UserCanEdit ?
                     (
-                        <div>
-                            <div><button onClick={_self.edit.bind(null, item) }>{root.T("Edit", "Edit")}</button></div>
-                            <div><button onClick={_self.deleteItem.bind(null, item) }>{root.T("Delete", "Delete")}</button></div>
+                        <div className='actions'>
+                            <button className='edit-link' onClick={_self.edit.bind(null, item) } title={root.T("Edit", "Edit")}>&nbsp;</button>
+                            <button className='delete-link' onClick={_self.deleteItem.bind(null, item) } title={root.T("Delete", "Delete")} >X</button>
                         </div>
                     ) : "";
 
@@ -58,19 +58,19 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                 return (<li key={key}>
                             <div className='row'>
                                 <div className='col-lg-2'>
-                                    <span className='t-label hidden-lg-inline'>{root.T("TrackedTime:", "Tracked time:")}</span>
+                                    <span className='t-label hidden-lg'>{root.T("TrackedTime:", "Tracked time:")}</span>
                                     <span>{item.TrackedTimeInString}</span>
                                 </div>
                                 <div className='col-lg-2'>
-                                    <span className='t-label hidden-lg-inline'>{root.T("Date", "Date:")}</span>
+                                    <span className='t-label hidden-lg'>{root.T("Date", "Date:")}</span>
                                     <span>{dateStr}</span>
                                 </div>
                                 <div className='col-lg-2'>
-                                    <span className='t-label hidden-lg-inline'>{root.T("User", "User:")}</span>
+                                    <span className='t-label hidden-lg'>{root.T("User", "User:")}</span>
                                     <span>{item.FullUsername}</span>
                                 </div>
                                 <div className='col-lg-3'>
-                                    <span className='t-label hidden-lg-inline'>{root.T("Comment", "Comment:")}</span>
+                                    <span className='t-label hidden-lg'>{root.T("Comment", "Comment:")}</span>
                                     <span>{item.Comment}</span>
                                 </div>
                                 <div className='col-lg-3'>

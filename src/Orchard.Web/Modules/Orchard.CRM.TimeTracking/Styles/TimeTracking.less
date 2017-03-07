@@ -1,4 +1,58 @@
-﻿.log-works {
+﻿@media (min-width: 1200px) {
+    span.visible-lg {
+        display: inline !important;
+    }
+}
+
+@media (max-width: 1200px) {
+    span.hidden-lg {
+        display: inline !important;
+    }
+}
+
+.actions() {
+    .actions {
+        width: 100px;
+        height: 40px;
+
+        a {
+            display: inline-block;
+            margin-left: 1px;
+            margin-right: 1px;
+            text-decoration: none;
+        }
+
+        .edit-link {
+            background-image: url('Images/edit-only-pen-icon.png');
+            background-size: 22px 22px;
+            background-position: left center;
+            background-repeat: no-repeat;
+            width: 24px;
+            height: 24px;
+            border: 1px solid #ddd;
+        }
+
+        .edit-link:hover {
+            border: 1px solid #444;
+        }
+
+        .delete-link {
+            width: 24px;
+            height: 24px;
+            border: 1px solid #ddd;
+            text-align: center;
+            color: #888;
+            font-weight: bold;
+        }
+
+        .delete-link:hover {
+            border: 1px solid #444;
+        }
+    }
+}
+
+.log-works {
+
     .header {
         border-bottom: 1px solid lightgray;
 
@@ -19,10 +73,22 @@
         }
     }
 
+    .actions();
+
     ul {
         margin-left: 0px;
         padding-left: 0px;
         list-style: none;
+
+        .actions {
+            display: none;
+        }
+    }
+
+    ul:hover {
+        .actions {
+            display: block;
+        }
     }
 
     .no-item {

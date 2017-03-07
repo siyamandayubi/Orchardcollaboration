@@ -6,7 +6,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
 (function () {
 
     var TimeTrackingList = React.createClass({
-        displayName: "TimeTrackingList",
+        displayName: 'TimeTrackingList',
 
         showAddDialog: function () {
             this.props.root.actions.addItem();
@@ -47,25 +47,17 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
             var items = this.props.data.Model.Items.map(function (item) {
 
                 var buttons = item.UserCanEdit ? React.createElement(
-                    "div",
-                    null,
+                    'div',
+                    { className: 'actions' },
                     React.createElement(
-                        "div",
-                        null,
-                        React.createElement(
-                            "button",
-                            { onClick: _self.edit.bind(null, item) },
-                            root.T("Edit", "Edit")
-                        )
+                        'button',
+                        { className: 'edit-link', onClick: _self.edit.bind(null, item), title: root.T("Edit", "Edit") },
+                        ' '
                     ),
                     React.createElement(
-                        "div",
-                        null,
-                        React.createElement(
-                            "button",
-                            { onClick: _self.deleteItem.bind(null, item) },
-                            root.T("Delete", "Delete")
-                        )
+                        'button',
+                        { className: 'delete-link', onClick: _self.deleteItem.bind(null, item), title: root.T("Delete", "Delete") },
+                        'X'
                     )
                 ) : "";
 
@@ -73,70 +65,70 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                 var date = new Date(item.TrackingDate);
                 var dateStr = date.getFullYear() + '-' + (date.getMonth() + 1).toString() + '-' + date.getDate();
                 return React.createElement(
-                    "li",
+                    'li',
                     { key: key },
                     React.createElement(
-                        "div",
-                        { className: "row" },
+                        'div',
+                        { className: 'row' },
                         React.createElement(
-                            "div",
-                            { className: "col-lg-2" },
+                            'div',
+                            { className: 'col-lg-2' },
                             React.createElement(
-                                "span",
-                                { className: "t-label hidden-lg-inline" },
+                                'span',
+                                { className: 't-label hidden-lg' },
                                 root.T("TrackedTime:", "Tracked time:")
                             ),
                             React.createElement(
-                                "span",
+                                'span',
                                 null,
                                 item.TrackedTimeInString
                             )
                         ),
                         React.createElement(
-                            "div",
-                            { className: "col-lg-2" },
+                            'div',
+                            { className: 'col-lg-2' },
                             React.createElement(
-                                "span",
-                                { className: "t-label hidden-lg-inline" },
+                                'span',
+                                { className: 't-label hidden-lg' },
                                 root.T("Date", "Date:")
                             ),
                             React.createElement(
-                                "span",
+                                'span',
                                 null,
                                 dateStr
                             )
                         ),
                         React.createElement(
-                            "div",
-                            { className: "col-lg-2" },
+                            'div',
+                            { className: 'col-lg-2' },
                             React.createElement(
-                                "span",
-                                { className: "t-label hidden-lg-inline" },
+                                'span',
+                                { className: 't-label hidden-lg' },
                                 root.T("User", "User:")
                             ),
                             React.createElement(
-                                "span",
+                                'span',
                                 null,
                                 item.FullUsername
                             )
                         ),
                         React.createElement(
-                            "div",
-                            { className: "col-lg-3" },
+                            'div',
+                            { className: 'col-lg-3' },
                             React.createElement(
-                                "span",
-                                { className: "t-label hidden-lg-inline" },
+                                'span',
+                                { className: 't-label hidden-lg' },
                                 root.T("Comment", "Comment:")
                             ),
                             React.createElement(
-                                "span",
+                                'span',
                                 null,
                                 item.Comment
                             )
                         ),
                         React.createElement(
-                            "div",
-                            { className: "col-lg-3" },
+                            'div',
+                            { className: 'col-lg-3' },
                             buttons
                         )
                     )
@@ -145,45 +137,45 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
 
             if (this.props.data.Model.Items.length == 0) {
                 items = React.createElement(
-                    "div",
-                    { className: "no-item" },
+                    'div',
+                    { className: 'no-item' },
                     root.T("ThereIsNoItem", "There is no item")
                 );
             }
 
             return React.createElement(
-                "div",
-                { className: "log-works" },
+                'div',
+                { className: 'log-works' },
                 React.createElement(
-                    "div",
-                    { className: "header" },
+                    'div',
+                    { className: 'header' },
                     React.createElement(
-                        "div",
-                        { className: "title" },
+                        'div',
+                        { className: 'title' },
                         root.T("Log items", "Log Items")
                     ),
                     React.createElement(
-                        "div",
-                        { className: "add-item" },
+                        'div',
+                        { className: 'add-item' },
                         React.createElement(
-                            "button",
-                            { className: "btn btn-primary", onClick: this.showAddDialog },
+                            'button',
+                            { className: 'btn btn-primary', onClick: this.showAddDialog },
                             root.T("Log new work", "Log new work")
                         )
                     ),
-                    React.createElement("div", { className: "clear" })
+                    React.createElement('div', { className: 'clear' })
                 ),
                 React.createElement(
-                    "div",
+                    'div',
                     null,
                     React.createElement(
-                        "ul",
+                        'ul',
                         null,
                         items
                     ),
                     React.createElement(
                         ReactBootstrap.Modal,
-                        { className: "confirm-modal", show: _self.state.showDeleteConfirm },
+                        { className: 'confirm-modal', show: _self.state.showDeleteConfirm },
                         React.createElement(
                             ReactBootstrap.Modal.Header,
                             { closeButton: true },
@@ -197,7 +189,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                             ReactBootstrap.Modal.Body,
                             null,
                             React.createElement(
-                                "div",
+                                'div',
                                 null,
                                 root.T("DeleteItemConfirmMessage", "Are you sure you want to delete the selected item?")
                             )
@@ -225,7 +217,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
     orchardcollaboration.react.allComponents.TimeTrackingList = TimeTrackingList;
 
     var EditLogWorkModal = React.createClass({
-        displayName: "EditLogWorkModal",
+        displayName: 'EditLogWorkModal',
 
         closeSyncModel: function () {
             this.props.root.actions.closeModal();
@@ -319,19 +311,19 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
             var dateStr = date.getFullYear() + '-' + (date.getMonth() + 1).toString() + '-' + date.getDate();
 
             var dateValidation = _self.state.dateValid ? "" : React.createElement(
-                "div",
-                { className: "error" },
+                'div',
+                { className: 'error' },
                 _self.state.dateErrorMessage
             );
             var timeSpanValidation = _self.state.timeSpendValid ? "" : React.createElement(
-                "div",
-                { className: "error" },
+                'div',
+                { className: 'error' },
                 _self.state.timeSpendErrorMessage
             );
 
             return React.createElement(
                 ReactBootstrap.Modal,
-                { className: "edit-logwork-modal", show: _self.props.data.showModal, onHide: _self.closeSyncModel },
+                { className: 'edit-logwork-modal', show: _self.props.data.showModal, onHide: _self.closeSyncModel },
                 React.createElement(
                     ReactBootstrap.Modal.Header,
                     { closeButton: true },
@@ -345,53 +337,53 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                     ReactBootstrap.Modal.Body,
                     null,
                     React.createElement(
-                        "div",
-                        { className: "edit-logwork-modal" },
+                        'div',
+                        { className: 'edit-logwork-modal' },
                         React.createElement(
-                            "div",
+                            'div',
                             null,
                             React.createElement(
-                                "div",
+                                'div',
                                 null,
                                 React.createElement(
-                                    "div",
-                                    { className: "label-row" },
+                                    'div',
+                                    { className: 'label-row' },
                                     root.T("Date", "Date")
                                 ),
                                 React.createElement(
-                                    "div",
+                                    'div',
                                     null,
-                                    React.createElement("input", { ref: "trackingDate", name: "trackingDate", type: "text", defaultValue: dateStr }),
+                                    React.createElement('input', { ref: 'trackingDate', name: 'trackingDate', type: 'text', defaultValue: dateStr }),
                                     dateValidation
                                 )
                             ),
                             React.createElement(
-                                "div",
+                                'div',
                                 null,
                                 React.createElement(
-                                    "div",
-                                    { className: "label-row" },
+                                    'div',
+                                    { className: 'label-row' },
                                     root.T("Time spend", "Time spend")
                                 ),
                                 React.createElement(
-                                    "div",
+                                    'div',
                                     null,
-                                    React.createElement("input", { ref: "timeSpend", type: "text", defaultValue: timeSpend }),
+                                    React.createElement('input', { ref: 'timeSpend', type: 'text', defaultValue: timeSpend }),
                                     timeSpanValidation
                                 )
                             ),
                             React.createElement(
-                                "div",
+                                'div',
                                 null,
                                 React.createElement(
-                                    "div",
-                                    { className: "label-row" },
+                                    'div',
+                                    { className: 'label-row' },
                                     root.T("Comment", "Comment")
                                 ),
                                 React.createElement(
-                                    "div",
+                                    'div',
                                     null,
-                                    React.createElement("textarea", { ref: "comment", defaultValue: comment })
+                                    React.createElement('textarea', { ref: 'comment', defaultValue: comment })
                                 )
                             )
                         )
