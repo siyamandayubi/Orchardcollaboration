@@ -48,7 +48,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                     (
                         <div className='actions'>
                             <button className='edit-link' onClick={_self.edit.bind(null, item) } title={root.T("Edit", "Edit")}>&nbsp;</button>
-                            <button className='delete-link' onClick={_self.deleteItem.bind(null, item) } title={root.T("Delete", "Delete")} >X</button>
+                            <button className='delete-link' onClick={_self.deleteItem.bind(null, item) } title={root.T("Delete", "Delete")}>X</button>
                         </div>
                     ) : "";
 
@@ -58,30 +58,46 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                 return (<li key={key}>
                             <div className='row'>
                                 <div className='col-lg-2'>
-                                    <span className='t-label hidden-lg'>{root.T("TrackedTime:", "Tracked time:")}</span>
-                                    <span>{item.TrackedTimeInString}</span>
+                                    <div className='hidden-lg'>
+                                       <span className='t-label'>{root.T("TrackedTime:", "Tracked time:")}</span>
+                                      <span>{item.TrackedTimeInString}</span>
+                                    </div>
+                                    <div className='hidden-sm hidden-md'>{item.TrackedTimeInString}</div>
                                 </div>
                                 <div className='col-lg-2'>
-                                    <span className='t-label hidden-lg'>{root.T("Date", "Date:")}</span>
-                                    <span>{dateStr}</span>
+                                    <div className='hidden-lg'>
+                                        <span className='t-label'>{root.T("Date", "Date:")}</span>
+                                        <span>{dateStr}</span>
+                                    </div>
+                                    <div className='hidden-sm hidden-md'>{item.dateStr}</div>
                                 </div>
                                 <div className='col-lg-2'>
-                                    <span className='t-label hidden-lg'>{root.T("User", "User:")}</span>
-                                    <span>{item.FullUsername}</span>
+                                    <div className='hidden-lg'>
+                                        <span className='t-label'>{root.T("User", "User:")}</span>
+                                        <span>{item.FullUsername}</span>
+                                    </div>
+                                    <div className='hidden-sm hidden-md'>{item.FullUsername}</div>
                                 </div>
                                 <div className='col-lg-3'>
-                                    <span className='t-label hidden-lg'>{root.T("Comment", "Comment:")}</span>
-                                    <span>{item.Comment}</span>
+                                    <div className='hidden-lg'>
+                                        <span className='t-label'>{root.T("Comment", "Comment:")}</span>
+                                        <span>{item.Comment}</span>
+                                    </div>
+                                    <div className='hidden-sm hidden-md'>{item.Comment}</div>
                                 </div>
-                                <div className='col-lg-3'>
-                                   {buttons}
+                                <div className='col-lg-3 hidden-sm hidden-md'>
+                                    {buttons}
                                 </div>
-                           </div>
+                                <div className='corner hidden-lg'>
+                                    {buttons}
+                                </div>
+                            </div>
+                            <hr className='hidden-lg' />
                 </li>);
             });
 
             if (this.props.data.Model.Items.length == 0) {
-                items = <div className='no-item'>{root.T("ThereIsNoItem","There is no item")}</div>
+                items = <div className='no-item'>{root.T("ThereIsNoItem", "There is no item")}</div>
             }
 
             return (<div className="log-works">
@@ -92,6 +108,22 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                         </div>
                         <div>
                             <ul>
+                                <li className="hidden-sm hidden-md header-row">
+                                    <div className='col-lg-2'>
+                                        {root.T("TrackedTime:", "Tracked time")}
+                                    </div>
+                                    <div className='col-lg-2'>
+                                        {root.T("Date", "Date")}
+                                    </div>
+                                    <div className='col-lg-2'>
+                                        {root.T("User", "User")}
+                                    </div>
+                                    <div className='col-lg-3'>
+                                        {root.T("Comment", "Comment")}
+                                    </div>
+                                    <div className='col-lg-3'>
+                                    </div>
+                                </li>
                                 {items}
                             </ul>
                             <ReactBootstrap.Modal className="confirm-modal" show={_self.state.showDeleteConfirm}>
@@ -229,7 +261,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
 							<div><input ref="trackingDate" name="trackingDate" type='text' defaultValue={dateStr} />{dateValidation}</div>
 						</div>
 						<div>
-							<div className='label-row'>{root.T("Time spend", "Time spend")}</div>
+							<div className='label-row'> <span>{root.T("Time spend", "Time spend")}</span><span className='hint'>{root.T("timeSample", "5d 4h 15m = 5days 4 hours 15 minute")}</span></div>
 							<div><input ref="timeSpend" type='text' defaultValue={timeSpend } />{timeSpanValidation}</div>
 						</div>
 						<div>

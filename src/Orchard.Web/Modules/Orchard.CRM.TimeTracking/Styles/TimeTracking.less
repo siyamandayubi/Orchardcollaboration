@@ -13,7 +13,7 @@
 .actions() {
     .actions {
         width: 100px;
-        height: 40px;
+        height: 35px;
 
         a {
             display: inline-block;
@@ -80,26 +80,64 @@
         padding-left: 0px;
         list-style: none;
 
-        .actions {
-            display: none;
+        .header-row {
+            text-align: left;
+            background-color: #ddd;
+            margin-top: 0px !important;
+
+            > div {
+                padding-left: 0px !important;
+            }
+        }
+
+        li {
+            min-height: 35px;
+            position: relative;
+            margin-top: 5px;
+
+            .corner {
+                position: absolute;
+                right: 0px;
+                top: 0px;
+
+                .actions {
+                    width: 60px;
+                }
+            }
+
+            .buttons {
+                min-height: 35px;
+            }
+
+            .actions {
+                display: none;
+            }
+
+            hr {
+                margin-top: 10px;
+                margin-bottom: 0px;
+                padding-top: 0px;
+                padding-bottom: 0px;
+            }
+        }
+
+        li:hover {
+            .actions {
+                display: block;
+            }
         }
     }
 
-    ul:hover {
-        .actions {
-            display: block;
-        }
-    }
 
     .no-item {
         margin-top: 10px;
     }
 
     .t-label {
-        display: inline-block;
-        min-width: 100px;
+        display: inline-block !important;
+        min-width: 140px;
         color: gray;
-        text-align: right;
+        text-align: left;
         margin-right: 5px;
     }
 }
@@ -119,6 +157,15 @@
 
     .label-row {
         margin-top: 10px;
-        font-weight: bold;
+    }
+
+    .hint {
+        color: gray;
+        display: inline-block;
+        padding-left: 10px;
+    }
+
+    .error {
+        color: red;
     }
 }

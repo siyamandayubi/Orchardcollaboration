@@ -74,13 +74,22 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                             'div',
                             { className: 'col-lg-2' },
                             React.createElement(
-                                'span',
-                                { className: 't-label hidden-lg' },
-                                root.T("TrackedTime:", "Tracked time:")
+                                'div',
+                                { className: 'hidden-lg' },
+                                React.createElement(
+                                    'span',
+                                    { className: 't-label' },
+                                    root.T("TrackedTime:", "Tracked time:")
+                                ),
+                                React.createElement(
+                                    'span',
+                                    null,
+                                    item.TrackedTimeInString
+                                )
                             ),
                             React.createElement(
-                                'span',
-                                null,
+                                'div',
+                                { className: 'hidden-sm hidden-md' },
                                 item.TrackedTimeInString
                             )
                         ),
@@ -88,27 +97,45 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                             'div',
                             { className: 'col-lg-2' },
                             React.createElement(
-                                'span',
-                                { className: 't-label hidden-lg' },
-                                root.T("Date", "Date:")
+                                'div',
+                                { className: 'hidden-lg' },
+                                React.createElement(
+                                    'span',
+                                    { className: 't-label' },
+                                    root.T("Date", "Date:")
+                                ),
+                                React.createElement(
+                                    'span',
+                                    null,
+                                    dateStr
+                                )
                             ),
                             React.createElement(
-                                'span',
-                                null,
-                                dateStr
+                                'div',
+                                { className: 'hidden-sm hidden-md' },
+                                item.dateStr
                             )
                         ),
                         React.createElement(
                             'div',
                             { className: 'col-lg-2' },
                             React.createElement(
-                                'span',
-                                { className: 't-label hidden-lg' },
-                                root.T("User", "User:")
+                                'div',
+                                { className: 'hidden-lg' },
+                                React.createElement(
+                                    'span',
+                                    { className: 't-label' },
+                                    root.T("User", "User:")
+                                ),
+                                React.createElement(
+                                    'span',
+                                    null,
+                                    item.FullUsername
+                                )
                             ),
                             React.createElement(
-                                'span',
-                                null,
+                                'div',
+                                { className: 'hidden-sm hidden-md' },
                                 item.FullUsername
                             )
                         ),
@@ -116,22 +143,37 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                             'div',
                             { className: 'col-lg-3' },
                             React.createElement(
-                                'span',
-                                { className: 't-label hidden-lg' },
-                                root.T("Comment", "Comment:")
+                                'div',
+                                { className: 'hidden-lg' },
+                                React.createElement(
+                                    'span',
+                                    { className: 't-label' },
+                                    root.T("Comment", "Comment:")
+                                ),
+                                React.createElement(
+                                    'span',
+                                    null,
+                                    item.Comment
+                                )
                             ),
                             React.createElement(
-                                'span',
-                                null,
+                                'div',
+                                { className: 'hidden-sm hidden-md' },
                                 item.Comment
                             )
                         ),
                         React.createElement(
                             'div',
-                            { className: 'col-lg-3' },
+                            { className: 'col-lg-3 hidden-sm hidden-md' },
+                            buttons
+                        ),
+                        React.createElement(
+                            'div',
+                            { className: 'corner hidden-lg' },
                             buttons
                         )
-                    )
+                    ),
+                    React.createElement('hr', { className: 'hidden-lg' })
                 );
             });
 
@@ -171,6 +213,31 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                     React.createElement(
                         'ul',
                         null,
+                        React.createElement(
+                            'li',
+                            { className: 'hidden-sm hidden-md header-row' },
+                            React.createElement(
+                                'div',
+                                { className: 'col-lg-2' },
+                                root.T("TrackedTime:", "Tracked time")
+                            ),
+                            React.createElement(
+                                'div',
+                                { className: 'col-lg-2' },
+                                root.T("Date", "Date")
+                            ),
+                            React.createElement(
+                                'div',
+                                { className: 'col-lg-2' },
+                                root.T("User", "User")
+                            ),
+                            React.createElement(
+                                'div',
+                                { className: 'col-lg-3' },
+                                root.T("Comment", "Comment")
+                            ),
+                            React.createElement('div', { className: 'col-lg-3' })
+                        ),
                         items
                     ),
                     React.createElement(
@@ -363,7 +430,17 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                                 React.createElement(
                                     'div',
                                     { className: 'label-row' },
-                                    root.T("Time spend", "Time spend")
+                                    ' ',
+                                    React.createElement(
+                                        'span',
+                                        null,
+                                        root.T("Time spend", "Time spend")
+                                    ),
+                                    React.createElement(
+                                        'span',
+                                        { className: 'hint' },
+                                        root.T("timeSample", "5d 4h 15m = 5days 4 hours 15 minute")
+                                    )
                                 ),
                                 React.createElement(
                                     'div',
