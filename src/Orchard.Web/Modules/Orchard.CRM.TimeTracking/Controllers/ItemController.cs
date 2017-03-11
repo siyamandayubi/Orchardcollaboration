@@ -46,6 +46,8 @@ namespace Orchard.CRM.TimeTracking.Controllers
             model.UserId = this.sercices.WorkContext.CurrentUser.Id;
             this.timeTrackingService.Add(model);
 
+            model.FullUsername = Orchard.CRM.Core.Services.CRMHelper.GetFullNameOfUser(this.sercices.WorkContext.CurrentUser);
+
             model.UserCanEdit = true;
 
             AjaxMessageViewModel returnValue = new AjaxMessageViewModel { Data = JsonConvert.SerializeObject(model), IsDone = true };
@@ -81,6 +83,7 @@ namespace Orchard.CRM.TimeTracking.Controllers
             }
 
             model.UserCanEdit = this.contentOwnershipService.IsCurrentUserAdvanceOperator() || model.UserId == currentUser.Id;
+            model.FullUsername = Orchard.CRM.Core.Services.CRMHelper.GetFullNameOfUser(this.sercices.WorkContext.CurrentUser);
 
             this.timeTrackingService.Edit(model);
 
