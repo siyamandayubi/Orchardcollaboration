@@ -52,7 +52,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                     React.createElement(
                         'button',
                         { className: 'edit-link', onClick: _self.edit.bind(null, item), title: root.T("Edit", "Edit") },
-                        ' '
+                        '\xA0'
                     ),
                     React.createElement(
                         'button',
@@ -79,7 +79,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                                 React.createElement(
                                     'span',
                                     { className: 't-label' },
-                                    root.T("TrackedTime:", "Tracked time:")
+                                    root.T("TimeSpent:", "Time Spent:")
                                 ),
                                 React.createElement(
                                     'span',
@@ -102,7 +102,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                                 React.createElement(
                                     'span',
                                     { className: 't-label' },
-                                    root.T("Date", "Date:")
+                                    root.T("DateStarted", "Date Started:")
                                 ),
                                 React.createElement(
                                     'span',
@@ -148,7 +148,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                                 React.createElement(
                                     'span',
                                     { className: 't-label' },
-                                    root.T("Comment", "Comment:")
+                                    root.T("WorkDescription", "Work Description:")
                                 ),
                                 React.createElement(
                                     'span',
@@ -219,12 +219,12 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                             React.createElement(
                                 'div',
                                 { className: 'col-lg-2' },
-                                root.T("TrackedTime:", "Tracked time")
+                                root.T("TimeSpent:", "Time Spent:")
                             ),
                             React.createElement(
                                 'div',
                                 { className: 'col-lg-2' },
-                                root.T("Date", "Date")
+                                root.T("DateStarted", "Date Started:")
                             ),
                             React.createElement(
                                 'div',
@@ -234,7 +234,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                             React.createElement(
                                 'div',
                                 { className: 'col-lg-3' },
-                                root.T("Comment", "Comment")
+                                root.T("WorkDescription", "Work Description:")
                             ),
                             React.createElement('div', { className: 'col-lg-3' })
                         ),
@@ -415,7 +415,12 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                                 React.createElement(
                                     'div',
                                     { className: 'label-row' },
-                                    root.T("Date", "Date")
+                                    root.T("DateStarted", "Date Started:"),
+                                    React.createElement(
+                                        'span',
+                                        { className: 'error' },
+                                        '*'
+                                    )
                                 ),
                                 React.createElement(
                                     'div',
@@ -434,12 +439,17 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                                     React.createElement(
                                         'span',
                                         null,
-                                        root.T("Time spend", "Time spend")
+                                        root.T("Time spent", "Time spent")
+                                    ),
+                                    React.createElement(
+                                        'span',
+                                        { className: 'error' },
+                                        '*'
                                     ),
                                     React.createElement(
                                         'span',
                                         { className: 'hint' },
-                                        root.T("timeSample", "5d 4h 15m = 5days 4 hours 15 minute")
+                                        root.T("timeSample", "(eg. 5d 4h 15m)")
                                     )
                                 ),
                                 React.createElement(
@@ -455,7 +465,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                                 React.createElement(
                                     'div',
                                     { className: 'label-row' },
-                                    root.T("Comment", "Comment")
+                                    root.T("WorkDescription", "Work Description:")
                                 ),
                                 React.createElement(
                                     'div',
