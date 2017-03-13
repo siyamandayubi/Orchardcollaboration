@@ -170,6 +170,12 @@
   <ItemGroup>
     <Content Include="Scripts\JSX\TimeTrackingComponents.jsx" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts.TimeTrackingItemPart.Detail.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts.TimeTrackingItemPart.TableRow.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

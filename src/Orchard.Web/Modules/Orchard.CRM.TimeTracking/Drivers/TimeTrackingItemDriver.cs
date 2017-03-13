@@ -6,6 +6,7 @@ using Orchard.CRM.TimeTracking.Services;
 using System.Dynamic;
 using System.Linq;
 using System.Collections.Generic;
+using Orchard.Security;
 
 namespace Orchard.CRM.TimeTracking.Drivers
 {
@@ -29,8 +30,19 @@ namespace Orchard.CRM.TimeTracking.Drivers
                 return null;
             }
 
-            return ContentShape("Parts_TimeTrackingItemPart_Detail",
-                () => shapeHelper.Parts_TimeTrackingItemPart_Detail(Model: part));
+            var user = this.services.ContentManager.Get<IUser>(part.Record.User.Id);
+
+            dynamic model = new ExpandoObject();
+            model.Comment = part.Record.Comment;
+            model.OriginalTimeTrackingString = part.Record.OriginalTimeTrackingString;
+            model.TrackingDate = part.Record.TrackingDate;
+            model.FullUsername = user !=null? CRMHelper.GetFullNameOfUser(user):string.Empty;
+            return Combined(
+                ContentShape("Parts_TimeTrackingItemPart_Detail",
+                        () => shapeHelper.Parts_TimeTrackingItemPart_Detail(Model: model)),
+                ContentShape("Parts_TimeTrackingItemPart_TableRow",
+                        () => shapeHelper.Parts_TimeTrackingItemPart_TableRow(Model: model))
+                );
         }
 
         protected override DriverResult Editor(TimeTrackingItemPart part, IUpdateModel updater, dynamic shapeHelper)
