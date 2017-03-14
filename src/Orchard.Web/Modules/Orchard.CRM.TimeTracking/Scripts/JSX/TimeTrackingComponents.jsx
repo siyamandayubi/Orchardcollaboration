@@ -58,34 +58,34 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                 return (<li key={key}>
                             <div className='row'>
                                 <div className='col-lg-2'>
-                                    <div className='hidden-lg'>
+                                    <div className='hidden-lg first-column'>
                                        <span className='t-label'>{root.T("TimeSpent:", "Time Spent:")}</span>
                                       <span>{item.TrackedTimeInString}</span>
                                     </div>
-                                    <div className='hidden-sm hidden-md'>{item.TrackedTimeInString}</div>
+                                    <div className='hidden-sm hidden-md hidden-xs'>{item.TrackedTimeInString}</div>
                                 </div>
                                 <div className='col-lg-2'>
                                     <div className='hidden-lg'>
                                         <span className='t-label'>{root.T("DateStarted", "Date Started:")}</span>
                                         <span>{dateStr}</span>
                                     </div>
-                                    <div className='hidden-sm hidden-md'>{item.dateStr}</div>
+                                    <div className='hidden-sm hidden-md hidden-xs'>{item.dateStr}</div>
                                 </div>
                                 <div className='col-lg-2'>
                                     <div className='hidden-lg'>
                                         <span className='t-label'>{root.T("User", "User:")}</span>
                                         <span>{item.FullUsername}</span>
                                     </div>
-                                    <div className='hidden-sm hidden-md'>{item.FullUsername}</div>
+                                    <div className='hidden-sm hidden-md hidden-xs'>{item.FullUsername}</div>
                                 </div>
                                 <div className='col-lg-3'>
                                     <div className='hidden-lg'>
                                         <span className='t-label'>{root.T("WorkDescription", "Work Description:")}</span>
                                         <span>{item.Comment}</span>
                                     </div>
-                                    <div className='hidden-sm hidden-md'>{item.Comment}</div>
+                                    <div className='hidden-sm hidden-md hidden-xs'>{item.Comment}</div>
                                 </div>
-                                <div className='col-lg-3 hidden-sm hidden-md'>
+                                <div className='col-lg-3 hidden-sm hidden-md hidden-xs'>
                                     {buttons}
                                 </div>
                                 <div className='corner hidden-lg'>
@@ -108,7 +108,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                         </div>
                         <div>
                             <ul>
-                                <li className="hidden-sm hidden-md header-row">
+                                <li className="hidden-sm hidden-md hidden-xs header-row">
                                     <div className='col-lg-2'>
                                         {root.T("TimeSpent:", "Time Spent:")}
                                     </div>
@@ -165,7 +165,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
         },
 
         checkValidation: function () {
-            var timeSpendExpression = /^(\d+[d])?(\s*\d+[h])?(\s*\d+[m])?\s*$/;
+            var timeSpendExpression = /^\s*(\d+[d])?(\s*\d+[h])?(\s*\d+[m])?\s*$/;
 
             this.state.isValid = true;
             this.state.timeSpendValid = true;

@@ -75,7 +75,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                             { className: 'col-lg-2' },
                             React.createElement(
                                 'div',
-                                { className: 'hidden-lg' },
+                                { className: 'hidden-lg first-column' },
                                 React.createElement(
                                     'span',
                                     { className: 't-label' },
@@ -89,7 +89,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                             ),
                             React.createElement(
                                 'div',
-                                { className: 'hidden-sm hidden-md' },
+                                { className: 'hidden-sm hidden-md hidden-xs' },
                                 item.TrackedTimeInString
                             )
                         ),
@@ -112,7 +112,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                             ),
                             React.createElement(
                                 'div',
-                                { className: 'hidden-sm hidden-md' },
+                                { className: 'hidden-sm hidden-md hidden-xs' },
                                 item.dateStr
                             )
                         ),
@@ -135,7 +135,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                             ),
                             React.createElement(
                                 'div',
-                                { className: 'hidden-sm hidden-md' },
+                                { className: 'hidden-sm hidden-md hidden-xs' },
                                 item.FullUsername
                             )
                         ),
@@ -158,13 +158,13 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                             ),
                             React.createElement(
                                 'div',
-                                { className: 'hidden-sm hidden-md' },
+                                { className: 'hidden-sm hidden-md hidden-xs' },
                                 item.Comment
                             )
                         ),
                         React.createElement(
                             'div',
-                            { className: 'col-lg-3 hidden-sm hidden-md' },
+                            { className: 'col-lg-3 hidden-sm hidden-md hidden-xs' },
                             buttons
                         ),
                         React.createElement(
@@ -215,7 +215,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                         null,
                         React.createElement(
                             'li',
-                            { className: 'hidden-sm hidden-md header-row' },
+                            { className: 'hidden-sm hidden-md hidden-xs header-row' },
                             React.createElement(
                                 'div',
                                 { className: 'col-lg-2' },
@@ -301,7 +301,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
         },
 
         checkValidation: function () {
-            var timeSpendExpression = /^(\d+[d])?(\s*\d+[h])?(\s*\d+[m])?\s*$/;
+            var timeSpendExpression = /^\s*(\d+[d])?(\s*\d+[h])?(\s*\d+[m])?\s*$/;
 
             this.state.isValid = true;
             this.state.timeSpendValid = true;
