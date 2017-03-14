@@ -4,6 +4,6 @@ Author: Siyamand Ayubi
 Website: http://orchardcollaboration.com
 Version: 1.0
 OrchardVersion: 1.10.1
-Dependencies: Orchard.CRM.Core, Orchard.Users
+Dependencies: Orchard.CRM.Core, Orchard.Users, Orchard.Projections
 Description: The module provides time tracking for the Tickets
 FeatureDescription: The module provides time tracking for the Tickets

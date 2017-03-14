@@ -74,6 +74,6 @@ namespace Orchard.CRM.Core.Providers.Filters
                 };
 
             context.Form(FormName, form);
-        }
+        }   
     }
 }
