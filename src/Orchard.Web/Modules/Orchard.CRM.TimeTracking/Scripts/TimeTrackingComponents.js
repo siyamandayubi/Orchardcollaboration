@@ -113,7 +113,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                             React.createElement(
                                 'div',
                                 { className: 'hidden-sm hidden-md hidden-xs' },
-                                item.dateStr
+                                dateStr
                             )
                         ),
                         React.createElement(

@@ -69,7 +69,7 @@ orchardcollaboration.react.allComponents = orchardcollaboration.react.allCompone
                                         <span className='t-label'>{root.T("DateStarted", "Date Started:")}</span>
                                         <span>{dateStr}</span>
                                     </div>
-                                    <div className='hidden-sm hidden-md hidden-xs'>{item.dateStr}</div>
+                                    <div className='hidden-sm hidden-md hidden-xs'>{dateStr}</div>
                                 </div>
                                 <div className='col-lg-2'>
                                     <div className='hidden-lg'>
