@@ -41,7 +41,9 @@ namespace Orchard.CRM.TimeTracking.Drivers
                 ContentShape("Parts_TimeTrackingItemPart_Detail",
                         () => shapeHelper.Parts_TimeTrackingItemPart_Detail(Model: model)),
                 ContentShape("Parts_TimeTrackingItemPart_TableRow",
-                        () => shapeHelper.Parts_TimeTrackingItemPart_TableRow(Model: model))
+                        () => shapeHelper.Parts_TimeTrackingItemPart_TableRow(Model: model)),
+                ContentShape("Parts_TimeTrackingItemPart_Summary",
+                        () => shapeHelper.Parts_TimeTrackingItemPart_Summary(Model: model))
                 );
         }
 

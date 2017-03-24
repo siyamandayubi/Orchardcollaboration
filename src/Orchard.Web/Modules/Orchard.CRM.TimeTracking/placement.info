@@ -8,11 +8,15 @@
   </Match>
   <Match ContentType="TimeTrackingItem">
     <Place Parts_Common_Metadata="-"/>
+    <Place Parts_Common_Metadata_Summary="-"></Place>
     <Match DisplayType="Detail">
       <Place Parts_TimeTrackingItemPart_Detail="Content:3"></Place>
     </Match>
     <Match DisplayType="TableRow">
       <Place Parts_TimeTrackingItemPart_TableRow="Content:3"></Place>
+    </Match>
+    <Match DisplayType="Summary">
+      <Place Parts_TimeTrackingItemPart_Summary="Content:3"></Place>
     </Match>
   </Match>
 </Placement>

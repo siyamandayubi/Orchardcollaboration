@@ -8,6 +8,10 @@ using Orchard.Users.Models;
 using Orchard.ContentManagement;
 using Orchard.Security;
 using System.Text.RegularExpressions;
+using Orchard.CRM.Core.Services;
+using Orchard.CRM.Core.Providers.ActivityStream;
+using System.Web.Routing;
+using Orchard.Localization;
 
 namespace Orchard.CRM.TimeTracking.Services
 {
@@ -16,16 +20,27 @@ namespace Orchard.CRM.TimeTracking.Services
 
         private readonly IRepository<TimeTrackingItemRecord> timeTrackingItemRepository;
         private readonly IOrchardServices services;
+        protected readonly IActivityStreamService streamService;
 
-        public TimeTrackingService(IRepository<TimeTrackingItemRecord> timeTrackingItemRepository, IOrchardServices services)
+        public TimeTrackingService(IRepository<TimeTrackingItemRecord> timeTrackingItemRepository, IOrchardServices services, IActivityStreamService streamService)
         {
+            this.streamService = streamService;
             this.services = services;
             this.timeTrackingItemRepository = timeTrackingItemRepository;
+            T = NullLocalizer.Instance;
         }
+
+        public Localizer T { get; set; }
 
         public void Add(TimeTrackingViewModel model)
         {
             var matches = Regex.Matches(model.TrackedTimeInString, TimeTrackingViewModel.TimeTrackingRegularExpressionPattern);
+
+            var relatedContentItem = this.services.ContentManager.Get(model.ContentItemId);
+            if (relatedContentItem == null)
+            {
+                throw new ArgumentException("There is no ContentItem with Id:" + model.ContentItemId.ToString());
+            }
 
             model.TimeInMinutes = 0;
             if (matches.Count > 0)
@@ -43,6 +58,7 @@ namespace Orchard.CRM.TimeTracking.Services
             record.User = new Users.Models.UserPartRecord { Id = model.UserId };
 
             this.services.ContentManager.Publish(contentItem);
+            this.streamService.WriteChangesToStreamActivity(contentItem, null, "TiemTrackerStreamWriter");
             model.TrackingItemId = record.Id;
         }
 
@@ -52,7 +68,24 @@ namespace Orchard.CRM.TimeTracking.Services
             if (contentItem != null)
             {
                 var part = contentItem.As<TimeTrackingItemPart>();
+
                 this.services.ContentManager.Remove(contentItem);
+
+                if (part.Record.TimeTrackingPartRecord != null)
+                {
+                    var relatedContentItem = this.services.ContentManager.Get(part.Record.TimeTrackingPartRecord.Id);
+                    if (relatedContentItem != null)
+                    {
+                        var user = this.services.WorkContext.CurrentUser;
+                        RouteValueDictionary activityStreamRouteValues = new RouteValueDictionary();
+                        activityStreamRouteValues.Add("action", "Display");
+                        activityStreamRouteValues.Add("controller", "Item");
+                        activityStreamRouteValues.Add("area", "orchard.crm.core");
+                        activityStreamRouteValues.Add("id", relatedContentItem.Id);
+
+                        this.streamService.WriteChangesToStreamActivity(user.Id, relatedContentItem.Id, relatedContentItem.VersionRecord.Id, new ActivityStreamChangeItem[] { }, T("Logged work has been deleted").Text, activityStreamRouteValues);
+                    }
+                }
 
                 // remove the record physically too
                 this.timeTrackingItemRepository.Delete(part.Record);
@@ -63,6 +96,7 @@ namespace Orchard.CRM.TimeTracking.Services
         public void Edit(TimeTrackingViewModel model)
         {
             var contentItem = this.services.ContentManager.Get(model.TrackingItemId.Value);
+            var snapShot = this.streamService.TakeSnapshot(contentItem);
 
             if (contentItem == null)
             {
@@ -71,28 +105,30 @@ namespace Orchard.CRM.TimeTracking.Services
 
             var part = contentItem.As<TimeTrackingItemPart>();
             var record = part.Record;
-                var matches = Regex.Matches(model.TrackedTimeInString, TimeTrackingViewModel.TimeTrackingRegularExpressionPattern);
+            var matches = Regex.Matches(model.TrackedTimeInString, TimeTrackingViewModel.TimeTrackingRegularExpressionPattern);
 
-                model.TimeInMinutes = 0;
-                if (matches.Count > 0)
-                {
-                    model.TimeInMinutes = ConvertTimeSpanStringToMinutes(model.TrackedTimeInString);
-                }
+            model.TimeInMinutes = 0;
+            if (matches.Count > 0)
+            {
+                model.TimeInMinutes = ConvertTimeSpanStringToMinutes(model.TrackedTimeInString);
+            }
 
-                record.Comment = model.Comment;
-                record.TimeInMinute = model.TimeInMinutes;
-                record.OriginalTimeTrackingString = model.TrackedTimeInString;
-                record.TrackingDate = model.TrackingDate;
+            record.Comment = model.Comment;
+            record.TimeInMinute = model.TimeInMinutes;
+            record.OriginalTimeTrackingString = model.TrackedTimeInString;
+            record.TrackingDate = model.TrackingDate;
 
-                if (record.User != null)
-                {
-                    record.User.Id = model.UserId;
-                }
-                else
-                {
-                    record.User = new Users.Models.UserPartRecord { Id = model.UserId };
-                }
+            if (record.User != null)
+            {
+                record.User.Id = model.UserId;
+            }
+            else
+            {
+                record.User = new Users.Models.UserPartRecord { Id = model.UserId };
+            }
+
             this.services.ContentManager.Publish(contentItem);
+            this.streamService.WriteChangesToStreamActivity(contentItem, snapShot, "TiemTrackerStreamWriter");
         }
 
         public TimeTrackingViewModel GetTimeTrackingItem(int id)
